@@ -1,0 +1,29 @@
+defaultPolicy: deny
+classes:
+  - name: PUBLIC
+    sinks: { allow: [], deny: [] }
+    notes: "Non-sensitive public information"
+    owner: "PENDING (SER-109)"
+  - name: INTERNAL
+    sinks: { allow: [], deny: [] }
+    notes: "Internal operational docs/metadata"
+    owner: "PENDING (SER-109)"
+  - name: PERSONAL
+    sinks: { allow: [], deny: [] }
+    notes: "Personal data; never to Git/CI/Slack/Linear/Figma"
+    owner: "PENDING (SER-109)"
+  - name: FINANCIAL_SENSITIVE
+    sinks: { allow: [], deny: [] }
+    notes: "Private financial/account/portfolio data"
+    owner: "PENDING (SER-109)"
+  - name: SECURITY_SENSITIVE
+    sinks: { allow: [], deny: [] }
+    notes: "Security configurations, threat intel"
+    owner: "PENDING (SER-109)"
+  - name: SECRET
+    sinks:
+      allow: ["SecretVault/protected IPC with scoped lease"]
+      deny: ["Rabbit","outbox","replay","Temporal","AI","RAG","telemetry","Git","PR","CI","Slack","Linear","Figma"]
+    notes: "Secrets only via SecretVault transports"
+    owner: "PENDING (SER-109)"
+

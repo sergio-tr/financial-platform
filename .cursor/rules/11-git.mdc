@@ -1,0 +1,8 @@
+Title: Git and PR Rules
+Status: CANONICAL
+
+- Branch prefixes: `feature/`, `bugfix/`, `refactor/`, `docs/`, `chore/`. Use Spanish Conventional Commits.
+- No force-push to shared branches; do not push directly to `main`.
+- PR body sections per R37: Linear, Requirements, Architecture, Use cases, Contracts, Design, Verification, Tests, Docs/Runbooks, Security/Data impact, Migrations.
+- No AI/coauthor/prompt references in commits/PR metadata.
+

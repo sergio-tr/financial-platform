@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Retention Policies",
+  "type": "object",
+  "required": ["items"],
+  "properties": {
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["dataClass", "window", "owner", "status"],
+        "properties": {
+          "dataClass": {
+            "type": "string",
+            "enum": ["PUBLIC","INTERNAL","PERSONAL","FINANCIAL_SENSITIVE","SECURITY_SENSITIVE","SECRET"]
+          },
+          "window": { "type": "string" },
+          "exceptions": { "type": "string" },
+          "owner": { "type": "string" },
+          "status": { "type": "string", "enum": ["PENDING","LOCKED","SUPERSEDED"] }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}
+

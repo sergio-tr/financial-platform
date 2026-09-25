@@ -1,0 +1,90 @@
+nodes:
+  - { id: "SER-70", type: "SER", status: "LOCKED", title: "Architecture/governance sync P0-R26..P0-R47" }
+  # Planning packs
+  - { id: "P0-R26", type: "P0-R", status: "LOCKED" }
+  - { id: "P0-R35", type: "P0-R", status: "LOCKED" }
+  - { id: "P0-R36", type: "P0-R", status: "LOCKED" }
+  - { id: "P0-R37", type: "P0-R", status: "LOCKED" }
+  - { id: "P0-R38", type: "P0-R", status: "LOCKED" }
+  - { id: "P0-R39", type: "P0-R", status: "LOCKED" }
+  - { id: "P0-R40", type: "P0-R", status: "LOCKED" }
+  - { id: "P0-R41", type: "P0-R", status: "LOCKED" }
+  - { id: "P0-R42", type: "P0-R", status: "LOCKED" }
+  - { id: "P0-R43", type: "P0-R", status: "LOCKED" }
+  - { id: "P0-R44", type: "P0-R", status: "LOCKED" }
+  - { id: "P0-R45", type: "P0-R", status: "LOCKED" }
+  - { id: "P0-R46", type: "P0-R", status: "LOCKED" }
+  - { id: "P0-R47", type: "P0-R", status: "LOCKED" }
+  # ADRs referenced
+  - { id: "ADR-0003", type: "ADR", status: "LOCKED" }
+  - { id: "ADR-0004", type: "ADR", status: "LOCKED" }
+  - { id: "ADR-0005", type: "ADR", status: "LOCKED" }
+  - { id: "ADR-0008", type: "ADR", status: "LOCKED" }
+  - { id: "ADR-0018", type: "ADR", status: "LOCKED" }
+  - { id: "ADR-0019", type: "ADR", status: "LOCKED" }
+  - { id: "ADR-0023", type: "ADR", status: "LOCKED" }
+  - { id: "ADR-0024", type: "ADR", status: "LOCKED" }
+  # Docs as nodes
+  - { id: "DOC:docs/governance/architecture-manifest.md", type: "DOC", status: "LOCKED" }
+  - { id: "DOC:docs/governance/protocol-ownership.md", type: "DOC", status: "LOCKED" }
+  - { id: "DOC:docs/governance/review-adjudication.md", type: "DOC", status: "LOCKED" }
+  - { id: "DOC:docs/governance/typed-configuration.md", type: "DOC", status: "LOCKED" }
+  - { id: "DOC:docs/governance/api-registry.md", type: "DOC", status: "PLANNED" }
+  - { id: "DOC:docs/governance/traceability/traceability.schema.json", type: "DOC", status: "LOCKED" }
+  - { id: "DOC:docs/governance/traceability/traceability.yaml", type: "DOC", status: "LOCKED" }
+  - { id: "DOC:docs/governance/traceability/review-adjudication.md", type: "DOC", status: "LOCKED" }
+  - { id: "DOC:docs/verification/test-catalog.schema.json", type: "DOC", status: "LOCKED" }
+  - { id: "DOC:docs/verification/test-catalog.yaml", type: "DOC", status: "PLANNED" }
+  - { id: "DOC:docs/design/design-manifest.schema.json", type: "DOC", status: "LOCKED" }
+  - { id: "DOC:docs/design/design-manifest.yaml", type: "DOC", status: "PLANNED" }
+  - { id: "DOC:docs/security/README-data-classification.md", type: "DOC", status: "LOCKED" }
+  - { id: "DOC:docs/security/data-classification.schema.json", type: "DOC", status: "LOCKED" }
+  - { id: "DOC:docs/security/data-classification.yaml", type: "DOC", status: "PLANNED" }
+  - { id: "DOC:docs/security/data-lifecycle.md", type: "DOC", status: "LOCKED" }
+  - { id: "DOC:docs/security/retention-policies.schema.json", type: "DOC", status: "LOCKED" }
+  - { id: "DOC:docs/security/retention-policies.yaml", type: "DOC", status: "PLANNED" }
+  - { id: "DOC:docs/runbooks/workspace-deletion.md", type: "DOC", status: "LOCKED" }
+  - { id: "DOC:docs/runbooks/provider-disconnect.md", type: "DOC", status: "LOCKED" }
+  - { id: "DOC:docs/runbooks/data-export.md", type: "DOC", status: "LOCKED" }
+
+edges:
+  - { from: "SER-70", to: "P0-R26", relation: "implements" }
+  - { from: "SER-70", to: "P0-R35", relation: "implements" }
+  - { from: "SER-70", to: "P0-R36", relation: "implements" }
+  - { from: "SER-70", to: "P0-R37", relation: "implements" }
+  - { from: "SER-70", to: "P0-R38", relation: "implements" }
+  - { from: "SER-70", to: "P0-R39", relation: "implements" }
+  - { from: "SER-70", to: "P0-R40", relation: "implements" }
+  - { from: "SER-70", to: "P0-R41", relation: "implements" }
+  - { from: "SER-70", to: "P0-R42", relation: "implements" }
+  - { from: "SER-70", to: "P0-R43", relation: "implements" }
+  - { from: "SER-70", to: "P0-R44", relation: "implements" }
+  - { from: "SER-70", to: "P0-R45", relation: "implements" }
+  - { from: "SER-70", to: "P0-R46", relation: "implements" }
+  - { from: "SER-70", to: "P0-R47", relation: "implements" }
+  - { from: "P0-R26", to: "ADR-0003", relation: "references" }
+  - { from: "P0-R26", to: "ADR-0004", relation: "references" }
+  - { from: "P0-R26", to: "ADR-0005", relation: "references" }
+  - { from: "P0-R41", to: "ADR-0008", relation: "references" }
+  - { from: "P0-R41", to: "ADR-0018", relation: "references" }
+  - { from: "P0-R43", to: "ADR-0019", relation: "references" }
+  - { from: "P0-R26", to: "DOC:docs/governance/protocol-ownership.md", relation: "documents" }
+  - { from: "P0-R35", to: "DOC:docs/governance/api-registry.md", relation: "documents" }
+  - { from: "P0-R36", to: "DOC:docs/governance/review-adjudication.md", relation: "documents" }
+  - { from: "P0-R37", to: "DOC:docs/governance/traceability/traceability.schema.json", relation: "documents" }
+  - { from: "P0-R37", to: "DOC:docs/governance/traceability/traceability.yaml", relation: "documents" }
+  - { from: "P0-R39", to: "DOC:docs/governance/traceability/review-adjudication.md", relation: "documents" }
+  - { from: "P0-R44", to: "DOC:docs/verification/test-catalog.schema.json", relation: "documents" }
+  - { from: "P0-R44", to: "DOC:docs/verification/test-catalog.yaml", relation: "documents" }
+  - { from: "P0-R45", to: "DOC:docs/design/design-manifest.schema.json", relation: "documents" }
+  - { from: "P0-R45", to: "DOC:docs/design/design-manifest.yaml", relation: "documents" }
+  - { from: "P0-R46", to: "DOC:docs/security/README-data-classification.md", relation: "documents" }
+  - { from: "P0-R46", to: "DOC:docs/security/data-classification.schema.json", relation: "documents" }
+  - { from: "P0-R46", to: "DOC:docs/security/data-classification.yaml", relation: "documents" }
+  - { from: "P0-R47", to: "DOC:docs/security/data-lifecycle.md", relation: "documents" }
+  - { from: "P0-R47", to: "DOC:docs/security/retention-policies.schema.json", relation: "documents" }
+  - { from: "P0-R47", to: "DOC:docs/security/retention-policies.yaml", relation: "documents" }
+  - { from: "P0-R47", to: "DOC:docs/runbooks/workspace-deletion.md", relation: "documents" }
+  - { from: "P0-R47", to: "DOC:docs/runbooks/provider-disconnect.md", relation: "documents" }
+  - { from: "P0-R47", to: "DOC:docs/runbooks/data-export.md", relation: "documents" }
+

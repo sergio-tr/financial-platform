@@ -1,0 +1,8 @@
+Title: Governance Rules
+Status: CANONICAL
+
+- Follow AGENTS.md and ADR-0023 for agent governance.
+- Do not calculate authoritative financial metrics with LLMs.
+- Do not expose real credentials or portfolio data.
+- Obey Phase-0 cut P0-R26..P0-R47; do not invent architecture.
+

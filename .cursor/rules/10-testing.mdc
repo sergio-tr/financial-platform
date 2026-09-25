@@ -1,0 +1,7 @@
+Title: Testing and Verification Rules
+Status: CANONICAL
+
+- Verification catalog covers normative dimensions (R44). `TEST-*` lives in test metadata/CI.
+- No real financial or secret data in fixtures.
+- Use traceability graph to connect SER/ADR/REQ/NFR/UseCase/Contracts/TEST.
+

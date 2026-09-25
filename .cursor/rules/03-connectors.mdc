@@ -1,0 +1,7 @@
+Title: Connector Rules
+Status: CANONICAL
+
+- Capability-based SPI; no universal connector. (ADR-0010)
+- Results carry provenance, freshness, completeness, warnings. (ADR-0034)
+- External provider SDK types do not leak into domain/public contracts.
+

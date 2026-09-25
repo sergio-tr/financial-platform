@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Verification Test Catalog",
+  "type": "object",
+  "required": ["items"],
+  "properties": {
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "dimension", "owner", "status"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^TEST-[A-Za-z0-9_-]+$" },
+          "dimension": {
+            "type": "string",
+            "enum": ["ACC","CONTRACT","ARCH","SEC","RLS","WS","MIGR","WF","FIN","XRAY","AI","A11Y","VISUAL","DR","PERF"]
+          },
+          "owner": { "type": "string" },
+          "status": { "type": "string", "enum": ["PENDING","LOCKED","SUPERSEDED"] },
+          "refs": {
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}
+
