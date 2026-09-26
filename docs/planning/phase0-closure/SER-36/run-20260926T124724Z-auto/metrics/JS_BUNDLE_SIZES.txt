@@ -1,0 +1,5 @@
+6387 /tmp/gafi-spikes/SER-36/20260926T124724Z-auto/evidence/metrics/candidate-a-delta.js
+893161 /tmp/gafi-spikes/SER-36/20260926T124724Z-auto/evidence/metrics/candidate-a-full.js
+6581 /tmp/gafi-spikes/SER-36/20260926T124724Z-auto/evidence/metrics/candidate-b-delta.js
+897905 /tmp/gafi-spikes/SER-36/20260926T124724Z-auto/evidence/metrics/candidate-b-full.js
+10905 /tmp/gafi-spikes/SER-36/20260926T124724Z-auto/evidence/metrics/candidate-b-with-ngrx.js

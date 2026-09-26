@@ -1,0 +1,17 @@
+SER36_RESULT=PASS
+recommendation=A
+recommendation_label=Angular Signals only
+status=EVIDENCE_READY_FOR_ADJUDICATION
+decision_locked=false
+weighted_A=4.85
+weighted_B=4.60
+relative_gap_percent=5.2
+correctnessFailures=
+candidate_A_correctness=PASS
+candidate_B_correctness=PASS
+evidence_dir=/tmp/gafi-spikes/SER-36/20260926T124724Z-auto/evidence
+spike_root=/tmp/gafi-spikes/SER-36/20260926T124724Z-auto
+environment_label=CLOUD_PROTOTYPE_NOT_WSL
+canonical_head=6669610bfdbe171cb9bbf14f7f19d63739ee8d03
+notes=Both candidates passed identical correctness harness; gap~5.2% — higher weighted score selects A (near-tie would also prefer lower-dep A); aligns with ADR-0032/D-032. Classic NgRx not evaluated.
+blockers=none

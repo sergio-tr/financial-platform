@@ -1,0 +1,4 @@
+[
+  {"mutationId":"pref-ok-1","requestedValue":"compact","outcome":"ACCEPT"},
+  {"mutationId":"pref-fail-1","requestedValue":"dense","outcome":"REJECT","rollbackTo":"compact"}
+]

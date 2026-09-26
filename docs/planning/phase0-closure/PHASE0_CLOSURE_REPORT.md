@@ -43,14 +43,10 @@ canonicalPath: ~/github/financial-platform -> /workspace
 
 `SER36_RESULT=PASS`
 
-Meaning: disposable spike executed with reproducible evidence and adjudication-ready recommendation.  
-**Not** automatic `DECISION_LOCKED` (SER-33/ADR adjudication still required for freeze).
+Independent corroboration: second disposable execution `20260926T124724Z-auto` (via [Execute SER-36 Angular spike](bc-457d766b-50fa-5638-a2ce-b75b99f88c2a)) also returned PASS / recommendation **A** (weighted 4.85 vs 4.60, gap ~5.2%). Same adjudication status: `EVIDENCE_READY_FOR_ADJUDICATION`, not SER-33 locked. Evidence: `docs/planning/phase0-closure/SER-36/run-20260926T124724Z-auto/`.
 
-- Candidates A (Signals+facades) and B (NgRx Signal Store) both passed normative correctness harness (6/6 tests).
-- Weighted totals: A **94.0** / B **82.4** (Δ 11.6 pp) → recommendation **A**.
-- Evidence: `docs/planning/phase0-closure/SER-36/`
-- Label: `CLOUD_PROTOTYPE_NOT_WSL`
-- Angular CLI full production bundle delta: `NOT_RUN`
+Primary committed run remains `20260926T124317Z` under `docs/planning/phase0-closure/SER-36/`.
+
 
 ## SER-58 result
 

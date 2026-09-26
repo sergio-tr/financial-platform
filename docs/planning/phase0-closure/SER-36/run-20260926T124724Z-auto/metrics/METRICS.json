@@ -1,0 +1,252 @@
+{
+  "candidateA": {
+    "store": {
+      "physical": 214,
+      "nonBlankNonCommentApprox": 180
+    },
+    "tests": {
+      "physical": 31,
+      "nonBlankNonCommentApprox": 28
+    },
+    "mutationEntryPoints": 10,
+    "runtimeDepsAddedBeyondAngularCore": [],
+    "runtimeDeps": [
+      "@angular/core@22.2.0",
+      "@angular/compiler@22.2.0",
+      "rxjs@7.8.2",
+      "tslib"
+    ]
+  },
+  "candidateB": {
+    "store": {
+      "physical": 238,
+      "nonBlankNonCommentApprox": 210
+    },
+    "tests": {
+      "physical": 32,
+      "nonBlankNonCommentApprox": 29
+    },
+    "mutationEntryPoints": 10,
+    "runtimeDepsAddedBeyondAngularCore": [
+      "@ngrx/signals@22.0.1"
+    ],
+    "runtimeDeps": [
+      "@angular/core@22.2.0",
+      "@angular/compiler@22.2.0",
+      "@ngrx/signals@22.0.1",
+      "rxjs@7.8.2",
+      "tslib"
+    ]
+  },
+  "shared": {
+    "types": {
+      "physical": 54,
+      "nonBlankNonCommentApprox": 47
+    },
+    "realtime": {
+      "physical": 73,
+      "nonBlankNonCommentApprox": 58
+    },
+    "harness": {
+      "physical": 269,
+      "nonBlankNonCommentApprox": 225
+    }
+  },
+  "bundles": {
+    "vitest-a": {
+      "numTotalTestSuites": 2,
+      "numPassedTestSuites": 2,
+      "numFailedTestSuites": 0,
+      "numPendingTestSuites": 0,
+      "numTotalTests": 3,
+      "numPassedTests": 3,
+      "numFailedTests": 0,
+      "numPendingTests": 0,
+      "numTodoTests": 0,
+      "snapshot": {
+        "added": 0,
+        "failure": false,
+        "filesAdded": 0,
+        "filesRemoved": 0,
+        "filesRemovedList": [],
+        "filesUnmatched": 0,
+        "filesUpdated": 0,
+        "matched": 0,
+        "total": 0,
+        "unchecked": 0,
+        "uncheckedKeysByFile": [],
+        "unmatched": 0,
+        "updated": 0,
+        "didUpdate": false
+      },
+      "startTime": 1790426897255,
+      "success": true,
+      "testResults": [
+        {
+          "assertionResults": [
+            {
+              "ancestorTitles": [
+                "SER-36 Candidate A \u2014 Angular Signals only"
+              ],
+              "fullName": "SER-36 Candidate A \u2014 Angular Signals only passes full correctness scenario",
+              "status": "passed",
+              "title": "passes full correctness scenario",
+              "duration": 2.536190000000005,
+              "failureMessages": [],
+              "meta": {}
+            },
+            {
+              "ancestorTitles": [
+                "SER-36 Candidate A \u2014 Angular Signals only"
+              ],
+              "fullName": "SER-36 Candidate A \u2014 Angular Signals only declares single mutation owner surface",
+              "status": "passed",
+              "title": "declares single mutation owner surface",
+              "duration": 0.16178099999999063,
+              "failureMessages": [],
+              "meta": {}
+            },
+            {
+              "ancestorTitles": [
+                "SER-36 Candidate A \u2014 Angular Signals only"
+              ],
+              "fullName": "SER-36 Candidate A \u2014 Angular Signals only keeps realtime transport outside feature store module surface",
+              "status": "passed",
+              "title": "keeps realtime transport outside feature store module surface",
+              "duration": 0.3885850000000062,
+              "failureMessages": [],
+              "meta": {}
+            }
+          ],
+          "startTime": 1790426897492,
+          "endTime": 1790426897495.3887,
+          "status": "passed",
+          "message": "",
+          "name": "/tmp/gafi-spikes/SER-36/20260926T124724Z-auto/candidate-a/tests/correctness.test.ts"
+        }
+      ]
+    },
+    "candidate-b-full": {
+      "name": "candidate-b-full",
+      "status": "MEASURED",
+      "rawBytes": 897905,
+      "gzipBytes": 187825
+    },
+    "candidate-a-full": {
+      "name": "candidate-a-full",
+      "status": "MEASURED",
+      "rawBytes": 893161,
+      "gzipBytes": 186679
+    },
+    "vitest-b": {
+      "numTotalTestSuites": 2,
+      "numPassedTestSuites": 2,
+      "numFailedTestSuites": 0,
+      "numPendingTestSuites": 0,
+      "numTotalTests": 3,
+      "numPassedTests": 3,
+      "numFailedTests": 0,
+      "numPendingTests": 0,
+      "numTodoTests": 0,
+      "snapshot": {
+        "added": 0,
+        "failure": false,
+        "filesAdded": 0,
+        "filesRemoved": 0,
+        "filesRemovedList": [],
+        "filesUnmatched": 0,
+        "filesUpdated": 0,
+        "matched": 0,
+        "total": 0,
+        "unchecked": 0,
+        "uncheckedKeysByFile": [],
+        "unmatched": 0,
+        "updated": 0,
+        "didUpdate": false
+      },
+      "startTime": 1790426897848,
+      "success": true,
+      "testResults": [
+        {
+          "assertionResults": [
+            {
+              "ancestorTitles": [
+                "SER-36 Candidate B \u2014 @ngrx/signals Signal Store"
+              ],
+              "fullName": "SER-36 Candidate B \u2014 @ngrx/signals Signal Store passes full correctness scenario",
+              "status": "passed",
+              "title": "passes full correctness scenario",
+              "duration": 2.9894450000000177,
+              "failureMessages": [],
+              "meta": {}
+            },
+            {
+              "ancestorTitles": [
+                "SER-36 Candidate B \u2014 @ngrx/signals Signal Store"
+              ],
+              "fullName": "SER-36 Candidate B \u2014 @ngrx/signals Signal Store declares single mutation owner surface",
+              "status": "passed",
+              "title": "declares single mutation owner surface",
+              "duration": 0.17075199999999313,
+              "failureMessages": [],
+              "meta": {}
+            },
+            {
+              "ancestorTitles": [
+                "SER-36 Candidate B \u2014 @ngrx/signals Signal Store"
+              ],
+              "fullName": "SER-36 Candidate B \u2014 @ngrx/signals Signal Store keeps realtime transport outside feature store module surface",
+              "status": "passed",
+              "title": "keeps realtime transport outside feature store module surface",
+              "duration": 0.40280500000000075,
+              "failureMessages": [],
+              "meta": {}
+            }
+          ],
+          "startTime": 1790426898088,
+          "endTime": 1790426898091.4028,
+          "status": "passed",
+          "message": "",
+          "name": "/tmp/gafi-spikes/SER-36/20260926T124724Z-auto/candidate-b/tests/correctness.test.ts"
+        }
+      ]
+    },
+    "candidate-a-delta": {
+      "name": "candidate-a-delta",
+      "status": "MEASURED",
+      "rawBytes": 6387,
+      "gzipBytes": 1704
+    },
+    "candidate-b-delta": {
+      "name": "candidate-b-delta",
+      "status": "MEASURED",
+      "rawBytes": 6581,
+      "gzipBytes": 1667
+    },
+    "candidate-b-with-ngrx": {
+      "name": "candidate-b-with-ngrx",
+      "status": "MEASURED",
+      "rawBytes": 10905,
+      "gzipBytes": 3013
+    }
+  },
+  "bundleNotes": {
+    "full": "esbuild browser bundle including @angular/core \u2014 large absolute size; use delta for fair compare",
+    "delta": "store + shared RT types with @angular/* and rxjs externalized",
+    "candidate-b-with-ngrx": "B store with @ngrx/signals inlined, angular external \u2014 shows added ngrx cost vs A-delta",
+    "productionAngularAppBuild": "NOT_RUN \u2014 minimal Vitest/TS projects used (not ng build); documented per packet"
+  },
+  "tests": {
+    "candidateA": {
+      "files": 2,
+      "tests": 4,
+      "passed": 4
+    },
+    "candidateB": {
+      "files": 1,
+      "tests": 3,
+      "passed": 3
+    },
+    "correctnessAssertionsPerCandidate": 18
+  }
+}
