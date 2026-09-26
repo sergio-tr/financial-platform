@@ -1,0 +1,32 @@
+{
+  "executionId": "20260926T124317Z",
+  "recordedAt": "2026-09-26T12:43:17Z",
+  "spikeId": "SER-36",
+  "environment": "cursor-cloud-agent",
+  "reproductionLabel": "CLOUD_PROTOTYPE_NOT_WSL",
+  "canonicalRepoPath": "/workspace",
+  "canonicalRepoHeadExpected": "6669610bfdbe171cb9bbf14f7f19d63739ee8d03",
+  "canonicalRepoHeadObserved": "6669610bfdbe171cb9bbf14f7f19d63739ee8d03",
+  "planningRefs": {
+    "ADR-0032": "/workspace/docs/adr/ADR-0032-angular-state-model.md",
+    "decisionRegisterD032": "D-032 LOCKED \u2014 No global NgRx by default; feature facades/stores use Signals + RxJS",
+    "note": "Spike compares Signals-only vs @ngrx/signals Signal Store; classic NgRx Store is out of scope"
+  },
+  "toolchain": {
+    "node": "v24.21.0",
+    "pnpm": "12.7.0",
+    "typescriptTarget": "6.0.3",
+    "angularCore": "22.2.0",
+    "ngrxSignals": "22.0.1",
+    "candidateA": "Angular Signals only",
+    "candidateB": "@ngrx/signals 22.0.1 Signal Store"
+  },
+  "fixtureHashesSha256": {
+    "events.json": "4288d509d4dd939816337ecd0cf3ebc12dfc648ad1e69cd42edab419705b8e2c",
+    "preference-mutations.json": "32620e44e34c59475d24ba1537ecb5e102a7322dafde38101f6b9a2c57e204ed",
+    "snapshot-r41.json": "2818a0b18dcb18ec22f83a116f4b2d4a2b745741b732a6ff41f0346a962aeeb5",
+    "snapshot-r42.json": "56aac4b27a48bde8fee36a58d73080c083eeb85e1bcc462d905ef36b4757cd16"
+  },
+  "disposableRoot": "/tmp/gafi-spikes/SER-36/20260926T124317Z",
+  "wroteToCanonicalRepo": false
+}

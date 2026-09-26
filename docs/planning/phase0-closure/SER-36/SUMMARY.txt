@@ -1,0 +1,8 @@
+SER36_RESULT=PASS
+recommendation=A_Angular_Signals_typed_facades
+weightedA=94.0
+weightedB=82.4
+differencePP=11.6
+correctnessFailures=[]
+adjudication=EVIDENCE_READY_FOR_ADJUDICATION
+reproduction=CLOUD_PROTOTYPE_NOT_WSL

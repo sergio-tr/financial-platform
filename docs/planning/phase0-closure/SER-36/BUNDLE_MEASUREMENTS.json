@@ -1,0 +1,53 @@
+{
+  "note": "Full Angular production app ng build delta NOT_RUN (no Angular CLI app scaffold in disposable spike). Recorded: candidate source LOC + concatenated source gzip as dependency-impact proxy. Runtime deps listed exactly.",
+  "angularProductionBuildDelta": "NOT_RUN",
+  "candidateA": {
+    "label": "candidate-a",
+    "files": [
+      "/tmp/gafi-spikes/SER-36/20260926T124317Z/candidate-a/src/portfolio-feature-facade.ts",
+      "/tmp/gafi-spikes/SER-36/20260926T124317Z/candidate-a/src/index.ts"
+    ],
+    "sourceLocNonEmpty": 163,
+    "rawBytes": 6135,
+    "gzipConcatBytes": 1794
+  },
+  "candidateB": {
+    "label": "candidate-b",
+    "files": [
+      "/tmp/gafi-spikes/SER-36/20260926T124317Z/candidate-b/src/portfolio-signal-store.ts",
+      "/tmp/gafi-spikes/SER-36/20260926T124317Z/candidate-b/src/index.ts"
+    ],
+    "sourceLocNonEmpty": 216,
+    "rawBytes": 7530,
+    "gzipConcatBytes": 2095
+  },
+  "shared": {
+    "label": "shared",
+    "files": [
+      "/tmp/gafi-spikes/SER-36/20260926T124317Z/shared/src/types.ts",
+      "/tmp/gafi-spikes/SER-36/20260926T124317Z/shared/src/realtime-client.ts",
+      "/tmp/gafi-spikes/SER-36/20260926T124317Z/shared/src/fixtures.ts",
+      "/tmp/gafi-spikes/SER-36/20260926T124317Z/shared/src/index.ts"
+    ],
+    "sourceLocNonEmpty": 140,
+    "rawBytes": 4337,
+    "gzipConcatBytes": 1498
+  },
+  "runtimeDepsAdded": {
+    "candidateA": {
+      "count": 0,
+      "packages": []
+    },
+    "candidateB": {
+      "count": 1,
+      "packages": [
+        "@ngrx/signals@22.0.1"
+      ]
+    },
+    "commonBaseline": [
+      "@angular/core@22.2.0",
+      "rxjs@7.8.2"
+    ]
+  },
+  "publicMutationEntryPoints": 10
+}

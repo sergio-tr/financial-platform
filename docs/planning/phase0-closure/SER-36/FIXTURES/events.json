@@ -1,0 +1,7 @@
+[
+  {"type":"PORTFOLIO_PATCH","sequence":121,"payload":{"portfolioSummarySynthetic":"SYNTH_PORTFOLIO_AFTER_121"}},
+  {"type":"PORTFOLIO_PATCH","sequence":122,"payload":{"portfolioSummarySynthetic":"SYNTH_PORTFOLIO_AFTER_122"}},
+  {"type":"PORTFOLIO_PATCH","sequence":122,"payload":{"portfolioSummarySynthetic":"SYNTH_PORTFOLIO_AFTER_122_DUP"}},
+  {"type":"PORTFOLIO_PATCH","sequence":124,"payload":{"portfolioSummarySynthetic":"SYNTH_PORTFOLIO_AFTER_124_SHOULD_NOT_APPLY"}},
+  {"type":"PORTFOLIO_PATCH","sequence":125,"payload":{"portfolioSummarySynthetic":"SYNTH_PORTFOLIO_AFTER_125"}}
+]

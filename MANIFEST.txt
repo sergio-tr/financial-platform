@@ -68,3 +68,26 @@ docs/security/security-architecture.md
 docs/security/threat-model.md
 docs/ux/dashboard-system.md
 docs/workflows/workflow-architecture.md
+
+# Phase 0 closure evidence (planning-only; IMPLEMENTATION_LOCK=ON)
+docs/planning/phase0-closure/NAMESPACE_DRIFT.md
+docs/planning/phase0-closure/PHASE0_CLOSURE_REPORT.md
+docs/planning/phase0-closure/PREFLIGHT.json
+docs/planning/phase0-closure/SER-108_AUDIT.md
+docs/planning/phase0-closure/SER-117_REAUDIT_MATRICES.md
+docs/planning/phase0-closure/SER-36/BUNDLE_MEASUREMENTS.json
+docs/planning/phase0-closure/SER-36/FIXTURES/events.json
+docs/planning/phase0-closure/SER-36/FIXTURES/preference-mutations.json
+docs/planning/phase0-closure/SER-36/FIXTURES/SHA256SUMS
+docs/planning/phase0-closure/SER-36/FIXTURES/snapshot-r41.json
+docs/planning/phase0-closure/SER-36/FIXTURES/snapshot-r42.json
+docs/planning/phase0-closure/SER-36/MANIFEST.json
+docs/planning/phase0-closure/SER-36/PREFLIGHT.json
+docs/planning/phase0-closure/SER-36/RESULTS.md
+docs/planning/phase0-closure/SER-36/SUMMARY.txt
+docs/planning/phase0-closure/SER-58/PACKET_VALIDATION.md
+docs/planning/phase0-closure/SER-58/SUMMARY.txt
+docs/planning/phase0-closure/SER-92_INDEPENDENT_REVIEW.md
+docs/planning/phase0-closure/SER-93_INDEPENDENT_REVIEW.md
+docs/planning/phase0-closure/SER-94_INDEPENDENT_REVIEW.md
+docs/planning/phase0-closure/SER-95_INDEPENDENT_REVIEW.md
