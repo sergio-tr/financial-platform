@@ -1,0 +1,7 @@
+Title: Workflow Rules
+Status: CANONICAL
+
+- Temporal self-hosted behind ports; deterministic workflows; activities handle I/O. (ADR-0008)
+- No direct publish to Angular; outbox + realtime publisher. (ADR-0021)
+- No application-level polling. (ADR-0016)
+

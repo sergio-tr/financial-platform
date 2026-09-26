@@ -1,0 +1,8 @@
+Title: Security Rules
+Status: CANONICAL
+
+- LAN-only deployment; no inbound WAN. (ADR-0017)
+- Secrets via `SecretVaultPort` and `SecretRef`; no secrets in logs/LLM context. (ADR-0019, R43)
+- Data classification and sinks deny-by-default; SECRET only via SecretVault IPC. (R46)
+- No real financial/secret data in Git/CI/Slack/Linear/Figma.
+

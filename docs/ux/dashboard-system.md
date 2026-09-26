@@ -59,6 +59,11 @@ Layouts may differ by device class.
 
 Build custom tokens/components on Angular/CDK primitives rather than accepting Angular Material's default visual identity. Tokens cover typography, spacing, radius, elevation, motion, breakpoints, semantic financial states and chart palettes.
 
+Authority notes (R45):
+- Git DTCG tokens under `design/tokens/**` are implementation-authoritative and mirrored to Figma.
+- Figma nodes locked by `DES-*` are composition/presentation authority.
+- Screenshots are verification evidence, not design authority.
+
 Positive/negative/risk information must not rely on color alone.
 
 ## Charting

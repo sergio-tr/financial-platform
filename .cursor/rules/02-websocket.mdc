@@ -1,0 +1,8 @@
+Title: WebSocket Rules
+Status: CANONICAL
+
+- STOMP 1.2 over native WSS; no SSE, no SockJS, no permessage-deflate. (ADR-0003/0004, R42)
+- Client -> `/app/v1/commands/**`, `/app/v1/queries/**`.
+- Server -> `/user/exchange/amq.direct/gafi.v1.(control|events|artifacts)`.
+- Contract-first; no handler without AsyncAPI/JSON Schema.
+

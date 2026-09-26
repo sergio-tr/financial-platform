@@ -1,0 +1,7 @@
+Title: Portfolio X-Ray Rules
+Status: CANONICAL
+
+- X-Ray is a core bounded context. (ADR-0011)
+- Unknown composition weight is never redistributed as if known. (ADR-0035)
+- Calculations are deterministic code; AI may interpret but not calculate authoritative metrics.
+

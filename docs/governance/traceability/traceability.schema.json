@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Traceability Graph Schema",
+  "type": "object",
+  "required": ["nodes", "edges"],
+  "properties": {
+    "nodes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "type"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^(SER-\\d+|P0-R\\d+|ADR-\\d{4}|REQ-[A-Za-z0-9_-]+|NFR-[A-Za-z0-9_-]+|DES-[A-Za-z0-9_-]+|TEST-[A-Za-z0-9_-]+|RUNBOOK-[A-Za-z0-9_-]+|DOC:.+)$"
+          },
+          "type": {
+            "type": "string",
+            "enum": ["SER", "P0-R", "ADR", "REQ", "NFR", "DES", "TEST", "RUNBOOK", "DOC"]
+          },
+          "status": {
+            "type": "string",
+            "enum": ["LOCKED", "PLANNED", "PENDING", "SUPERSEDED"]
+          },
+          "title": { "type": "string" }
+        },
+        "additionalProperties": false
+      }
+    },
+    "edges": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["from", "to", "relation"],
+        "properties": {
+          "from": { "type": "string" },
+          "to": { "type": "string" },
+          "relation": {
+            "type": "string",
+            "enum": ["implements", "documents", "supersedes", "tests", "owns", "depends_on", "references"]
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}
+

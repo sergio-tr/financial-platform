@@ -1,0 +1,7 @@
+Title: AI Rules
+Status: CANONICAL
+
+- AI has no authz/calculation/execution authority. (ADR-0012, R28)
+- Typed tools only; no raw MCP catalog exposure.
+- Deterministic calculations are authoritative; AI outputs distinguish data/calculation/document/news/macro/inference.
+

@@ -1,0 +1,8 @@
+Title: Database Rules
+Status: CANONICAL
+
+- PostgreSQL + pgvector baseline. (ADR-0018)
+- Liquibase owns schema evolution; avoid destructive migrations without strategy.
+- Avoid cross-bounded-context JPA relationships.
+- RLS per R41; zero unclassified physical objects.
+

@@ -1,0 +1,7 @@
+Title: Architecture Rules
+Status: CANONICAL
+
+- Modular monolith (ADR-0001); Java 25 + Spring Boot 4.1.x + Angular 22 (ADR-0002).
+- Domain must not depend on Spring/JPA/Temporal/MCP/transport types.
+- Public message contracts are defined before handlers (ADR-0005).
+

@@ -1,0 +1,7 @@
+Title: Frontend Rules
+Status: CANONICAL
+
+- One Angular SPA; generated transport DTOs are not UI/domain models.
+- One RealtimeClient per tab; authoritative server state.
+- Signals + RxJS per ADR-0032; no global NgRx by default.
+

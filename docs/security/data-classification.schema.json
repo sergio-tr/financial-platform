@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Data Classification",
+  "type": "object",
+  "required": ["defaultPolicy", "classes"],
+  "properties": {
+    "defaultPolicy": { "type": "string", "enum": ["deny"] },
+    "classes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "sinks", "notes"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "enum": ["PUBLIC","INTERNAL","PERSONAL","FINANCIAL_SENSITIVE","SECURITY_SENSITIVE","SECRET"]
+          },
+          "sinks": {
+            "type": "object",
+            "required": ["allow", "deny"],
+            "properties": {
+              "allow": { "type": "array", "items": { "type": "string" } },
+              "deny": { "type": "array", "items": { "type": "string" } }
+            },
+            "additionalProperties": false
+          },
+          "notes": { "type": "string" },
+          "owner": { "type": "string" }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}
+
