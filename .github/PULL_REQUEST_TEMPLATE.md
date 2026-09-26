@@ -13,11 +13,11 @@ List impacted packs/ADRs (e.g., R26/R41/R42/R43/R46/R47; ADR-0003/0004/0005/0008
 
 ## Use cases
 
-Structure only; do not materialize `<context>.api` methods in this PR.
+Summarize user flows and structure; note any `<context>.api` additions or changes.
 
 ## Contracts
 
-Registry at `docs/governance/api-registry.md` (PENDING rows until SER-92..95). No concrete `contracts/**` added in this PR.
+Update `docs/governance/api-registry.md` and list any `contracts/**` additions or changes.
 
 ## Design
 
@@ -25,11 +25,11 @@ Registry at `docs/governance/api-registry.md` (PENDING rows until SER-92..95). N
 
 ## Verification
 
-`docs/verification/test-catalog.{schema.json,yaml}` (R44). Catalog entries may be PENDING (SER-107).
+`docs/verification/test-catalog.{schema.json,yaml}` (R44). Catalog entries should be updated accordingly.
 
 ## Tests
 
-No product tests in this PR (documentation/governance only).
+List unit/integration/e2e tests added or updated; include product tests when applicable.
 
 ## Docs / Runbooks
 
@@ -41,12 +41,12 @@ R41/R43/R46/R47 policies documented. No real data/secrets; no SECRET in exports;
 
 ## Migrations
 
-N/A — documentation/governance only.
+Describe database/data migrations if any, otherwise N/A.
 
 ---
 
 Squash body must include:
 ```
-Refs: SER-70
-Trace: P0-R26, P0-R35, P0-R36, P0-R37, P0-R38, P0-R39, P0-R40, P0-R41, P0-R42, P0-R43, P0-R44, P0-R45, P0-R46, P0-R47; ADR-0003, ADR-0004, ADR-0005, ADR-0008, ADR-0018, ADR-0019, ADR-0023, ADR-0024
+Refs: <ISSUE or ticket ID>
+Trace: <relevant requirements (e.g., P0-Rxx) and ADRs (e.g., ADR-00xx)>
 ```
