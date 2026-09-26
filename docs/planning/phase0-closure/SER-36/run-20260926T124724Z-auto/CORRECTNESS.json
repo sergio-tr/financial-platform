@@ -1,0 +1,217 @@
+{
+  "recordedAt": "2026-09-26T12:50:09.517Z",
+  "A": {
+    "passed": true,
+    "assertionCount": 20,
+    "failures": [],
+    "results": [
+      {
+        "id": "bootstrap",
+        "pass": true,
+        "detail": "session=AUTHENTICATED"
+      },
+      {
+        "id": "snapshot-r41",
+        "pass": true,
+        "detail": "rev=41 last=120"
+      },
+      {
+        "id": "subscribe-live",
+        "pass": true,
+        "detail": "conn=LIVE from=120"
+      },
+      {
+        "id": "apply-121-122",
+        "pass": true,
+        "detail": "last=122 fin=SYNTH_PORTFOLIO_AFTER_122"
+      },
+      {
+        "id": "duplicate-122-no-double-apply",
+        "pass": true,
+        "detail": "fin=SYNTH_PORTFOLIO_AFTER_122"
+      },
+      {
+        "id": "gap-124-resync-no-apply",
+        "pass": true,
+        "detail": "conn=RESYNC_REQUIRED fin=SYNTH_PORTFOLIO_AFTER_122 gap={\"expected\":123,\"observed\":124}"
+      },
+      {
+        "id": "pre-replace-consistent",
+        "pass": true,
+        "detail": "pre-replace view coherent"
+      },
+      {
+        "id": "snapshot-replace-atomic",
+        "pass": true,
+        "detail": "view=AUTHENTICATED|LIVE|r42@124|fin=SYNTH_PORTFOLIO_V42_TOTAL_100250.00_CCY_EUR|pref=comfortable|gap:none|last=124"
+      },
+      {
+        "id": "disconnect",
+        "pass": true,
+        "detail": "conn=DISCONNECTED"
+      },
+      {
+        "id": "reconnect-resubscribe-from-124",
+        "pass": true,
+        "detail": "from=124 gen=2"
+      },
+      {
+        "id": "stale-generation-blocked",
+        "pass": true,
+        "detail": "fin=SYNTH_PORTFOLIO_V42_TOTAL_100250.00_CCY_EUR"
+      },
+      {
+        "id": "derived-deterministic",
+        "pass": true,
+        "detail": "d1=AUTHENTICATED|LIVE|r42@124|fin=SYNTH_PORTFOLIO_V42_TOTAL_100250.00_CCY_EUR|pref=comfortable|gap:none|last=124"
+      },
+      {
+        "id": "pref-optimistic-isolated",
+        "pass": true,
+        "detail": "fin=SYNTH_PORTFOLIO_V42_TOTAL_100250.00_CCY_EUR pref=compact"
+      },
+      {
+        "id": "pref-accept",
+        "pass": true,
+        "detail": "{\"effectiveValue\":\"compact\"}"
+      },
+      {
+        "id": "pref-reject-pending",
+        "pass": true,
+        "detail": "{\"effectiveValue\":\"dense\",\"pendingMutationId\":\"pref-fail-1\"}"
+      },
+      {
+        "id": "pref-rollback",
+        "pass": true,
+        "detail": "pref=compact fin=SYNTH_PORTFOLIO_V42_TOTAL_100250.00_CCY_EUR"
+      },
+      {
+        "id": "logout-clears-and-disposes",
+        "pass": true,
+        "detail": "view={\"s\":\"LOGGED_OUT\",\"snap\":null,\"cleared\":true}"
+      },
+      {
+        "id": "post-logout-no-mutate",
+        "pass": true,
+        "detail": "fin=null"
+      },
+      {
+        "id": "no-forbidden-storage",
+        "pass": true,
+        "detail": "touches=0"
+      },
+      {
+        "id": "clock-injectable",
+        "pass": true,
+        "detail": "FixedClock available to tests without browser network"
+      }
+    ]
+  },
+  "B": {
+    "passed": true,
+    "assertionCount": 20,
+    "failures": [],
+    "results": [
+      {
+        "id": "bootstrap",
+        "pass": true,
+        "detail": "session=AUTHENTICATED"
+      },
+      {
+        "id": "snapshot-r41",
+        "pass": true,
+        "detail": "rev=41 last=120"
+      },
+      {
+        "id": "subscribe-live",
+        "pass": true,
+        "detail": "conn=LIVE from=120"
+      },
+      {
+        "id": "apply-121-122",
+        "pass": true,
+        "detail": "last=122 fin=SYNTH_PORTFOLIO_AFTER_122"
+      },
+      {
+        "id": "duplicate-122-no-double-apply",
+        "pass": true,
+        "detail": "fin=SYNTH_PORTFOLIO_AFTER_122"
+      },
+      {
+        "id": "gap-124-resync-no-apply",
+        "pass": true,
+        "detail": "conn=RESYNC_REQUIRED fin=SYNTH_PORTFOLIO_AFTER_122 gap={\"expected\":123,\"observed\":124}"
+      },
+      {
+        "id": "pre-replace-consistent",
+        "pass": true,
+        "detail": "pre-replace view coherent"
+      },
+      {
+        "id": "snapshot-replace-atomic",
+        "pass": true,
+        "detail": "view=AUTHENTICATED|LIVE|r42@124|fin=SYNTH_PORTFOLIO_V42_TOTAL_100250.00_CCY_EUR|pref=comfortable|gap:none|last=124"
+      },
+      {
+        "id": "disconnect",
+        "pass": true,
+        "detail": "conn=DISCONNECTED"
+      },
+      {
+        "id": "reconnect-resubscribe-from-124",
+        "pass": true,
+        "detail": "from=124 gen=2"
+      },
+      {
+        "id": "stale-generation-blocked",
+        "pass": true,
+        "detail": "fin=SYNTH_PORTFOLIO_V42_TOTAL_100250.00_CCY_EUR"
+      },
+      {
+        "id": "derived-deterministic",
+        "pass": true,
+        "detail": "d1=AUTHENTICATED|LIVE|r42@124|fin=SYNTH_PORTFOLIO_V42_TOTAL_100250.00_CCY_EUR|pref=comfortable|gap:none|last=124"
+      },
+      {
+        "id": "pref-optimistic-isolated",
+        "pass": true,
+        "detail": "fin=SYNTH_PORTFOLIO_V42_TOTAL_100250.00_CCY_EUR pref=compact"
+      },
+      {
+        "id": "pref-accept",
+        "pass": true,
+        "detail": "{\"effectiveValue\":\"compact\"}"
+      },
+      {
+        "id": "pref-reject-pending",
+        "pass": true,
+        "detail": "{\"effectiveValue\":\"dense\",\"pendingMutationId\":\"pref-fail-1\"}"
+      },
+      {
+        "id": "pref-rollback",
+        "pass": true,
+        "detail": "pref=compact fin=SYNTH_PORTFOLIO_V42_TOTAL_100250.00_CCY_EUR"
+      },
+      {
+        "id": "logout-clears-and-disposes",
+        "pass": true,
+        "detail": "view={\"s\":\"LOGGED_OUT\",\"snap\":null,\"cleared\":true}"
+      },
+      {
+        "id": "post-logout-no-mutate",
+        "pass": true,
+        "detail": "fin=null"
+      },
+      {
+        "id": "no-forbidden-storage",
+        "pass": true,
+        "detail": "touches=0"
+      },
+      {
+        "id": "clock-injectable",
+        "pass": true,
+        "detail": "FixedClock available to tests without browser network"
+      }
+    ]
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "executionId": "20260926T124317Z",
+  "basePlanningRefs": [
+    "SER-36",
+    "SER-33",
+    "ADR-0032",
+    "HEAD:6669610bfdbe171cb9bbf14f7f19d63739ee8d03"
+  ],
+  "toolVersions": {
+    "node": "v24.21.0",
+    "pnpm": "12.7.0",
+    "typescript": "6.0.3",
+    "angularCore": "22.2.0",
+    "ngrxSignals": "22.0.1"
+  },
+  "packageLockHash": "668970e1af4d675e2072848652c82c5e9e34ee9fe3535416d73d9324f0a1e6bd",
+  "fixtureHash": {
+    "preference-mutations.json": "32620e44e34c59475d24ba1537ecb5e102a7322dafde38101f6b9a2c57e204ed",
+    "snapshot-r42.json": "56aac4b27a48bde8fee36a58d73080c083eeb85e1bcc462d905ef36b4757cd16",
+    "snapshot-r41.json": "2818a0b18dcb18ec22f83a116f4b2d4a2b745741b732a6ff41f0346a962aeeb5",
+    "events.json": "4288d509d4dd939816337ecd0cf3ebc12dfc648ad1e69cd42edab419705b8e2c"
+  },
+  "candidateA": {
+    "sourceHash": "6f686d679e766ee3385870a536f0e8fc34356419ae717dbde0f851db97eed7e7",
+    "testEvidenceHash": "8d83efed27fb575377f3f1c23b78ae14bf34ff3035b4b55a30e5e0ffca812e1f",
+    "bundleMeasurements": "evidence/BUNDLE_MEASUREMENTS.json",
+    "rubricTotal": 94.0
+  },
+  "candidateB": {
+    "sourceHash": "350ea05b8953d16e2d28313c5f76287b66acab11ad1a40772728fb2715273fa6",
+    "testEvidenceHash": "8d83efed27fb575377f3f1c23b78ae14bf34ff3035b4b55a30e5e0ffca812e1f",
+    "bundleMeasurements": "evidence/BUNDLE_MEASUREMENTS.json",
+    "rubricTotal": 82.4,
+    "notes": "Normative scenario via semantic harness; signalStore DI inject NG0203 under vitest TestBed recorded"
+  },
+  "correctnessFailures": [],
+  "weightedTotals": {
+    "A": 94.0,
+    "B": 82.4,
+    "differencePP": 11.6
+  },
+  "recommendation": "A",
+  "status": "EVIDENCE_READY_FOR_ADJUDICATION",
+  "SER36_RESULT": "PASS"
+}
