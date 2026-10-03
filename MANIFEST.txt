@@ -94,6 +94,7 @@ docs/design/design-manifest.yaml
 docs/workflows/workflow-architecture.md
 
 # Phase 0 closure evidence (planning-only; IMPLEMENTATION_LOCK=ON)
+docs/planning/phase0-closure/AUTHORITY_SUPERSESSION_2026-10-03.md
 docs/planning/phase0-closure/NAMESPACE_DRIFT.md
 docs/planning/phase0-closure/PHASE0_CLOSURE_REPORT.md
 docs/planning/phase0-closure/PREFLIGHT.json
