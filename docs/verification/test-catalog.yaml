@@ -66,7 +66,7 @@ items:
     status: "PLANNED"
     category: "FIN"
     owner: "analytics"
-    assertion: "TRUE_TWR over the independent golden cash-flow and valuation vector produces the accepted exact decimal result under the declared timing policy."
+    assertion: "TRUE_TWR over the independent golden cash-flow and valuation vector produces the accepted exact decimal result under FIN_DECIMAL_V1 and the declared timing policy."
     requirementRefs: ["REQ-ANALYTICS-001", "REQ-ANALYTICS-002", "NFR-CORRECTNESS-001"]
     fixtureRefs: ["FIX-PERFORMANCE-TWR-GOLDEN-V1", "GOLDEN-FIN-TWR-001"]
     executionLane: "UNIT"
