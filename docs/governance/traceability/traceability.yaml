@@ -1,5 +1,5 @@
 nodes:
-  - { id: "SER-70", type: "SER", status: "LOCKED", title: "Architecture/governance sync P0-R26..P0-R47" }
+  - { id: "SER-70", type: "SER", status: "LOCKED", title: "Architecture/governance sync P0-R26..P0-R57" }
   # Planning packs
   - { id: "P0-R26", type: "P0-R", status: "LOCKED" }
   - { id: "P0-R35", type: "P0-R", status: "LOCKED" }
@@ -34,9 +34,9 @@ nodes:
   - { id: "DOC:docs/governance/traceability/traceability.yaml", type: "DOC", status: "LOCKED" }
   - { id: "DOC:docs/governance/traceability/review-adjudication.md", type: "DOC", status: "LOCKED" }
   - { id: "DOC:docs/verification/test-catalog.schema.json", type: "DOC", status: "LOCKED" }
-  - { id: "DOC:docs/verification/test-catalog.yaml", type: "DOC", status: "PLANNED" }
+  - { id: "DOC:docs/verification/test-catalog.yaml", type: "DOC", status: "LOCKED" }
   - { id: "DOC:docs/design/design-manifest.schema.json", type: "DOC", status: "LOCKED" }
-  - { id: "DOC:docs/design/design-manifest.yaml", type: "DOC", status: "PLANNED" }
+  - { id: "DOC:docs/design/design-manifest.yaml", type: "DOC", status: "LOCKED" }
   - { id: "DOC:docs/security/README-data-classification.md", type: "DOC", status: "LOCKED" }
   - { id: "DOC:docs/security/data-classification.schema.json", type: "DOC", status: "LOCKED" }
   - { id: "DOC:docs/security/data-classification.yaml", type: "DOC", status: "PLANNED" }
@@ -46,6 +46,147 @@ nodes:
   - { id: "DOC:docs/runbooks/workspace-deletion.md", type: "DOC", status: "LOCKED" }
   - { id: "DOC:docs/runbooks/provider-disconnect.md", type: "DOC", status: "LOCKED" }
   - { id: "DOC:docs/runbooks/data-export.md", type: "DOC", status: "LOCKED" }
+  - { id: "P0-R48", type: "P0-R", status: "LOCKED", title: "Pull-request orchestration, CI-to-local acceptance and human-promotion contract" }
+  - { id: "P0-R49", type: "P0-R", status: "LOCKED", title: "Test layers, execution lanes and required quality-gate contract" }
+  - { id: "P0-R50", type: "P0-R", status: "LOCKED", title: "Local acceptance environment, preview deployment and manual approval contract" }
+  - { id: "P0-R51", type: "P0-R", status: "LOCKED", title: "Local environment segregation and workstation bootstrap contract" }
+  - { id: "P0-R52", type: "P0-R", status: "LOCKED", title: "Agent execution firewall, Task Packet and zero-assumption contract" }
+  - { id: "P0-R53", type: "P0-R", status: "LOCKED", title: "Minimum Work Unit, Definition of Ready/Done and change-risk classification contract" }
+  - { id: "P0-R54", type: "P0-R", status: "LOCKED", title: "Final implementation roadmap, vertical slices and dependency-gate contract" }
+  - { id: "P0-R55", type: "P0-R", status: "LOCKED", title: "Synthetic test-data, golden-fixture and provider-simulator contract" }
+  - { id: "P0-R56", type: "P0-R", status: "LOCKED", title: "Delivery state machine, acceptance invalidation and production-promotion contract" }
+  - { id: "P0-R57", type: "P0-R", status: "LOCKED", title: "Phase-0 planning freeze, zero-gap audit and implementation-unlock contract" }
+  - { id: "REQ-IDENTITY-001", type: "REQ", status: "LOCKED", title: "REQ-IDENTITY-001" }
+  - { id: "REQ-IDENTITY-002", type: "REQ", status: "LOCKED", title: "REQ-IDENTITY-002" }
+  - { id: "REQ-IDENTITY-003", type: "REQ", status: "LOCKED", title: "REQ-IDENTITY-003" }
+  - { id: "REQ-IDENTITY-004", type: "REQ", status: "LOCKED", title: "REQ-IDENTITY-004" }
+  - { id: "REQ-IDENTITY-005", type: "REQ", status: "LOCKED", title: "REQ-IDENTITY-005" }
+  - { id: "REQ-IDENTITY-006", type: "REQ", status: "LOCKED", title: "REQ-IDENTITY-006" }
+  - { id: "REQ-WORKSPACE-001", type: "REQ", status: "LOCKED", title: "REQ-WORKSPACE-001" }
+  - { id: "REQ-WORKSPACE-002", type: "REQ", status: "LOCKED", title: "REQ-WORKSPACE-002" }
+  - { id: "REQ-WORKSPACE-003", type: "REQ", status: "LOCKED", title: "REQ-WORKSPACE-003" }
+  - { id: "REQ-WORKSPACE-004", type: "REQ", status: "LOCKED", title: "REQ-WORKSPACE-004" }
+  - { id: "REQ-WORKSPACE-005", type: "REQ", status: "LOCKED", title: "REQ-WORKSPACE-005" }
+  - { id: "REQ-CONNECTIVITY-001", type: "REQ", status: "LOCKED", title: "REQ-CONNECTIVITY-001" }
+  - { id: "REQ-CONNECTIVITY-002", type: "REQ", status: "LOCKED", title: "REQ-CONNECTIVITY-002" }
+  - { id: "REQ-CONNECTIVITY-003", type: "REQ", status: "LOCKED", title: "REQ-CONNECTIVITY-003" }
+  - { id: "REQ-CONNECTIVITY-004", type: "REQ", status: "LOCKED", title: "REQ-CONNECTIVITY-004" }
+  - { id: "REQ-CONNECTIVITY-005", type: "REQ", status: "LOCKED", title: "REQ-CONNECTIVITY-005" }
+  - { id: "REQ-INSTRUMENT-001", type: "REQ", status: "LOCKED", title: "REQ-INSTRUMENT-001" }
+  - { id: "REQ-INSTRUMENT-002", type: "REQ", status: "LOCKED", title: "REQ-INSTRUMENT-002" }
+  - { id: "REQ-INSTRUMENT-003", type: "REQ", status: "LOCKED", title: "REQ-INSTRUMENT-003" }
+  - { id: "REQ-INSTRUMENT-004", type: "REQ", status: "LOCKED", title: "REQ-INSTRUMENT-004" }
+  - { id: "REQ-PORTFOLIO-001", type: "REQ", status: "LOCKED", title: "REQ-PORTFOLIO-001" }
+  - { id: "REQ-PORTFOLIO-002", type: "REQ", status: "LOCKED", title: "REQ-PORTFOLIO-002" }
+  - { id: "REQ-PORTFOLIO-003", type: "REQ", status: "LOCKED", title: "REQ-PORTFOLIO-003" }
+  - { id: "REQ-PORTFOLIO-004", type: "REQ", status: "LOCKED", title: "REQ-PORTFOLIO-004" }
+  - { id: "REQ-PORTFOLIO-005", type: "REQ", status: "LOCKED", title: "REQ-PORTFOLIO-005" }
+  - { id: "REQ-PORTFOLIO-006", type: "REQ", status: "LOCKED", title: "REQ-PORTFOLIO-006" }
+  - { id: "REQ-XRAY-001", type: "REQ", status: "LOCKED", title: "REQ-XRAY-001" }
+  - { id: "REQ-XRAY-002", type: "REQ", status: "LOCKED", title: "REQ-XRAY-002" }
+  - { id: "REQ-XRAY-003", type: "REQ", status: "LOCKED", title: "REQ-XRAY-003" }
+  - { id: "REQ-XRAY-004", type: "REQ", status: "LOCKED", title: "REQ-XRAY-004" }
+  - { id: "REQ-XRAY-005", type: "REQ", status: "LOCKED", title: "REQ-XRAY-005" }
+  - { id: "REQ-MARKET-001", type: "REQ", status: "LOCKED", title: "REQ-MARKET-001" }
+  - { id: "REQ-MARKET-002", type: "REQ", status: "LOCKED", title: "REQ-MARKET-002" }
+  - { id: "REQ-MARKET-003", type: "REQ", status: "LOCKED", title: "REQ-MARKET-003" }
+  - { id: "REQ-MARKET-004", type: "REQ", status: "LOCKED", title: "REQ-MARKET-004" }
+  - { id: "REQ-MACRO-001", type: "REQ", status: "LOCKED", title: "REQ-MACRO-001" }
+  - { id: "REQ-MACRO-002", type: "REQ", status: "LOCKED", title: "REQ-MACRO-002" }
+  - { id: "REQ-MACRO-003", type: "REQ", status: "LOCKED", title: "REQ-MACRO-003" }
+  - { id: "REQ-RESEARCH-001", type: "REQ", status: "LOCKED", title: "REQ-RESEARCH-001" }
+  - { id: "REQ-KNOWLEDGE-001", type: "REQ", status: "LOCKED", title: "REQ-KNOWLEDGE-001" }
+  - { id: "REQ-KNOWLEDGE-002", type: "REQ", status: "LOCKED", title: "REQ-KNOWLEDGE-002" }
+  - { id: "REQ-KNOWLEDGE-003", type: "REQ", status: "LOCKED", title: "REQ-KNOWLEDGE-003" }
+  - { id: "REQ-KNOWLEDGE-004", type: "REQ", status: "LOCKED", title: "REQ-KNOWLEDGE-004" }
+  - { id: "REQ-ANALYTICS-001", type: "REQ", status: "LOCKED", title: "REQ-ANALYTICS-001" }
+  - { id: "REQ-ANALYTICS-002", type: "REQ", status: "LOCKED", title: "REQ-ANALYTICS-002" }
+  - { id: "REQ-ANALYTICS-003", type: "REQ", status: "LOCKED", title: "REQ-ANALYTICS-003" }
+  - { id: "REQ-ANALYTICS-004", type: "REQ", status: "LOCKED", title: "REQ-ANALYTICS-004" }
+  - { id: "REQ-ANALYTICS-005", type: "REQ", status: "LOCKED", title: "REQ-ANALYTICS-005" }
+  - { id: "REQ-RISK-001", type: "REQ", status: "LOCKED", title: "REQ-RISK-001" }
+  - { id: "REQ-RISK-002", type: "REQ", status: "LOCKED", title: "REQ-RISK-002" }
+  - { id: "REQ-RISK-003", type: "REQ", status: "LOCKED", title: "REQ-RISK-003" }
+  - { id: "REQ-WORKFLOW-001", type: "REQ", status: "LOCKED", title: "REQ-WORKFLOW-001" }
+  - { id: "REQ-WORKFLOW-002", type: "REQ", status: "LOCKED", title: "REQ-WORKFLOW-002" }
+  - { id: "REQ-WORKFLOW-003", type: "REQ", status: "LOCKED", title: "REQ-WORKFLOW-003" }
+  - { id: "REQ-WORKFLOW-004", type: "REQ", status: "LOCKED", title: "REQ-WORKFLOW-004" }
+  - { id: "REQ-AI-001", type: "REQ", status: "LOCKED", title: "REQ-AI-001" }
+  - { id: "REQ-AI-002", type: "REQ", status: "LOCKED", title: "REQ-AI-002" }
+  - { id: "REQ-AI-003", type: "REQ", status: "LOCKED", title: "REQ-AI-003" }
+  - { id: "REQ-AI-004", type: "REQ", status: "LOCKED", title: "REQ-AI-004" }
+  - { id: "REQ-AI-005", type: "REQ", status: "LOCKED", title: "REQ-AI-005" }
+  - { id: "REQ-REPORT-001", type: "REQ", status: "LOCKED", title: "REQ-REPORT-001" }
+  - { id: "REQ-REPORT-002", type: "REQ", status: "LOCKED", title: "REQ-REPORT-002" }
+  - { id: "REQ-NOTIFICATION-001", type: "REQ", status: "LOCKED", title: "REQ-NOTIFICATION-001" }
+  - { id: "REQ-FRONTEND-001", type: "REQ", status: "LOCKED", title: "REQ-FRONTEND-001" }
+  - { id: "REQ-FRONTEND-002", type: "REQ", status: "LOCKED", title: "REQ-FRONTEND-002" }
+  - { id: "REQ-FRONTEND-003", type: "REQ", status: "LOCKED", title: "REQ-FRONTEND-003" }
+  - { id: "REQ-REALTIME-001", type: "REQ", status: "LOCKED", title: "REQ-REALTIME-001" }
+  - { id: "REQ-REALTIME-002", type: "REQ", status: "LOCKED", title: "REQ-REALTIME-002" }
+  - { id: "REQ-REALTIME-003", type: "REQ", status: "LOCKED", title: "REQ-REALTIME-003" }
+  - { id: "REQ-CONFIG-001", type: "REQ", status: "LOCKED", title: "REQ-CONFIG-001" }
+  - { id: "REQ-CONFIG-002", type: "REQ", status: "LOCKED", title: "REQ-CONFIG-002" }
+  - { id: "REQ-CONFIG-003", type: "REQ", status: "LOCKED", title: "REQ-CONFIG-003" }
+  - { id: "REQ-CONFIG-004", type: "REQ", status: "LOCKED", title: "REQ-CONFIG-004" }
+  - { id: "NFR-SEC-001", type: "NFR", status: "LOCKED", title: "NFR-SEC-001" }
+  - { id: "NFR-SEC-002", type: "NFR", status: "LOCKED", title: "NFR-SEC-002" }
+  - { id: "NFR-SEC-003", type: "NFR", status: "LOCKED", title: "NFR-SEC-003" }
+  - { id: "NFR-SEC-004", type: "NFR", status: "LOCKED", title: "NFR-SEC-004" }
+  - { id: "NFR-SEC-005", type: "NFR", status: "LOCKED", title: "NFR-SEC-005" }
+  - { id: "NFR-PRIVACY-001", type: "NFR", status: "LOCKED", title: "NFR-PRIVACY-001" }
+  - { id: "NFR-PRIVACY-002", type: "NFR", status: "LOCKED", title: "NFR-PRIVACY-002" }
+  - { id: "NFR-CORRECTNESS-001", type: "NFR", status: "LOCKED", title: "NFR-CORRECTNESS-001" }
+  - { id: "NFR-CORRECTNESS-002", type: "NFR", status: "LOCKED", title: "NFR-CORRECTNESS-002" }
+  - { id: "NFR-CORRECTNESS-003", type: "NFR", status: "LOCKED", title: "NFR-CORRECTNESS-003" }
+  - { id: "NFR-RELIABILITY-001", type: "NFR", status: "LOCKED", title: "NFR-RELIABILITY-001" }
+  - { id: "NFR-RELIABILITY-002", type: "NFR", status: "LOCKED", title: "NFR-RELIABILITY-002" }
+  - { id: "NFR-RECOVERY-001", type: "NFR", status: "LOCKED", title: "NFR-RECOVERY-001" }
+  - { id: "NFR-RECOVERY-002", type: "NFR", status: "LOCKED", title: "NFR-RECOVERY-002" }
+  - { id: "NFR-COMPAT-001", type: "NFR", status: "LOCKED", title: "NFR-COMPAT-001" }
+  - { id: "NFR-A11Y-001", type: "NFR", status: "LOCKED", title: "NFR-A11Y-001" }
+  - { id: "NFR-A11Y-002", type: "NFR", status: "LOCKED", title: "NFR-A11Y-002" }
+  - { id: "NFR-A11Y-003", type: "NFR", status: "LOCKED", title: "NFR-A11Y-003" }
+  - { id: "NFR-UX-001", type: "NFR", status: "LOCKED", title: "NFR-UX-001" }
+  - { id: "NFR-CONFIG-001", type: "NFR", status: "LOCKED", title: "NFR-CONFIG-001" }
+  - { id: "NFR-MODULARITY-001", type: "NFR", status: "LOCKED", title: "NFR-MODULARITY-001" }
+  - { id: "NFR-MODULARITY-002", type: "NFR", status: "LOCKED", title: "NFR-MODULARITY-002" }
+  - { id: "NFR-OBS-001", type: "NFR", status: "LOCKED", title: "NFR-OBS-001" }
+  - { id: "NFR-PERF-001", type: "NFR", status: "LOCKED", title: "NFR-PERF-001" }
+  - { id: "NFR-SUPPLY-001", type: "NFR", status: "LOCKED", title: "NFR-SUPPLY-001" }
+  - { id: "NFR-TRACE-001", type: "NFR", status: "LOCKED", title: "NFR-TRACE-001" }
+  - { id: "NFR-TRACE-002", type: "NFR", status: "LOCKED", title: "NFR-TRACE-002" }
+  - { id: "REQ-UI-002", type: "REQ", status: "SUPERSEDED", title: "REQ-UI-002 legacy alias" }
+  - { id: "REQ-UI-003", type: "REQ", status: "SUPERSEDED", title: "REQ-UI-003 legacy alias" }
+  - { id: "REQ-WF-001", type: "REQ", status: "SUPERSEDED", title: "REQ-WF-001 legacy alias" }
+  - { id: "NFR-REL-002", type: "NFR", status: "SUPERSEDED", title: "NFR-REL-002 legacy alias" }
+  - { id: "NFR-REL-003", type: "NFR", status: "SUPERSEDED", title: "NFR-REL-003 legacy alias" }
+  - { id: "NFR-REL-004", type: "NFR", status: "SUPERSEDED", title: "NFR-REL-004 legacy alias" }
+  - { id: "NFR-PRIV-001", type: "NFR", status: "SUPERSEDED", title: "NFR-PRIV-001 legacy alias" }
+  - { id: "NFR-MOD-002", type: "NFR", status: "SUPERSEDED", title: "NFR-MOD-002 legacy alias" }
+  - { id: "NFR-REC-003", type: "NFR", status: "SUPERSEDED", title: "NFR-REC-003 legacy alias" }
+  - { id: "TEST-SEC-IDENTITY-PRE-MFA-DENY", type: "TEST", status: "PLANNED", title: "TEST-SEC-IDENTITY-PRE-MFA-DENY" }
+  - { id: "TEST-SEC-ONE-TIME-SECRET-NO-REPLAY", type: "TEST", status: "PLANNED", title: "TEST-SEC-ONE-TIME-SECRET-NO-REPLAY" }
+  - { id: "TEST-RLS-WORKSPACE-CROSS-TENANT-DENY", type: "TEST", status: "PLANNED", title: "TEST-RLS-WORKSPACE-CROSS-TENANT-DENY" }
+  - { id: "TEST-WS-CONNECT-ORIGIN-CSRF-AUTHZ", type: "TEST", status: "PLANNED", title: "TEST-WS-CONNECT-ORIGIN-CSRF-AUTHZ" }
+  - { id: "TEST-WS-GAP-REPLAY-RESYNC", type: "TEST", status: "PLANNED", title: "TEST-WS-GAP-REPLAY-RESYNC" }
+  - { id: "TEST-FIN-UNKNOWN-COST-BASIS-NOT-ZERO", type: "TEST", status: "PLANNED", title: "TEST-FIN-UNKNOWN-COST-BASIS-NOT-ZERO" }
+  - { id: "TEST-FIN-TWR-GOLDEN-BASELINE", type: "TEST", status: "PLANNED", title: "TEST-FIN-TWR-GOLDEN-BASELINE" }
+  - { id: "TEST-XRAY-UNKNOWN-MASS-PRESERVED", type: "TEST", status: "PLANNED", title: "TEST-XRAY-UNKNOWN-MASS-PRESERVED" }
+  - { id: "TEST-XRAY-DETERMINISTIC-SAME-INPUT", type: "TEST", status: "PLANNED", title: "TEST-XRAY-DETERMINISTIC-SAME-INPUT" }
+  - { id: "TEST-WF-OUTCOME-UNKNOWN-NO-BLIND-RETRY", type: "TEST", status: "PLANNED", title: "TEST-WF-OUTCOME-UNKNOWN-NO-BLIND-RETRY" }
+  - { id: "TEST-AI-NO-FINANCIAL-EXECUTION-TOOLS", type: "TEST", status: "PLANNED", title: "TEST-AI-NO-FINANCIAL-EXECUTION-TOOLS" }
+  - { id: "TEST-A11Y-METRIC-CARD-STATE-MEANING", type: "TEST", status: "PLANNED", title: "TEST-A11Y-METRIC-CARD-STATE-MEANING" }
+  - { id: "TEST-VISUAL-METRIC-CARD-THEMES-STATES", type: "TEST", status: "PLANNED", title: "TEST-VISUAL-METRIC-CARD-THEMES-STATES" }
+  - { id: "TEST-A11Y-OVERVIEW-CORE", type: "TEST", status: "PLANNED", title: "TEST-A11Y-OVERVIEW-CORE" }
+  - { id: "TEST-DR-DELETED-WORKSPACE-NO-RESURRECT", type: "TEST", status: "PLANNED", title: "TEST-DR-DELETED-WORKSPACE-NO-RESURRECT" }
+  - { id: "TEST-FIN-XIRR-AMBIGUOUS-ROOTSET", type: "TEST", status: "PLANNED", title: "TEST-FIN-XIRR-AMBIGUOUS-ROOTSET" }
+  - { id: "TEST-XRAY-SIGNED-EXPOSURE-SEMANTICS", type: "TEST", status: "PLANNED", title: "TEST-XRAY-SIGNED-EXPOSURE-SEMANTICS" }
+  - { id: "TEST-VISUAL-OVERVIEW-RESPONSIVE", type: "TEST", status: "PLANNED", title: "TEST-VISUAL-OVERVIEW-RESPONSIVE" }
+  - { id: "DES-COMPONENT-METRIC-CARD-001", type: "DES", status: "PENDING", title: "Semantic metric-card record; visual approval pending" }
+  - { id: "DES-FRONTEND-OVERVIEW-001", type: "DES", status: "PENDING", title: "Semantic overview record; MEDIUM and COMPACT frames pending" }
+  - { id: "DOC:LEGACY-PR-001", type: "DOC", status: "LOCKED", title: "GitHub PR #1 legacy traceability exception predating P0-R37" }
+  - { id: "DOC:docs/planning/phase0-closure/AUTHORITY_SUPERSESSION_2026-10-12.md", type: "DOC", status: "LOCKED", title: "2026-10-12 authority supersession pointer" }
 
 edges:
   - { from: "SER-70", to: "P0-R26", relation: "implements" }
@@ -87,4 +228,90 @@ edges:
   - { from: "P0-R47", to: "DOC:docs/runbooks/workspace-deletion.md", relation: "documents" }
   - { from: "P0-R47", to: "DOC:docs/runbooks/provider-disconnect.md", relation: "documents" }
   - { from: "P0-R47", to: "DOC:docs/runbooks/data-export.md", relation: "documents" }
-
+  - { from: "SER-70", to: "P0-R48", relation: "implements" }
+  - { from: "SER-70", to: "P0-R49", relation: "implements" }
+  - { from: "SER-70", to: "P0-R50", relation: "implements" }
+  - { from: "SER-70", to: "P0-R51", relation: "implements" }
+  - { from: "SER-70", to: "P0-R52", relation: "implements" }
+  - { from: "SER-70", to: "P0-R53", relation: "implements" }
+  - { from: "SER-70", to: "P0-R54", relation: "implements" }
+  - { from: "SER-70", to: "P0-R55", relation: "implements" }
+  - { from: "SER-70", to: "P0-R56", relation: "implements" }
+  - { from: "SER-70", to: "P0-R57", relation: "implements" }
+  - { from: "REQ-REALTIME-001", to: "REQ-UI-002", relation: "supersedes" }
+  - { from: "REQ-REALTIME-002", to: "REQ-UI-002", relation: "supersedes" }
+  - { from: "REQ-FRONTEND-003", to: "REQ-UI-003", relation: "supersedes" }
+  - { from: "REQ-WORKFLOW-001", to: "REQ-WF-001", relation: "supersedes" }
+  - { from: "REQ-REALTIME-002", to: "NFR-REL-002", relation: "supersedes" }
+  - { from: "NFR-RELIABILITY-001", to: "NFR-REL-003", relation: "supersedes" }
+  - { from: "REQ-REALTIME-001", to: "NFR-REL-004", relation: "supersedes" }
+  - { from: "NFR-PRIVACY-002", to: "NFR-PRIV-001", relation: "supersedes" }
+  - { from: "NFR-MODULARITY-002", to: "NFR-MOD-002", relation: "supersedes" }
+  - { from: "NFR-RECOVERY-001", to: "NFR-REC-003", relation: "supersedes" }
+  - { from: "TEST-SEC-IDENTITY-PRE-MFA-DENY", to: "REQ-IDENTITY-001", relation: "tests" }
+  - { from: "TEST-SEC-IDENTITY-PRE-MFA-DENY", to: "NFR-SEC-001", relation: "tests" }
+  - { from: "TEST-SEC-IDENTITY-PRE-MFA-DENY", to: "NFR-SEC-005", relation: "tests" }
+  - { from: "TEST-SEC-ONE-TIME-SECRET-NO-REPLAY", to: "REQ-IDENTITY-003", relation: "tests" }
+  - { from: "TEST-SEC-ONE-TIME-SECRET-NO-REPLAY", to: "NFR-SEC-003", relation: "tests" }
+  - { from: "TEST-SEC-ONE-TIME-SECRET-NO-REPLAY", to: "NFR-RELIABILITY-001", relation: "tests" }
+  - { from: "TEST-RLS-WORKSPACE-CROSS-TENANT-DENY", to: "REQ-WORKSPACE-002", relation: "tests" }
+  - { from: "TEST-RLS-WORKSPACE-CROSS-TENANT-DENY", to: "NFR-SEC-002", relation: "tests" }
+  - { from: "TEST-WS-CONNECT-ORIGIN-CSRF-AUTHZ", to: "REQ-REALTIME-001", relation: "tests" }
+  - { from: "TEST-WS-CONNECT-ORIGIN-CSRF-AUTHZ", to: "NFR-SEC-001", relation: "tests" }
+  - { from: "TEST-WS-GAP-REPLAY-RESYNC", to: "REQ-REALTIME-002", relation: "tests" }
+  - { from: "TEST-WS-GAP-REPLAY-RESYNC", to: "NFR-RELIABILITY-002", relation: "tests" }
+  - { from: "TEST-FIN-UNKNOWN-COST-BASIS-NOT-ZERO", to: "REQ-PORTFOLIO-005", relation: "tests" }
+  - { from: "TEST-FIN-UNKNOWN-COST-BASIS-NOT-ZERO", to: "NFR-CORRECTNESS-002", relation: "tests" }
+  - { from: "TEST-FIN-TWR-GOLDEN-BASELINE", to: "REQ-ANALYTICS-001", relation: "tests" }
+  - { from: "TEST-FIN-TWR-GOLDEN-BASELINE", to: "REQ-ANALYTICS-002", relation: "tests" }
+  - { from: "TEST-FIN-TWR-GOLDEN-BASELINE", to: "NFR-CORRECTNESS-001", relation: "tests" }
+  - { from: "TEST-XRAY-UNKNOWN-MASS-PRESERVED", to: "REQ-XRAY-002", relation: "tests" }
+  - { from: "TEST-XRAY-UNKNOWN-MASS-PRESERVED", to: "REQ-XRAY-003", relation: "tests" }
+  - { from: "TEST-XRAY-UNKNOWN-MASS-PRESERVED", to: "NFR-CORRECTNESS-002", relation: "tests" }
+  - { from: "TEST-XRAY-DETERMINISTIC-SAME-INPUT", to: "REQ-XRAY-005", relation: "tests" }
+  - { from: "TEST-XRAY-DETERMINISTIC-SAME-INPUT", to: "NFR-CORRECTNESS-003", relation: "tests" }
+  - { from: "TEST-WF-OUTCOME-UNKNOWN-NO-BLIND-RETRY", to: "REQ-WORKFLOW-004", relation: "tests" }
+  - { from: "TEST-WF-OUTCOME-UNKNOWN-NO-BLIND-RETRY", to: "NFR-RELIABILITY-001", relation: "tests" }
+  - { from: "TEST-AI-NO-FINANCIAL-EXECUTION-TOOLS", to: "REQ-AI-004", relation: "tests" }
+  - { from: "TEST-AI-NO-FINANCIAL-EXECUTION-TOOLS", to: "NFR-SEC-001", relation: "tests" }
+  - { from: "TEST-A11Y-METRIC-CARD-STATE-MEANING", to: "REQ-FRONTEND-003", relation: "tests" }
+  - { from: "TEST-A11Y-METRIC-CARD-STATE-MEANING", to: "NFR-A11Y-001", relation: "tests" }
+  - { from: "TEST-A11Y-METRIC-CARD-STATE-MEANING", to: "DES-COMPONENT-METRIC-CARD-001", relation: "tests" }
+  - { from: "TEST-VISUAL-METRIC-CARD-THEMES-STATES", to: "REQ-FRONTEND-003", relation: "tests" }
+  - { from: "TEST-VISUAL-METRIC-CARD-THEMES-STATES", to: "NFR-CONFIG-001", relation: "tests" }
+  - { from: "TEST-VISUAL-METRIC-CARD-THEMES-STATES", to: "DES-COMPONENT-METRIC-CARD-001", relation: "tests" }
+  - { from: "TEST-A11Y-OVERVIEW-CORE", to: "REQ-FRONTEND-001", relation: "tests" }
+  - { from: "TEST-A11Y-OVERVIEW-CORE", to: "REQ-FRONTEND-002", relation: "tests" }
+  - { from: "TEST-A11Y-OVERVIEW-CORE", to: "REQ-PORTFOLIO-006", relation: "tests" }
+  - { from: "TEST-A11Y-OVERVIEW-CORE", to: "NFR-A11Y-001", relation: "tests" }
+  - { from: "TEST-A11Y-OVERVIEW-CORE", to: "NFR-A11Y-002", relation: "tests" }
+  - { from: "TEST-A11Y-OVERVIEW-CORE", to: "NFR-UX-001", relation: "tests" }
+  - { from: "TEST-A11Y-OVERVIEW-CORE", to: "DES-FRONTEND-OVERVIEW-001", relation: "tests" }
+  - { from: "TEST-DR-DELETED-WORKSPACE-NO-RESURRECT", to: "REQ-WORKSPACE-005", relation: "tests" }
+  - { from: "TEST-DR-DELETED-WORKSPACE-NO-RESURRECT", to: "NFR-RECOVERY-001", relation: "tests" }
+  - { from: "TEST-DR-DELETED-WORKSPACE-NO-RESURRECT", to: "NFR-RECOVERY-002", relation: "tests" }
+  - { from: "TEST-FIN-XIRR-AMBIGUOUS-ROOTSET", to: "REQ-ANALYTICS-002", relation: "tests" }
+  - { from: "TEST-FIN-XIRR-AMBIGUOUS-ROOTSET", to: "REQ-ANALYTICS-003", relation: "tests" }
+  - { from: "TEST-FIN-XIRR-AMBIGUOUS-ROOTSET", to: "NFR-CORRECTNESS-001", relation: "tests" }
+  - { from: "TEST-XRAY-SIGNED-EXPOSURE-SEMANTICS", to: "REQ-XRAY-003", relation: "tests" }
+  - { from: "TEST-XRAY-SIGNED-EXPOSURE-SEMANTICS", to: "NFR-CORRECTNESS-002", relation: "tests" }
+  - { from: "TEST-VISUAL-OVERVIEW-RESPONSIVE", to: "REQ-FRONTEND-001", relation: "tests" }
+  - { from: "TEST-VISUAL-OVERVIEW-RESPONSIVE", to: "REQ-FRONTEND-002", relation: "tests" }
+  - { from: "TEST-VISUAL-OVERVIEW-RESPONSIVE", to: "REQ-FRONTEND-003", relation: "tests" }
+  - { from: "TEST-VISUAL-OVERVIEW-RESPONSIVE", to: "NFR-A11Y-001", relation: "tests" }
+  - { from: "TEST-VISUAL-OVERVIEW-RESPONSIVE", to: "NFR-A11Y-002", relation: "tests" }
+  - { from: "TEST-VISUAL-OVERVIEW-RESPONSIVE", to: "NFR-UX-001", relation: "tests" }
+  - { from: "TEST-VISUAL-OVERVIEW-RESPONSIVE", to: "DES-FRONTEND-OVERVIEW-001", relation: "tests" }
+  - { from: "DES-COMPONENT-METRIC-CARD-001", to: "REQ-FRONTEND-003", relation: "references" }
+  - { from: "DES-COMPONENT-METRIC-CARD-001", to: "NFR-A11Y-001", relation: "references" }
+  - { from: "DES-COMPONENT-METRIC-CARD-001", to: "NFR-CONFIG-001", relation: "references" }
+  - { from: "DES-FRONTEND-OVERVIEW-001", to: "REQ-FRONTEND-001", relation: "references" }
+  - { from: "DES-FRONTEND-OVERVIEW-001", to: "REQ-FRONTEND-002", relation: "references" }
+  - { from: "DES-FRONTEND-OVERVIEW-001", to: "REQ-FRONTEND-003", relation: "references" }
+  - { from: "DES-FRONTEND-OVERVIEW-001", to: "REQ-PORTFOLIO-006", relation: "references" }
+  - { from: "DES-FRONTEND-OVERVIEW-001", to: "NFR-A11Y-001", relation: "references" }
+  - { from: "DES-FRONTEND-OVERVIEW-001", to: "NFR-A11Y-002", relation: "references" }
+  - { from: "DES-FRONTEND-OVERVIEW-001", to: "NFR-UX-001", relation: "references" }
+  - { from: "DES-FRONTEND-OVERVIEW-001", to: "NFR-CONFIG-001", relation: "references" }
+  - { from: "P0-R37", to: "DOC:LEGACY-PR-001", relation: "documents" }
+  - { from: "SER-70", to: "DOC:docs/planning/phase0-closure/AUTHORITY_SUPERSESSION_2026-10-12.md", relation: "documents" }

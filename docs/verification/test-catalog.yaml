@@ -1,3 +1,215 @@
-# PENDING — owned by SER-107
-items: []
-
+schemaVersion: 1
+items:
+  - id: "TEST-SEC-IDENTITY-PRE-MFA-DENY"
+    status: "PLANNED"
+    category: "SEC"
+    owner: "identity"
+    assertion: "An account that has not completed required MFA cannot access any workspace or financial application use case, and the failure surface does not grant an authenticated workspace context."
+    requirementRefs: ["REQ-IDENTITY-001", "NFR-SEC-001", "NFR-SEC-005"]
+    executionLane: "INTEGRATION"
+    requiredEnvironment: "SYNTHETIC_CI"
+    requiredDataClass: "SYNTHETIC"
+    releaseBlocking: true
+  - id: "TEST-SEC-ONE-TIME-SECRET-NO-REPLAY"
+    status: "PLANNED"
+    category: "SEC"
+    owner: "identity"
+    assertion: "Repeating a committed secret-producing command with the same idempotency key does not create a second effect and cannot replay persisted plaintext secret material."
+    requirementRefs: ["REQ-IDENTITY-003", "NFR-SEC-003", "NFR-RELIABILITY-001"]
+    contractRefs: ["identity.authenticator.enroll.begin:v1", "identity.authenticator.enroll.confirm:v1"]
+    executionLane: "INTEGRATION"
+    requiredEnvironment: "SYNTHETIC_CI"
+    requiredDataClass: "SYNTHETIC"
+    releaseBlocking: true
+  - id: "TEST-RLS-WORKSPACE-CROSS-TENANT-DENY"
+    status: "PLANNED"
+    category: "RLS"
+    owner: "workspace-security"
+    assertion: "A runtime role operating with workspace A transaction-local context cannot select, insert, update or delete workspace B sensitive rows, including guessed valid identifiers."
+    requirementRefs: ["REQ-WORKSPACE-002", "NFR-SEC-002"]
+    executionLane: "INTEGRATION"
+    requiredEnvironment: "LOCAL_SYNTHETIC"
+    requiredDataClass: "WORKSPACE_SYNTHETIC"
+    releaseBlocking: true
+  - id: "TEST-WS-CONNECT-ORIGIN-CSRF-AUTHZ"
+    status: "PLANNED"
+    category: "WS"
+    owner: "realtime"
+    assertion: "STOMP CONNECT requires an authenticated session, an accepted exact Origin and a valid CSRF session binding. Failure produces no application subscription."
+    requirementRefs: ["REQ-REALTIME-001", "NFR-SEC-001"]
+    executionLane: "INTEGRATION"
+    requiredEnvironment: "LOCAL_SYNTHETIC"
+    requiredDataClass: "SYNTHETIC"
+    releaseBlocking: true
+  - id: "TEST-WS-GAP-REPLAY-RESYNC"
+    status: "PLANNED"
+    category: "WS"
+    owner: "realtime"
+    assertion: "A sequence gap is not applied out of order. The client enters resync and converges to the durable PostgreSQL-backed stream state."
+    requirementRefs: ["REQ-REALTIME-002", "NFR-RELIABILITY-002"]
+    executionLane: "E2E"
+    requiredEnvironment: "LOCAL_SYNTHETIC"
+    requiredDataClass: "WORKSPACE_SYNTHETIC"
+    releaseBlocking: true
+  - id: "TEST-FIN-UNKNOWN-COST-BASIS-NOT-ZERO"
+    status: "PLANNED"
+    category: "FIN"
+    owner: "portfolio"
+    assertion: "Unknown cost basis yields a typed unknown or partial result and never a numeric zero or fabricated realized or unrealized profit and loss."
+    requirementRefs: ["REQ-PORTFOLIO-005", "NFR-CORRECTNESS-002"]
+    fixtureRefs: ["FIX-PORTFOLIO-COST-BASIS-UNKNOWN-V1"]
+    executionLane: "UNIT"
+    requiredEnvironment: "SYNTHETIC_CI"
+    requiredDataClass: "SYNTHETIC"
+    releaseBlocking: true
+  - id: "TEST-FIN-TWR-GOLDEN-BASELINE"
+    status: "PLANNED"
+    category: "FIN"
+    owner: "analytics"
+    assertion: "TRUE_TWR over the independent golden cash-flow and valuation vector produces the accepted exact decimal result under the declared timing policy."
+    requirementRefs: ["REQ-ANALYTICS-001", "REQ-ANALYTICS-002", "NFR-CORRECTNESS-001"]
+    fixtureRefs: ["FIX-PERFORMANCE-TWR-GOLDEN-V1", "GOLDEN-FIN-TWR-001"]
+    executionLane: "UNIT"
+    requiredEnvironment: "SYNTHETIC_CI"
+    requiredDataClass: "SYNTHETIC"
+    releaseBlocking: true
+  - id: "TEST-XRAY-UNKNOWN-MASS-PRESERVED"
+    status: "PLANNED"
+    category: "XRAY"
+    owner: "portfolio-xray"
+    assertion: "Recursive look-through preserves unknown or unresolved mass and does not redistribute it across known exposures."
+    requirementRefs: ["REQ-XRAY-002", "REQ-XRAY-003", "NFR-CORRECTNESS-002"]
+    fixtureRefs: ["FIX-XRAY-UNKNOWN-MASS-V1", "GOLDEN-XRAY-COVERAGE-001"]
+    executionLane: "UNIT"
+    requiredEnvironment: "SYNTHETIC_CI"
+    requiredDataClass: "SYNTHETIC"
+    releaseBlocking: true
+  - id: "TEST-XRAY-DETERMINISTIC-SAME-INPUT"
+    status: "PLANNED"
+    category: "XRAY"
+    owner: "portfolio-xray"
+    assertion: "The same semantic snapshot, composition, knowledge, policy and algorithm inputs produce equivalent canonical X-Ray output independent of iteration or order artifacts."
+    requirementRefs: ["REQ-XRAY-005", "NFR-CORRECTNESS-003"]
+    fixtureRefs: ["FIX-XRAY-DETERMINISM-V1"]
+    executionLane: "UNIT"
+    requiredEnvironment: "SYNTHETIC_CI"
+    requiredDataClass: "SYNTHETIC"
+    releaseBlocking: true
+  - id: "TEST-WF-OUTCOME-UNKNOWN-NO-BLIND-RETRY"
+    status: "PLANNED"
+    category: "WF"
+    owner: "workflow"
+    assertion: "An external effect in OUTCOME_UNKNOWN transitions to reconciliation and cannot dispatch a new provider attempt until absence or idempotent safety is established."
+    requirementRefs: ["REQ-WORKFLOW-004", "NFR-RELIABILITY-001"]
+    executionLane: "INTEGRATION"
+    requiredEnvironment: "LOCAL_SYNTHETIC"
+    requiredDataClass: "SYNTHETIC"
+    releaseBlocking: true
+  - id: "TEST-AI-NO-FINANCIAL-EXECUTION-TOOLS"
+    status: "PLANNED"
+    category: "AI"
+    owner: "ai"
+    assertion: "The tool registry exposed to the financial orchestrator contains no order, transfer, withdraw or equivalent financial-execution capability under any prompt, role or workflow context."
+    requirementRefs: ["REQ-AI-004", "NFR-SEC-001"]
+    executionLane: "INTEGRATION"
+    requiredEnvironment: "SYNTHETIC_CI"
+    requiredDataClass: "SYNTHETIC"
+    releaseBlocking: true
+  - id: "TEST-A11Y-METRIC-CARD-STATE-MEANING"
+    status: "PLANNED"
+    category: "A11Y"
+    owner: "frontend"
+    assertion: "Metric card default, stale, unknown and error meaning is available through text and semantics and does not require color perception."
+    requirementRefs: ["REQ-FRONTEND-003", "NFR-A11Y-001"]
+    designRefs: ["DES-COMPONENT-METRIC-CARD-001"]
+    executionLane: "E2E"
+    requiredEnvironment: "LOCAL_SYNTHETIC"
+    requiredDataClass: "SYNTHETIC"
+    releaseBlocking: true
+  - id: "TEST-VISUAL-METRIC-CARD-THEMES-STATES"
+    status: "PLANNED"
+    category: "VISUAL"
+    owner: "frontend"
+    assertion: "Accepted metric-card theme and state variants render against the approved design and token revision without unintended visual drift."
+    requirementRefs: ["REQ-FRONTEND-003", "NFR-CONFIG-001"]
+    designRefs: ["DES-COMPONENT-METRIC-CARD-001"]
+    executionLane: "E2E"
+    requiredEnvironment: "LOCAL_SYNTHETIC"
+    requiredDataClass: "SYNTHETIC"
+    releaseBlocking: false
+  - id: "TEST-A11Y-OVERVIEW-CORE"
+    status: "PLANNED"
+    category: "A11Y"
+    owner: "frontend"
+    assertion: "Portfolio Overview keeps its primary information, warnings, coverage and unknown semantics, and interactive controls keyboard and semantically accessible across accepted responsive layouts."
+    requirementRefs: ["REQ-FRONTEND-001", "REQ-FRONTEND-002", "REQ-PORTFOLIO-006", "NFR-A11Y-001", "NFR-A11Y-002", "NFR-UX-001"]
+    designRefs: ["DES-FRONTEND-OVERVIEW-001"]
+    executionLane: "E2E"
+    requiredEnvironment: "LOCAL_SYNTHETIC"
+    requiredDataClass: "WORKSPACE_SYNTHETIC"
+    releaseBlocking: true
+  - id: "TEST-DR-DELETED-WORKSPACE-NO-RESURRECT"
+    status: "PLANNED"
+    category: "DR"
+    owner: "operations"
+    assertion: "Restoring a backup that predates workspace deletion remains quarantined until recovery-control tombstones are reapplied, and the deleted workspace cannot become ready or user-visible."
+    requirementRefs: ["REQ-WORKSPACE-005", "NFR-RECOVERY-001", "NFR-RECOVERY-002"]
+    executionLane: "RECOVERY"
+    requiredEnvironment: "RECOVERY_LAB"
+    requiredDataClass: "WORKSPACE_SYNTHETIC"
+    releaseBlocking: true
+  - id: "TEST-FIN-XIRR-AMBIGUOUS-ROOTSET"
+    status: "PLANNED"
+    category: "FIN"
+    owner: "TEST-FIN"
+    assertion: "Ambiguous multi-root XIRR returns AMBIGUOUS with the accepted root set and no selected root."
+    requirementRefs: ["REQ-ANALYTICS-002", "REQ-ANALYTICS-003", "NFR-CORRECTNESS-001"]
+    fixtureRefs: ["GOLDEN-FIN-XIRR-AMB-001"]
+    executionLane: "UNIT"
+    requiredEnvironment: "SYNTHETIC_CI"
+    requiredDataClass: "SYNTHETIC"
+    releaseBlocking: true
+  - id: "TEST-XRAY-SIGNED-EXPOSURE-SEMANTICS"
+    status: "PLANNED"
+    category: "XRAY"
+    owner: "TEST-XRAY"
+    assertion: "Signed gross and net exposure semantics are preserved, and long-only overlap is not applied where it is not applicable."
+    requirementRefs: ["REQ-XRAY-003", "NFR-CORRECTNESS-002"]
+    fixtureRefs: ["GOLDEN-XRAY-SIGNED-001"]
+    executionLane: "UNIT"
+    requiredEnvironment: "SYNTHETIC_CI"
+    requiredDataClass: "SYNTHETIC"
+    releaseBlocking: true
+  - id: "TEST-VISUAL-OVERVIEW-RESPONSIVE"
+    status: "PLANNED"
+    category: "VISUAL"
+    owner: "frontend"
+    assertion: "Portfolio Overview responsive composition is verified only after exact reviewed frames exist for COMPACT 390x844, MEDIUM 834x1112 and EXPANDED 1440x1024 across the accepted light and dark themes and required material states."
+    requirementRefs: ["REQ-FRONTEND-001", "REQ-FRONTEND-002", "REQ-FRONTEND-003", "NFR-A11Y-001", "NFR-A11Y-002", "NFR-UX-001"]
+    designRefs: ["DES-FRONTEND-OVERVIEW-001"]
+    executionLane: "E2E"
+    requiredEnvironment: "LOCAL_SYNTHETIC"
+    requiredDataClass: "SYNTHETIC"
+    releaseBlocking: false
+    evidenceGate: "EVIDENCE_PENDING_FIGMA"
+externalGoldenVectors:
+  - id: "GOLDEN-FIN-TWR-001"
+    sha256: "07073520429238a599e0b177071b9549c53dcfb85d9fe67ff0182a1f2a25552c"
+    normativeTestId: "TEST-FIN-TWR-GOLDEN-BASELINE"
+    supersededAliases: ["TEST-FIN-TWR-001"]
+    provenance: ACCEPTED_EXTERNAL_HASH
+  - id: "GOLDEN-FIN-XIRR-AMB-001"
+    sha256: "3b79f6b9e5dd2076ee2831b95966936ede86bea5a95695ecb8a8bbaab08be888"
+    normativeTestId: "TEST-FIN-XIRR-AMBIGUOUS-ROOTSET"
+    supersededAliases: ["TEST-FIN-XIRR-AMB-001"]
+    provenance: ACCEPTED_EXTERNAL_HASH
+  - id: "GOLDEN-XRAY-COVERAGE-001"
+    sha256: "7f9566d77df26ef022ddfe6b3c52e064cb35c131959b032d60145fd4cf0daa01"
+    normativeTestId: "TEST-XRAY-UNKNOWN-MASS-PRESERVED"
+    supersededAliases: ["TEST-XRAY-COVERAGE-001"]
+    provenance: ACCEPTED_EXTERNAL_HASH
+  - id: "GOLDEN-XRAY-SIGNED-001"
+    sha256: "58b248358b11808fbb018e3eee20c3edad5c1bfa3015ea09b7cdd79984263bc3"
+    normativeTestId: "TEST-XRAY-SIGNED-EXPOSURE-SEMANTICS"
+    supersededAliases: ["TEST-XRAY-SIGNED-001"]
+    provenance: ACCEPTED_EXTERNAL_HASH
