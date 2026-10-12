@@ -2,30 +2,48 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "Verification Test Catalog",
   "type": "object",
-  "required": ["items"],
+  "required": ["schemaVersion", "items", "externalGoldenVectors"],
+  "additionalProperties": false,
   "properties": {
+    "schemaVersion": { "const": 1 },
     "items": {
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["id", "dimension", "owner", "status"],
+        "required": ["id", "status", "category", "owner", "assertion", "requirementRefs", "executionLane", "requiredEnvironment", "requiredDataClass", "releaseBlocking"],
+        "additionalProperties": false,
         "properties": {
-          "id": { "type": "string", "pattern": "^TEST-[A-Za-z0-9_-]+$" },
-          "dimension": {
-            "type": "string",
-            "enum": ["ACC","CONTRACT","ARCH","SEC","RLS","WS","MIGR","WF","FIN","XRAY","AI","A11Y","VISUAL","DR","PERF"]
-          },
-          "owner": { "type": "string" },
-          "status": { "type": "string", "enum": ["PENDING","LOCKED","SUPERSEDED"] },
-          "refs": {
-            "type": "array",
-            "items": { "type": "string" }
-          }
-        },
-        "additionalProperties": false
+          "id": { "type": "string", "pattern": "^TEST-(ACC|CONTRACT|ARCH|SEC|RLS|WS|MIGR|WF|FIN|XRAY|AI|A11Y|VISUAL|DR|PERF)-[A-Z0-9][A-Z0-9-]*$" },
+          "status": { "type": "string", "enum": ["PLANNED", "IMPLEMENTED", "SUPERSEDED"] },
+          "category": { "type": "string", "enum": ["ACC", "CONTRACT", "ARCH", "SEC", "RLS", "WS", "MIGR", "WF", "FIN", "XRAY", "AI", "A11Y", "VISUAL", "DR", "PERF"] },
+          "owner": { "type": "string", "minLength": 1 },
+          "assertion": { "type": "string", "minLength": 1 },
+          "requirementRefs": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "type": "string" } },
+          "contractRefs": { "type": "array", "uniqueItems": true, "items": { "type": "string" } },
+          "designRefs": { "type": "array", "uniqueItems": true, "items": { "type": "string", "pattern": "^DES-[A-Z0-9][A-Z0-9-]*-[0-9]{3}$" } },
+          "fixtureRefs": { "type": "array", "uniqueItems": true, "items": { "type": "string" } },
+          "executionLane": { "type": "string", "enum": ["UNIT", "INTEGRATION", "CONTRACT", "E2E", "LOCAL_REAL_PROVIDER", "RECOVERY", "BENCHMARK"] },
+          "requiredEnvironment": { "type": "string", "enum": ["SYNTHETIC_CI", "LOCAL_SYNTHETIC", "LOCAL_PRIVILEGED", "PROVIDER_SMOKE", "RECOVERY_LAB"] },
+          "requiredDataClass": { "type": "string", "enum": ["SYNTHETIC", "PUBLIC", "WORKSPACE_SYNTHETIC", "REAL_PROVIDER_SECRET_BEARING"] },
+          "releaseBlocking": { "type": "boolean" },
+          "evidenceGate": { "type": "string", "enum": ["EVIDENCE_PENDING_FIGMA"] }
+        }
+      }
+    },
+    "externalGoldenVectors": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "sha256", "normativeTestId", "supersededAliases", "provenance"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string", "pattern": "^GOLDEN-[A-Z0-9-]+$" },
+          "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+          "normativeTestId": { "type": "string" },
+          "supersededAliases": { "type": "array", "items": { "type": "string" } },
+          "provenance": { "const": "ACCEPTED_EXTERNAL_HASH" }
+        }
       }
     }
-  },
-  "additionalProperties": false
+  }
 }
-

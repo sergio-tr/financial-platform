@@ -59,6 +59,7 @@ docs/architecture/repository-structure.md
 docs/architecture/technology-baseline.md
 docs/architecture/websocket-architecture.md
 docs/connectors/connector-spi.md
+docs/contracts/README.md
 docs/domain/portfolio-xray.md
 docs/planning/cursor-operating-model.md
 docs/planning/cursor-phase0-execution-prompt.md
@@ -73,6 +74,10 @@ docs/governance/api-registry.md
 docs/governance/traceability/traceability.schema.json
 docs/governance/traceability/traceability.yaml
 docs/governance/traceability/review-adjudication.md
+docs/requirements/functional/README.md
+docs/requirements/functional/TEMPLATE.md
+docs/requirements/nfr/README.md
+docs/requirements/nfr/TEMPLATE.md
 docs/security/security-architecture.md
 docs/security/threat-model.md
 docs/security/README-data-classification.md
@@ -94,6 +99,7 @@ docs/design/design-manifest.yaml
 docs/workflows/workflow-architecture.md
 
 # Phase 0 closure evidence (planning-only; IMPLEMENTATION_LOCK=ON)
+docs/planning/phase0-closure/AUTHORITY_SUPERSESSION_2026-10-12.md
 docs/planning/phase0-closure/AUTHORITY_SUPERSESSION_2026-10-03.md
 docs/planning/phase0-closure/AUTHORITY_SUPERSESSION_2026-09-26.md
 docs/planning/phase0-closure/NAMESPACE_DRIFT.md

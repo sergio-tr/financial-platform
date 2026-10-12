@@ -63,7 +63,7 @@ Backups are encrypted. Retention baseline: 7 daily, 4 weekly, 3 monthly. Restore
 - Workspace-sensitive transactions set per-transaction variables: `app.actor_type`, `app.actor_id`, `app.authenticated_user_id`, `app.workspace_id`, `app.security_revision`, `app.trace_id`; never session-global/pool-wide.
 - WORKSPACE_SENSITIVE physical tables: `workspace_id` NOT NULL + ENABLE/FORCE RLS with `USING`/`WITH CHECK` policies.
 - SYSTEM_SECURITY uses a dedicated policy (not a generic tenant read).
-- Runtime roles (e.g., `gafi_gateway`, `gafi_worker`) do not hold superuser/BYPASSRLS/TRUNCATE/schema CREATE/privileged SET ROLE.
+- Accepted database roles are exactly `sergiotr_gateway`, `sergiotr_worker`, `sergiotr_migrator`, `sergiotr_backup` and `sergiotr_db_owner`. Runtime roles do not hold superuser, BYPASSRLS, TRUNCATE, schema CREATE or privileged SET ROLE. This document does not define a sixth application role.
 - RLS is defense-in-depth after app authorization, not a claim against arbitrary SQL compromise. Zero unclassified physical objects.
 
 ## Data classification and sinks (R46)

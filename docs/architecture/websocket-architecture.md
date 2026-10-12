@@ -17,9 +17,11 @@ Client -> server destinations:
 - `/app/v1/queries/**`
 
 Server -> authenticated user (fixed outbound destinations):
-- `/user/exchange/amq.direct/gafi.v1.control`
-- `/user/exchange/amq.direct/gafi.v1.events`
-- `/user/exchange/amq.direct/gafi.v1.artifacts`
+- `/user/exchange/amq.direct/sergiotr.v1.control`
+- `/user/exchange/amq.direct/sergiotr.v1.events`
+- `/user/exchange/amq.direct/sergiotr.v1.artifacts`
+
+The accepted set is exactly these three destinations. There is no fourth replies destination. The default Origin host is `sergiotr.home.arpa`. Client acknowledgment is session flow-control, not a business ordering guarantee. PostgreSQL remains the replay authority and the broker remains a live relay.
 
 Financial/private payloads must not be broadcast on global public topics.
 

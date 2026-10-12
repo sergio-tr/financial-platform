@@ -20,7 +20,8 @@ Status: CANONICAL — defines versioning/compatibility and ownership for cross-s
 ## Transport notes (R42)
 - STOMP 1.2 only over native WSS. No SSE, no SockJS, no permessage-deflate.
 - Client -> server: `/app/v1/commands/**`, `/app/v1/queries/**`
-- Server -> user: `/user/exchange/amq.direct/gafi.v1.control|events|artifacts`
+- Server -> user, exactly three destinations: `/user/exchange/amq.direct/sergiotr.v1.control`, `/user/exchange/amq.direct/sergiotr.v1.events`, `/user/exchange/amq.direct/sergiotr.v1.artifacts`
+- There is no fourth replies destination. The default Origin host is `sergiotr.home.arpa`. Client acknowledgment is session flow-control. PostgreSQL is the replay authority.
 - Rabbit is an ephemeral relay; PostgreSQL is canonical for durable replay.
 
 References: ADR-0003, ADR-0004, ADR-0005; R42 realtime additions.

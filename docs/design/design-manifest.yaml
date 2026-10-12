@@ -1,3 +1,38 @@
-# PENDING — owned by SER-108/SER-51
-components: []
-
+schemaVersion: 1
+figmaFileKey: "vNGRqJpCWQ3FpWjC1nwvpU"
+observedFileNodes:
+  - { role: PAGE_FOUNDATIONS, nodeId: "0:1" }
+  - { role: PAGE_COMPONENTS, nodeId: "5:2" }
+  - { role: PAGE_OVERVIEW, nodeId: "5:3" }
+  - { role: REVIEW_FRAME, nodeId: "5:4" }
+canonicalNames:
+  - "Sergiotr/MetricCard"
+  - "Sergiotr/Primitive"
+  - "Sergiotr/Foundation"
+  - "Sergiotr/Semantic/Light"
+  - "Sergiotr/Semantic/Dark"
+  - "Sergiotr Foundations / Review Candidate"
+tokenMaterialization: PENDING_SER-51
+components:
+  - id: "DES-COMPONENT-METRIC-CARD-001"
+    semanticStatus: LOCKED_FOR_P0_SEMANTICS
+    evidenceStatus: FIGMA_EVIDENCE_PENDING
+    canonicalName: "Sergiotr/MetricCard"
+    requirementRefs: ["REQ-FRONTEND-003", "NFR-A11Y-001", "NFR-CONFIG-001"]
+    observedNodes:
+      - { role: COMPONENT_SET, nodeId: "6:40" }
+    tokens: []
+    approval: NOT_RECORDED
+  - id: "DES-FRONTEND-OVERVIEW-001"
+    semanticStatus: LOCKED_FOR_P0_SEMANTICS
+    evidenceStatus: FIGMA_EVIDENCE_PENDING
+    requirementRefs: ["REQ-FRONTEND-001", "REQ-FRONTEND-002", "REQ-FRONTEND-003", "REQ-PORTFOLIO-006", "NFR-A11Y-001", "NFR-A11Y-002", "NFR-UX-001", "NFR-CONFIG-001"]
+    observedNodes:
+      - { role: EXPANDED, nodeId: "8:2" }
+    absentBreakpoints:
+      - { class: MEDIUM, evidence: NO_NODE_ID }
+      - { class: COMPACT, evidence: NO_NODE_ID }
+    notApplicableBreakpoints:
+      - { class: WIDE, reason: V1_DENSITY_ONLY }
+    tokens: []
+    approval: NOT_RECORDED

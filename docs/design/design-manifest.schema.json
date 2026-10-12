@@ -2,26 +2,89 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "Design Manifest",
   "type": "object",
-  "required": ["components"],
+  "required": ["schemaVersion", "figmaFileKey", "observedFileNodes", "canonicalNames", "tokenMaterialization", "components"],
+  "additionalProperties": false,
   "properties": {
+    "schemaVersion": { "const": 1 },
+    "figmaFileKey": { "const": "vNGRqJpCWQ3FpWjC1nwvpU" },
+    "observedFileNodes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["role", "nodeId"],
+        "additionalProperties": false,
+        "properties": {
+          "role": { "enum": ["PAGE_FOUNDATIONS", "PAGE_COMPONENTS", "PAGE_OVERVIEW", "REVIEW_FRAME"] },
+          "nodeId": { "enum": ["0:1", "5:2", "5:3", "5:4"] }
+        }
+      }
+    },
+    "canonicalNames": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "Sergiotr/MetricCard",
+          "Sergiotr/Primitive",
+          "Sergiotr/Foundation",
+          "Sergiotr/Semantic/Light",
+          "Sergiotr/Semantic/Dark",
+          "Sergiotr Foundations / Review Candidate"
+        ]
+      }
+    },
+    "tokenMaterialization": { "const": "PENDING_SER-51" },
     "components": {
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["id", "figmaNode", "tokens"],
+        "required": ["id", "semanticStatus", "evidenceStatus", "requirementRefs", "observedNodes", "tokens", "approval"],
+        "additionalProperties": false,
         "properties": {
-          "id": { "type": "string", "pattern": "^DES-[A-Za-z0-9_-]+$" },
-          "figmaNode": { "type": "string" },
-          "tokens": {
+          "id": { "type": "string", "pattern": "^DES-[A-Z0-9][A-Z0-9-]*-[0-9]{3}$" },
+          "semanticStatus": { "const": "LOCKED_FOR_P0_SEMANTICS" },
+          "evidenceStatus": { "const": "FIGMA_EVIDENCE_PENDING" },
+          "canonicalName": { "type": "string" },
+          "requirementRefs": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "type": "string" } },
+          "observedNodes": {
             "type": "array",
-            "items": { "type": "string" }
+            "items": {
+              "type": "object",
+              "required": ["role", "nodeId"],
+              "additionalProperties": false,
+              "properties": {
+                "role": { "enum": ["COMPONENT_SET", "EXPANDED"] },
+                "nodeId": { "enum": ["6:40", "8:2"] }
+              }
+            }
           },
-          "notes": { "type": "string" }
-        },
-        "additionalProperties": false
+          "absentBreakpoints": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["class", "evidence"],
+              "additionalProperties": false,
+              "properties": {
+                "class": { "enum": ["MEDIUM", "COMPACT"] },
+                "evidence": { "const": "NO_NODE_ID" }
+              }
+            }
+          },
+          "notApplicableBreakpoints": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["class", "reason"],
+              "additionalProperties": false,
+              "properties": {
+                "class": { "const": "WIDE" },
+                "reason": { "const": "V1_DENSITY_ONLY" }
+              }
+            }
+          },
+          "tokens": { "type": "array", "maxItems": 0 },
+          "approval": { "const": "NOT_RECORDED" }
+        }
       }
     }
-  },
-  "additionalProperties": false
+  }
 }
-

@@ -1,52 +1,51 @@
 ## Linear
 
-Link to the Linear issue and status.
+Primary: SER-NNN
 
 ## Requirements
 
-- Catalog entries: `docs/requirements/functional/**`, `docs/requirements/nfr/**`
-- State remains Phase 0 (LOCKED/PLANNED/PENDING as applicable)
+Catalog index: `docs/requirements/functional/README.md` and `docs/requirements/nfr/README.md`.
+Phase 0 identifiers stay LOCKED definitions. Do not mark them IMPLEMENTED or VERIFIED in this phase.
 
 ## Architecture
 
-List impacted packs/ADRs (e.g., R26/R41/R42/R43/R46/R47; ADR-0003/0004/0005/0008/0018/0019/0023/0024).
+List impacted packs. The current governance cut is P0-R26 through P0-R57, including the namespace amendments to P0-R40, P0-R41 and P0-R42, plus SER-101, SER-107 and SER-108 when those registries change.
 
 ## Use cases
 
-Structure only; do not materialize `<context>.api` methods in this PR.
+Name canonical use-case identifiers, or `N/A — DOC_GOVERNANCE_ONLY` for a documentation synchronization.
 
 ## Contracts
 
-Registry at `docs/governance/api-registry.md` (PENDING rows until SER-92..95). No concrete `contracts/**` added in this PR.
+Registry pointer: `docs/governance/api-registry.md`. Concrete `contracts/**` bodies stay pending until the owning contract materialization. Do not add placeholder schemas.
 
 ## Design
 
-`docs/design/**` manifest and `design/tokens/**` (R45). Tokens are Git-authoritative; Figma `DES-*` are presentation authority.
-
-## Verification
-
-`docs/verification/test-catalog.{schema.json,yaml}` (R44). Catalog entries may be PENDING (SER-107).
+`docs/design/design-manifest.yaml` records semantic DES identities. DTCG token values stay owned by SER-51. Do not invent frame identifiers.
 
 ## Tests
 
-No product tests in this PR (documentation/governance only).
+Normative identities live in `docs/verification/test-catalog.yaml` and remain PLANNED until a source and a passing run exist.
 
 ## Docs / Runbooks
 
-Add/update manifests, traceability, security, lifecycle and runbooks as applicable.
+List governance, security and runbook paths changed by the pull request.
 
 ## Security / Data impact
 
-R41/R43/R46/R47 policies documented. No real data/secrets; no SECRET in exports; deny-by-default sinks documented.
+State the classification, retention, secret-boundary and realtime impact even when the change is documentation only. Real personal, financial, security and secret data does not enter Git, pull requests, cloud CI, Slack, Linear or Figma.
 
 ## Migrations
 
-N/A — documentation/governance only.
+N/A — documentation/governance only, unless this pull request contains a migration.
 
 ---
 
 Squash body must include:
+
 ```
 Refs: SER-70
-Trace: P0-R26, P0-R35, P0-R36, P0-R37, P0-R38, P0-R39, P0-R40, P0-R41, P0-R42, P0-R43, P0-R44, P0-R45, P0-R46, P0-R47; ADR-0003, ADR-0004, ADR-0005, ADR-0008, ADR-0018, ADR-0019, ADR-0023, ADR-0024
+Trace: P0-R26, P0-R35, P0-R36, P0-R37, P0-R38, P0-R39, P0-R40, P0-R41, P0-R42, P0-R43, P0-R44, P0-R45, P0-R46, P0-R47, P0-R48, P0-R49, P0-R50, P0-R51, P0-R52, P0-R53, P0-R54, P0-R55, P0-R56, P0-R57, SER-101, SER-107, SER-108
 ```
+
+GitHub PR #1 remains the legacy traceability exception and is not rewritten.
