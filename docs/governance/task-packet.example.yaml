@@ -1,0 +1,36 @@
+schemaVersion: 1
+taskId: SER-115
+taskKind: GOVERNANCE
+mode: PLAN
+risk: LOW
+baseRevision: "0000000000000000000000000000000000000000"
+packetHash: "0000000000000000000000000000000000000000000000000000000000000000"
+authorityRefs:
+  - SER-115
+  - P0-R52
+  - ADR-0023
+allowedPaths:
+  - docs/governance/**
+  - scripts/governance/**
+  - .cursor/rules/**
+forbiddenPaths:
+  - backend/**
+  - frontend/**
+  - contracts/generated/**
+requirements: NOT_APPLICABLE
+contracts: NOT_APPLICABLE
+design: NOT_APPLICABLE
+tests:
+  - TEST-ARCH-TASK-PACKET-FIREWALL
+security:
+  - NFR-SEC-001
+financial: NOT_APPLICABLE
+migrations: NOT_APPLICABLE
+workflows: NOT_APPLICABLE
+acceptance:
+  required: false
+  environment: CI_SYNTHETIC
+  humanApproval: false
+definitionOfDone:
+  - Schema validates.
+  - Invalid packets fail before repository edits.

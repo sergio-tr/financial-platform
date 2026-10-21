@@ -1,0 +1,18 @@
+schemaVersion: 1
+clock: "2026-01-15T12:00:00Z"
+randomSeed: 57055
+fixtures:
+  - id: FIX-PERSONA-ALPHA
+    kind: PERSONA
+    path: test/fixtures/personas/alpha.yaml
+    classification: SYNTHETIC
+    contentHash: PENDING
+    owner: SER-116
+    normative: false
+  - id: FIX-PROVIDER-SIM-BASE
+    kind: PROVIDER_SIMULATOR
+    path: test/provider-simulators/README.md
+    classification: SYNTHETIC
+    contentHash: PENDING
+    owner: SER-116
+    normative: false
