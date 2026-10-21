@@ -1,0 +1,37 @@
+name: phase0-governance
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  governance:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install validators
+        run: python -m pip install --disable-pip-version-check PyYAML==6.0.3 jsonschema==4.25.1
+      - name: Traceability and catalogs
+        run: python scripts/governance/validate-traceability.py
+      - name: TaskPacket example schema
+        run: python scripts/governance/validate-task-packet.py --skip-hash docs/governance/task-packet.example.yaml
+      - name: Fixture catalog schema
+        run: |
+          python - <<'PY'
+          import json, yaml
+          from jsonschema import Draft202012Validator
+          schema=json.load(open("test/fixtures/catalog.schema.json"))
+          data=yaml.safe_load(open("test/fixtures/catalog.yaml"))
+          errors=list(Draft202012Validator(schema).iter_errors(data))
+          assert not errors, [e.message for e in errors]
+          print("FIXTURE_CATALOG_PASS")
+          PY
+      - name: Candidate-state example
+        run: python scripts/acceptance/validate-candidate-state.py docs/delivery/candidate-state.example.yaml

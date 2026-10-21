@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Acceptance Candidate State",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion","serId","prNumber","headSha","artifactDigests","fixtureCatalog","automatedResult","manualDecision","cleanup"],
+  "properties": {
+    "schemaVersion": {"const": 1},
+    "serId": {"type": "string", "pattern": "^SER-[0-9]+$"},
+    "prNumber": {"type": "integer", "minimum": 1},
+    "headSha": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "artifactDigests": {"type": "array", "items": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"}},
+    "fixtureCatalog": {"type": "string", "minLength": 1},
+    "automatedResult": {"enum": ["PENDING","PASS","FAIL"]},
+    "manualDecision": {"enum": ["PENDING","ACCEPT","REJECT"]},
+    "cleanup": {"enum": ["PENDING","PASS","FAIL"]}
+  }
+}

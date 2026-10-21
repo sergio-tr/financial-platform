@@ -1,0 +1,9 @@
+schemaVersion: 1
+serId: SER-113
+prNumber: 1
+headSha: "0000000000000000000000000000000000000000"
+artifactDigests: []
+fixtureCatalog: test/fixtures/catalog.yaml
+automatedResult: PENDING
+manualDecision: PENDING
+cleanup: PENDING

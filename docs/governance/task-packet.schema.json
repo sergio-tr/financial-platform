@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "TaskPacket v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion","taskId","taskKind","mode","risk","baseRevision","packetHash",
+    "authorityRefs","allowedPaths","forbiddenPaths","requirements","contracts","design",
+    "tests","security","financial","migrations","workflows","acceptance","definitionOfDone"
+  ],
+  "properties": {
+    "schemaVersion": {"const": 1},
+    "taskId": {"type": "string", "pattern": "^SER-[0-9]+$"},
+    "taskKind": {"enum": ["IMPLEMENTATION","SPIKE","AUDIT","GOVERNANCE","OPERATIONS"]},
+    "mode": {"enum": ["PLAN","IMPLEMENT","REVIEW","DEBUG"]},
+    "risk": {"enum": ["LOW","MEDIUM","SENSITIVE","CRITICAL"]},
+    "baseRevision": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "packetHash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "authorityRefs": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string"}},
+    "allowedPaths": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "forbiddenPaths": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "requirements": {"$ref": "#/$defs/refListOrNA"},
+    "contracts": {"$ref": "#/$defs/refListOrNA"},
+    "design": {"$ref": "#/$defs/refListOrNA"},
+    "tests": {"$ref": "#/$defs/refListOrNA"},
+    "security": {"$ref": "#/$defs/refListOrNA"},
+    "financial": {"$ref": "#/$defs/refListOrNA"},
+    "migrations": {"$ref": "#/$defs/refListOrNA"},
+    "workflows": {"$ref": "#/$defs/refListOrNA"},
+    "acceptance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["required","environment","humanApproval"],
+      "properties": {
+        "required": {"type": "boolean"},
+        "environment": {"enum": ["NOT_APPLICABLE","CI_SYNTHETIC","LOCAL_ACCEPTANCE"]},
+        "humanApproval": {"type": "boolean"}
+      }
+    },
+    "definitionOfDone": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}}
+  },
+  "$defs": {
+    "refListOrNA": {
+      "oneOf": [
+        {"const": "NOT_APPLICABLE"},
+        {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}}
+      ]
+    }
+  }
+}
