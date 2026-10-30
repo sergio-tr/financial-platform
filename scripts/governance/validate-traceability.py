@@ -51,13 +51,17 @@ def main() -> int:
             print(f"TRACE_SCHEMA {error.message}", file=sys.stderr)
         return 2
 
-    for err in validate_graph(graph, profile=profile):
-        print(err.format(), file=sys.stderr)
+    graph_errors = list(validate_graph(graph, profile=profile))
+    if graph_errors:
+        for err in graph_errors:
+            print(err.format(), file=sys.stderr)
         return 3
 
     if args.graph.resolve() == (ROOT / "docs/governance/traceability/traceability.yaml").resolve():
-        for err in foundation_invariants(graph):
-            print(err.format(), file=sys.stderr)
+        invariant_errors = list(foundation_invariants(graph))
+        if invariant_errors:
+            for err in invariant_errors:
+                print(err.format(), file=sys.stderr)
             return 8
 
         tests = load_yaml(ROOT / "docs/verification/test-catalog.yaml")
