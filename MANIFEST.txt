@@ -76,6 +76,7 @@ docs/governance/traceability/traceability.schema.json
 docs/governance/traceability/traceability.yaml
 docs/governance/traceability/review-adjudication.md
 docs/governance/packets/SER-132.task-packet.yaml
+docs/governance/packets/SER-132-post-merge-remediation.task-packet.yaml
 docs/requirements/functional/README.md
 docs/requirements/functional/TEMPLATE.md
 docs/requirements/nfr/README.md

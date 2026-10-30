@@ -1,0 +1,39 @@
+schemaVersion: 1
+taskId: SER-132
+taskKind: GOVERNANCE
+mode: IMPLEMENT
+risk: LOW
+baseRevision: "e7d21b7f00525ee1d8ef73102a3348c546ecaab7"
+packetHash: "317019d60bd786a978306268934121662434f47724a203048096b9f2ac151386"
+authorityRefs:
+  - SER-132
+  - P0-R59
+  - P0-R57
+  - P0-R52
+  - P0-R54
+  - ADR-0023
+allowedPaths:
+  - docs/governance/architecture-manifest.md
+  - docs/governance/packets/SER-132-post-merge-remediation.task-packet.yaml
+  - MANIFEST.txt
+forbiddenPaths:
+  - backend/**
+  - frontend/**
+  - contracts/**
+  - docs/architecture/**
+requirements: NOT_APPLICABLE
+contracts: NOT_APPLICABLE
+design: NOT_APPLICABLE
+tests: NOT_APPLICABLE
+security: NOT_APPLICABLE
+financial: NOT_APPLICABLE
+migrations: NOT_APPLICABLE
+workflows: NOT_APPLICABLE
+acceptance:
+  required: false
+  environment: NOT_APPLICABLE
+  humanApproval: true
+definitionOfDone:
+  - architecture-manifest third STOMP destination restored to sergiotr.v1.artifacts.
+  - No active authority uses sergiotr.v1.commands or sergiotr.v1.ticks.
+  - Historical SER-132.task-packet.yaml unchanged; governance validators pass.
