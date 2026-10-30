@@ -56,6 +56,11 @@ nodes:
   - { id: "P0-R55", type: "P0-R", status: "LOCKED", title: "Synthetic test-data, golden-fixture and provider-simulator contract" }
   - { id: "P0-R56", type: "P0-R", status: "LOCKED", title: "Delivery state machine, acceptance invalidation and production-promotion contract" }
   - { id: "P0-R57", type: "P0-R", status: "LOCKED", title: "Phase-0 planning freeze, zero-gap audit and implementation-unlock contract" }
+  - { id: "P0-R59", type: "P0-R", status: "LOCKED", title: "Manual Cursor execution and Phase-0 documentation closure" }
+  - { id: "SER-132", type: "SER", status: "LOCKED", title: "Materialize P0-R59 manual Cursor execution baseline in Git" }
+  - { id: "SER-111", type: "SER", status: "SUPERSEDED", title: "PR orchestration / Slack-Linear automation / JIT runner — CANCELED_SUPERSEDED by P0-R59" }
+  - { id: "DOC:docs/governance/execution-baseline.md", type: "DOC", status: "LOCKED", title: "Manual Cursor execution baseline" }
+  - { id: "DOC:docs/planning/phase0-closure/AUTHORITY_SUPERSESSION_2026-10-30.md", type: "DOC", status: "LOCKED", title: "2026-10-30 execution-mode and planning-closure pointer" }
   - { id: "REQ-IDENTITY-001", type: "REQ", status: "LOCKED", title: "REQ-IDENTITY-001" }
   - { id: "REQ-IDENTITY-002", type: "REQ", status: "LOCKED", title: "REQ-IDENTITY-002" }
   - { id: "REQ-IDENTITY-003", type: "REQ", status: "LOCKED", title: "REQ-IDENTITY-003" }
@@ -315,3 +320,14 @@ edges:
   - { from: "DES-FRONTEND-OVERVIEW-001", to: "NFR-CONFIG-001", relation: "references" }
   - { from: "P0-R37", to: "DOC:LEGACY-PR-001", relation: "documents" }
   - { from: "SER-70", to: "DOC:docs/planning/phase0-closure/AUTHORITY_SUPERSESSION_2026-10-12.md", relation: "documents" }
+  - { from: "SER-132", to: "P0-R59", relation: "implements" }
+  - { from: "P0-R59", to: "SER-111", relation: "supersedes" }
+  - { from: "P0-R59", to: "P0-R57", relation: "references" }
+  - { from: "P0-R59", to: "P0-R52", relation: "references" }
+  - { from: "P0-R59", to: "P0-R48", relation: "references" }
+  - { from: "P0-R59", to: "P0-R54", relation: "references" }
+  - { from: "P0-R59", to: "ADR-0023", relation: "references" }
+  - { from: "P0-R59", to: "DOC:docs/governance/execution-baseline.md", relation: "documents" }
+  - { from: "SER-132", to: "DOC:docs/governance/execution-baseline.md", relation: "documents" }
+  - { from: "SER-132", to: "DOC:docs/planning/phase0-closure/AUTHORITY_SUPERSESSION_2026-10-30.md", relation: "documents" }
+  - { from: "P0-R59", to: "DOC:docs/planning/phase0-closure/AUTHORITY_SUPERSESSION_2026-10-30.md", relation: "documents" }

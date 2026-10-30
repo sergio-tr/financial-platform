@@ -67,6 +67,7 @@ docs/planning/decision-register.md
 docs/planning/master-plan.md
 docs/planning/phase-0-acceptance-checklist.md
 docs/governance/architecture-manifest.md
+docs/governance/execution-baseline.md
 docs/governance/protocol-ownership.md
 docs/governance/review-adjudication.md
 docs/governance/typed-configuration.md
@@ -74,6 +75,7 @@ docs/governance/api-registry.md
 docs/governance/traceability/traceability.schema.json
 docs/governance/traceability/traceability.yaml
 docs/governance/traceability/review-adjudication.md
+docs/governance/packets/SER-132.task-packet.yaml
 docs/requirements/functional/README.md
 docs/requirements/functional/TEMPLATE.md
 docs/requirements/nfr/README.md
@@ -99,6 +101,7 @@ docs/design/design-manifest.yaml
 docs/workflows/workflow-architecture.md
 
 # Phase 0 closure evidence (planning-only; IMPLEMENTATION_LOCK=ON)
+docs/planning/phase0-closure/AUTHORITY_SUPERSESSION_2026-10-30.md
 docs/planning/phase0-closure/AUTHORITY_SUPERSESSION_2026-10-12.md
 docs/planning/phase0-closure/AUTHORITY_SUPERSESSION_2026-10-03.md
 docs/planning/phase0-closure/AUTHORITY_SUPERSESSION_2026-09-26.md
