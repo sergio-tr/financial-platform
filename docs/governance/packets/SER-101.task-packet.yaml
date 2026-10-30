@@ -1,0 +1,64 @@
+schemaVersion: 1
+taskId: SER-101
+taskKind: GOVERNANCE
+mode: IMPLEMENT
+risk: SENSITIVE
+baseRevision: "ac1564af991e9a61b39dfe735fb79b8d8e8fc108"
+packetHash: "8ad81da5e79763700b4544d97e0a821aeb0008edaa475aa182ebc68671edf3e9"
+authorityRefs:
+  - SER-101
+  - P0-R40
+  - P0-R52
+  - P0-R57
+  - P0-R59
+  - 010b75f6-dea3-4e8a-90ff-5cd2cb8cc77a
+allowedPaths:
+  - docs/requirements/**
+  - docs/governance/packets/**
+  - docs/governance/traceability/**
+  - docs/governance/architecture-manifest.md
+  - MANIFEST.txt
+  - scripts/governance/**
+forbiddenPaths:
+  - backend/**
+  - frontend/**
+  - contracts/**
+  - design/**
+  - test/**
+  - docs/adr/**
+  - docs/architecture/**
+  - docs/security/**
+  - docs/workflows/**
+  - scripts/acceptance/**
+  - infrastructure/**
+requirements: NOT_APPLICABLE
+contracts: NOT_APPLICABLE
+design: NOT_APPLICABLE
+tests: NOT_APPLICABLE
+security:
+  - NFR-SEC-001
+  - NFR-SEC-002
+  - NFR-SEC-003
+  - NFR-SEC-004
+  - NFR-SEC-005
+  - NFR-PRIVACY-001
+  - NFR-PRIVACY-002
+financial:
+  - NFR-CORRECTNESS-001
+  - NFR-CORRECTNESS-002
+  - NFR-CORRECTNESS-003
+migrations: NOT_APPLICABLE
+workflows:
+  - REQ-WORKFLOW-001
+  - REQ-WORKFLOW-002
+  - REQ-WORKFLOW-003
+  - REQ-WORKFLOW-004
+acceptance:
+  required: false
+  environment: NOT_APPLICABLE
+  humanApproval: true
+definitionOfDone:
+  - Exactly 73 REQ and 27 NFR bodies materialized under docs/requirements/** from SER-101 Linear registry.
+  - Exactly 9 known aliases remain SUPERSEDED/non-authoritative without active bodies.
+  - Traceability maps each active ID to a DOC canonical path; no SER-102 relations invented.
+  - No IMPLEMENTED/VERIFIED claims; IMPLEMENTATION_LOCK remains ON; governance validators pass.
