@@ -1,9 +1,26 @@
 # Financial Platform — Phase 0 Architecture & Governance Baseline
 
 Status: **Architecture Baseline v1.0**  
-Date: **2026-09-23**
+Date: **2026-09-23**  
+Execution baseline: **P0-R59 / SER-132** (`docs/governance/execution-baseline.md`)
 
 This package converts the agreed architecture into repository-ready governance and planning artefacts. It is intentionally implementation-light: Phase 0 exists to make future work deterministic before Angular/Spring feature development begins.
+
+## Operational state
+
+```text
+P0_PLANNING_FROZEN=YES
+DOCUMENTATION_PLANNING_CLOSED=YES
+ARCHITECTURE_DISCOVERY_MODE=OFF
+EXECUTION_MODE=MANUAL_CURSOR
+EXECUTION_VENUES=LOCAL,CURSOR_CLOUD
+AUTOEXECUTION=OFF
+IMPLEMENTATION_LOCK=ON
+P0_IMPLEMENTATION_READY=NO
+SER-111=CANCELED_SUPERSEDED
+```
+
+Sergio selects and starts every Cursor task. Cursor Cloud is only a manually started venue. GitHub Actions is CI/verification only.
 
 ## Authority order
 
@@ -22,12 +39,13 @@ If code conflicts with an accepted ADR, the ADR wins and the inconsistency is ar
 ## Main artefacts
 
 - `AGENTS.md` — root agent governance.
+- `docs/governance/execution-baseline.md` — manual Cursor execution baseline (P0-R59).
 - `docs/governance/architecture-manifest.md` — sources of truth and Phase-0 packs.
 - `docs/governance/traceability/traceability.{schema.json,yaml}` — R37 graph (locations/relations).
 - `docs/governance/review-adjudication.md` and `docs/governance/traceability/review-adjudication.md`.
 - `docs/planning/decision-register.md` — canonical list of locked decisions.
 - `docs/planning/master-plan.md` — final phased implementation plan.
-- `docs/planning/cursor-operating-model.md` — cost-aware Cursor usage policy.
+- `docs/planning/cursor-operating-model.md` — cost-aware manual Cursor usage policy.
 - `docs/architecture/architecture-baseline.md` — system baseline and module boundaries.
 - `docs/architecture/websocket-architecture.md` — WSS/STOMP application protocol.
 - `docs/connectors/connector-spi.md` — provider connector contracts and capabilities.
@@ -43,4 +61,4 @@ If code conflicts with an accepted ADR, the ADR wins and the inconsistency is ar
 
 ## Phase 0 rule
 
-No production feature implementation starts until this package has been reviewed, committed and the repository-level Cursor governance has been installed and validated.
+Planning and documentation discovery are closed (`P0_PLANNING_FROZEN=YES`). Remaining Phase-0 work is manual Cursor materialization/verification under P0-R54. `IMPLEMENTATION_LOCK=ON` and `P0_IMPLEMENTATION_READY=NO` until SER-20 unlock. No production feature implementation starts before that gate.

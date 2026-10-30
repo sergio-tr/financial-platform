@@ -1,8 +1,11 @@
 Title: Governance Rules
 Status: CANONICAL
 
-- Follow AGENTS.md and ADR-0023 for agent governance.
+- Follow AGENTS.md, ADR-0023 and docs/governance/execution-baseline.md.
+- P0_PLANNING_FROZEN=YES; DOCUMENTATION_PLANNING_CLOSED=YES; ARCHITECTURE_DISCOVERY_MODE=OFF.
+- EXECUTION_MODE=MANUAL_CURSOR; venues LOCAL and CURSOR_CLOUD only when Sergio starts them.
+- AUTOEXECUTION=OFF; no Slack/Linear dispatch; no auto next-task; SER-111 is CANCELED_SUPERSEDED.
+- IMPLEMENTATION_LOCK=ON; P0_IMPLEMENTATION_READY=NO until SER-20 unlock.
 - Do not calculate authoritative financial metrics with LLMs.
 - Do not expose real credentials or portfolio data.
-- Obey Phase-0 cut P0-R26..P0-R47; do not invent architecture.
-
+- Obey Phase-0 packs P0-R26..P0-R59; do not invent architecture.

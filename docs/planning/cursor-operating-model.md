@@ -1,7 +1,24 @@
 # Cursor Operating Model and Cost Governance
 
+Amended by: P0-R59 / SER-132
+
 ## Purpose
-Use Cursor as an implementation executor without allowing agents to invent architecture or consume premium model credits indiscriminately.
+Use Cursor as a **manual** implementation executor without allowing agents to invent architecture, auto-select work, or consume premium model credits indiscriminately.
+
+## Operational baseline
+
+See `docs/governance/execution-baseline.md`.
+
+```text
+EXECUTION_MODE=MANUAL_CURSOR
+EXECUTION_VENUES=LOCAL,CURSOR_CLOUD
+HUMAN_TASK_SELECTION=REQUIRED
+HUMAN_TASK_START=REQUIRED
+AUTOEXECUTION=OFF
+ARCHITECTURE_DISCOVERY_MODE=OFF
+```
+
+Sergio selects each ticket and starts each run. Cursor Cloud is only another manually started venue.
 
 ## Modes
 
@@ -12,7 +29,7 @@ Use for read-only diagnosis, locating code, explaining behavior and comparing im
 Mandatory before changes that affect multiple modules, architecture, security, database migrations, WebSocket contracts, connectors, workflows, financial algorithms, Portfolio X-Ray or AI tools. The plan must cite relevant repository documents and identify files/contracts/tests affected.
 
 ### Agent
-Used to implement an approved, bounded plan. It must not reopen accepted architecture unless a stop condition is hit.
+Used to implement an approved, bounded plan for the ticket Sergio selected. It must not reopen accepted architecture unless a stop condition is hit. It must not select or start the next ticket.
 
 ### Debug
 Use only when runtime evidence is required to diagnose a non-obvious defect.
@@ -49,6 +66,13 @@ Agents may choose implementation details only when all of these are true:
 5. it does not affect financial correctness or security invariants.
 
 Otherwise stop and request/record a decision.
+
+Agents must not:
+- self-select the next issue;
+- recursively dispatch another agent/run;
+- use Slack or Linear as an automatic execution trigger;
+- start work because a periodic heartbeat/check fired;
+- merge, promote or deploy merely because an automated agent decided prerequisites were satisfied.
 
 ## Required output after implementation
 

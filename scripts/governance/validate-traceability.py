@@ -59,7 +59,8 @@ def main() -> int:
     tests_planned = sum(1 for n in nodes if n["type"] == "TEST" and n.get("status") == "PLANNED")
     aliases = sum(1 for n in nodes if n["type"] in {"REQ", "NFR"} and n.get("status") == "SUPERSEDED")
     supersedes = sum(1 for e in graph["edges"] if e["relation"] == "supersedes")
-    expected = (73, 27, 18, 9, 10)
+    # aliases = SUPERSEDED REQ/NFR only; supersedes = supersedes edges (includes SER-111 via P0-R59)
+    expected = (73, 27, 18, 9, 11)
     actual = (req, nfr, tests_planned, aliases, supersedes)
     if actual != expected:
         print(f"TRACE_INVARIANT expected={expected} actual={actual}", file=sys.stderr)

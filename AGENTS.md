@@ -3,6 +3,30 @@
 ## Mission
 Build a local-first, multi-user personal financial analysis platform. The application runs on the user's own computer, is accessible only from the local network, uses Angular for the responsive web client and Spring Boot for the backend, and integrates financial/data providers through replaceable capability-based connectors. AI runs locally by default through Ollama and may analyze, explain, research and simulate but may never move money.
 
+## Operational baseline (P0-R59 / SER-132)
+
+Canonical document: `docs/governance/execution-baseline.md`.
+
+```text
+P0_PLANNING_FROZEN=YES
+DOCUMENTATION_PLANNING_CLOSED=YES
+ARCHITECTURE_DISCOVERY_MODE=OFF
+EXECUTION_MODE=MANUAL_CURSOR
+EXECUTION_VENUES=LOCAL,CURSOR_CLOUD
+HUMAN_TASK_SELECTION=REQUIRED
+HUMAN_TASK_START=REQUIRED
+AUTOEXECUTION=OFF
+AUTOMATIONS=OFF
+AUTO_TASK_SELECTION=OFF
+AUTO_NEXT_TASK=OFF
+AUTO_MERGE=OFF
+IMPLEMENTATION_LOCK=ON
+P0_IMPLEMENTATION_READY=NO
+SER-111=CANCELED_SUPERSEDED
+```
+
+Sergio explicitly selects each ticket and starts each run. Cursor Cloud is only a manually started venue. Slack/Linear are not dispatchers. GitHub Actions is CI/verification only.
+
 ## Non-negotiable architecture
 
 - Modular monolith with Spring Modulith.
@@ -32,7 +56,7 @@ For any change affecting architecture, security, public contracts, data model, c
 6. Run required tests and architecture checks.
 7. Report changed files, validation commands, deviations and remaining risks.
 
-Never silently resolve an architectural ambiguity.
+Never silently resolve an architectural ambiguity. Do not reopen frozen Phase-0 planning unless a genuine `BLOCKED_DECISION` is supported by a concrete contradiction.
 
 ## Mandatory stop conditions
 
@@ -66,3 +90,4 @@ Stop implementation and report the decision needed when encountering:
 - Do not push directly to `main`.
 - Do not force-push shared branches.
 - Commit messages must describe the change, not the AI/tool that produced it.
+- For SER-132-class governance tickets use the human-chosen `chore/SER-*` branch; do not use Linear auto-generated or `cursor/*` branches as the canonical work branch.
