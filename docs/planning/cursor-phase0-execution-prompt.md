@@ -1,69 +1,57 @@
 # Cursor Phase 0 Execution Prompt
 
-Use this prompt only after the repository contains or is provided with this baseline package. Run in **Plan mode first**. Do not implement production features.
+Status: CANONICAL post P0-R59 / SER-132  
+Use only for the ticket Sergio explicitly selected and started. Run in **Plan mode first** unless the approved TaskPacket already authorizes IMPLEMENT.
+
+Architecture discovery mode is OFF. Documentation planning is closed. Do not reopen frozen Phase-0 decisions.
 
 ## ROLE
-You are performing the repository architecture/governance bootstrap for `financial-platform`.
+You are executing a single bounded Phase-0 materialization/verification or governance task for `financial-platform` under `EXECUTION_MODE=MANUAL_CURSOR`.
 
 ## OBJECTIVE
-Install and reconcile the approved Architecture Baseline v1.0 into the repository so future agents have deterministic instructions before feature development starts.
+Implement only the selected ticket from Git-local authority (TaskPacket, ADRs, manifests). Do not invent product architecture. Do not auto-select or start another ticket.
 
 ## READ FIRST
+- `docs/governance/execution-baseline.md`
 - `AGENTS.md`
-- `docs/planning/decision-register.md`
-- `docs/planning/master-plan.md`
-- all `docs/adr/ADR-*.md`
-- `docs/architecture/architecture-baseline.md`
-- `docs/architecture/websocket-architecture.md`
-- `docs/connectors/connector-spi.md`
-- `docs/domain/portfolio-xray.md`
-- `docs/workflows/workflow-architecture.md`
-- `docs/security/security-architecture.md`
-- `docs/ux/dashboard-system.md`
+- `docs/governance/architecture-manifest.md`
+- `docs/governance/agent-execution.md`
+- TaskPacket for the selected `SER-*`
+- documents listed in that packet / issue
 
 ## SCOPE
-Documentation/governance/repository-skeleton only. You may create directories, indexes, scoped `AGENTS.md`, Cursor rules, ignore/protection files and validation scripts necessary for Phase 0.
+Only paths allowed by the validated TaskPacket. Typical Phase-0 remaining work is repository materialization, validators/CI gates, design evidence, fixtures/goldens, classification/retention registries, local acceptance evidence and readiness audits — in P0-R54 order when Sergio selects those tickets.
 
 ## FORBIDDEN
-- Do not bootstrap Spring/Angular production code yet.
-- Do not connect to real financial providers.
-- Do not add secrets or real financial fixtures.
-- Do not change accepted ADR conclusions.
-- Do not add infrastructure dependencies beyond the accepted baseline.
-- Do not create REST business endpoints, SSE or polling mechanisms.
+- Architecture discovery or redesign of frozen decisions.
+- Autoexecution, Automations, Slack/Linear dispatch, scheduled agents, recursive dispatch, automatic next-task.
+- Bootstrap of unrelated Spring/Angular production features.
+- Real financial providers, secrets or real financial fixtures.
+- Changing accepted ADR conclusions without a superseding ADR.
+- REST business endpoints, SSE or application-level polling.
+- Unlocking Phase 0 or flipping `IMPLEMENTATION_LOCK` / `P0_IMPLEMENTATION_READY` unless the selected ticket explicitly owns that gate.
 
 ## PLAN REQUIREMENTS
-Before editing, produce a file-by-file plan that:
-1. inventories the current repository;
-2. identifies conflicts/duplicates against the baseline;
+Before editing, produce a plan that:
+1. states Git base SHA and TaskPacket hash;
+2. identifies conflicts against P0-R59 / active manifests;
 3. lists exact files to add/update/delete;
 4. states validation to perform;
 5. flags any decision conflict instead of resolving it silently.
 
+Do not edit until Sergio approves the plan when the ticket requires plan approval.
+
 ## IMPLEMENTATION REQUIREMENTS
 After plan approval:
 - preserve accepted decision wording/meaning;
-- add documentation indexes/links so artefacts are discoverable;
-- create concise scoped Cursor rules rather than duplicating whole ADRs into every prompt;
-- add safe ignore patterns for secrets/runtime financial data;
-- add a Phase 0 validation script/checklist where useful;
-- ensure Mermaid/Markdown references resolve relative to repository structure.
+- classify historical autoexecution text as HISTORICAL / SUPERSEDED / NON_AUTHORITATIVE rather than silently erasing immutable evidence;
+- keep TaskPacket, zero-assumption, firewall, manual acceptance and P0-R54 authoritative;
+- use synthetic data only.
 
 ## VALIDATION
-At minimum:
-- list final repository tree for governance/docs;
-- search for contradictory mentions of SSE, application polling, microservices-first, direct LLM->MCP, automated trading, real financial fixtures or browser JWT storage;
-- verify every Decision Register ADR reference exists;
-- verify every ADR status is ACCEPTED;
-- verify no protected secret/data files were introduced.
+At minimum run the governance validators required by the ticket and search active authority for contradictions of the manual execution baseline.
 
 ## DELIVERABLE
-Return:
-- summary;
-- files created/changed;
-- validation performed and results;
-- detected pre-existing conflicts;
-- any unresolved blocker;
-- recommended single commit message in Spanish, gitflow-style, without mentioning Cursor/AI.
+Return the ticket DoD package (status, files, validators, git stats, PASS/FAIL, risks). Then stop. Do not select the next ticket.
 
 FIN

@@ -1,0 +1,47 @@
+schemaVersion: 1
+taskId: SER-132
+taskKind: GOVERNANCE
+mode: IMPLEMENT
+risk: LOW
+baseRevision: "d6c0eaa3e3480278988aa1b68603c7ea0799b411"
+packetHash: "aca00edc8637a7c03e4eacc89536a2c4e00117eab8c6af2afc11d5cd872c5b03"
+authorityRefs:
+  - SER-132
+  - P0-R59
+  - P0-R57
+  - P0-R52
+  - P0-R48
+  - P0-R54
+  - ADR-0023
+allowedPaths:
+  - docs/governance/**
+  - docs/planning/**
+  - docs/delivery/**
+  - .cursor/rules/**
+  - AGENTS.md
+  - README.md
+  - MANIFEST.txt
+  - scripts/governance/**
+forbiddenPaths:
+  - backend/**
+  - frontend/**
+  - contracts/generated/**
+requirements: NOT_APPLICABLE
+contracts: NOT_APPLICABLE
+design: NOT_APPLICABLE
+tests: NOT_APPLICABLE
+security:
+  - NFR-SEC-001
+financial: NOT_APPLICABLE
+migrations: NOT_APPLICABLE
+workflows: NOT_APPLICABLE
+acceptance:
+  required: false
+  environment: NOT_APPLICABLE
+  humanApproval: true
+definitionOfDone:
+  - Git represents unequivocal manual Cursor execution baseline (P0-R59).
+  - AUTOEXECUTION=OFF; SER-111 CANCELED_SUPERSEDED; GHA is CI/verification only.
+  - TaskPacket/zero-assumption, manual acceptance and P0-R54 remain authoritative.
+  - IMPLEMENTATION_LOCK=ON; P0_IMPLEMENTATION_READY=NO; no product code added.
+  - All governance validators pass.
