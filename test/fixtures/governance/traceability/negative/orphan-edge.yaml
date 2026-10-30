@@ -1,0 +1,7 @@
+schemaVersion: 1
+mode: MATERIALIZED
+nodes:
+  - { id: "REQ-IDENTITY-001", nodeType: "REQUIREMENT", status: "LOCKED" }
+edges:
+  - { from: "TEST-SEC-MISSING-001", relation: "VERIFIES", to: "REQ-IDENTITY-001" }
+legacyExceptions: []

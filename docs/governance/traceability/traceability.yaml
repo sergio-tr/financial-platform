@@ -1,631 +1,725 @@
+schemaVersion: 1
+mode: MATERIALIZED
 nodes:
-  - { id: "SER-70", type: "SER", status: "LOCKED", title: "Architecture/governance sync P0-R26..P0-R57" }
-  - { id: "P0-R26", type: "P0-R", status: "LOCKED" }
-  - { id: "P0-R35", type: "P0-R", status: "LOCKED" }
-  - { id: "P0-R36", type: "P0-R", status: "LOCKED" }
-  - { id: "P0-R37", type: "P0-R", status: "LOCKED" }
-  - { id: "P0-R38", type: "P0-R", status: "LOCKED" }
-  - { id: "P0-R39", type: "P0-R", status: "LOCKED" }
-  - { id: "P0-R40", type: "P0-R", status: "LOCKED" }
-  - { id: "P0-R41", type: "P0-R", status: "LOCKED" }
-  - { id: "P0-R42", type: "P0-R", status: "LOCKED" }
-  - { id: "P0-R43", type: "P0-R", status: "LOCKED" }
-  - { id: "P0-R44", type: "P0-R", status: "LOCKED" }
-  - { id: "P0-R45", type: "P0-R", status: "LOCKED" }
-  - { id: "P0-R46", type: "P0-R", status: "LOCKED" }
-  - { id: "P0-R47", type: "P0-R", status: "LOCKED" }
-  - { id: "ADR-0003", type: "ADR", status: "LOCKED" }
-  - { id: "ADR-0004", type: "ADR", status: "LOCKED" }
-  - { id: "ADR-0005", type: "ADR", status: "LOCKED" }
-  - { id: "ADR-0008", type: "ADR", status: "LOCKED" }
-  - { id: "ADR-0018", type: "ADR", status: "LOCKED" }
-  - { id: "ADR-0019", type: "ADR", status: "LOCKED" }
-  - { id: "ADR-0023", type: "ADR", status: "LOCKED" }
-  - { id: "ADR-0024", type: "ADR", status: "LOCKED" }
-  - { id: "DOC:docs/governance/architecture-manifest.md", type: "DOC", status: "LOCKED" }
-  - { id: "DOC:docs/governance/protocol-ownership.md", type: "DOC", status: "LOCKED" }
-  - { id: "DOC:docs/governance/review-adjudication.md", type: "DOC", status: "LOCKED" }
-  - { id: "DOC:docs/governance/typed-configuration.md", type: "DOC", status: "LOCKED" }
-  - { id: "DOC:docs/governance/api-registry.md", type: "DOC", status: "PLANNED" }
-  - { id: "DOC:docs/governance/traceability/traceability.schema.json", type: "DOC", status: "LOCKED" }
-  - { id: "DOC:docs/governance/traceability/traceability.yaml", type: "DOC", status: "LOCKED" }
-  - { id: "DOC:docs/governance/traceability/review-adjudication.md", type: "DOC", status: "LOCKED" }
-  - { id: "DOC:docs/verification/test-catalog.schema.json", type: "DOC", status: "LOCKED" }
-  - { id: "DOC:docs/verification/test-catalog.yaml", type: "DOC", status: "LOCKED" }
-  - { id: "DOC:docs/design/design-manifest.schema.json", type: "DOC", status: "LOCKED" }
-  - { id: "DOC:docs/design/design-manifest.yaml", type: "DOC", status: "LOCKED" }
-  - { id: "DOC:docs/security/README-data-classification.md", type: "DOC", status: "LOCKED" }
-  - { id: "DOC:docs/security/data-classification.schema.json", type: "DOC", status: "LOCKED" }
-  - { id: "DOC:docs/security/data-classification.yaml", type: "DOC", status: "PLANNED" }
-  - { id: "DOC:docs/security/data-lifecycle.md", type: "DOC", status: "LOCKED" }
-  - { id: "DOC:docs/security/retention-policies.schema.json", type: "DOC", status: "LOCKED" }
-  - { id: "DOC:docs/security/retention-policies.yaml", type: "DOC", status: "PLANNED" }
-  - { id: "DOC:docs/runbooks/workspace-deletion.md", type: "DOC", status: "LOCKED" }
-  - { id: "DOC:docs/runbooks/provider-disconnect.md", type: "DOC", status: "LOCKED" }
-  - { id: "DOC:docs/runbooks/data-export.md", type: "DOC", status: "LOCKED" }
-  - { id: "P0-R48", type: "P0-R", status: "LOCKED", title: "Pull-request orchestration, CI-to-local acceptance and human-promotion contract" }
-  - { id: "P0-R49", type: "P0-R", status: "LOCKED", title: "Test layers, execution lanes and required quality-gate contract" }
-  - { id: "P0-R50", type: "P0-R", status: "LOCKED", title: "Local acceptance environment, preview deployment and manual approval contract" }
-  - { id: "P0-R51", type: "P0-R", status: "LOCKED", title: "Local environment segregation and workstation bootstrap contract" }
-  - { id: "P0-R52", type: "P0-R", status: "LOCKED", title: "Agent execution firewall, Task Packet and zero-assumption contract" }
-  - { id: "P0-R53", type: "P0-R", status: "LOCKED", title: "Minimum Work Unit, Definition of Ready/Done and change-risk classification contract" }
-  - { id: "P0-R54", type: "P0-R", status: "LOCKED", title: "Final implementation roadmap, vertical slices and dependency-gate contract" }
-  - { id: "P0-R55", type: "P0-R", status: "LOCKED", title: "Synthetic test-data, golden-fixture and provider-simulator contract" }
-  - { id: "P0-R56", type: "P0-R", status: "LOCKED", title: "Delivery state machine, acceptance invalidation and production-promotion contract" }
-  - { id: "P0-R57", type: "P0-R", status: "LOCKED", title: "Phase-0 planning freeze, zero-gap audit and implementation-unlock contract" }
-  - { id: "P0-R59", type: "P0-R", status: "LOCKED", title: "Manual Cursor execution and Phase-0 documentation closure" }
-  - { id: "SER-132", type: "SER", status: "LOCKED", title: "Materialize P0-R59 manual Cursor execution baseline in Git" }
-  - { id: "SER-111", type: "SER", status: "SUPERSEDED", title: "PR orchestration / Slack-Linear automation / JIT runner — CANCELED_SUPERSEDED by P0-R59" }
-  - { id: "DOC:docs/governance/execution-baseline.md", type: "DOC", status: "LOCKED", title: "Manual Cursor execution baseline" }
-  - { id: "DOC:docs/planning/phase0-closure/AUTHORITY_SUPERSESSION_2026-10-30.md", type: "DOC", status: "LOCKED", title: "2026-10-30 execution-mode and planning-closure pointer" }
-  - { id: "REQ-IDENTITY-001", type: "REQ", status: "LOCKED", title: "REQ-IDENTITY-001" }
-  - { id: "REQ-IDENTITY-002", type: "REQ", status: "LOCKED", title: "REQ-IDENTITY-002" }
-  - { id: "REQ-IDENTITY-003", type: "REQ", status: "LOCKED", title: "REQ-IDENTITY-003" }
-  - { id: "REQ-IDENTITY-004", type: "REQ", status: "LOCKED", title: "REQ-IDENTITY-004" }
-  - { id: "REQ-IDENTITY-005", type: "REQ", status: "LOCKED", title: "REQ-IDENTITY-005" }
-  - { id: "REQ-IDENTITY-006", type: "REQ", status: "LOCKED", title: "REQ-IDENTITY-006" }
-  - { id: "REQ-WORKSPACE-001", type: "REQ", status: "LOCKED", title: "REQ-WORKSPACE-001" }
-  - { id: "REQ-WORKSPACE-002", type: "REQ", status: "LOCKED", title: "REQ-WORKSPACE-002" }
-  - { id: "REQ-WORKSPACE-003", type: "REQ", status: "LOCKED", title: "REQ-WORKSPACE-003" }
-  - { id: "REQ-WORKSPACE-004", type: "REQ", status: "LOCKED", title: "REQ-WORKSPACE-004" }
-  - { id: "REQ-WORKSPACE-005", type: "REQ", status: "LOCKED", title: "REQ-WORKSPACE-005" }
-  - { id: "REQ-CONNECTIVITY-001", type: "REQ", status: "LOCKED", title: "REQ-CONNECTIVITY-001" }
-  - { id: "REQ-CONNECTIVITY-002", type: "REQ", status: "LOCKED", title: "REQ-CONNECTIVITY-002" }
-  - { id: "REQ-CONNECTIVITY-003", type: "REQ", status: "LOCKED", title: "REQ-CONNECTIVITY-003" }
-  - { id: "REQ-CONNECTIVITY-004", type: "REQ", status: "LOCKED", title: "REQ-CONNECTIVITY-004" }
-  - { id: "REQ-CONNECTIVITY-005", type: "REQ", status: "LOCKED", title: "REQ-CONNECTIVITY-005" }
-  - { id: "REQ-INSTRUMENT-001", type: "REQ", status: "LOCKED", title: "REQ-INSTRUMENT-001" }
-  - { id: "REQ-INSTRUMENT-002", type: "REQ", status: "LOCKED", title: "REQ-INSTRUMENT-002" }
-  - { id: "REQ-INSTRUMENT-003", type: "REQ", status: "LOCKED", title: "REQ-INSTRUMENT-003" }
-  - { id: "REQ-INSTRUMENT-004", type: "REQ", status: "LOCKED", title: "REQ-INSTRUMENT-004" }
-  - { id: "REQ-PORTFOLIO-001", type: "REQ", status: "LOCKED", title: "REQ-PORTFOLIO-001" }
-  - { id: "REQ-PORTFOLIO-002", type: "REQ", status: "LOCKED", title: "REQ-PORTFOLIO-002" }
-  - { id: "REQ-PORTFOLIO-003", type: "REQ", status: "LOCKED", title: "REQ-PORTFOLIO-003" }
-  - { id: "REQ-PORTFOLIO-004", type: "REQ", status: "LOCKED", title: "REQ-PORTFOLIO-004" }
-  - { id: "REQ-PORTFOLIO-005", type: "REQ", status: "LOCKED", title: "REQ-PORTFOLIO-005" }
-  - { id: "REQ-PORTFOLIO-006", type: "REQ", status: "LOCKED", title: "REQ-PORTFOLIO-006" }
-  - { id: "REQ-XRAY-001", type: "REQ", status: "LOCKED", title: "REQ-XRAY-001" }
-  - { id: "REQ-XRAY-002", type: "REQ", status: "LOCKED", title: "REQ-XRAY-002" }
-  - { id: "REQ-XRAY-003", type: "REQ", status: "LOCKED", title: "REQ-XRAY-003" }
-  - { id: "REQ-XRAY-004", type: "REQ", status: "LOCKED", title: "REQ-XRAY-004" }
-  - { id: "REQ-XRAY-005", type: "REQ", status: "LOCKED", title: "REQ-XRAY-005" }
-  - { id: "REQ-MARKET-001", type: "REQ", status: "LOCKED", title: "REQ-MARKET-001" }
-  - { id: "REQ-MARKET-002", type: "REQ", status: "LOCKED", title: "REQ-MARKET-002" }
-  - { id: "REQ-MARKET-003", type: "REQ", status: "LOCKED", title: "REQ-MARKET-003" }
-  - { id: "REQ-MARKET-004", type: "REQ", status: "LOCKED", title: "REQ-MARKET-004" }
-  - { id: "REQ-MACRO-001", type: "REQ", status: "LOCKED", title: "REQ-MACRO-001" }
-  - { id: "REQ-MACRO-002", type: "REQ", status: "LOCKED", title: "REQ-MACRO-002" }
-  - { id: "REQ-MACRO-003", type: "REQ", status: "LOCKED", title: "REQ-MACRO-003" }
-  - { id: "REQ-RESEARCH-001", type: "REQ", status: "LOCKED", title: "REQ-RESEARCH-001" }
-  - { id: "REQ-KNOWLEDGE-001", type: "REQ", status: "LOCKED", title: "REQ-KNOWLEDGE-001" }
-  - { id: "REQ-KNOWLEDGE-002", type: "REQ", status: "LOCKED", title: "REQ-KNOWLEDGE-002" }
-  - { id: "REQ-KNOWLEDGE-003", type: "REQ", status: "LOCKED", title: "REQ-KNOWLEDGE-003" }
-  - { id: "REQ-KNOWLEDGE-004", type: "REQ", status: "LOCKED", title: "REQ-KNOWLEDGE-004" }
-  - { id: "REQ-ANALYTICS-001", type: "REQ", status: "LOCKED", title: "REQ-ANALYTICS-001" }
-  - { id: "REQ-ANALYTICS-002", type: "REQ", status: "LOCKED", title: "REQ-ANALYTICS-002" }
-  - { id: "REQ-ANALYTICS-003", type: "REQ", status: "LOCKED", title: "REQ-ANALYTICS-003" }
-  - { id: "REQ-ANALYTICS-004", type: "REQ", status: "LOCKED", title: "REQ-ANALYTICS-004" }
-  - { id: "REQ-ANALYTICS-005", type: "REQ", status: "LOCKED", title: "REQ-ANALYTICS-005" }
-  - { id: "REQ-RISK-001", type: "REQ", status: "LOCKED", title: "REQ-RISK-001" }
-  - { id: "REQ-RISK-002", type: "REQ", status: "LOCKED", title: "REQ-RISK-002" }
-  - { id: "REQ-RISK-003", type: "REQ", status: "LOCKED", title: "REQ-RISK-003" }
-  - { id: "REQ-WORKFLOW-001", type: "REQ", status: "LOCKED", title: "REQ-WORKFLOW-001" }
-  - { id: "REQ-WORKFLOW-002", type: "REQ", status: "LOCKED", title: "REQ-WORKFLOW-002" }
-  - { id: "REQ-WORKFLOW-003", type: "REQ", status: "LOCKED", title: "REQ-WORKFLOW-003" }
-  - { id: "REQ-WORKFLOW-004", type: "REQ", status: "LOCKED", title: "REQ-WORKFLOW-004" }
-  - { id: "REQ-AI-001", type: "REQ", status: "LOCKED", title: "REQ-AI-001" }
-  - { id: "REQ-AI-002", type: "REQ", status: "LOCKED", title: "REQ-AI-002" }
-  - { id: "REQ-AI-003", type: "REQ", status: "LOCKED", title: "REQ-AI-003" }
-  - { id: "REQ-AI-004", type: "REQ", status: "LOCKED", title: "REQ-AI-004" }
-  - { id: "REQ-AI-005", type: "REQ", status: "LOCKED", title: "REQ-AI-005" }
-  - { id: "REQ-REPORT-001", type: "REQ", status: "LOCKED", title: "REQ-REPORT-001" }
-  - { id: "REQ-REPORT-002", type: "REQ", status: "LOCKED", title: "REQ-REPORT-002" }
-  - { id: "REQ-NOTIFICATION-001", type: "REQ", status: "LOCKED", title: "REQ-NOTIFICATION-001" }
-  - { id: "REQ-FRONTEND-001", type: "REQ", status: "LOCKED", title: "REQ-FRONTEND-001" }
-  - { id: "REQ-FRONTEND-002", type: "REQ", status: "LOCKED", title: "REQ-FRONTEND-002" }
-  - { id: "REQ-FRONTEND-003", type: "REQ", status: "LOCKED", title: "REQ-FRONTEND-003" }
-  - { id: "REQ-REALTIME-001", type: "REQ", status: "LOCKED", title: "REQ-REALTIME-001" }
-  - { id: "REQ-REALTIME-002", type: "REQ", status: "LOCKED", title: "REQ-REALTIME-002" }
-  - { id: "REQ-REALTIME-003", type: "REQ", status: "LOCKED", title: "REQ-REALTIME-003" }
-  - { id: "REQ-CONFIG-001", type: "REQ", status: "LOCKED", title: "REQ-CONFIG-001" }
-  - { id: "REQ-CONFIG-002", type: "REQ", status: "LOCKED", title: "REQ-CONFIG-002" }
-  - { id: "REQ-CONFIG-003", type: "REQ", status: "LOCKED", title: "REQ-CONFIG-003" }
-  - { id: "REQ-CONFIG-004", type: "REQ", status: "LOCKED", title: "REQ-CONFIG-004" }
-  - { id: "NFR-SEC-001", type: "NFR", status: "LOCKED", title: "NFR-SEC-001" }
-  - { id: "NFR-SEC-002", type: "NFR", status: "LOCKED", title: "NFR-SEC-002" }
-  - { id: "NFR-SEC-003", type: "NFR", status: "LOCKED", title: "NFR-SEC-003" }
-  - { id: "NFR-SEC-004", type: "NFR", status: "LOCKED", title: "NFR-SEC-004" }
-  - { id: "NFR-SEC-005", type: "NFR", status: "LOCKED", title: "NFR-SEC-005" }
-  - { id: "NFR-PRIVACY-001", type: "NFR", status: "LOCKED", title: "NFR-PRIVACY-001" }
-  - { id: "NFR-PRIVACY-002", type: "NFR", status: "LOCKED", title: "NFR-PRIVACY-002" }
-  - { id: "NFR-CORRECTNESS-001", type: "NFR", status: "LOCKED", title: "NFR-CORRECTNESS-001" }
-  - { id: "NFR-CORRECTNESS-002", type: "NFR", status: "LOCKED", title: "NFR-CORRECTNESS-002" }
-  - { id: "NFR-CORRECTNESS-003", type: "NFR", status: "LOCKED", title: "NFR-CORRECTNESS-003" }
-  - { id: "NFR-RELIABILITY-001", type: "NFR", status: "LOCKED", title: "NFR-RELIABILITY-001" }
-  - { id: "NFR-RELIABILITY-002", type: "NFR", status: "LOCKED", title: "NFR-RELIABILITY-002" }
-  - { id: "NFR-RECOVERY-001", type: "NFR", status: "LOCKED", title: "NFR-RECOVERY-001" }
-  - { id: "NFR-RECOVERY-002", type: "NFR", status: "LOCKED", title: "NFR-RECOVERY-002" }
-  - { id: "NFR-COMPAT-001", type: "NFR", status: "LOCKED", title: "NFR-COMPAT-001" }
-  - { id: "NFR-A11Y-001", type: "NFR", status: "LOCKED", title: "NFR-A11Y-001" }
-  - { id: "NFR-A11Y-002", type: "NFR", status: "LOCKED", title: "NFR-A11Y-002" }
-  - { id: "NFR-A11Y-003", type: "NFR", status: "LOCKED", title: "NFR-A11Y-003" }
-  - { id: "NFR-UX-001", type: "NFR", status: "LOCKED", title: "NFR-UX-001" }
-  - { id: "NFR-CONFIG-001", type: "NFR", status: "LOCKED", title: "NFR-CONFIG-001" }
-  - { id: "NFR-MODULARITY-001", type: "NFR", status: "LOCKED", title: "NFR-MODULARITY-001" }
-  - { id: "NFR-MODULARITY-002", type: "NFR", status: "LOCKED", title: "NFR-MODULARITY-002" }
-  - { id: "NFR-OBS-001", type: "NFR", status: "LOCKED", title: "NFR-OBS-001" }
-  - { id: "NFR-PERF-001", type: "NFR", status: "LOCKED", title: "NFR-PERF-001" }
-  - { id: "NFR-SUPPLY-001", type: "NFR", status: "LOCKED", title: "NFR-SUPPLY-001" }
-  - { id: "NFR-TRACE-001", type: "NFR", status: "LOCKED", title: "NFR-TRACE-001" }
-  - { id: "NFR-TRACE-002", type: "NFR", status: "LOCKED", title: "NFR-TRACE-002" }
-  - { id: "REQ-UI-002", type: "REQ", status: "SUPERSEDED", title: "REQ-UI-002 legacy alias" }
-  - { id: "REQ-UI-003", type: "REQ", status: "SUPERSEDED", title: "REQ-UI-003 legacy alias" }
-  - { id: "REQ-WF-001", type: "REQ", status: "SUPERSEDED", title: "REQ-WF-001 legacy alias" }
-  - { id: "NFR-REL-002", type: "NFR", status: "SUPERSEDED", title: "NFR-REL-002 legacy alias" }
-  - { id: "NFR-REL-003", type: "NFR", status: "SUPERSEDED", title: "NFR-REL-003 legacy alias" }
-  - { id: "NFR-REL-004", type: "NFR", status: "SUPERSEDED", title: "NFR-REL-004 legacy alias" }
-  - { id: "NFR-PRIV-001", type: "NFR", status: "SUPERSEDED", title: "NFR-PRIV-001 legacy alias" }
-  - { id: "NFR-MOD-002", type: "NFR", status: "SUPERSEDED", title: "NFR-MOD-002 legacy alias" }
-  - { id: "NFR-REC-003", type: "NFR", status: "SUPERSEDED", title: "NFR-REC-003 legacy alias" }
-  - { id: "TEST-SEC-IDENTITY-PRE-MFA-DENY", type: "TEST", status: "PLANNED", title: "TEST-SEC-IDENTITY-PRE-MFA-DENY" }
-  - { id: "TEST-SEC-ONE-TIME-SECRET-NO-REPLAY", type: "TEST", status: "PLANNED", title: "TEST-SEC-ONE-TIME-SECRET-NO-REPLAY" }
-  - { id: "TEST-RLS-WORKSPACE-CROSS-TENANT-DENY", type: "TEST", status: "PLANNED", title: "TEST-RLS-WORKSPACE-CROSS-TENANT-DENY" }
-  - { id: "TEST-WS-CONNECT-ORIGIN-CSRF-AUTHZ", type: "TEST", status: "PLANNED", title: "TEST-WS-CONNECT-ORIGIN-CSRF-AUTHZ" }
-  - { id: "TEST-WS-GAP-REPLAY-RESYNC", type: "TEST", status: "PLANNED", title: "TEST-WS-GAP-REPLAY-RESYNC" }
-  - { id: "TEST-FIN-UNKNOWN-COST-BASIS-NOT-ZERO", type: "TEST", status: "PLANNED", title: "TEST-FIN-UNKNOWN-COST-BASIS-NOT-ZERO" }
-  - { id: "TEST-FIN-TWR-GOLDEN-BASELINE", type: "TEST", status: "PLANNED", title: "TEST-FIN-TWR-GOLDEN-BASELINE" }
-  - { id: "TEST-XRAY-UNKNOWN-MASS-PRESERVED", type: "TEST", status: "PLANNED", title: "TEST-XRAY-UNKNOWN-MASS-PRESERVED" }
-  - { id: "TEST-XRAY-DETERMINISTIC-SAME-INPUT", type: "TEST", status: "PLANNED", title: "TEST-XRAY-DETERMINISTIC-SAME-INPUT" }
-  - { id: "TEST-WF-OUTCOME-UNKNOWN-NO-BLIND-RETRY", type: "TEST", status: "PLANNED", title: "TEST-WF-OUTCOME-UNKNOWN-NO-BLIND-RETRY" }
-  - { id: "TEST-AI-NO-FINANCIAL-EXECUTION-TOOLS", type: "TEST", status: "PLANNED", title: "TEST-AI-NO-FINANCIAL-EXECUTION-TOOLS" }
-  - { id: "TEST-A11Y-METRIC-CARD-STATE-MEANING", type: "TEST", status: "PLANNED", title: "TEST-A11Y-METRIC-CARD-STATE-MEANING" }
-  - { id: "TEST-VISUAL-METRIC-CARD-THEMES-STATES", type: "TEST", status: "PLANNED", title: "TEST-VISUAL-METRIC-CARD-THEMES-STATES" }
-  - { id: "TEST-A11Y-OVERVIEW-CORE", type: "TEST", status: "PLANNED", title: "TEST-A11Y-OVERVIEW-CORE" }
-  - { id: "TEST-DR-DELETED-WORKSPACE-NO-RESURRECT", type: "TEST", status: "PLANNED", title: "TEST-DR-DELETED-WORKSPACE-NO-RESURRECT" }
-  - { id: "TEST-FIN-XIRR-AMBIGUOUS-ROOTSET", type: "TEST", status: "PLANNED", title: "TEST-FIN-XIRR-AMBIGUOUS-ROOTSET" }
-  - { id: "TEST-XRAY-SIGNED-EXPOSURE-SEMANTICS", type: "TEST", status: "PLANNED", title: "TEST-XRAY-SIGNED-EXPOSURE-SEMANTICS" }
-  - { id: "TEST-VISUAL-OVERVIEW-RESPONSIVE", type: "TEST", status: "PLANNED", title: "TEST-VISUAL-OVERVIEW-RESPONSIVE" }
-  - { id: "DES-COMPONENT-METRIC-CARD-001", type: "DES", status: "PENDING", title: "Semantic metric-card record; visual approval pending" }
-  - { id: "DES-FRONTEND-OVERVIEW-001", type: "DES", status: "PENDING", title: "Semantic overview record; MEDIUM and COMPACT frames pending" }
-  - { id: "DOC:LEGACY-PR-001", type: "DOC", status: "LOCKED", title: "GitHub PR #1 legacy traceability exception predating P0-R37" }
-  - { id: "DOC:docs/planning/phase0-closure/AUTHORITY_SUPERSESSION_2026-10-12.md", type: "DOC", status: "LOCKED", title: "2026-10-12 authority supersession pointer" }
-  - { id: "SER-101", type: "SER", status: "LOCKED", title: "Materialize canonical functional and NFR requirement catalog in Git" }
-  - { id: "DOC:docs/requirements/functional/identity/REQ-IDENTITY-001.md", type: "DOC", status: "LOCKED", title: "REQ-IDENTITY-001" }
-  - { id: "DOC:docs/requirements/functional/identity/REQ-IDENTITY-002.md", type: "DOC", status: "LOCKED", title: "REQ-IDENTITY-002" }
-  - { id: "DOC:docs/requirements/functional/identity/REQ-IDENTITY-003.md", type: "DOC", status: "LOCKED", title: "REQ-IDENTITY-003" }
-  - { id: "DOC:docs/requirements/functional/identity/REQ-IDENTITY-004.md", type: "DOC", status: "LOCKED", title: "REQ-IDENTITY-004" }
-  - { id: "DOC:docs/requirements/functional/identity/REQ-IDENTITY-005.md", type: "DOC", status: "LOCKED", title: "REQ-IDENTITY-005" }
-  - { id: "DOC:docs/requirements/functional/identity/REQ-IDENTITY-006.md", type: "DOC", status: "LOCKED", title: "REQ-IDENTITY-006" }
-  - { id: "DOC:docs/requirements/functional/workspace/REQ-WORKSPACE-001.md", type: "DOC", status: "LOCKED", title: "REQ-WORKSPACE-001" }
-  - { id: "DOC:docs/requirements/functional/workspace/REQ-WORKSPACE-002.md", type: "DOC", status: "LOCKED", title: "REQ-WORKSPACE-002" }
-  - { id: "DOC:docs/requirements/functional/workspace/REQ-WORKSPACE-003.md", type: "DOC", status: "LOCKED", title: "REQ-WORKSPACE-003" }
-  - { id: "DOC:docs/requirements/functional/workspace/REQ-WORKSPACE-004.md", type: "DOC", status: "LOCKED", title: "REQ-WORKSPACE-004" }
-  - { id: "DOC:docs/requirements/functional/workspace/REQ-WORKSPACE-005.md", type: "DOC", status: "LOCKED", title: "REQ-WORKSPACE-005" }
-  - { id: "DOC:docs/requirements/functional/connectivity/REQ-CONNECTIVITY-001.md", type: "DOC", status: "LOCKED", title: "REQ-CONNECTIVITY-001" }
-  - { id: "DOC:docs/requirements/functional/connectivity/REQ-CONNECTIVITY-002.md", type: "DOC", status: "LOCKED", title: "REQ-CONNECTIVITY-002" }
-  - { id: "DOC:docs/requirements/functional/connectivity/REQ-CONNECTIVITY-003.md", type: "DOC", status: "LOCKED", title: "REQ-CONNECTIVITY-003" }
-  - { id: "DOC:docs/requirements/functional/connectivity/REQ-CONNECTIVITY-004.md", type: "DOC", status: "LOCKED", title: "REQ-CONNECTIVITY-004" }
-  - { id: "DOC:docs/requirements/functional/connectivity/REQ-CONNECTIVITY-005.md", type: "DOC", status: "LOCKED", title: "REQ-CONNECTIVITY-005" }
-  - { id: "DOC:docs/requirements/functional/instrument/REQ-INSTRUMENT-001.md", type: "DOC", status: "LOCKED", title: "REQ-INSTRUMENT-001" }
-  - { id: "DOC:docs/requirements/functional/instrument/REQ-INSTRUMENT-002.md", type: "DOC", status: "LOCKED", title: "REQ-INSTRUMENT-002" }
-  - { id: "DOC:docs/requirements/functional/instrument/REQ-INSTRUMENT-003.md", type: "DOC", status: "LOCKED", title: "REQ-INSTRUMENT-003" }
-  - { id: "DOC:docs/requirements/functional/instrument/REQ-INSTRUMENT-004.md", type: "DOC", status: "LOCKED", title: "REQ-INSTRUMENT-004" }
-  - { id: "DOC:docs/requirements/functional/portfolio/REQ-PORTFOLIO-001.md", type: "DOC", status: "LOCKED", title: "REQ-PORTFOLIO-001" }
-  - { id: "DOC:docs/requirements/functional/portfolio/REQ-PORTFOLIO-002.md", type: "DOC", status: "LOCKED", title: "REQ-PORTFOLIO-002" }
-  - { id: "DOC:docs/requirements/functional/portfolio/REQ-PORTFOLIO-003.md", type: "DOC", status: "LOCKED", title: "REQ-PORTFOLIO-003" }
-  - { id: "DOC:docs/requirements/functional/portfolio/REQ-PORTFOLIO-004.md", type: "DOC", status: "LOCKED", title: "REQ-PORTFOLIO-004" }
-  - { id: "DOC:docs/requirements/functional/portfolio/REQ-PORTFOLIO-005.md", type: "DOC", status: "LOCKED", title: "REQ-PORTFOLIO-005" }
-  - { id: "DOC:docs/requirements/functional/portfolio/REQ-PORTFOLIO-006.md", type: "DOC", status: "LOCKED", title: "REQ-PORTFOLIO-006" }
-  - { id: "DOC:docs/requirements/functional/xray/REQ-XRAY-001.md", type: "DOC", status: "LOCKED", title: "REQ-XRAY-001" }
-  - { id: "DOC:docs/requirements/functional/xray/REQ-XRAY-002.md", type: "DOC", status: "LOCKED", title: "REQ-XRAY-002" }
-  - { id: "DOC:docs/requirements/functional/xray/REQ-XRAY-003.md", type: "DOC", status: "LOCKED", title: "REQ-XRAY-003" }
-  - { id: "DOC:docs/requirements/functional/xray/REQ-XRAY-004.md", type: "DOC", status: "LOCKED", title: "REQ-XRAY-004" }
-  - { id: "DOC:docs/requirements/functional/xray/REQ-XRAY-005.md", type: "DOC", status: "LOCKED", title: "REQ-XRAY-005" }
-  - { id: "DOC:docs/requirements/functional/market/REQ-MARKET-001.md", type: "DOC", status: "LOCKED", title: "REQ-MARKET-001" }
-  - { id: "DOC:docs/requirements/functional/market/REQ-MARKET-002.md", type: "DOC", status: "LOCKED", title: "REQ-MARKET-002" }
-  - { id: "DOC:docs/requirements/functional/market/REQ-MARKET-003.md", type: "DOC", status: "LOCKED", title: "REQ-MARKET-003" }
-  - { id: "DOC:docs/requirements/functional/market/REQ-MARKET-004.md", type: "DOC", status: "LOCKED", title: "REQ-MARKET-004" }
-  - { id: "DOC:docs/requirements/functional/macro/REQ-MACRO-001.md", type: "DOC", status: "LOCKED", title: "REQ-MACRO-001" }
-  - { id: "DOC:docs/requirements/functional/macro/REQ-MACRO-002.md", type: "DOC", status: "LOCKED", title: "REQ-MACRO-002" }
-  - { id: "DOC:docs/requirements/functional/macro/REQ-MACRO-003.md", type: "DOC", status: "LOCKED", title: "REQ-MACRO-003" }
-  - { id: "DOC:docs/requirements/functional/research-knowledge/REQ-RESEARCH-001.md", type: "DOC", status: "LOCKED", title: "REQ-RESEARCH-001" }
-  - { id: "DOC:docs/requirements/functional/research-knowledge/REQ-KNOWLEDGE-001.md", type: "DOC", status: "LOCKED", title: "REQ-KNOWLEDGE-001" }
-  - { id: "DOC:docs/requirements/functional/research-knowledge/REQ-KNOWLEDGE-002.md", type: "DOC", status: "LOCKED", title: "REQ-KNOWLEDGE-002" }
-  - { id: "DOC:docs/requirements/functional/research-knowledge/REQ-KNOWLEDGE-003.md", type: "DOC", status: "LOCKED", title: "REQ-KNOWLEDGE-003" }
-  - { id: "DOC:docs/requirements/functional/research-knowledge/REQ-KNOWLEDGE-004.md", type: "DOC", status: "LOCKED", title: "REQ-KNOWLEDGE-004" }
-  - { id: "DOC:docs/requirements/functional/analytics/REQ-ANALYTICS-001.md", type: "DOC", status: "LOCKED", title: "REQ-ANALYTICS-001" }
-  - { id: "DOC:docs/requirements/functional/analytics/REQ-ANALYTICS-002.md", type: "DOC", status: "LOCKED", title: "REQ-ANALYTICS-002" }
-  - { id: "DOC:docs/requirements/functional/analytics/REQ-ANALYTICS-003.md", type: "DOC", status: "LOCKED", title: "REQ-ANALYTICS-003" }
-  - { id: "DOC:docs/requirements/functional/analytics/REQ-ANALYTICS-004.md", type: "DOC", status: "LOCKED", title: "REQ-ANALYTICS-004" }
-  - { id: "DOC:docs/requirements/functional/analytics/REQ-ANALYTICS-005.md", type: "DOC", status: "LOCKED", title: "REQ-ANALYTICS-005" }
-  - { id: "DOC:docs/requirements/functional/risk/REQ-RISK-001.md", type: "DOC", status: "LOCKED", title: "REQ-RISK-001" }
-  - { id: "DOC:docs/requirements/functional/risk/REQ-RISK-002.md", type: "DOC", status: "LOCKED", title: "REQ-RISK-002" }
-  - { id: "DOC:docs/requirements/functional/risk/REQ-RISK-003.md", type: "DOC", status: "LOCKED", title: "REQ-RISK-003" }
-  - { id: "DOC:docs/requirements/functional/workflow/REQ-WORKFLOW-001.md", type: "DOC", status: "LOCKED", title: "REQ-WORKFLOW-001" }
-  - { id: "DOC:docs/requirements/functional/workflow/REQ-WORKFLOW-002.md", type: "DOC", status: "LOCKED", title: "REQ-WORKFLOW-002" }
-  - { id: "DOC:docs/requirements/functional/workflow/REQ-WORKFLOW-003.md", type: "DOC", status: "LOCKED", title: "REQ-WORKFLOW-003" }
-  - { id: "DOC:docs/requirements/functional/workflow/REQ-WORKFLOW-004.md", type: "DOC", status: "LOCKED", title: "REQ-WORKFLOW-004" }
-  - { id: "DOC:docs/requirements/functional/ai/REQ-AI-001.md", type: "DOC", status: "LOCKED", title: "REQ-AI-001" }
-  - { id: "DOC:docs/requirements/functional/ai/REQ-AI-002.md", type: "DOC", status: "LOCKED", title: "REQ-AI-002" }
-  - { id: "DOC:docs/requirements/functional/ai/REQ-AI-003.md", type: "DOC", status: "LOCKED", title: "REQ-AI-003" }
-  - { id: "DOC:docs/requirements/functional/ai/REQ-AI-004.md", type: "DOC", status: "LOCKED", title: "REQ-AI-004" }
-  - { id: "DOC:docs/requirements/functional/ai/REQ-AI-005.md", type: "DOC", status: "LOCKED", title: "REQ-AI-005" }
-  - { id: "DOC:docs/requirements/functional/reporting-notification/REQ-REPORT-001.md", type: "DOC", status: "LOCKED", title: "REQ-REPORT-001" }
-  - { id: "DOC:docs/requirements/functional/reporting-notification/REQ-REPORT-002.md", type: "DOC", status: "LOCKED", title: "REQ-REPORT-002" }
-  - { id: "DOC:docs/requirements/functional/reporting-notification/REQ-NOTIFICATION-001.md", type: "DOC", status: "LOCKED", title: "REQ-NOTIFICATION-001" }
-  - { id: "DOC:docs/requirements/functional/frontend-realtime/REQ-FRONTEND-001.md", type: "DOC", status: "LOCKED", title: "REQ-FRONTEND-001" }
-  - { id: "DOC:docs/requirements/functional/frontend-realtime/REQ-FRONTEND-002.md", type: "DOC", status: "LOCKED", title: "REQ-FRONTEND-002" }
-  - { id: "DOC:docs/requirements/functional/frontend-realtime/REQ-FRONTEND-003.md", type: "DOC", status: "LOCKED", title: "REQ-FRONTEND-003" }
-  - { id: "DOC:docs/requirements/functional/frontend-realtime/REQ-REALTIME-001.md", type: "DOC", status: "LOCKED", title: "REQ-REALTIME-001" }
-  - { id: "DOC:docs/requirements/functional/frontend-realtime/REQ-REALTIME-002.md", type: "DOC", status: "LOCKED", title: "REQ-REALTIME-002" }
-  - { id: "DOC:docs/requirements/functional/frontend-realtime/REQ-REALTIME-003.md", type: "DOC", status: "LOCKED", title: "REQ-REALTIME-003" }
-  - { id: "DOC:docs/requirements/functional/configuration/REQ-CONFIG-001.md", type: "DOC", status: "LOCKED", title: "REQ-CONFIG-001" }
-  - { id: "DOC:docs/requirements/functional/configuration/REQ-CONFIG-002.md", type: "DOC", status: "LOCKED", title: "REQ-CONFIG-002" }
-  - { id: "DOC:docs/requirements/functional/configuration/REQ-CONFIG-003.md", type: "DOC", status: "LOCKED", title: "REQ-CONFIG-003" }
-  - { id: "DOC:docs/requirements/functional/configuration/REQ-CONFIG-004.md", type: "DOC", status: "LOCKED", title: "REQ-CONFIG-004" }
-  - { id: "DOC:docs/requirements/nfr/security/NFR-SEC-001.md", type: "DOC", status: "LOCKED", title: "NFR-SEC-001" }
-  - { id: "DOC:docs/requirements/nfr/security/NFR-SEC-002.md", type: "DOC", status: "LOCKED", title: "NFR-SEC-002" }
-  - { id: "DOC:docs/requirements/nfr/security/NFR-SEC-003.md", type: "DOC", status: "LOCKED", title: "NFR-SEC-003" }
-  - { id: "DOC:docs/requirements/nfr/security/NFR-SEC-004.md", type: "DOC", status: "LOCKED", title: "NFR-SEC-004" }
-  - { id: "DOC:docs/requirements/nfr/security/NFR-SEC-005.md", type: "DOC", status: "LOCKED", title: "NFR-SEC-005" }
-  - { id: "DOC:docs/requirements/nfr/privacy/NFR-PRIVACY-001.md", type: "DOC", status: "LOCKED", title: "NFR-PRIVACY-001" }
-  - { id: "DOC:docs/requirements/nfr/privacy/NFR-PRIVACY-002.md", type: "DOC", status: "LOCKED", title: "NFR-PRIVACY-002" }
-  - { id: "DOC:docs/requirements/nfr/correctness/NFR-CORRECTNESS-001.md", type: "DOC", status: "LOCKED", title: "NFR-CORRECTNESS-001" }
-  - { id: "DOC:docs/requirements/nfr/correctness/NFR-CORRECTNESS-002.md", type: "DOC", status: "LOCKED", title: "NFR-CORRECTNESS-002" }
-  - { id: "DOC:docs/requirements/nfr/correctness/NFR-CORRECTNESS-003.md", type: "DOC", status: "LOCKED", title: "NFR-CORRECTNESS-003" }
-  - { id: "DOC:docs/requirements/nfr/reliability/NFR-RELIABILITY-001.md", type: "DOC", status: "LOCKED", title: "NFR-RELIABILITY-001" }
-  - { id: "DOC:docs/requirements/nfr/reliability/NFR-RELIABILITY-002.md", type: "DOC", status: "LOCKED", title: "NFR-RELIABILITY-002" }
-  - { id: "DOC:docs/requirements/nfr/recoverability/NFR-RECOVERY-001.md", type: "DOC", status: "LOCKED", title: "NFR-RECOVERY-001" }
-  - { id: "DOC:docs/requirements/nfr/recoverability/NFR-RECOVERY-002.md", type: "DOC", status: "LOCKED", title: "NFR-RECOVERY-002" }
-  - { id: "DOC:docs/requirements/nfr/compatibility/NFR-COMPAT-001.md", type: "DOC", status: "LOCKED", title: "NFR-COMPAT-001" }
-  - { id: "DOC:docs/requirements/nfr/accessibility/NFR-A11Y-001.md", type: "DOC", status: "LOCKED", title: "NFR-A11Y-001" }
-  - { id: "DOC:docs/requirements/nfr/accessibility/NFR-A11Y-002.md", type: "DOC", status: "LOCKED", title: "NFR-A11Y-002" }
-  - { id: "DOC:docs/requirements/nfr/accessibility/NFR-A11Y-003.md", type: "DOC", status: "LOCKED", title: "NFR-A11Y-003" }
-  - { id: "DOC:docs/requirements/nfr/ux/NFR-UX-001.md", type: "DOC", status: "LOCKED", title: "NFR-UX-001" }
-  - { id: "DOC:docs/requirements/nfr/configurability/NFR-CONFIG-001.md", type: "DOC", status: "LOCKED", title: "NFR-CONFIG-001" }
-  - { id: "DOC:docs/requirements/nfr/modularity/NFR-MODULARITY-001.md", type: "DOC", status: "LOCKED", title: "NFR-MODULARITY-001" }
-  - { id: "DOC:docs/requirements/nfr/modularity/NFR-MODULARITY-002.md", type: "DOC", status: "LOCKED", title: "NFR-MODULARITY-002" }
-  - { id: "DOC:docs/requirements/nfr/observability/NFR-OBS-001.md", type: "DOC", status: "LOCKED", title: "NFR-OBS-001" }
-  - { id: "DOC:docs/requirements/nfr/performance/NFR-PERF-001.md", type: "DOC", status: "LOCKED", title: "NFR-PERF-001" }
-  - { id: "DOC:docs/requirements/nfr/supply-chain/NFR-SUPPLY-001.md", type: "DOC", status: "LOCKED", title: "NFR-SUPPLY-001" }
-  - { id: "DOC:docs/requirements/nfr/traceability/NFR-TRACE-001.md", type: "DOC", status: "LOCKED", title: "NFR-TRACE-001" }
-  - { id: "DOC:docs/requirements/nfr/traceability/NFR-TRACE-002.md", type: "DOC", status: "LOCKED", title: "NFR-TRACE-002" }
+- {id: SER-70, nodeType: LINEAR_ISSUE, status: DONE, title: Architecture/governance sync P0-R26..P0-R57}
+- {id: P0-R26, nodeType: DECISION_PACK, status: LOCKED}
+- {id: P0-R35, nodeType: DECISION_PACK, status: LOCKED}
+- {id: P0-R36, nodeType: DECISION_PACK, status: LOCKED}
+- {id: P0-R37, nodeType: DECISION_PACK, status: LOCKED}
+- {id: P0-R38, nodeType: DECISION_PACK, status: LOCKED}
+- {id: P0-R39, nodeType: DECISION_PACK, status: LOCKED}
+- {id: P0-R40, nodeType: DECISION_PACK, status: LOCKED}
+- {id: P0-R41, nodeType: DECISION_PACK, status: LOCKED}
+- {id: P0-R42, nodeType: DECISION_PACK, status: LOCKED}
+- {id: P0-R43, nodeType: DECISION_PACK, status: LOCKED}
+- {id: P0-R44, nodeType: DECISION_PACK, status: LOCKED}
+- {id: P0-R45, nodeType: DECISION_PACK, status: LOCKED}
+- {id: P0-R46, nodeType: DECISION_PACK, status: LOCKED}
+- {id: P0-R47, nodeType: DECISION_PACK, status: LOCKED}
+- {id: ADR-0003, nodeType: ADR, status: LOCKED}
+- {id: ADR-0004, nodeType: ADR, status: LOCKED}
+- {id: ADR-0005, nodeType: ADR, status: LOCKED}
+- {id: ADR-0008, nodeType: ADR, status: LOCKED}
+- {id: ADR-0018, nodeType: ADR, status: LOCKED}
+- {id: ADR-0019, nodeType: ADR, status: LOCKED}
+- {id: ADR-0023, nodeType: ADR, status: LOCKED}
+- {id: ADR-0024, nodeType: ADR, status: LOCKED}
+- {id: 'DOC:docs/governance/architecture-manifest.md', nodeType: DOCUMENTATION, status: ACTIVE, canonicalPath: docs/governance/architecture-manifest.md}
+- {id: 'DOC:docs/governance/protocol-ownership.md', nodeType: DOCUMENTATION, status: ACTIVE, canonicalPath: docs/governance/protocol-ownership.md}
+- {id: 'DOC:docs/governance/review-adjudication.md', nodeType: DOCUMENTATION, status: ACTIVE, canonicalPath: docs/governance/review-adjudication.md}
+- {id: 'DOC:docs/governance/typed-configuration.md', nodeType: DOCUMENTATION, status: ACTIVE, canonicalPath: docs/governance/typed-configuration.md}
+- {id: 'DOC:docs/governance/api-registry.md', nodeType: DOCUMENTATION, status: ACTIVE, canonicalPath: docs/governance/api-registry.md}
+- {id: 'DOC:docs/governance/traceability/traceability.schema.json', nodeType: DOCUMENTATION, status: ACTIVE, canonicalPath: docs/governance/traceability/traceability.schema.json}
+- {id: 'DOC:docs/governance/traceability/traceability.yaml', nodeType: DOCUMENTATION, status: ACTIVE, canonicalPath: docs/governance/traceability/traceability.yaml}
+- {id: 'DOC:docs/governance/traceability/review-adjudication.md', nodeType: DOCUMENTATION, status: ACTIVE, canonicalPath: docs/governance/traceability/review-adjudication.md}
+- {id: 'DOC:docs/verification/test-catalog.schema.json', nodeType: DOCUMENTATION, status: ACTIVE, canonicalPath: docs/verification/test-catalog.schema.json}
+- {id: 'DOC:docs/verification/test-catalog.yaml', nodeType: DOCUMENTATION, status: ACTIVE, canonicalPath: docs/verification/test-catalog.yaml}
+- {id: 'DOC:docs/design/design-manifest.schema.json', nodeType: DOCUMENTATION, status: ACTIVE, canonicalPath: docs/design/design-manifest.schema.json}
+- {id: 'DOC:docs/design/design-manifest.yaml', nodeType: DOCUMENTATION, status: ACTIVE, canonicalPath: docs/design/design-manifest.yaml}
+- {id: 'DOC:docs/security/README-data-classification.md', nodeType: DOCUMENTATION, status: ACTIVE, canonicalPath: docs/security/README-data-classification.md}
+- {id: 'DOC:docs/security/data-classification.schema.json', nodeType: DOCUMENTATION, status: ACTIVE, canonicalPath: docs/security/data-classification.schema.json}
+- {id: 'DOC:docs/security/data-classification.yaml', nodeType: DOCUMENTATION, status: ACTIVE, canonicalPath: docs/security/data-classification.yaml}
+- {id: 'DOC:docs/security/data-lifecycle.md', nodeType: DOCUMENTATION, status: ACTIVE, canonicalPath: docs/security/data-lifecycle.md}
+- {id: 'DOC:docs/security/retention-policies.schema.json', nodeType: DOCUMENTATION, status: ACTIVE, canonicalPath: docs/security/retention-policies.schema.json}
+- {id: 'DOC:docs/security/retention-policies.yaml', nodeType: DOCUMENTATION, status: ACTIVE, canonicalPath: docs/security/retention-policies.yaml}
+- {id: 'DOC:docs/runbooks/workspace-deletion.md', nodeType: DOCUMENTATION, status: ACTIVE, canonicalPath: docs/runbooks/workspace-deletion.md}
+- {id: 'DOC:docs/runbooks/provider-disconnect.md', nodeType: DOCUMENTATION, status: ACTIVE, canonicalPath: docs/runbooks/provider-disconnect.md}
+- {id: 'DOC:docs/runbooks/data-export.md', nodeType: DOCUMENTATION, status: ACTIVE, canonicalPath: docs/runbooks/data-export.md}
+- {id: P0-R48, nodeType: DECISION_PACK, status: LOCKED, title: 'Pull-request orchestration, CI-to-local acceptance and human-promotion
+    contract'}
+- {id: P0-R49, nodeType: DECISION_PACK, status: LOCKED, title: 'Test layers, execution lanes and required quality-gate contract'}
+- {id: P0-R50, nodeType: DECISION_PACK, status: LOCKED, title: 'Local acceptance environment, preview deployment and manual
+    approval contract'}
+- {id: P0-R51, nodeType: DECISION_PACK, status: LOCKED, title: Local environment segregation and workstation bootstrap contract}
+- {id: P0-R52, nodeType: DECISION_PACK, status: LOCKED, title: 'Agent execution firewall, Task Packet and zero-assumption
+    contract'}
+- {id: P0-R53, nodeType: DECISION_PACK, status: LOCKED, title: 'Minimum Work Unit, Definition of Ready/Done and change-risk
+    classification contract'}
+- {id: P0-R54, nodeType: DECISION_PACK, status: LOCKED, title: 'Final implementation roadmap, vertical slices and dependency-gate
+    contract'}
+- {id: P0-R55, nodeType: DECISION_PACK, status: LOCKED, title: 'Synthetic test-data, golden-fixture and provider-simulator
+    contract'}
+- {id: P0-R56, nodeType: DECISION_PACK, status: LOCKED, title: 'Delivery state machine, acceptance invalidation and production-promotion
+    contract'}
+- {id: P0-R57, nodeType: DECISION_PACK, status: LOCKED, title: 'Phase-0 planning freeze, zero-gap audit and implementation-unlock
+    contract'}
+- {id: P0-R59, nodeType: DECISION_PACK, status: LOCKED, title: Manual Cursor execution and Phase-0 documentation closure}
+- {id: SER-132, nodeType: LINEAR_ISSUE, status: DONE, title: Materialize P0-R59 manual Cursor execution baseline in Git}
+- {id: SER-111, nodeType: LINEAR_ISSUE, status: CANCELED, title: PR orchestration / Slack-Linear automation / JIT runner —
+    CANCELED_SUPERSEDED by P0-R59}
+- {id: 'DOC:docs/governance/execution-baseline.md', nodeType: DOCUMENTATION, status: ACTIVE, title: Manual Cursor execution
+    baseline, canonicalPath: docs/governance/execution-baseline.md}
+- {id: 'DOC:docs/planning/phase0-closure/AUTHORITY_SUPERSESSION_2026-10-30.md', nodeType: DOCUMENTATION, status: ACTIVE, title: 2026-10-30
+    execution-mode and planning-closure pointer, canonicalPath: docs/planning/phase0-closure/AUTHORITY_SUPERSESSION_2026-10-30.md}
+- {id: REQ-IDENTITY-001, nodeType: REQUIREMENT, status: LOCKED, title: REQ-IDENTITY-001, owner: SER-101}
+- {id: REQ-IDENTITY-002, nodeType: REQUIREMENT, status: LOCKED, title: REQ-IDENTITY-002, owner: SER-101}
+- {id: REQ-IDENTITY-003, nodeType: REQUIREMENT, status: LOCKED, title: REQ-IDENTITY-003, owner: SER-101}
+- {id: REQ-IDENTITY-004, nodeType: REQUIREMENT, status: LOCKED, title: REQ-IDENTITY-004, owner: SER-101}
+- {id: REQ-IDENTITY-005, nodeType: REQUIREMENT, status: LOCKED, title: REQ-IDENTITY-005, owner: SER-101}
+- {id: REQ-IDENTITY-006, nodeType: REQUIREMENT, status: LOCKED, title: REQ-IDENTITY-006, owner: SER-101}
+- {id: REQ-WORKSPACE-001, nodeType: REQUIREMENT, status: LOCKED, title: REQ-WORKSPACE-001, owner: SER-101}
+- {id: REQ-WORKSPACE-002, nodeType: REQUIREMENT, status: LOCKED, title: REQ-WORKSPACE-002, owner: SER-101}
+- {id: REQ-WORKSPACE-003, nodeType: REQUIREMENT, status: LOCKED, title: REQ-WORKSPACE-003, owner: SER-101}
+- {id: REQ-WORKSPACE-004, nodeType: REQUIREMENT, status: LOCKED, title: REQ-WORKSPACE-004, owner: SER-101}
+- {id: REQ-WORKSPACE-005, nodeType: REQUIREMENT, status: LOCKED, title: REQ-WORKSPACE-005, owner: SER-101}
+- {id: REQ-CONNECTIVITY-001, nodeType: REQUIREMENT, status: LOCKED, title: REQ-CONNECTIVITY-001, owner: SER-101}
+- {id: REQ-CONNECTIVITY-002, nodeType: REQUIREMENT, status: LOCKED, title: REQ-CONNECTIVITY-002, owner: SER-101}
+- {id: REQ-CONNECTIVITY-003, nodeType: REQUIREMENT, status: LOCKED, title: REQ-CONNECTIVITY-003, owner: SER-101}
+- {id: REQ-CONNECTIVITY-004, nodeType: REQUIREMENT, status: LOCKED, title: REQ-CONNECTIVITY-004, owner: SER-101}
+- {id: REQ-CONNECTIVITY-005, nodeType: REQUIREMENT, status: LOCKED, title: REQ-CONNECTIVITY-005, owner: SER-101}
+- {id: REQ-INSTRUMENT-001, nodeType: REQUIREMENT, status: LOCKED, title: REQ-INSTRUMENT-001, owner: SER-101}
+- {id: REQ-INSTRUMENT-002, nodeType: REQUIREMENT, status: LOCKED, title: REQ-INSTRUMENT-002, owner: SER-101}
+- {id: REQ-INSTRUMENT-003, nodeType: REQUIREMENT, status: LOCKED, title: REQ-INSTRUMENT-003, owner: SER-101}
+- {id: REQ-INSTRUMENT-004, nodeType: REQUIREMENT, status: LOCKED, title: REQ-INSTRUMENT-004, owner: SER-101}
+- {id: REQ-PORTFOLIO-001, nodeType: REQUIREMENT, status: LOCKED, title: REQ-PORTFOLIO-001, owner: SER-101}
+- {id: REQ-PORTFOLIO-002, nodeType: REQUIREMENT, status: LOCKED, title: REQ-PORTFOLIO-002, owner: SER-101}
+- {id: REQ-PORTFOLIO-003, nodeType: REQUIREMENT, status: LOCKED, title: REQ-PORTFOLIO-003, owner: SER-101}
+- {id: REQ-PORTFOLIO-004, nodeType: REQUIREMENT, status: LOCKED, title: REQ-PORTFOLIO-004, owner: SER-101}
+- {id: REQ-PORTFOLIO-005, nodeType: REQUIREMENT, status: LOCKED, title: REQ-PORTFOLIO-005, owner: SER-101}
+- {id: REQ-PORTFOLIO-006, nodeType: REQUIREMENT, status: LOCKED, title: REQ-PORTFOLIO-006, owner: SER-101}
+- {id: REQ-XRAY-001, nodeType: REQUIREMENT, status: LOCKED, title: REQ-XRAY-001, owner: SER-101}
+- {id: REQ-XRAY-002, nodeType: REQUIREMENT, status: LOCKED, title: REQ-XRAY-002, owner: SER-101}
+- {id: REQ-XRAY-003, nodeType: REQUIREMENT, status: LOCKED, title: REQ-XRAY-003, owner: SER-101}
+- {id: REQ-XRAY-004, nodeType: REQUIREMENT, status: LOCKED, title: REQ-XRAY-004, owner: SER-101}
+- {id: REQ-XRAY-005, nodeType: REQUIREMENT, status: LOCKED, title: REQ-XRAY-005, owner: SER-101}
+- {id: REQ-MARKET-001, nodeType: REQUIREMENT, status: LOCKED, title: REQ-MARKET-001, owner: SER-101}
+- {id: REQ-MARKET-002, nodeType: REQUIREMENT, status: LOCKED, title: REQ-MARKET-002, owner: SER-101}
+- {id: REQ-MARKET-003, nodeType: REQUIREMENT, status: LOCKED, title: REQ-MARKET-003, owner: SER-101}
+- {id: REQ-MARKET-004, nodeType: REQUIREMENT, status: LOCKED, title: REQ-MARKET-004, owner: SER-101}
+- {id: REQ-MACRO-001, nodeType: REQUIREMENT, status: LOCKED, title: REQ-MACRO-001, owner: SER-101}
+- {id: REQ-MACRO-002, nodeType: REQUIREMENT, status: LOCKED, title: REQ-MACRO-002, owner: SER-101}
+- {id: REQ-MACRO-003, nodeType: REQUIREMENT, status: LOCKED, title: REQ-MACRO-003, owner: SER-101}
+- {id: REQ-RESEARCH-001, nodeType: REQUIREMENT, status: LOCKED, title: REQ-RESEARCH-001, owner: SER-101}
+- {id: REQ-KNOWLEDGE-001, nodeType: REQUIREMENT, status: LOCKED, title: REQ-KNOWLEDGE-001, owner: SER-101}
+- {id: REQ-KNOWLEDGE-002, nodeType: REQUIREMENT, status: LOCKED, title: REQ-KNOWLEDGE-002, owner: SER-101}
+- {id: REQ-KNOWLEDGE-003, nodeType: REQUIREMENT, status: LOCKED, title: REQ-KNOWLEDGE-003, owner: SER-101}
+- {id: REQ-KNOWLEDGE-004, nodeType: REQUIREMENT, status: LOCKED, title: REQ-KNOWLEDGE-004, owner: SER-101}
+- {id: REQ-ANALYTICS-001, nodeType: REQUIREMENT, status: LOCKED, title: REQ-ANALYTICS-001, owner: SER-101}
+- {id: REQ-ANALYTICS-002, nodeType: REQUIREMENT, status: LOCKED, title: REQ-ANALYTICS-002, owner: SER-101}
+- {id: REQ-ANALYTICS-003, nodeType: REQUIREMENT, status: LOCKED, title: REQ-ANALYTICS-003, owner: SER-101}
+- {id: REQ-ANALYTICS-004, nodeType: REQUIREMENT, status: LOCKED, title: REQ-ANALYTICS-004, owner: SER-101}
+- {id: REQ-ANALYTICS-005, nodeType: REQUIREMENT, status: LOCKED, title: REQ-ANALYTICS-005, owner: SER-101}
+- {id: REQ-RISK-001, nodeType: REQUIREMENT, status: LOCKED, title: REQ-RISK-001, owner: SER-101}
+- {id: REQ-RISK-002, nodeType: REQUIREMENT, status: LOCKED, title: REQ-RISK-002, owner: SER-101}
+- {id: REQ-RISK-003, nodeType: REQUIREMENT, status: LOCKED, title: REQ-RISK-003, owner: SER-101}
+- {id: REQ-WORKFLOW-001, nodeType: REQUIREMENT, status: LOCKED, title: REQ-WORKFLOW-001, owner: SER-101}
+- {id: REQ-WORKFLOW-002, nodeType: REQUIREMENT, status: LOCKED, title: REQ-WORKFLOW-002, owner: SER-101}
+- {id: REQ-WORKFLOW-003, nodeType: REQUIREMENT, status: LOCKED, title: REQ-WORKFLOW-003, owner: SER-101}
+- {id: REQ-WORKFLOW-004, nodeType: REQUIREMENT, status: LOCKED, title: REQ-WORKFLOW-004, owner: SER-101}
+- {id: REQ-AI-001, nodeType: REQUIREMENT, status: LOCKED, title: REQ-AI-001, owner: SER-101}
+- {id: REQ-AI-002, nodeType: REQUIREMENT, status: LOCKED, title: REQ-AI-002, owner: SER-101}
+- {id: REQ-AI-003, nodeType: REQUIREMENT, status: LOCKED, title: REQ-AI-003, owner: SER-101}
+- {id: REQ-AI-004, nodeType: REQUIREMENT, status: LOCKED, title: REQ-AI-004, owner: SER-101}
+- {id: REQ-AI-005, nodeType: REQUIREMENT, status: LOCKED, title: REQ-AI-005, owner: SER-101}
+- {id: REQ-REPORT-001, nodeType: REQUIREMENT, status: LOCKED, title: REQ-REPORT-001, owner: SER-101}
+- {id: REQ-REPORT-002, nodeType: REQUIREMENT, status: LOCKED, title: REQ-REPORT-002, owner: SER-101}
+- {id: REQ-NOTIFICATION-001, nodeType: REQUIREMENT, status: LOCKED, title: REQ-NOTIFICATION-001, owner: SER-101}
+- {id: REQ-FRONTEND-001, nodeType: REQUIREMENT, status: LOCKED, title: REQ-FRONTEND-001, owner: SER-101}
+- {id: REQ-FRONTEND-002, nodeType: REQUIREMENT, status: LOCKED, title: REQ-FRONTEND-002, owner: SER-101}
+- {id: REQ-FRONTEND-003, nodeType: REQUIREMENT, status: LOCKED, title: REQ-FRONTEND-003, owner: SER-101}
+- {id: REQ-REALTIME-001, nodeType: REQUIREMENT, status: LOCKED, title: REQ-REALTIME-001, owner: SER-101}
+- {id: REQ-REALTIME-002, nodeType: REQUIREMENT, status: LOCKED, title: REQ-REALTIME-002, owner: SER-101}
+- {id: REQ-REALTIME-003, nodeType: REQUIREMENT, status: LOCKED, title: REQ-REALTIME-003, owner: SER-101}
+- {id: REQ-CONFIG-001, nodeType: REQUIREMENT, status: LOCKED, title: REQ-CONFIG-001, owner: SER-101}
+- {id: REQ-CONFIG-002, nodeType: REQUIREMENT, status: LOCKED, title: REQ-CONFIG-002, owner: SER-101}
+- {id: REQ-CONFIG-003, nodeType: REQUIREMENT, status: LOCKED, title: REQ-CONFIG-003, owner: SER-101}
+- {id: REQ-CONFIG-004, nodeType: REQUIREMENT, status: LOCKED, title: REQ-CONFIG-004, owner: SER-101}
+- {id: NFR-SEC-001, nodeType: NFR, status: LOCKED, title: NFR-SEC-001, owner: SER-101}
+- {id: NFR-SEC-002, nodeType: NFR, status: LOCKED, title: NFR-SEC-002, owner: SER-101}
+- {id: NFR-SEC-003, nodeType: NFR, status: LOCKED, title: NFR-SEC-003, owner: SER-101}
+- {id: NFR-SEC-004, nodeType: NFR, status: LOCKED, title: NFR-SEC-004, owner: SER-101}
+- {id: NFR-SEC-005, nodeType: NFR, status: LOCKED, title: NFR-SEC-005, owner: SER-101}
+- {id: NFR-PRIVACY-001, nodeType: NFR, status: LOCKED, title: NFR-PRIVACY-001, owner: SER-101}
+- {id: NFR-PRIVACY-002, nodeType: NFR, status: LOCKED, title: NFR-PRIVACY-002, owner: SER-101}
+- {id: NFR-CORRECTNESS-001, nodeType: NFR, status: LOCKED, title: NFR-CORRECTNESS-001, owner: SER-101}
+- {id: NFR-CORRECTNESS-002, nodeType: NFR, status: LOCKED, title: NFR-CORRECTNESS-002, owner: SER-101}
+- {id: NFR-CORRECTNESS-003, nodeType: NFR, status: LOCKED, title: NFR-CORRECTNESS-003, owner: SER-101}
+- {id: NFR-RELIABILITY-001, nodeType: NFR, status: LOCKED, title: NFR-RELIABILITY-001, owner: SER-101}
+- {id: NFR-RELIABILITY-002, nodeType: NFR, status: LOCKED, title: NFR-RELIABILITY-002, owner: SER-101}
+- {id: NFR-RECOVERY-001, nodeType: NFR, status: LOCKED, title: NFR-RECOVERY-001, owner: SER-101}
+- {id: NFR-RECOVERY-002, nodeType: NFR, status: LOCKED, title: NFR-RECOVERY-002, owner: SER-101}
+- {id: NFR-COMPAT-001, nodeType: NFR, status: LOCKED, title: NFR-COMPAT-001, owner: SER-101}
+- {id: NFR-A11Y-001, nodeType: NFR, status: LOCKED, title: NFR-A11Y-001, owner: SER-101}
+- {id: NFR-A11Y-002, nodeType: NFR, status: LOCKED, title: NFR-A11Y-002, owner: SER-101}
+- {id: NFR-A11Y-003, nodeType: NFR, status: LOCKED, title: NFR-A11Y-003, owner: SER-101}
+- {id: NFR-UX-001, nodeType: NFR, status: LOCKED, title: NFR-UX-001, owner: SER-101}
+- {id: NFR-CONFIG-001, nodeType: NFR, status: LOCKED, title: NFR-CONFIG-001, owner: SER-101}
+- {id: NFR-MODULARITY-001, nodeType: NFR, status: LOCKED, title: NFR-MODULARITY-001, owner: SER-101}
+- {id: NFR-MODULARITY-002, nodeType: NFR, status: LOCKED, title: NFR-MODULARITY-002, owner: SER-101}
+- {id: NFR-OBS-001, nodeType: NFR, status: LOCKED, title: NFR-OBS-001, owner: SER-101}
+- {id: NFR-PERF-001, nodeType: NFR, status: LOCKED, title: NFR-PERF-001, owner: SER-101}
+- {id: NFR-SUPPLY-001, nodeType: NFR, status: LOCKED, title: NFR-SUPPLY-001, owner: SER-101}
+- {id: NFR-TRACE-001, nodeType: NFR, status: LOCKED, title: NFR-TRACE-001, owner: SER-101}
+- {id: NFR-TRACE-002, nodeType: NFR, status: LOCKED, title: NFR-TRACE-002, owner: SER-101}
+- {id: REQ-UI-002, nodeType: REQUIREMENT, status: SUPERSEDED, title: REQ-UI-002 legacy alias, owner: SER-101}
+- {id: REQ-UI-003, nodeType: REQUIREMENT, status: SUPERSEDED, title: REQ-UI-003 legacy alias, owner: SER-101}
+- {id: REQ-WF-001, nodeType: REQUIREMENT, status: SUPERSEDED, title: REQ-WF-001 legacy alias, owner: SER-101}
+- {id: NFR-REL-002, nodeType: NFR, status: SUPERSEDED, title: NFR-REL-002 legacy alias, owner: SER-101}
+- {id: NFR-REL-003, nodeType: NFR, status: SUPERSEDED, title: NFR-REL-003 legacy alias, owner: SER-101}
+- {id: NFR-REL-004, nodeType: NFR, status: SUPERSEDED, title: NFR-REL-004 legacy alias, owner: SER-101}
+- {id: NFR-PRIV-001, nodeType: NFR, status: SUPERSEDED, title: NFR-PRIV-001 legacy alias, owner: SER-101}
+- {id: NFR-MOD-002, nodeType: NFR, status: SUPERSEDED, title: NFR-MOD-002 legacy alias, owner: SER-101}
+- {id: NFR-REC-003, nodeType: NFR, status: SUPERSEDED, title: NFR-REC-003 legacy alias, owner: SER-101}
+- {id: TEST-SEC-IDENTITY-PRE-MFA-DENY, nodeType: TEST, status: PLANNED, title: TEST-SEC-IDENTITY-PRE-MFA-DENY}
+- {id: TEST-SEC-ONE-TIME-SECRET-NO-REPLAY, nodeType: TEST, status: PLANNED, title: TEST-SEC-ONE-TIME-SECRET-NO-REPLAY}
+- {id: TEST-RLS-WORKSPACE-CROSS-TENANT-DENY, nodeType: TEST, status: PLANNED, title: TEST-RLS-WORKSPACE-CROSS-TENANT-DENY}
+- {id: TEST-WS-CONNECT-ORIGIN-CSRF-AUTHZ, nodeType: TEST, status: PLANNED, title: TEST-WS-CONNECT-ORIGIN-CSRF-AUTHZ}
+- {id: TEST-WS-GAP-REPLAY-RESYNC, nodeType: TEST, status: PLANNED, title: TEST-WS-GAP-REPLAY-RESYNC}
+- {id: TEST-FIN-UNKNOWN-COST-BASIS-NOT-ZERO, nodeType: TEST, status: PLANNED, title: TEST-FIN-UNKNOWN-COST-BASIS-NOT-ZERO}
+- {id: TEST-FIN-TWR-GOLDEN-BASELINE, nodeType: TEST, status: PLANNED, title: TEST-FIN-TWR-GOLDEN-BASELINE}
+- {id: TEST-XRAY-UNKNOWN-MASS-PRESERVED, nodeType: TEST, status: PLANNED, title: TEST-XRAY-UNKNOWN-MASS-PRESERVED}
+- {id: TEST-XRAY-DETERMINISTIC-SAME-INPUT, nodeType: TEST, status: PLANNED, title: TEST-XRAY-DETERMINISTIC-SAME-INPUT}
+- {id: TEST-WF-OUTCOME-UNKNOWN-NO-BLIND-RETRY, nodeType: TEST, status: PLANNED, title: TEST-WF-OUTCOME-UNKNOWN-NO-BLIND-RETRY}
+- {id: TEST-AI-NO-FINANCIAL-EXECUTION-TOOLS, nodeType: TEST, status: PLANNED, title: TEST-AI-NO-FINANCIAL-EXECUTION-TOOLS}
+- {id: TEST-A11Y-METRIC-CARD-STATE-MEANING, nodeType: TEST, status: PLANNED, title: TEST-A11Y-METRIC-CARD-STATE-MEANING}
+- {id: TEST-VISUAL-METRIC-CARD-THEMES-STATES, nodeType: TEST, status: PLANNED, title: TEST-VISUAL-METRIC-CARD-THEMES-STATES}
+- {id: TEST-A11Y-OVERVIEW-CORE, nodeType: TEST, status: PLANNED, title: TEST-A11Y-OVERVIEW-CORE}
+- {id: TEST-DR-DELETED-WORKSPACE-NO-RESURRECT, nodeType: TEST, status: PLANNED, title: TEST-DR-DELETED-WORKSPACE-NO-RESURRECT}
+- {id: TEST-FIN-XIRR-AMBIGUOUS-ROOTSET, nodeType: TEST, status: PLANNED, title: TEST-FIN-XIRR-AMBIGUOUS-ROOTSET}
+- {id: TEST-XRAY-SIGNED-EXPOSURE-SEMANTICS, nodeType: TEST, status: PLANNED, title: TEST-XRAY-SIGNED-EXPOSURE-SEMANTICS}
+- {id: TEST-VISUAL-OVERVIEW-RESPONSIVE, nodeType: TEST, status: PLANNED, title: TEST-VISUAL-OVERVIEW-RESPONSIVE}
+- {id: DES-COMPONENT-METRIC-CARD-001, nodeType: DESIGN, status: DRAFT, title: Semantic metric-card record; visual approval
+    pending}
+- {id: DES-FRONTEND-OVERVIEW-001, nodeType: DESIGN, status: DRAFT, title: Semantic overview record; MEDIUM and COMPACT frames
+    pending}
+- {id: LEGACY-PR-001, nodeType: LEGACY_EXCEPTION, status: ACCEPTED_EXCEPTION, title: 'GitHub PR #1 legacy traceability exception
+    predating P0-R37', externalRef: 'GitHub PR #1', metadata: {reason: predates R37}}
+- {id: 'DOC:docs/planning/phase0-closure/AUTHORITY_SUPERSESSION_2026-10-12.md', nodeType: DOCUMENTATION, status: ACTIVE, title: 2026-10-12
+    authority supersession pointer, canonicalPath: docs/planning/phase0-closure/AUTHORITY_SUPERSESSION_2026-10-12.md}
+- {id: SER-101, nodeType: LINEAR_ISSUE, status: DONE, title: Materialize canonical functional and NFR requirement catalog
+    in Git}
+- {id: 'DOC:docs/requirements/functional/identity/REQ-IDENTITY-001.md', nodeType: DOCUMENTATION, status: ACTIVE, title: REQ-IDENTITY-001,
+  canonicalPath: docs/requirements/functional/identity/REQ-IDENTITY-001.md}
+- {id: 'DOC:docs/requirements/functional/identity/REQ-IDENTITY-002.md', nodeType: DOCUMENTATION, status: ACTIVE, title: REQ-IDENTITY-002,
+  canonicalPath: docs/requirements/functional/identity/REQ-IDENTITY-002.md}
+- {id: 'DOC:docs/requirements/functional/identity/REQ-IDENTITY-003.md', nodeType: DOCUMENTATION, status: ACTIVE, title: REQ-IDENTITY-003,
+  canonicalPath: docs/requirements/functional/identity/REQ-IDENTITY-003.md}
+- {id: 'DOC:docs/requirements/functional/identity/REQ-IDENTITY-004.md', nodeType: DOCUMENTATION, status: ACTIVE, title: REQ-IDENTITY-004,
+  canonicalPath: docs/requirements/functional/identity/REQ-IDENTITY-004.md}
+- {id: 'DOC:docs/requirements/functional/identity/REQ-IDENTITY-005.md', nodeType: DOCUMENTATION, status: ACTIVE, title: REQ-IDENTITY-005,
+  canonicalPath: docs/requirements/functional/identity/REQ-IDENTITY-005.md}
+- {id: 'DOC:docs/requirements/functional/identity/REQ-IDENTITY-006.md', nodeType: DOCUMENTATION, status: ACTIVE, title: REQ-IDENTITY-006,
+  canonicalPath: docs/requirements/functional/identity/REQ-IDENTITY-006.md}
+- {id: 'DOC:docs/requirements/functional/workspace/REQ-WORKSPACE-001.md', nodeType: DOCUMENTATION, status: ACTIVE, title: REQ-WORKSPACE-001,
+  canonicalPath: docs/requirements/functional/workspace/REQ-WORKSPACE-001.md}
+- {id: 'DOC:docs/requirements/functional/workspace/REQ-WORKSPACE-002.md', nodeType: DOCUMENTATION, status: ACTIVE, title: REQ-WORKSPACE-002,
+  canonicalPath: docs/requirements/functional/workspace/REQ-WORKSPACE-002.md}
+- {id: 'DOC:docs/requirements/functional/workspace/REQ-WORKSPACE-003.md', nodeType: DOCUMENTATION, status: ACTIVE, title: REQ-WORKSPACE-003,
+  canonicalPath: docs/requirements/functional/workspace/REQ-WORKSPACE-003.md}
+- {id: 'DOC:docs/requirements/functional/workspace/REQ-WORKSPACE-004.md', nodeType: DOCUMENTATION, status: ACTIVE, title: REQ-WORKSPACE-004,
+  canonicalPath: docs/requirements/functional/workspace/REQ-WORKSPACE-004.md}
+- {id: 'DOC:docs/requirements/functional/workspace/REQ-WORKSPACE-005.md', nodeType: DOCUMENTATION, status: ACTIVE, title: REQ-WORKSPACE-005,
+  canonicalPath: docs/requirements/functional/workspace/REQ-WORKSPACE-005.md}
+- {id: 'DOC:docs/requirements/functional/connectivity/REQ-CONNECTIVITY-001.md', nodeType: DOCUMENTATION, status: ACTIVE, title: REQ-CONNECTIVITY-001,
+  canonicalPath: docs/requirements/functional/connectivity/REQ-CONNECTIVITY-001.md}
+- {id: 'DOC:docs/requirements/functional/connectivity/REQ-CONNECTIVITY-002.md', nodeType: DOCUMENTATION, status: ACTIVE, title: REQ-CONNECTIVITY-002,
+  canonicalPath: docs/requirements/functional/connectivity/REQ-CONNECTIVITY-002.md}
+- {id: 'DOC:docs/requirements/functional/connectivity/REQ-CONNECTIVITY-003.md', nodeType: DOCUMENTATION, status: ACTIVE, title: REQ-CONNECTIVITY-003,
+  canonicalPath: docs/requirements/functional/connectivity/REQ-CONNECTIVITY-003.md}
+- {id: 'DOC:docs/requirements/functional/connectivity/REQ-CONNECTIVITY-004.md', nodeType: DOCUMENTATION, status: ACTIVE, title: REQ-CONNECTIVITY-004,
+  canonicalPath: docs/requirements/functional/connectivity/REQ-CONNECTIVITY-004.md}
+- {id: 'DOC:docs/requirements/functional/connectivity/REQ-CONNECTIVITY-005.md', nodeType: DOCUMENTATION, status: ACTIVE, title: REQ-CONNECTIVITY-005,
+  canonicalPath: docs/requirements/functional/connectivity/REQ-CONNECTIVITY-005.md}
+- {id: 'DOC:docs/requirements/functional/instrument/REQ-INSTRUMENT-001.md', nodeType: DOCUMENTATION, status: ACTIVE, title: REQ-INSTRUMENT-001,
+  canonicalPath: docs/requirements/functional/instrument/REQ-INSTRUMENT-001.md}
+- {id: 'DOC:docs/requirements/functional/instrument/REQ-INSTRUMENT-002.md', nodeType: DOCUMENTATION, status: ACTIVE, title: REQ-INSTRUMENT-002,
+  canonicalPath: docs/requirements/functional/instrument/REQ-INSTRUMENT-002.md}
+- {id: 'DOC:docs/requirements/functional/instrument/REQ-INSTRUMENT-003.md', nodeType: DOCUMENTATION, status: ACTIVE, title: REQ-INSTRUMENT-003,
+  canonicalPath: docs/requirements/functional/instrument/REQ-INSTRUMENT-003.md}
+- {id: 'DOC:docs/requirements/functional/instrument/REQ-INSTRUMENT-004.md', nodeType: DOCUMENTATION, status: ACTIVE, title: REQ-INSTRUMENT-004,
+  canonicalPath: docs/requirements/functional/instrument/REQ-INSTRUMENT-004.md}
+- {id: 'DOC:docs/requirements/functional/portfolio/REQ-PORTFOLIO-001.md', nodeType: DOCUMENTATION, status: ACTIVE, title: REQ-PORTFOLIO-001,
+  canonicalPath: docs/requirements/functional/portfolio/REQ-PORTFOLIO-001.md}
+- {id: 'DOC:docs/requirements/functional/portfolio/REQ-PORTFOLIO-002.md', nodeType: DOCUMENTATION, status: ACTIVE, title: REQ-PORTFOLIO-002,
+  canonicalPath: docs/requirements/functional/portfolio/REQ-PORTFOLIO-002.md}
+- {id: 'DOC:docs/requirements/functional/portfolio/REQ-PORTFOLIO-003.md', nodeType: DOCUMENTATION, status: ACTIVE, title: REQ-PORTFOLIO-003,
+  canonicalPath: docs/requirements/functional/portfolio/REQ-PORTFOLIO-003.md}
+- {id: 'DOC:docs/requirements/functional/portfolio/REQ-PORTFOLIO-004.md', nodeType: DOCUMENTATION, status: ACTIVE, title: REQ-PORTFOLIO-004,
+  canonicalPath: docs/requirements/functional/portfolio/REQ-PORTFOLIO-004.md}
+- {id: 'DOC:docs/requirements/functional/portfolio/REQ-PORTFOLIO-005.md', nodeType: DOCUMENTATION, status: ACTIVE, title: REQ-PORTFOLIO-005,
+  canonicalPath: docs/requirements/functional/portfolio/REQ-PORTFOLIO-005.md}
+- {id: 'DOC:docs/requirements/functional/portfolio/REQ-PORTFOLIO-006.md', nodeType: DOCUMENTATION, status: ACTIVE, title: REQ-PORTFOLIO-006,
+  canonicalPath: docs/requirements/functional/portfolio/REQ-PORTFOLIO-006.md}
+- {id: 'DOC:docs/requirements/functional/xray/REQ-XRAY-001.md', nodeType: DOCUMENTATION, status: ACTIVE, title: REQ-XRAY-001,
+  canonicalPath: docs/requirements/functional/xray/REQ-XRAY-001.md}
+- {id: 'DOC:docs/requirements/functional/xray/REQ-XRAY-002.md', nodeType: DOCUMENTATION, status: ACTIVE, title: REQ-XRAY-002,
+  canonicalPath: docs/requirements/functional/xray/REQ-XRAY-002.md}
+- {id: 'DOC:docs/requirements/functional/xray/REQ-XRAY-003.md', nodeType: DOCUMENTATION, status: ACTIVE, title: REQ-XRAY-003,
+  canonicalPath: docs/requirements/functional/xray/REQ-XRAY-003.md}
+- {id: 'DOC:docs/requirements/functional/xray/REQ-XRAY-004.md', nodeType: DOCUMENTATION, status: ACTIVE, title: REQ-XRAY-004,
+  canonicalPath: docs/requirements/functional/xray/REQ-XRAY-004.md}
+- {id: 'DOC:docs/requirements/functional/xray/REQ-XRAY-005.md', nodeType: DOCUMENTATION, status: ACTIVE, title: REQ-XRAY-005,
+  canonicalPath: docs/requirements/functional/xray/REQ-XRAY-005.md}
+- {id: 'DOC:docs/requirements/functional/market/REQ-MARKET-001.md', nodeType: DOCUMENTATION, status: ACTIVE, title: REQ-MARKET-001,
+  canonicalPath: docs/requirements/functional/market/REQ-MARKET-001.md}
+- {id: 'DOC:docs/requirements/functional/market/REQ-MARKET-002.md', nodeType: DOCUMENTATION, status: ACTIVE, title: REQ-MARKET-002,
+  canonicalPath: docs/requirements/functional/market/REQ-MARKET-002.md}
+- {id: 'DOC:docs/requirements/functional/market/REQ-MARKET-003.md', nodeType: DOCUMENTATION, status: ACTIVE, title: REQ-MARKET-003,
+  canonicalPath: docs/requirements/functional/market/REQ-MARKET-003.md}
+- {id: 'DOC:docs/requirements/functional/market/REQ-MARKET-004.md', nodeType: DOCUMENTATION, status: ACTIVE, title: REQ-MARKET-004,
+  canonicalPath: docs/requirements/functional/market/REQ-MARKET-004.md}
+- {id: 'DOC:docs/requirements/functional/macro/REQ-MACRO-001.md', nodeType: DOCUMENTATION, status: ACTIVE, title: REQ-MACRO-001,
+  canonicalPath: docs/requirements/functional/macro/REQ-MACRO-001.md}
+- {id: 'DOC:docs/requirements/functional/macro/REQ-MACRO-002.md', nodeType: DOCUMENTATION, status: ACTIVE, title: REQ-MACRO-002,
+  canonicalPath: docs/requirements/functional/macro/REQ-MACRO-002.md}
+- {id: 'DOC:docs/requirements/functional/macro/REQ-MACRO-003.md', nodeType: DOCUMENTATION, status: ACTIVE, title: REQ-MACRO-003,
+  canonicalPath: docs/requirements/functional/macro/REQ-MACRO-003.md}
+- {id: 'DOC:docs/requirements/functional/research-knowledge/REQ-RESEARCH-001.md', nodeType: DOCUMENTATION, status: ACTIVE,
+  title: REQ-RESEARCH-001, canonicalPath: docs/requirements/functional/research-knowledge/REQ-RESEARCH-001.md}
+- {id: 'DOC:docs/requirements/functional/research-knowledge/REQ-KNOWLEDGE-001.md', nodeType: DOCUMENTATION, status: ACTIVE,
+  title: REQ-KNOWLEDGE-001, canonicalPath: docs/requirements/functional/research-knowledge/REQ-KNOWLEDGE-001.md}
+- {id: 'DOC:docs/requirements/functional/research-knowledge/REQ-KNOWLEDGE-002.md', nodeType: DOCUMENTATION, status: ACTIVE,
+  title: REQ-KNOWLEDGE-002, canonicalPath: docs/requirements/functional/research-knowledge/REQ-KNOWLEDGE-002.md}
+- {id: 'DOC:docs/requirements/functional/research-knowledge/REQ-KNOWLEDGE-003.md', nodeType: DOCUMENTATION, status: ACTIVE,
+  title: REQ-KNOWLEDGE-003, canonicalPath: docs/requirements/functional/research-knowledge/REQ-KNOWLEDGE-003.md}
+- {id: 'DOC:docs/requirements/functional/research-knowledge/REQ-KNOWLEDGE-004.md', nodeType: DOCUMENTATION, status: ACTIVE,
+  title: REQ-KNOWLEDGE-004, canonicalPath: docs/requirements/functional/research-knowledge/REQ-KNOWLEDGE-004.md}
+- {id: 'DOC:docs/requirements/functional/analytics/REQ-ANALYTICS-001.md', nodeType: DOCUMENTATION, status: ACTIVE, title: REQ-ANALYTICS-001,
+  canonicalPath: docs/requirements/functional/analytics/REQ-ANALYTICS-001.md}
+- {id: 'DOC:docs/requirements/functional/analytics/REQ-ANALYTICS-002.md', nodeType: DOCUMENTATION, status: ACTIVE, title: REQ-ANALYTICS-002,
+  canonicalPath: docs/requirements/functional/analytics/REQ-ANALYTICS-002.md}
+- {id: 'DOC:docs/requirements/functional/analytics/REQ-ANALYTICS-003.md', nodeType: DOCUMENTATION, status: ACTIVE, title: REQ-ANALYTICS-003,
+  canonicalPath: docs/requirements/functional/analytics/REQ-ANALYTICS-003.md}
+- {id: 'DOC:docs/requirements/functional/analytics/REQ-ANALYTICS-004.md', nodeType: DOCUMENTATION, status: ACTIVE, title: REQ-ANALYTICS-004,
+  canonicalPath: docs/requirements/functional/analytics/REQ-ANALYTICS-004.md}
+- {id: 'DOC:docs/requirements/functional/analytics/REQ-ANALYTICS-005.md', nodeType: DOCUMENTATION, status: ACTIVE, title: REQ-ANALYTICS-005,
+  canonicalPath: docs/requirements/functional/analytics/REQ-ANALYTICS-005.md}
+- {id: 'DOC:docs/requirements/functional/risk/REQ-RISK-001.md', nodeType: DOCUMENTATION, status: ACTIVE, title: REQ-RISK-001,
+  canonicalPath: docs/requirements/functional/risk/REQ-RISK-001.md}
+- {id: 'DOC:docs/requirements/functional/risk/REQ-RISK-002.md', nodeType: DOCUMENTATION, status: ACTIVE, title: REQ-RISK-002,
+  canonicalPath: docs/requirements/functional/risk/REQ-RISK-002.md}
+- {id: 'DOC:docs/requirements/functional/risk/REQ-RISK-003.md', nodeType: DOCUMENTATION, status: ACTIVE, title: REQ-RISK-003,
+  canonicalPath: docs/requirements/functional/risk/REQ-RISK-003.md}
+- {id: 'DOC:docs/requirements/functional/workflow/REQ-WORKFLOW-001.md', nodeType: DOCUMENTATION, status: ACTIVE, title: REQ-WORKFLOW-001,
+  canonicalPath: docs/requirements/functional/workflow/REQ-WORKFLOW-001.md}
+- {id: 'DOC:docs/requirements/functional/workflow/REQ-WORKFLOW-002.md', nodeType: DOCUMENTATION, status: ACTIVE, title: REQ-WORKFLOW-002,
+  canonicalPath: docs/requirements/functional/workflow/REQ-WORKFLOW-002.md}
+- {id: 'DOC:docs/requirements/functional/workflow/REQ-WORKFLOW-003.md', nodeType: DOCUMENTATION, status: ACTIVE, title: REQ-WORKFLOW-003,
+  canonicalPath: docs/requirements/functional/workflow/REQ-WORKFLOW-003.md}
+- {id: 'DOC:docs/requirements/functional/workflow/REQ-WORKFLOW-004.md', nodeType: DOCUMENTATION, status: ACTIVE, title: REQ-WORKFLOW-004,
+  canonicalPath: docs/requirements/functional/workflow/REQ-WORKFLOW-004.md}
+- {id: 'DOC:docs/requirements/functional/ai/REQ-AI-001.md', nodeType: DOCUMENTATION, status: ACTIVE, title: REQ-AI-001, canonicalPath: docs/requirements/functional/ai/REQ-AI-001.md}
+- {id: 'DOC:docs/requirements/functional/ai/REQ-AI-002.md', nodeType: DOCUMENTATION, status: ACTIVE, title: REQ-AI-002, canonicalPath: docs/requirements/functional/ai/REQ-AI-002.md}
+- {id: 'DOC:docs/requirements/functional/ai/REQ-AI-003.md', nodeType: DOCUMENTATION, status: ACTIVE, title: REQ-AI-003, canonicalPath: docs/requirements/functional/ai/REQ-AI-003.md}
+- {id: 'DOC:docs/requirements/functional/ai/REQ-AI-004.md', nodeType: DOCUMENTATION, status: ACTIVE, title: REQ-AI-004, canonicalPath: docs/requirements/functional/ai/REQ-AI-004.md}
+- {id: 'DOC:docs/requirements/functional/ai/REQ-AI-005.md', nodeType: DOCUMENTATION, status: ACTIVE, title: REQ-AI-005, canonicalPath: docs/requirements/functional/ai/REQ-AI-005.md}
+- {id: 'DOC:docs/requirements/functional/reporting-notification/REQ-REPORT-001.md', nodeType: DOCUMENTATION, status: ACTIVE,
+  title: REQ-REPORT-001, canonicalPath: docs/requirements/functional/reporting-notification/REQ-REPORT-001.md}
+- {id: 'DOC:docs/requirements/functional/reporting-notification/REQ-REPORT-002.md', nodeType: DOCUMENTATION, status: ACTIVE,
+  title: REQ-REPORT-002, canonicalPath: docs/requirements/functional/reporting-notification/REQ-REPORT-002.md}
+- {id: 'DOC:docs/requirements/functional/reporting-notification/REQ-NOTIFICATION-001.md', nodeType: DOCUMENTATION, status: ACTIVE,
+  title: REQ-NOTIFICATION-001, canonicalPath: docs/requirements/functional/reporting-notification/REQ-NOTIFICATION-001.md}
+- {id: 'DOC:docs/requirements/functional/frontend-realtime/REQ-FRONTEND-001.md', nodeType: DOCUMENTATION, status: ACTIVE,
+  title: REQ-FRONTEND-001, canonicalPath: docs/requirements/functional/frontend-realtime/REQ-FRONTEND-001.md}
+- {id: 'DOC:docs/requirements/functional/frontend-realtime/REQ-FRONTEND-002.md', nodeType: DOCUMENTATION, status: ACTIVE,
+  title: REQ-FRONTEND-002, canonicalPath: docs/requirements/functional/frontend-realtime/REQ-FRONTEND-002.md}
+- {id: 'DOC:docs/requirements/functional/frontend-realtime/REQ-FRONTEND-003.md', nodeType: DOCUMENTATION, status: ACTIVE,
+  title: REQ-FRONTEND-003, canonicalPath: docs/requirements/functional/frontend-realtime/REQ-FRONTEND-003.md}
+- {id: 'DOC:docs/requirements/functional/frontend-realtime/REQ-REALTIME-001.md', nodeType: DOCUMENTATION, status: ACTIVE,
+  title: REQ-REALTIME-001, canonicalPath: docs/requirements/functional/frontend-realtime/REQ-REALTIME-001.md}
+- {id: 'DOC:docs/requirements/functional/frontend-realtime/REQ-REALTIME-002.md', nodeType: DOCUMENTATION, status: ACTIVE,
+  title: REQ-REALTIME-002, canonicalPath: docs/requirements/functional/frontend-realtime/REQ-REALTIME-002.md}
+- {id: 'DOC:docs/requirements/functional/frontend-realtime/REQ-REALTIME-003.md', nodeType: DOCUMENTATION, status: ACTIVE,
+  title: REQ-REALTIME-003, canonicalPath: docs/requirements/functional/frontend-realtime/REQ-REALTIME-003.md}
+- {id: 'DOC:docs/requirements/functional/configuration/REQ-CONFIG-001.md', nodeType: DOCUMENTATION, status: ACTIVE, title: REQ-CONFIG-001,
+  canonicalPath: docs/requirements/functional/configuration/REQ-CONFIG-001.md}
+- {id: 'DOC:docs/requirements/functional/configuration/REQ-CONFIG-002.md', nodeType: DOCUMENTATION, status: ACTIVE, title: REQ-CONFIG-002,
+  canonicalPath: docs/requirements/functional/configuration/REQ-CONFIG-002.md}
+- {id: 'DOC:docs/requirements/functional/configuration/REQ-CONFIG-003.md', nodeType: DOCUMENTATION, status: ACTIVE, title: REQ-CONFIG-003,
+  canonicalPath: docs/requirements/functional/configuration/REQ-CONFIG-003.md}
+- {id: 'DOC:docs/requirements/functional/configuration/REQ-CONFIG-004.md', nodeType: DOCUMENTATION, status: ACTIVE, title: REQ-CONFIG-004,
+  canonicalPath: docs/requirements/functional/configuration/REQ-CONFIG-004.md}
+- {id: 'DOC:docs/requirements/nfr/security/NFR-SEC-001.md', nodeType: DOCUMENTATION, status: ACTIVE, title: NFR-SEC-001, canonicalPath: docs/requirements/nfr/security/NFR-SEC-001.md}
+- {id: 'DOC:docs/requirements/nfr/security/NFR-SEC-002.md', nodeType: DOCUMENTATION, status: ACTIVE, title: NFR-SEC-002, canonicalPath: docs/requirements/nfr/security/NFR-SEC-002.md}
+- {id: 'DOC:docs/requirements/nfr/security/NFR-SEC-003.md', nodeType: DOCUMENTATION, status: ACTIVE, title: NFR-SEC-003, canonicalPath: docs/requirements/nfr/security/NFR-SEC-003.md}
+- {id: 'DOC:docs/requirements/nfr/security/NFR-SEC-004.md', nodeType: DOCUMENTATION, status: ACTIVE, title: NFR-SEC-004, canonicalPath: docs/requirements/nfr/security/NFR-SEC-004.md}
+- {id: 'DOC:docs/requirements/nfr/security/NFR-SEC-005.md', nodeType: DOCUMENTATION, status: ACTIVE, title: NFR-SEC-005, canonicalPath: docs/requirements/nfr/security/NFR-SEC-005.md}
+- {id: 'DOC:docs/requirements/nfr/privacy/NFR-PRIVACY-001.md', nodeType: DOCUMENTATION, status: ACTIVE, title: NFR-PRIVACY-001,
+  canonicalPath: docs/requirements/nfr/privacy/NFR-PRIVACY-001.md}
+- {id: 'DOC:docs/requirements/nfr/privacy/NFR-PRIVACY-002.md', nodeType: DOCUMENTATION, status: ACTIVE, title: NFR-PRIVACY-002,
+  canonicalPath: docs/requirements/nfr/privacy/NFR-PRIVACY-002.md}
+- {id: 'DOC:docs/requirements/nfr/correctness/NFR-CORRECTNESS-001.md', nodeType: DOCUMENTATION, status: ACTIVE, title: NFR-CORRECTNESS-001,
+  canonicalPath: docs/requirements/nfr/correctness/NFR-CORRECTNESS-001.md}
+- {id: 'DOC:docs/requirements/nfr/correctness/NFR-CORRECTNESS-002.md', nodeType: DOCUMENTATION, status: ACTIVE, title: NFR-CORRECTNESS-002,
+  canonicalPath: docs/requirements/nfr/correctness/NFR-CORRECTNESS-002.md}
+- {id: 'DOC:docs/requirements/nfr/correctness/NFR-CORRECTNESS-003.md', nodeType: DOCUMENTATION, status: ACTIVE, title: NFR-CORRECTNESS-003,
+  canonicalPath: docs/requirements/nfr/correctness/NFR-CORRECTNESS-003.md}
+- {id: 'DOC:docs/requirements/nfr/reliability/NFR-RELIABILITY-001.md', nodeType: DOCUMENTATION, status: ACTIVE, title: NFR-RELIABILITY-001,
+  canonicalPath: docs/requirements/nfr/reliability/NFR-RELIABILITY-001.md}
+- {id: 'DOC:docs/requirements/nfr/reliability/NFR-RELIABILITY-002.md', nodeType: DOCUMENTATION, status: ACTIVE, title: NFR-RELIABILITY-002,
+  canonicalPath: docs/requirements/nfr/reliability/NFR-RELIABILITY-002.md}
+- {id: 'DOC:docs/requirements/nfr/recoverability/NFR-RECOVERY-001.md', nodeType: DOCUMENTATION, status: ACTIVE, title: NFR-RECOVERY-001,
+  canonicalPath: docs/requirements/nfr/recoverability/NFR-RECOVERY-001.md}
+- {id: 'DOC:docs/requirements/nfr/recoverability/NFR-RECOVERY-002.md', nodeType: DOCUMENTATION, status: ACTIVE, title: NFR-RECOVERY-002,
+  canonicalPath: docs/requirements/nfr/recoverability/NFR-RECOVERY-002.md}
+- {id: 'DOC:docs/requirements/nfr/compatibility/NFR-COMPAT-001.md', nodeType: DOCUMENTATION, status: ACTIVE, title: NFR-COMPAT-001,
+  canonicalPath: docs/requirements/nfr/compatibility/NFR-COMPAT-001.md}
+- {id: 'DOC:docs/requirements/nfr/accessibility/NFR-A11Y-001.md', nodeType: DOCUMENTATION, status: ACTIVE, title: NFR-A11Y-001,
+  canonicalPath: docs/requirements/nfr/accessibility/NFR-A11Y-001.md}
+- {id: 'DOC:docs/requirements/nfr/accessibility/NFR-A11Y-002.md', nodeType: DOCUMENTATION, status: ACTIVE, title: NFR-A11Y-002,
+  canonicalPath: docs/requirements/nfr/accessibility/NFR-A11Y-002.md}
+- {id: 'DOC:docs/requirements/nfr/accessibility/NFR-A11Y-003.md', nodeType: DOCUMENTATION, status: ACTIVE, title: NFR-A11Y-003,
+  canonicalPath: docs/requirements/nfr/accessibility/NFR-A11Y-003.md}
+- {id: 'DOC:docs/requirements/nfr/ux/NFR-UX-001.md', nodeType: DOCUMENTATION, status: ACTIVE, title: NFR-UX-001, canonicalPath: docs/requirements/nfr/ux/NFR-UX-001.md}
+- {id: 'DOC:docs/requirements/nfr/configurability/NFR-CONFIG-001.md', nodeType: DOCUMENTATION, status: ACTIVE, title: NFR-CONFIG-001,
+  canonicalPath: docs/requirements/nfr/configurability/NFR-CONFIG-001.md}
+- {id: 'DOC:docs/requirements/nfr/modularity/NFR-MODULARITY-001.md', nodeType: DOCUMENTATION, status: ACTIVE, title: NFR-MODULARITY-001,
+  canonicalPath: docs/requirements/nfr/modularity/NFR-MODULARITY-001.md}
+- {id: 'DOC:docs/requirements/nfr/modularity/NFR-MODULARITY-002.md', nodeType: DOCUMENTATION, status: ACTIVE, title: NFR-MODULARITY-002,
+  canonicalPath: docs/requirements/nfr/modularity/NFR-MODULARITY-002.md}
+- {id: 'DOC:docs/requirements/nfr/observability/NFR-OBS-001.md', nodeType: DOCUMENTATION, status: ACTIVE, title: NFR-OBS-001,
+  canonicalPath: docs/requirements/nfr/observability/NFR-OBS-001.md}
+- {id: 'DOC:docs/requirements/nfr/performance/NFR-PERF-001.md', nodeType: DOCUMENTATION, status: ACTIVE, title: NFR-PERF-001,
+  canonicalPath: docs/requirements/nfr/performance/NFR-PERF-001.md}
+- {id: 'DOC:docs/requirements/nfr/supply-chain/NFR-SUPPLY-001.md', nodeType: DOCUMENTATION, status: ACTIVE, title: NFR-SUPPLY-001,
+  canonicalPath: docs/requirements/nfr/supply-chain/NFR-SUPPLY-001.md}
+- {id: 'DOC:docs/requirements/nfr/traceability/NFR-TRACE-001.md', nodeType: DOCUMENTATION, status: ACTIVE, title: NFR-TRACE-001,
+  canonicalPath: docs/requirements/nfr/traceability/NFR-TRACE-001.md}
+- {id: 'DOC:docs/requirements/nfr/traceability/NFR-TRACE-002.md', nodeType: DOCUMENTATION, status: ACTIVE, title: NFR-TRACE-002,
+  canonicalPath: docs/requirements/nfr/traceability/NFR-TRACE-002.md}
 edges:
-  - { from: "SER-70", to: "P0-R26", relation: "implements" }
-  - { from: "SER-70", to: "P0-R35", relation: "implements" }
-  - { from: "SER-70", to: "P0-R36", relation: "implements" }
-  - { from: "SER-70", to: "P0-R37", relation: "implements" }
-  - { from: "SER-70", to: "P0-R38", relation: "implements" }
-  - { from: "SER-70", to: "P0-R39", relation: "implements" }
-  - { from: "SER-70", to: "P0-R40", relation: "implements" }
-  - { from: "SER-70", to: "P0-R41", relation: "implements" }
-  - { from: "SER-70", to: "P0-R42", relation: "implements" }
-  - { from: "SER-70", to: "P0-R43", relation: "implements" }
-  - { from: "SER-70", to: "P0-R44", relation: "implements" }
-  - { from: "SER-70", to: "P0-R45", relation: "implements" }
-  - { from: "SER-70", to: "P0-R46", relation: "implements" }
-  - { from: "SER-70", to: "P0-R47", relation: "implements" }
-  - { from: "P0-R26", to: "ADR-0003", relation: "references" }
-  - { from: "P0-R26", to: "ADR-0004", relation: "references" }
-  - { from: "P0-R26", to: "ADR-0005", relation: "references" }
-  - { from: "P0-R41", to: "ADR-0008", relation: "references" }
-  - { from: "P0-R41", to: "ADR-0018", relation: "references" }
-  - { from: "P0-R43", to: "ADR-0019", relation: "references" }
-  - { from: "P0-R26", to: "DOC:docs/governance/protocol-ownership.md", relation: "documents" }
-  - { from: "P0-R35", to: "DOC:docs/governance/api-registry.md", relation: "documents" }
-  - { from: "P0-R36", to: "DOC:docs/governance/review-adjudication.md", relation: "documents" }
-  - { from: "P0-R37", to: "DOC:docs/governance/traceability/traceability.schema.json", relation: "documents" }
-  - { from: "P0-R37", to: "DOC:docs/governance/traceability/traceability.yaml", relation: "documents" }
-  - { from: "P0-R39", to: "DOC:docs/governance/traceability/review-adjudication.md", relation: "documents" }
-  - { from: "P0-R44", to: "DOC:docs/verification/test-catalog.schema.json", relation: "documents" }
-  - { from: "P0-R44", to: "DOC:docs/verification/test-catalog.yaml", relation: "documents" }
-  - { from: "P0-R45", to: "DOC:docs/design/design-manifest.schema.json", relation: "documents" }
-  - { from: "P0-R45", to: "DOC:docs/design/design-manifest.yaml", relation: "documents" }
-  - { from: "P0-R46", to: "DOC:docs/security/README-data-classification.md", relation: "documents" }
-  - { from: "P0-R46", to: "DOC:docs/security/data-classification.schema.json", relation: "documents" }
-  - { from: "P0-R46", to: "DOC:docs/security/data-classification.yaml", relation: "documents" }
-  - { from: "P0-R47", to: "DOC:docs/security/data-lifecycle.md", relation: "documents" }
-  - { from: "P0-R47", to: "DOC:docs/security/retention-policies.schema.json", relation: "documents" }
-  - { from: "P0-R47", to: "DOC:docs/security/retention-policies.yaml", relation: "documents" }
-  - { from: "P0-R47", to: "DOC:docs/runbooks/workspace-deletion.md", relation: "documents" }
-  - { from: "P0-R47", to: "DOC:docs/runbooks/provider-disconnect.md", relation: "documents" }
-  - { from: "P0-R47", to: "DOC:docs/runbooks/data-export.md", relation: "documents" }
-  - { from: "SER-70", to: "P0-R48", relation: "implements" }
-  - { from: "SER-70", to: "P0-R49", relation: "implements" }
-  - { from: "SER-70", to: "P0-R50", relation: "implements" }
-  - { from: "SER-70", to: "P0-R51", relation: "implements" }
-  - { from: "SER-70", to: "P0-R52", relation: "implements" }
-  - { from: "SER-70", to: "P0-R53", relation: "implements" }
-  - { from: "SER-70", to: "P0-R54", relation: "implements" }
-  - { from: "SER-70", to: "P0-R55", relation: "implements" }
-  - { from: "SER-70", to: "P0-R56", relation: "implements" }
-  - { from: "SER-70", to: "P0-R57", relation: "implements" }
-  - { from: "REQ-REALTIME-001", to: "REQ-UI-002", relation: "supersedes" }
-  - { from: "REQ-REALTIME-002", to: "REQ-UI-002", relation: "supersedes" }
-  - { from: "REQ-FRONTEND-003", to: "REQ-UI-003", relation: "supersedes" }
-  - { from: "REQ-WORKFLOW-001", to: "REQ-WF-001", relation: "supersedes" }
-  - { from: "REQ-REALTIME-002", to: "NFR-REL-002", relation: "supersedes" }
-  - { from: "NFR-RELIABILITY-001", to: "NFR-REL-003", relation: "supersedes" }
-  - { from: "REQ-REALTIME-001", to: "NFR-REL-004", relation: "supersedes" }
-  - { from: "NFR-PRIVACY-002", to: "NFR-PRIV-001", relation: "supersedes" }
-  - { from: "NFR-MODULARITY-002", to: "NFR-MOD-002", relation: "supersedes" }
-  - { from: "NFR-RECOVERY-001", to: "NFR-REC-003", relation: "supersedes" }
-  - { from: "TEST-SEC-IDENTITY-PRE-MFA-DENY", to: "REQ-IDENTITY-001", relation: "tests" }
-  - { from: "TEST-SEC-IDENTITY-PRE-MFA-DENY", to: "NFR-SEC-001", relation: "tests" }
-  - { from: "TEST-SEC-IDENTITY-PRE-MFA-DENY", to: "NFR-SEC-005", relation: "tests" }
-  - { from: "TEST-SEC-ONE-TIME-SECRET-NO-REPLAY", to: "REQ-IDENTITY-003", relation: "tests" }
-  - { from: "TEST-SEC-ONE-TIME-SECRET-NO-REPLAY", to: "NFR-SEC-003", relation: "tests" }
-  - { from: "TEST-SEC-ONE-TIME-SECRET-NO-REPLAY", to: "NFR-RELIABILITY-001", relation: "tests" }
-  - { from: "TEST-RLS-WORKSPACE-CROSS-TENANT-DENY", to: "REQ-WORKSPACE-002", relation: "tests" }
-  - { from: "TEST-RLS-WORKSPACE-CROSS-TENANT-DENY", to: "NFR-SEC-002", relation: "tests" }
-  - { from: "TEST-WS-CONNECT-ORIGIN-CSRF-AUTHZ", to: "REQ-REALTIME-001", relation: "tests" }
-  - { from: "TEST-WS-CONNECT-ORIGIN-CSRF-AUTHZ", to: "NFR-SEC-001", relation: "tests" }
-  - { from: "TEST-WS-GAP-REPLAY-RESYNC", to: "REQ-REALTIME-002", relation: "tests" }
-  - { from: "TEST-WS-GAP-REPLAY-RESYNC", to: "NFR-RELIABILITY-002", relation: "tests" }
-  - { from: "TEST-FIN-UNKNOWN-COST-BASIS-NOT-ZERO", to: "REQ-PORTFOLIO-005", relation: "tests" }
-  - { from: "TEST-FIN-UNKNOWN-COST-BASIS-NOT-ZERO", to: "NFR-CORRECTNESS-002", relation: "tests" }
-  - { from: "TEST-FIN-TWR-GOLDEN-BASELINE", to: "REQ-ANALYTICS-001", relation: "tests" }
-  - { from: "TEST-FIN-TWR-GOLDEN-BASELINE", to: "REQ-ANALYTICS-002", relation: "tests" }
-  - { from: "TEST-FIN-TWR-GOLDEN-BASELINE", to: "NFR-CORRECTNESS-001", relation: "tests" }
-  - { from: "TEST-XRAY-UNKNOWN-MASS-PRESERVED", to: "REQ-XRAY-002", relation: "tests" }
-  - { from: "TEST-XRAY-UNKNOWN-MASS-PRESERVED", to: "REQ-XRAY-003", relation: "tests" }
-  - { from: "TEST-XRAY-UNKNOWN-MASS-PRESERVED", to: "NFR-CORRECTNESS-002", relation: "tests" }
-  - { from: "TEST-XRAY-DETERMINISTIC-SAME-INPUT", to: "REQ-XRAY-005", relation: "tests" }
-  - { from: "TEST-XRAY-DETERMINISTIC-SAME-INPUT", to: "NFR-CORRECTNESS-003", relation: "tests" }
-  - { from: "TEST-WF-OUTCOME-UNKNOWN-NO-BLIND-RETRY", to: "REQ-WORKFLOW-004", relation: "tests" }
-  - { from: "TEST-WF-OUTCOME-UNKNOWN-NO-BLIND-RETRY", to: "NFR-RELIABILITY-001", relation: "tests" }
-  - { from: "TEST-AI-NO-FINANCIAL-EXECUTION-TOOLS", to: "REQ-AI-004", relation: "tests" }
-  - { from: "TEST-AI-NO-FINANCIAL-EXECUTION-TOOLS", to: "NFR-SEC-001", relation: "tests" }
-  - { from: "TEST-A11Y-METRIC-CARD-STATE-MEANING", to: "REQ-FRONTEND-003", relation: "tests" }
-  - { from: "TEST-A11Y-METRIC-CARD-STATE-MEANING", to: "NFR-A11Y-001", relation: "tests" }
-  - { from: "TEST-A11Y-METRIC-CARD-STATE-MEANING", to: "DES-COMPONENT-METRIC-CARD-001", relation: "tests" }
-  - { from: "TEST-VISUAL-METRIC-CARD-THEMES-STATES", to: "REQ-FRONTEND-003", relation: "tests" }
-  - { from: "TEST-VISUAL-METRIC-CARD-THEMES-STATES", to: "NFR-CONFIG-001", relation: "tests" }
-  - { from: "TEST-VISUAL-METRIC-CARD-THEMES-STATES", to: "DES-COMPONENT-METRIC-CARD-001", relation: "tests" }
-  - { from: "TEST-A11Y-OVERVIEW-CORE", to: "REQ-FRONTEND-001", relation: "tests" }
-  - { from: "TEST-A11Y-OVERVIEW-CORE", to: "REQ-FRONTEND-002", relation: "tests" }
-  - { from: "TEST-A11Y-OVERVIEW-CORE", to: "REQ-PORTFOLIO-006", relation: "tests" }
-  - { from: "TEST-A11Y-OVERVIEW-CORE", to: "NFR-A11Y-001", relation: "tests" }
-  - { from: "TEST-A11Y-OVERVIEW-CORE", to: "NFR-A11Y-002", relation: "tests" }
-  - { from: "TEST-A11Y-OVERVIEW-CORE", to: "NFR-UX-001", relation: "tests" }
-  - { from: "TEST-A11Y-OVERVIEW-CORE", to: "DES-FRONTEND-OVERVIEW-001", relation: "tests" }
-  - { from: "TEST-DR-DELETED-WORKSPACE-NO-RESURRECT", to: "REQ-WORKSPACE-005", relation: "tests" }
-  - { from: "TEST-DR-DELETED-WORKSPACE-NO-RESURRECT", to: "NFR-RECOVERY-001", relation: "tests" }
-  - { from: "TEST-DR-DELETED-WORKSPACE-NO-RESURRECT", to: "NFR-RECOVERY-002", relation: "tests" }
-  - { from: "TEST-FIN-XIRR-AMBIGUOUS-ROOTSET", to: "REQ-ANALYTICS-002", relation: "tests" }
-  - { from: "TEST-FIN-XIRR-AMBIGUOUS-ROOTSET", to: "REQ-ANALYTICS-003", relation: "tests" }
-  - { from: "TEST-FIN-XIRR-AMBIGUOUS-ROOTSET", to: "NFR-CORRECTNESS-001", relation: "tests" }
-  - { from: "TEST-XRAY-SIGNED-EXPOSURE-SEMANTICS", to: "REQ-XRAY-003", relation: "tests" }
-  - { from: "TEST-XRAY-SIGNED-EXPOSURE-SEMANTICS", to: "NFR-CORRECTNESS-002", relation: "tests" }
-  - { from: "TEST-VISUAL-OVERVIEW-RESPONSIVE", to: "REQ-FRONTEND-001", relation: "tests" }
-  - { from: "TEST-VISUAL-OVERVIEW-RESPONSIVE", to: "REQ-FRONTEND-002", relation: "tests" }
-  - { from: "TEST-VISUAL-OVERVIEW-RESPONSIVE", to: "REQ-FRONTEND-003", relation: "tests" }
-  - { from: "TEST-VISUAL-OVERVIEW-RESPONSIVE", to: "NFR-A11Y-001", relation: "tests" }
-  - { from: "TEST-VISUAL-OVERVIEW-RESPONSIVE", to: "NFR-A11Y-002", relation: "tests" }
-  - { from: "TEST-VISUAL-OVERVIEW-RESPONSIVE", to: "NFR-UX-001", relation: "tests" }
-  - { from: "TEST-VISUAL-OVERVIEW-RESPONSIVE", to: "DES-FRONTEND-OVERVIEW-001", relation: "tests" }
-  - { from: "DES-COMPONENT-METRIC-CARD-001", to: "REQ-FRONTEND-003", relation: "references" }
-  - { from: "DES-COMPONENT-METRIC-CARD-001", to: "NFR-A11Y-001", relation: "references" }
-  - { from: "DES-COMPONENT-METRIC-CARD-001", to: "NFR-CONFIG-001", relation: "references" }
-  - { from: "DES-FRONTEND-OVERVIEW-001", to: "REQ-FRONTEND-001", relation: "references" }
-  - { from: "DES-FRONTEND-OVERVIEW-001", to: "REQ-FRONTEND-002", relation: "references" }
-  - { from: "DES-FRONTEND-OVERVIEW-001", to: "REQ-FRONTEND-003", relation: "references" }
-  - { from: "DES-FRONTEND-OVERVIEW-001", to: "REQ-PORTFOLIO-006", relation: "references" }
-  - { from: "DES-FRONTEND-OVERVIEW-001", to: "NFR-A11Y-001", relation: "references" }
-  - { from: "DES-FRONTEND-OVERVIEW-001", to: "NFR-A11Y-002", relation: "references" }
-  - { from: "DES-FRONTEND-OVERVIEW-001", to: "NFR-UX-001", relation: "references" }
-  - { from: "DES-FRONTEND-OVERVIEW-001", to: "NFR-CONFIG-001", relation: "references" }
-  - { from: "P0-R37", to: "DOC:LEGACY-PR-001", relation: "documents" }
-  - { from: "SER-70", to: "DOC:docs/planning/phase0-closure/AUTHORITY_SUPERSESSION_2026-10-12.md", relation: "documents" }
-  - { from: "SER-132", to: "P0-R59", relation: "implements" }
-  - { from: "P0-R59", to: "SER-111", relation: "supersedes" }
-  - { from: "P0-R59", to: "P0-R57", relation: "references" }
-  - { from: "P0-R59", to: "P0-R52", relation: "references" }
-  - { from: "P0-R59", to: "P0-R48", relation: "references" }
-  - { from: "P0-R59", to: "P0-R54", relation: "references" }
-  - { from: "P0-R59", to: "ADR-0023", relation: "references" }
-  - { from: "P0-R59", to: "DOC:docs/governance/execution-baseline.md", relation: "documents" }
-  - { from: "SER-132", to: "DOC:docs/governance/execution-baseline.md", relation: "documents" }
-  - { from: "SER-132", to: "DOC:docs/planning/phase0-closure/AUTHORITY_SUPERSESSION_2026-10-30.md", relation: "documents" }
-  - { from: "P0-R59", to: "DOC:docs/planning/phase0-closure/AUTHORITY_SUPERSESSION_2026-10-30.md", relation: "documents" }
-  - { from: "SER-101", to: "P0-R40", relation: "implements" }
-  - { from: "REQ-IDENTITY-001", to: "DOC:docs/requirements/functional/identity/REQ-IDENTITY-001.md", relation: "documents" }
-  - { from: "SER-101", to: "DOC:docs/requirements/functional/identity/REQ-IDENTITY-001.md", relation: "documents" }
-  - { from: "REQ-IDENTITY-002", to: "DOC:docs/requirements/functional/identity/REQ-IDENTITY-002.md", relation: "documents" }
-  - { from: "SER-101", to: "DOC:docs/requirements/functional/identity/REQ-IDENTITY-002.md", relation: "documents" }
-  - { from: "REQ-IDENTITY-003", to: "DOC:docs/requirements/functional/identity/REQ-IDENTITY-003.md", relation: "documents" }
-  - { from: "SER-101", to: "DOC:docs/requirements/functional/identity/REQ-IDENTITY-003.md", relation: "documents" }
-  - { from: "REQ-IDENTITY-004", to: "DOC:docs/requirements/functional/identity/REQ-IDENTITY-004.md", relation: "documents" }
-  - { from: "SER-101", to: "DOC:docs/requirements/functional/identity/REQ-IDENTITY-004.md", relation: "documents" }
-  - { from: "REQ-IDENTITY-005", to: "DOC:docs/requirements/functional/identity/REQ-IDENTITY-005.md", relation: "documents" }
-  - { from: "SER-101", to: "DOC:docs/requirements/functional/identity/REQ-IDENTITY-005.md", relation: "documents" }
-  - { from: "REQ-IDENTITY-006", to: "DOC:docs/requirements/functional/identity/REQ-IDENTITY-006.md", relation: "documents" }
-  - { from: "SER-101", to: "DOC:docs/requirements/functional/identity/REQ-IDENTITY-006.md", relation: "documents" }
-  - { from: "REQ-WORKSPACE-001", to: "DOC:docs/requirements/functional/workspace/REQ-WORKSPACE-001.md", relation: "documents" }
-  - { from: "SER-101", to: "DOC:docs/requirements/functional/workspace/REQ-WORKSPACE-001.md", relation: "documents" }
-  - { from: "REQ-WORKSPACE-002", to: "DOC:docs/requirements/functional/workspace/REQ-WORKSPACE-002.md", relation: "documents" }
-  - { from: "SER-101", to: "DOC:docs/requirements/functional/workspace/REQ-WORKSPACE-002.md", relation: "documents" }
-  - { from: "REQ-WORKSPACE-003", to: "DOC:docs/requirements/functional/workspace/REQ-WORKSPACE-003.md", relation: "documents" }
-  - { from: "SER-101", to: "DOC:docs/requirements/functional/workspace/REQ-WORKSPACE-003.md", relation: "documents" }
-  - { from: "REQ-WORKSPACE-004", to: "DOC:docs/requirements/functional/workspace/REQ-WORKSPACE-004.md", relation: "documents" }
-  - { from: "SER-101", to: "DOC:docs/requirements/functional/workspace/REQ-WORKSPACE-004.md", relation: "documents" }
-  - { from: "REQ-WORKSPACE-005", to: "DOC:docs/requirements/functional/workspace/REQ-WORKSPACE-005.md", relation: "documents" }
-  - { from: "SER-101", to: "DOC:docs/requirements/functional/workspace/REQ-WORKSPACE-005.md", relation: "documents" }
-  - { from: "REQ-CONNECTIVITY-001", to: "DOC:docs/requirements/functional/connectivity/REQ-CONNECTIVITY-001.md", relation: "documents" }
-  - { from: "SER-101", to: "DOC:docs/requirements/functional/connectivity/REQ-CONNECTIVITY-001.md", relation: "documents" }
-  - { from: "REQ-CONNECTIVITY-002", to: "DOC:docs/requirements/functional/connectivity/REQ-CONNECTIVITY-002.md", relation: "documents" }
-  - { from: "SER-101", to: "DOC:docs/requirements/functional/connectivity/REQ-CONNECTIVITY-002.md", relation: "documents" }
-  - { from: "REQ-CONNECTIVITY-003", to: "DOC:docs/requirements/functional/connectivity/REQ-CONNECTIVITY-003.md", relation: "documents" }
-  - { from: "SER-101", to: "DOC:docs/requirements/functional/connectivity/REQ-CONNECTIVITY-003.md", relation: "documents" }
-  - { from: "REQ-CONNECTIVITY-004", to: "DOC:docs/requirements/functional/connectivity/REQ-CONNECTIVITY-004.md", relation: "documents" }
-  - { from: "SER-101", to: "DOC:docs/requirements/functional/connectivity/REQ-CONNECTIVITY-004.md", relation: "documents" }
-  - { from: "REQ-CONNECTIVITY-005", to: "DOC:docs/requirements/functional/connectivity/REQ-CONNECTIVITY-005.md", relation: "documents" }
-  - { from: "SER-101", to: "DOC:docs/requirements/functional/connectivity/REQ-CONNECTIVITY-005.md", relation: "documents" }
-  - { from: "REQ-INSTRUMENT-001", to: "DOC:docs/requirements/functional/instrument/REQ-INSTRUMENT-001.md", relation: "documents" }
-  - { from: "SER-101", to: "DOC:docs/requirements/functional/instrument/REQ-INSTRUMENT-001.md", relation: "documents" }
-  - { from: "REQ-INSTRUMENT-002", to: "DOC:docs/requirements/functional/instrument/REQ-INSTRUMENT-002.md", relation: "documents" }
-  - { from: "SER-101", to: "DOC:docs/requirements/functional/instrument/REQ-INSTRUMENT-002.md", relation: "documents" }
-  - { from: "REQ-INSTRUMENT-003", to: "DOC:docs/requirements/functional/instrument/REQ-INSTRUMENT-003.md", relation: "documents" }
-  - { from: "SER-101", to: "DOC:docs/requirements/functional/instrument/REQ-INSTRUMENT-003.md", relation: "documents" }
-  - { from: "REQ-INSTRUMENT-004", to: "DOC:docs/requirements/functional/instrument/REQ-INSTRUMENT-004.md", relation: "documents" }
-  - { from: "SER-101", to: "DOC:docs/requirements/functional/instrument/REQ-INSTRUMENT-004.md", relation: "documents" }
-  - { from: "REQ-PORTFOLIO-001", to: "DOC:docs/requirements/functional/portfolio/REQ-PORTFOLIO-001.md", relation: "documents" }
-  - { from: "SER-101", to: "DOC:docs/requirements/functional/portfolio/REQ-PORTFOLIO-001.md", relation: "documents" }
-  - { from: "REQ-PORTFOLIO-002", to: "DOC:docs/requirements/functional/portfolio/REQ-PORTFOLIO-002.md", relation: "documents" }
-  - { from: "SER-101", to: "DOC:docs/requirements/functional/portfolio/REQ-PORTFOLIO-002.md", relation: "documents" }
-  - { from: "REQ-PORTFOLIO-003", to: "DOC:docs/requirements/functional/portfolio/REQ-PORTFOLIO-003.md", relation: "documents" }
-  - { from: "SER-101", to: "DOC:docs/requirements/functional/portfolio/REQ-PORTFOLIO-003.md", relation: "documents" }
-  - { from: "REQ-PORTFOLIO-004", to: "DOC:docs/requirements/functional/portfolio/REQ-PORTFOLIO-004.md", relation: "documents" }
-  - { from: "SER-101", to: "DOC:docs/requirements/functional/portfolio/REQ-PORTFOLIO-004.md", relation: "documents" }
-  - { from: "REQ-PORTFOLIO-005", to: "DOC:docs/requirements/functional/portfolio/REQ-PORTFOLIO-005.md", relation: "documents" }
-  - { from: "SER-101", to: "DOC:docs/requirements/functional/portfolio/REQ-PORTFOLIO-005.md", relation: "documents" }
-  - { from: "REQ-PORTFOLIO-006", to: "DOC:docs/requirements/functional/portfolio/REQ-PORTFOLIO-006.md", relation: "documents" }
-  - { from: "SER-101", to: "DOC:docs/requirements/functional/portfolio/REQ-PORTFOLIO-006.md", relation: "documents" }
-  - { from: "REQ-XRAY-001", to: "DOC:docs/requirements/functional/xray/REQ-XRAY-001.md", relation: "documents" }
-  - { from: "SER-101", to: "DOC:docs/requirements/functional/xray/REQ-XRAY-001.md", relation: "documents" }
-  - { from: "REQ-XRAY-002", to: "DOC:docs/requirements/functional/xray/REQ-XRAY-002.md", relation: "documents" }
-  - { from: "SER-101", to: "DOC:docs/requirements/functional/xray/REQ-XRAY-002.md", relation: "documents" }
-  - { from: "REQ-XRAY-003", to: "DOC:docs/requirements/functional/xray/REQ-XRAY-003.md", relation: "documents" }
-  - { from: "SER-101", to: "DOC:docs/requirements/functional/xray/REQ-XRAY-003.md", relation: "documents" }
-  - { from: "REQ-XRAY-004", to: "DOC:docs/requirements/functional/xray/REQ-XRAY-004.md", relation: "documents" }
-  - { from: "SER-101", to: "DOC:docs/requirements/functional/xray/REQ-XRAY-004.md", relation: "documents" }
-  - { from: "REQ-XRAY-005", to: "DOC:docs/requirements/functional/xray/REQ-XRAY-005.md", relation: "documents" }
-  - { from: "SER-101", to: "DOC:docs/requirements/functional/xray/REQ-XRAY-005.md", relation: "documents" }
-  - { from: "REQ-MARKET-001", to: "DOC:docs/requirements/functional/market/REQ-MARKET-001.md", relation: "documents" }
-  - { from: "SER-101", to: "DOC:docs/requirements/functional/market/REQ-MARKET-001.md", relation: "documents" }
-  - { from: "REQ-MARKET-002", to: "DOC:docs/requirements/functional/market/REQ-MARKET-002.md", relation: "documents" }
-  - { from: "SER-101", to: "DOC:docs/requirements/functional/market/REQ-MARKET-002.md", relation: "documents" }
-  - { from: "REQ-MARKET-003", to: "DOC:docs/requirements/functional/market/REQ-MARKET-003.md", relation: "documents" }
-  - { from: "SER-101", to: "DOC:docs/requirements/functional/market/REQ-MARKET-003.md", relation: "documents" }
-  - { from: "REQ-MARKET-004", to: "DOC:docs/requirements/functional/market/REQ-MARKET-004.md", relation: "documents" }
-  - { from: "SER-101", to: "DOC:docs/requirements/functional/market/REQ-MARKET-004.md", relation: "documents" }
-  - { from: "REQ-MACRO-001", to: "DOC:docs/requirements/functional/macro/REQ-MACRO-001.md", relation: "documents" }
-  - { from: "SER-101", to: "DOC:docs/requirements/functional/macro/REQ-MACRO-001.md", relation: "documents" }
-  - { from: "REQ-MACRO-002", to: "DOC:docs/requirements/functional/macro/REQ-MACRO-002.md", relation: "documents" }
-  - { from: "SER-101", to: "DOC:docs/requirements/functional/macro/REQ-MACRO-002.md", relation: "documents" }
-  - { from: "REQ-MACRO-003", to: "DOC:docs/requirements/functional/macro/REQ-MACRO-003.md", relation: "documents" }
-  - { from: "SER-101", to: "DOC:docs/requirements/functional/macro/REQ-MACRO-003.md", relation: "documents" }
-  - { from: "REQ-RESEARCH-001", to: "DOC:docs/requirements/functional/research-knowledge/REQ-RESEARCH-001.md", relation: "documents" }
-  - { from: "SER-101", to: "DOC:docs/requirements/functional/research-knowledge/REQ-RESEARCH-001.md", relation: "documents" }
-  - { from: "REQ-KNOWLEDGE-001", to: "DOC:docs/requirements/functional/research-knowledge/REQ-KNOWLEDGE-001.md", relation: "documents" }
-  - { from: "SER-101", to: "DOC:docs/requirements/functional/research-knowledge/REQ-KNOWLEDGE-001.md", relation: "documents" }
-  - { from: "REQ-KNOWLEDGE-002", to: "DOC:docs/requirements/functional/research-knowledge/REQ-KNOWLEDGE-002.md", relation: "documents" }
-  - { from: "SER-101", to: "DOC:docs/requirements/functional/research-knowledge/REQ-KNOWLEDGE-002.md", relation: "documents" }
-  - { from: "REQ-KNOWLEDGE-003", to: "DOC:docs/requirements/functional/research-knowledge/REQ-KNOWLEDGE-003.md", relation: "documents" }
-  - { from: "SER-101", to: "DOC:docs/requirements/functional/research-knowledge/REQ-KNOWLEDGE-003.md", relation: "documents" }
-  - { from: "REQ-KNOWLEDGE-004", to: "DOC:docs/requirements/functional/research-knowledge/REQ-KNOWLEDGE-004.md", relation: "documents" }
-  - { from: "SER-101", to: "DOC:docs/requirements/functional/research-knowledge/REQ-KNOWLEDGE-004.md", relation: "documents" }
-  - { from: "REQ-ANALYTICS-001", to: "DOC:docs/requirements/functional/analytics/REQ-ANALYTICS-001.md", relation: "documents" }
-  - { from: "SER-101", to: "DOC:docs/requirements/functional/analytics/REQ-ANALYTICS-001.md", relation: "documents" }
-  - { from: "REQ-ANALYTICS-002", to: "DOC:docs/requirements/functional/analytics/REQ-ANALYTICS-002.md", relation: "documents" }
-  - { from: "SER-101", to: "DOC:docs/requirements/functional/analytics/REQ-ANALYTICS-002.md", relation: "documents" }
-  - { from: "REQ-ANALYTICS-003", to: "DOC:docs/requirements/functional/analytics/REQ-ANALYTICS-003.md", relation: "documents" }
-  - { from: "SER-101", to: "DOC:docs/requirements/functional/analytics/REQ-ANALYTICS-003.md", relation: "documents" }
-  - { from: "REQ-ANALYTICS-004", to: "DOC:docs/requirements/functional/analytics/REQ-ANALYTICS-004.md", relation: "documents" }
-  - { from: "SER-101", to: "DOC:docs/requirements/functional/analytics/REQ-ANALYTICS-004.md", relation: "documents" }
-  - { from: "REQ-ANALYTICS-005", to: "DOC:docs/requirements/functional/analytics/REQ-ANALYTICS-005.md", relation: "documents" }
-  - { from: "SER-101", to: "DOC:docs/requirements/functional/analytics/REQ-ANALYTICS-005.md", relation: "documents" }
-  - { from: "REQ-RISK-001", to: "DOC:docs/requirements/functional/risk/REQ-RISK-001.md", relation: "documents" }
-  - { from: "SER-101", to: "DOC:docs/requirements/functional/risk/REQ-RISK-001.md", relation: "documents" }
-  - { from: "REQ-RISK-002", to: "DOC:docs/requirements/functional/risk/REQ-RISK-002.md", relation: "documents" }
-  - { from: "SER-101", to: "DOC:docs/requirements/functional/risk/REQ-RISK-002.md", relation: "documents" }
-  - { from: "REQ-RISK-003", to: "DOC:docs/requirements/functional/risk/REQ-RISK-003.md", relation: "documents" }
-  - { from: "SER-101", to: "DOC:docs/requirements/functional/risk/REQ-RISK-003.md", relation: "documents" }
-  - { from: "REQ-WORKFLOW-001", to: "DOC:docs/requirements/functional/workflow/REQ-WORKFLOW-001.md", relation: "documents" }
-  - { from: "SER-101", to: "DOC:docs/requirements/functional/workflow/REQ-WORKFLOW-001.md", relation: "documents" }
-  - { from: "REQ-WORKFLOW-002", to: "DOC:docs/requirements/functional/workflow/REQ-WORKFLOW-002.md", relation: "documents" }
-  - { from: "SER-101", to: "DOC:docs/requirements/functional/workflow/REQ-WORKFLOW-002.md", relation: "documents" }
-  - { from: "REQ-WORKFLOW-003", to: "DOC:docs/requirements/functional/workflow/REQ-WORKFLOW-003.md", relation: "documents" }
-  - { from: "SER-101", to: "DOC:docs/requirements/functional/workflow/REQ-WORKFLOW-003.md", relation: "documents" }
-  - { from: "REQ-WORKFLOW-004", to: "DOC:docs/requirements/functional/workflow/REQ-WORKFLOW-004.md", relation: "documents" }
-  - { from: "SER-101", to: "DOC:docs/requirements/functional/workflow/REQ-WORKFLOW-004.md", relation: "documents" }
-  - { from: "REQ-AI-001", to: "DOC:docs/requirements/functional/ai/REQ-AI-001.md", relation: "documents" }
-  - { from: "SER-101", to: "DOC:docs/requirements/functional/ai/REQ-AI-001.md", relation: "documents" }
-  - { from: "REQ-AI-002", to: "DOC:docs/requirements/functional/ai/REQ-AI-002.md", relation: "documents" }
-  - { from: "SER-101", to: "DOC:docs/requirements/functional/ai/REQ-AI-002.md", relation: "documents" }
-  - { from: "REQ-AI-003", to: "DOC:docs/requirements/functional/ai/REQ-AI-003.md", relation: "documents" }
-  - { from: "SER-101", to: "DOC:docs/requirements/functional/ai/REQ-AI-003.md", relation: "documents" }
-  - { from: "REQ-AI-004", to: "DOC:docs/requirements/functional/ai/REQ-AI-004.md", relation: "documents" }
-  - { from: "SER-101", to: "DOC:docs/requirements/functional/ai/REQ-AI-004.md", relation: "documents" }
-  - { from: "REQ-AI-005", to: "DOC:docs/requirements/functional/ai/REQ-AI-005.md", relation: "documents" }
-  - { from: "SER-101", to: "DOC:docs/requirements/functional/ai/REQ-AI-005.md", relation: "documents" }
-  - { from: "REQ-REPORT-001", to: "DOC:docs/requirements/functional/reporting-notification/REQ-REPORT-001.md", relation: "documents" }
-  - { from: "SER-101", to: "DOC:docs/requirements/functional/reporting-notification/REQ-REPORT-001.md", relation: "documents" }
-  - { from: "REQ-REPORT-002", to: "DOC:docs/requirements/functional/reporting-notification/REQ-REPORT-002.md", relation: "documents" }
-  - { from: "SER-101", to: "DOC:docs/requirements/functional/reporting-notification/REQ-REPORT-002.md", relation: "documents" }
-  - { from: "REQ-NOTIFICATION-001", to: "DOC:docs/requirements/functional/reporting-notification/REQ-NOTIFICATION-001.md", relation: "documents" }
-  - { from: "SER-101", to: "DOC:docs/requirements/functional/reporting-notification/REQ-NOTIFICATION-001.md", relation: "documents" }
-  - { from: "REQ-FRONTEND-001", to: "DOC:docs/requirements/functional/frontend-realtime/REQ-FRONTEND-001.md", relation: "documents" }
-  - { from: "SER-101", to: "DOC:docs/requirements/functional/frontend-realtime/REQ-FRONTEND-001.md", relation: "documents" }
-  - { from: "REQ-FRONTEND-002", to: "DOC:docs/requirements/functional/frontend-realtime/REQ-FRONTEND-002.md", relation: "documents" }
-  - { from: "SER-101", to: "DOC:docs/requirements/functional/frontend-realtime/REQ-FRONTEND-002.md", relation: "documents" }
-  - { from: "REQ-FRONTEND-003", to: "DOC:docs/requirements/functional/frontend-realtime/REQ-FRONTEND-003.md", relation: "documents" }
-  - { from: "SER-101", to: "DOC:docs/requirements/functional/frontend-realtime/REQ-FRONTEND-003.md", relation: "documents" }
-  - { from: "REQ-REALTIME-001", to: "DOC:docs/requirements/functional/frontend-realtime/REQ-REALTIME-001.md", relation: "documents" }
-  - { from: "SER-101", to: "DOC:docs/requirements/functional/frontend-realtime/REQ-REALTIME-001.md", relation: "documents" }
-  - { from: "REQ-REALTIME-002", to: "DOC:docs/requirements/functional/frontend-realtime/REQ-REALTIME-002.md", relation: "documents" }
-  - { from: "SER-101", to: "DOC:docs/requirements/functional/frontend-realtime/REQ-REALTIME-002.md", relation: "documents" }
-  - { from: "REQ-REALTIME-003", to: "DOC:docs/requirements/functional/frontend-realtime/REQ-REALTIME-003.md", relation: "documents" }
-  - { from: "SER-101", to: "DOC:docs/requirements/functional/frontend-realtime/REQ-REALTIME-003.md", relation: "documents" }
-  - { from: "REQ-CONFIG-001", to: "DOC:docs/requirements/functional/configuration/REQ-CONFIG-001.md", relation: "documents" }
-  - { from: "SER-101", to: "DOC:docs/requirements/functional/configuration/REQ-CONFIG-001.md", relation: "documents" }
-  - { from: "REQ-CONFIG-002", to: "DOC:docs/requirements/functional/configuration/REQ-CONFIG-002.md", relation: "documents" }
-  - { from: "SER-101", to: "DOC:docs/requirements/functional/configuration/REQ-CONFIG-002.md", relation: "documents" }
-  - { from: "REQ-CONFIG-003", to: "DOC:docs/requirements/functional/configuration/REQ-CONFIG-003.md", relation: "documents" }
-  - { from: "SER-101", to: "DOC:docs/requirements/functional/configuration/REQ-CONFIG-003.md", relation: "documents" }
-  - { from: "REQ-CONFIG-004", to: "DOC:docs/requirements/functional/configuration/REQ-CONFIG-004.md", relation: "documents" }
-  - { from: "SER-101", to: "DOC:docs/requirements/functional/configuration/REQ-CONFIG-004.md", relation: "documents" }
-  - { from: "NFR-SEC-001", to: "DOC:docs/requirements/nfr/security/NFR-SEC-001.md", relation: "documents" }
-  - { from: "SER-101", to: "DOC:docs/requirements/nfr/security/NFR-SEC-001.md", relation: "documents" }
-  - { from: "NFR-SEC-002", to: "DOC:docs/requirements/nfr/security/NFR-SEC-002.md", relation: "documents" }
-  - { from: "SER-101", to: "DOC:docs/requirements/nfr/security/NFR-SEC-002.md", relation: "documents" }
-  - { from: "NFR-SEC-003", to: "DOC:docs/requirements/nfr/security/NFR-SEC-003.md", relation: "documents" }
-  - { from: "SER-101", to: "DOC:docs/requirements/nfr/security/NFR-SEC-003.md", relation: "documents" }
-  - { from: "NFR-SEC-004", to: "DOC:docs/requirements/nfr/security/NFR-SEC-004.md", relation: "documents" }
-  - { from: "SER-101", to: "DOC:docs/requirements/nfr/security/NFR-SEC-004.md", relation: "documents" }
-  - { from: "NFR-SEC-005", to: "DOC:docs/requirements/nfr/security/NFR-SEC-005.md", relation: "documents" }
-  - { from: "SER-101", to: "DOC:docs/requirements/nfr/security/NFR-SEC-005.md", relation: "documents" }
-  - { from: "NFR-PRIVACY-001", to: "DOC:docs/requirements/nfr/privacy/NFR-PRIVACY-001.md", relation: "documents" }
-  - { from: "SER-101", to: "DOC:docs/requirements/nfr/privacy/NFR-PRIVACY-001.md", relation: "documents" }
-  - { from: "NFR-PRIVACY-002", to: "DOC:docs/requirements/nfr/privacy/NFR-PRIVACY-002.md", relation: "documents" }
-  - { from: "SER-101", to: "DOC:docs/requirements/nfr/privacy/NFR-PRIVACY-002.md", relation: "documents" }
-  - { from: "NFR-CORRECTNESS-001", to: "DOC:docs/requirements/nfr/correctness/NFR-CORRECTNESS-001.md", relation: "documents" }
-  - { from: "SER-101", to: "DOC:docs/requirements/nfr/correctness/NFR-CORRECTNESS-001.md", relation: "documents" }
-  - { from: "NFR-CORRECTNESS-002", to: "DOC:docs/requirements/nfr/correctness/NFR-CORRECTNESS-002.md", relation: "documents" }
-  - { from: "SER-101", to: "DOC:docs/requirements/nfr/correctness/NFR-CORRECTNESS-002.md", relation: "documents" }
-  - { from: "NFR-CORRECTNESS-003", to: "DOC:docs/requirements/nfr/correctness/NFR-CORRECTNESS-003.md", relation: "documents" }
-  - { from: "SER-101", to: "DOC:docs/requirements/nfr/correctness/NFR-CORRECTNESS-003.md", relation: "documents" }
-  - { from: "NFR-RELIABILITY-001", to: "DOC:docs/requirements/nfr/reliability/NFR-RELIABILITY-001.md", relation: "documents" }
-  - { from: "SER-101", to: "DOC:docs/requirements/nfr/reliability/NFR-RELIABILITY-001.md", relation: "documents" }
-  - { from: "NFR-RELIABILITY-002", to: "DOC:docs/requirements/nfr/reliability/NFR-RELIABILITY-002.md", relation: "documents" }
-  - { from: "SER-101", to: "DOC:docs/requirements/nfr/reliability/NFR-RELIABILITY-002.md", relation: "documents" }
-  - { from: "NFR-RECOVERY-001", to: "DOC:docs/requirements/nfr/recoverability/NFR-RECOVERY-001.md", relation: "documents" }
-  - { from: "SER-101", to: "DOC:docs/requirements/nfr/recoverability/NFR-RECOVERY-001.md", relation: "documents" }
-  - { from: "NFR-RECOVERY-002", to: "DOC:docs/requirements/nfr/recoverability/NFR-RECOVERY-002.md", relation: "documents" }
-  - { from: "SER-101", to: "DOC:docs/requirements/nfr/recoverability/NFR-RECOVERY-002.md", relation: "documents" }
-  - { from: "NFR-COMPAT-001", to: "DOC:docs/requirements/nfr/compatibility/NFR-COMPAT-001.md", relation: "documents" }
-  - { from: "SER-101", to: "DOC:docs/requirements/nfr/compatibility/NFR-COMPAT-001.md", relation: "documents" }
-  - { from: "NFR-A11Y-001", to: "DOC:docs/requirements/nfr/accessibility/NFR-A11Y-001.md", relation: "documents" }
-  - { from: "SER-101", to: "DOC:docs/requirements/nfr/accessibility/NFR-A11Y-001.md", relation: "documents" }
-  - { from: "NFR-A11Y-002", to: "DOC:docs/requirements/nfr/accessibility/NFR-A11Y-002.md", relation: "documents" }
-  - { from: "SER-101", to: "DOC:docs/requirements/nfr/accessibility/NFR-A11Y-002.md", relation: "documents" }
-  - { from: "NFR-A11Y-003", to: "DOC:docs/requirements/nfr/accessibility/NFR-A11Y-003.md", relation: "documents" }
-  - { from: "SER-101", to: "DOC:docs/requirements/nfr/accessibility/NFR-A11Y-003.md", relation: "documents" }
-  - { from: "NFR-UX-001", to: "DOC:docs/requirements/nfr/ux/NFR-UX-001.md", relation: "documents" }
-  - { from: "SER-101", to: "DOC:docs/requirements/nfr/ux/NFR-UX-001.md", relation: "documents" }
-  - { from: "NFR-CONFIG-001", to: "DOC:docs/requirements/nfr/configurability/NFR-CONFIG-001.md", relation: "documents" }
-  - { from: "SER-101", to: "DOC:docs/requirements/nfr/configurability/NFR-CONFIG-001.md", relation: "documents" }
-  - { from: "NFR-MODULARITY-001", to: "DOC:docs/requirements/nfr/modularity/NFR-MODULARITY-001.md", relation: "documents" }
-  - { from: "SER-101", to: "DOC:docs/requirements/nfr/modularity/NFR-MODULARITY-001.md", relation: "documents" }
-  - { from: "NFR-MODULARITY-002", to: "DOC:docs/requirements/nfr/modularity/NFR-MODULARITY-002.md", relation: "documents" }
-  - { from: "SER-101", to: "DOC:docs/requirements/nfr/modularity/NFR-MODULARITY-002.md", relation: "documents" }
-  - { from: "NFR-OBS-001", to: "DOC:docs/requirements/nfr/observability/NFR-OBS-001.md", relation: "documents" }
-  - { from: "SER-101", to: "DOC:docs/requirements/nfr/observability/NFR-OBS-001.md", relation: "documents" }
-  - { from: "NFR-PERF-001", to: "DOC:docs/requirements/nfr/performance/NFR-PERF-001.md", relation: "documents" }
-  - { from: "SER-101", to: "DOC:docs/requirements/nfr/performance/NFR-PERF-001.md", relation: "documents" }
-  - { from: "NFR-SUPPLY-001", to: "DOC:docs/requirements/nfr/supply-chain/NFR-SUPPLY-001.md", relation: "documents" }
-  - { from: "SER-101", to: "DOC:docs/requirements/nfr/supply-chain/NFR-SUPPLY-001.md", relation: "documents" }
-  - { from: "NFR-TRACE-001", to: "DOC:docs/requirements/nfr/traceability/NFR-TRACE-001.md", relation: "documents" }
-  - { from: "SER-101", to: "DOC:docs/requirements/nfr/traceability/NFR-TRACE-001.md", relation: "documents" }
-  - { from: "NFR-TRACE-002", to: "DOC:docs/requirements/nfr/traceability/NFR-TRACE-002.md", relation: "documents" }
-  - { from: "SER-101", to: "DOC:docs/requirements/nfr/traceability/NFR-TRACE-002.md", relation: "documents" }
+- {from: P0-R26, relation: TRACKED_BY, to: SER-70}
+- {from: P0-R35, relation: TRACKED_BY, to: SER-70}
+- {from: P0-R36, relation: TRACKED_BY, to: SER-70}
+- {from: P0-R37, relation: TRACKED_BY, to: SER-70}
+- {from: P0-R38, relation: TRACKED_BY, to: SER-70}
+- {from: P0-R39, relation: TRACKED_BY, to: SER-70}
+- {from: P0-R40, relation: TRACKED_BY, to: SER-70}
+- {from: P0-R41, relation: TRACKED_BY, to: SER-70}
+- {from: P0-R42, relation: TRACKED_BY, to: SER-70}
+- {from: P0-R43, relation: TRACKED_BY, to: SER-70}
+- {from: P0-R44, relation: TRACKED_BY, to: SER-70}
+- {from: P0-R45, relation: TRACKED_BY, to: SER-70}
+- {from: P0-R46, relation: TRACKED_BY, to: SER-70}
+- {from: P0-R47, relation: TRACKED_BY, to: SER-70}
+- {from: 'DOC:docs/governance/protocol-ownership.md', relation: DOCUMENTS, to: P0-R26}
+- {from: 'DOC:docs/governance/api-registry.md', relation: DOCUMENTS, to: P0-R35}
+- {from: 'DOC:docs/governance/review-adjudication.md', relation: DOCUMENTS, to: P0-R36}
+- {from: 'DOC:docs/governance/traceability/traceability.schema.json', relation: DOCUMENTS, to: P0-R37}
+- {from: 'DOC:docs/governance/traceability/traceability.yaml', relation: DOCUMENTS, to: P0-R37}
+- {from: 'DOC:docs/governance/traceability/review-adjudication.md', relation: DOCUMENTS, to: P0-R39}
+- {from: 'DOC:docs/verification/test-catalog.schema.json', relation: DOCUMENTS, to: P0-R44}
+- {from: 'DOC:docs/verification/test-catalog.yaml', relation: DOCUMENTS, to: P0-R44}
+- {from: 'DOC:docs/design/design-manifest.schema.json', relation: DOCUMENTS, to: P0-R45}
+- {from: 'DOC:docs/design/design-manifest.yaml', relation: DOCUMENTS, to: P0-R45}
+- {from: 'DOC:docs/security/README-data-classification.md', relation: DOCUMENTS, to: P0-R46}
+- {from: 'DOC:docs/security/data-classification.schema.json', relation: DOCUMENTS, to: P0-R46}
+- {from: 'DOC:docs/security/data-classification.yaml', relation: DOCUMENTS, to: P0-R46}
+- {from: 'DOC:docs/security/data-lifecycle.md', relation: DOCUMENTS, to: P0-R47}
+- {from: 'DOC:docs/security/retention-policies.schema.json', relation: DOCUMENTS, to: P0-R47}
+- {from: 'DOC:docs/security/retention-policies.yaml', relation: DOCUMENTS, to: P0-R47}
+- {from: 'DOC:docs/runbooks/workspace-deletion.md', relation: DOCUMENTS, to: P0-R47}
+- {from: 'DOC:docs/runbooks/provider-disconnect.md', relation: DOCUMENTS, to: P0-R47}
+- {from: 'DOC:docs/runbooks/data-export.md', relation: DOCUMENTS, to: P0-R47}
+- {from: P0-R48, relation: TRACKED_BY, to: SER-70}
+- {from: P0-R49, relation: TRACKED_BY, to: SER-70}
+- {from: P0-R50, relation: TRACKED_BY, to: SER-70}
+- {from: P0-R51, relation: TRACKED_BY, to: SER-70}
+- {from: P0-R52, relation: TRACKED_BY, to: SER-70}
+- {from: P0-R53, relation: TRACKED_BY, to: SER-70}
+- {from: P0-R54, relation: TRACKED_BY, to: SER-70}
+- {from: P0-R55, relation: TRACKED_BY, to: SER-70}
+- {from: P0-R56, relation: TRACKED_BY, to: SER-70}
+- {from: P0-R57, relation: TRACKED_BY, to: SER-70}
+- {from: REQ-REALTIME-001, relation: SUPERSEDES, to: REQ-UI-002}
+- {from: REQ-REALTIME-002, relation: SUPERSEDES, to: REQ-UI-002}
+- {from: REQ-FRONTEND-003, relation: SUPERSEDES, to: REQ-UI-003}
+- {from: REQ-WORKFLOW-001, relation: SUPERSEDES, to: REQ-WF-001}
+- {from: NFR-RELIABILITY-001, relation: SUPERSEDES, to: NFR-REL-003}
+- {from: NFR-PRIVACY-002, relation: SUPERSEDES, to: NFR-PRIV-001}
+- {from: NFR-MODULARITY-002, relation: SUPERSEDES, to: NFR-MOD-002}
+- {from: NFR-RECOVERY-001, relation: SUPERSEDES, to: NFR-REC-003}
+- {from: TEST-SEC-IDENTITY-PRE-MFA-DENY, relation: VERIFIES, to: REQ-IDENTITY-001}
+- {from: TEST-SEC-IDENTITY-PRE-MFA-DENY, relation: VERIFIES, to: NFR-SEC-001}
+- {from: TEST-SEC-IDENTITY-PRE-MFA-DENY, relation: VERIFIES, to: NFR-SEC-005}
+- {from: TEST-SEC-ONE-TIME-SECRET-NO-REPLAY, relation: VERIFIES, to: REQ-IDENTITY-003}
+- {from: TEST-SEC-ONE-TIME-SECRET-NO-REPLAY, relation: VERIFIES, to: NFR-SEC-003}
+- {from: TEST-SEC-ONE-TIME-SECRET-NO-REPLAY, relation: VERIFIES, to: NFR-RELIABILITY-001}
+- {from: TEST-RLS-WORKSPACE-CROSS-TENANT-DENY, relation: VERIFIES, to: REQ-WORKSPACE-002}
+- {from: TEST-RLS-WORKSPACE-CROSS-TENANT-DENY, relation: VERIFIES, to: NFR-SEC-002}
+- {from: TEST-WS-CONNECT-ORIGIN-CSRF-AUTHZ, relation: VERIFIES, to: REQ-REALTIME-001}
+- {from: TEST-WS-CONNECT-ORIGIN-CSRF-AUTHZ, relation: VERIFIES, to: NFR-SEC-001}
+- {from: TEST-WS-GAP-REPLAY-RESYNC, relation: VERIFIES, to: REQ-REALTIME-002}
+- {from: TEST-WS-GAP-REPLAY-RESYNC, relation: VERIFIES, to: NFR-RELIABILITY-002}
+- {from: TEST-FIN-UNKNOWN-COST-BASIS-NOT-ZERO, relation: VERIFIES, to: REQ-PORTFOLIO-005}
+- {from: TEST-FIN-UNKNOWN-COST-BASIS-NOT-ZERO, relation: VERIFIES, to: NFR-CORRECTNESS-002}
+- {from: TEST-FIN-TWR-GOLDEN-BASELINE, relation: VERIFIES, to: REQ-ANALYTICS-001}
+- {from: TEST-FIN-TWR-GOLDEN-BASELINE, relation: VERIFIES, to: REQ-ANALYTICS-002}
+- {from: TEST-FIN-TWR-GOLDEN-BASELINE, relation: VERIFIES, to: NFR-CORRECTNESS-001}
+- {from: TEST-XRAY-UNKNOWN-MASS-PRESERVED, relation: VERIFIES, to: REQ-XRAY-002}
+- {from: TEST-XRAY-UNKNOWN-MASS-PRESERVED, relation: VERIFIES, to: REQ-XRAY-003}
+- {from: TEST-XRAY-UNKNOWN-MASS-PRESERVED, relation: VERIFIES, to: NFR-CORRECTNESS-002}
+- {from: TEST-XRAY-DETERMINISTIC-SAME-INPUT, relation: VERIFIES, to: REQ-XRAY-005}
+- {from: TEST-XRAY-DETERMINISTIC-SAME-INPUT, relation: VERIFIES, to: NFR-CORRECTNESS-003}
+- {from: TEST-WF-OUTCOME-UNKNOWN-NO-BLIND-RETRY, relation: VERIFIES, to: REQ-WORKFLOW-004}
+- {from: TEST-WF-OUTCOME-UNKNOWN-NO-BLIND-RETRY, relation: VERIFIES, to: NFR-RELIABILITY-001}
+- {from: TEST-AI-NO-FINANCIAL-EXECUTION-TOOLS, relation: VERIFIES, to: REQ-AI-004}
+- {from: TEST-AI-NO-FINANCIAL-EXECUTION-TOOLS, relation: VERIFIES, to: NFR-SEC-001}
+- {from: TEST-A11Y-METRIC-CARD-STATE-MEANING, relation: VERIFIES, to: REQ-FRONTEND-003}
+- {from: TEST-A11Y-METRIC-CARD-STATE-MEANING, relation: VERIFIES, to: NFR-A11Y-001}
+- {from: TEST-A11Y-METRIC-CARD-STATE-MEANING, relation: VERIFIES, to: DES-COMPONENT-METRIC-CARD-001}
+- {from: TEST-VISUAL-METRIC-CARD-THEMES-STATES, relation: VERIFIES, to: REQ-FRONTEND-003}
+- {from: TEST-VISUAL-METRIC-CARD-THEMES-STATES, relation: VERIFIES, to: NFR-CONFIG-001}
+- {from: TEST-VISUAL-METRIC-CARD-THEMES-STATES, relation: VERIFIES, to: DES-COMPONENT-METRIC-CARD-001}
+- {from: TEST-A11Y-OVERVIEW-CORE, relation: VERIFIES, to: REQ-FRONTEND-001}
+- {from: TEST-A11Y-OVERVIEW-CORE, relation: VERIFIES, to: REQ-FRONTEND-002}
+- {from: TEST-A11Y-OVERVIEW-CORE, relation: VERIFIES, to: REQ-PORTFOLIO-006}
+- {from: TEST-A11Y-OVERVIEW-CORE, relation: VERIFIES, to: NFR-A11Y-001}
+- {from: TEST-A11Y-OVERVIEW-CORE, relation: VERIFIES, to: NFR-A11Y-002}
+- {from: TEST-A11Y-OVERVIEW-CORE, relation: VERIFIES, to: NFR-UX-001}
+- {from: TEST-A11Y-OVERVIEW-CORE, relation: VERIFIES, to: DES-FRONTEND-OVERVIEW-001}
+- {from: TEST-DR-DELETED-WORKSPACE-NO-RESURRECT, relation: VERIFIES, to: REQ-WORKSPACE-005}
+- {from: TEST-DR-DELETED-WORKSPACE-NO-RESURRECT, relation: VERIFIES, to: NFR-RECOVERY-001}
+- {from: TEST-DR-DELETED-WORKSPACE-NO-RESURRECT, relation: VERIFIES, to: NFR-RECOVERY-002}
+- {from: TEST-FIN-XIRR-AMBIGUOUS-ROOTSET, relation: VERIFIES, to: REQ-ANALYTICS-002}
+- {from: TEST-FIN-XIRR-AMBIGUOUS-ROOTSET, relation: VERIFIES, to: REQ-ANALYTICS-003}
+- {from: TEST-FIN-XIRR-AMBIGUOUS-ROOTSET, relation: VERIFIES, to: NFR-CORRECTNESS-001}
+- {from: TEST-XRAY-SIGNED-EXPOSURE-SEMANTICS, relation: VERIFIES, to: REQ-XRAY-003}
+- {from: TEST-XRAY-SIGNED-EXPOSURE-SEMANTICS, relation: VERIFIES, to: NFR-CORRECTNESS-002}
+- {from: TEST-VISUAL-OVERVIEW-RESPONSIVE, relation: VERIFIES, to: REQ-FRONTEND-001}
+- {from: TEST-VISUAL-OVERVIEW-RESPONSIVE, relation: VERIFIES, to: REQ-FRONTEND-002}
+- {from: TEST-VISUAL-OVERVIEW-RESPONSIVE, relation: VERIFIES, to: REQ-FRONTEND-003}
+- {from: TEST-VISUAL-OVERVIEW-RESPONSIVE, relation: VERIFIES, to: NFR-A11Y-001}
+- {from: TEST-VISUAL-OVERVIEW-RESPONSIVE, relation: VERIFIES, to: NFR-A11Y-002}
+- {from: TEST-VISUAL-OVERVIEW-RESPONSIVE, relation: VERIFIES, to: NFR-UX-001}
+- {from: TEST-VISUAL-OVERVIEW-RESPONSIVE, relation: VERIFIES, to: DES-FRONTEND-OVERVIEW-001}
+- {from: DES-COMPONENT-METRIC-CARD-001, relation: DESIGNS, to: REQ-FRONTEND-003}
+- {from: DES-COMPONENT-METRIC-CARD-001, relation: DESIGNS, to: NFR-A11Y-001}
+- {from: DES-COMPONENT-METRIC-CARD-001, relation: DESIGNS, to: NFR-CONFIG-001}
+- {from: DES-FRONTEND-OVERVIEW-001, relation: DESIGNS, to: REQ-FRONTEND-001}
+- {from: DES-FRONTEND-OVERVIEW-001, relation: DESIGNS, to: REQ-FRONTEND-002}
+- {from: DES-FRONTEND-OVERVIEW-001, relation: DESIGNS, to: REQ-FRONTEND-003}
+- {from: DES-FRONTEND-OVERVIEW-001, relation: DESIGNS, to: REQ-PORTFOLIO-006}
+- {from: DES-FRONTEND-OVERVIEW-001, relation: DESIGNS, to: NFR-A11Y-001}
+- {from: DES-FRONTEND-OVERVIEW-001, relation: DESIGNS, to: NFR-A11Y-002}
+- {from: DES-FRONTEND-OVERVIEW-001, relation: DESIGNS, to: NFR-UX-001}
+- {from: DES-FRONTEND-OVERVIEW-001, relation: DESIGNS, to: NFR-CONFIG-001}
+- {from: 'DOC:docs/planning/phase0-closure/AUTHORITY_SUPERSESSION_2026-10-12.md', relation: DOCUMENTS, to: SER-70}
+- {from: P0-R59, relation: TRACKED_BY, to: SER-132}
+- {from: 'DOC:docs/governance/execution-baseline.md', relation: DOCUMENTS, to: P0-R59}
+- {from: 'DOC:docs/governance/execution-baseline.md', relation: DOCUMENTS, to: SER-132}
+- {from: 'DOC:docs/planning/phase0-closure/AUTHORITY_SUPERSESSION_2026-10-30.md', relation: DOCUMENTS, to: SER-132}
+- {from: 'DOC:docs/planning/phase0-closure/AUTHORITY_SUPERSESSION_2026-10-30.md', relation: DOCUMENTS, to: P0-R59}
+- {from: P0-R40, relation: TRACKED_BY, to: SER-101}
+- {from: 'DOC:docs/requirements/functional/identity/REQ-IDENTITY-001.md', relation: DOCUMENTS, to: REQ-IDENTITY-001}
+- {from: 'DOC:docs/requirements/functional/identity/REQ-IDENTITY-001.md', relation: DOCUMENTS, to: SER-101}
+- {from: 'DOC:docs/requirements/functional/identity/REQ-IDENTITY-002.md', relation: DOCUMENTS, to: REQ-IDENTITY-002}
+- {from: 'DOC:docs/requirements/functional/identity/REQ-IDENTITY-002.md', relation: DOCUMENTS, to: SER-101}
+- {from: 'DOC:docs/requirements/functional/identity/REQ-IDENTITY-003.md', relation: DOCUMENTS, to: REQ-IDENTITY-003}
+- {from: 'DOC:docs/requirements/functional/identity/REQ-IDENTITY-003.md', relation: DOCUMENTS, to: SER-101}
+- {from: 'DOC:docs/requirements/functional/identity/REQ-IDENTITY-004.md', relation: DOCUMENTS, to: REQ-IDENTITY-004}
+- {from: 'DOC:docs/requirements/functional/identity/REQ-IDENTITY-004.md', relation: DOCUMENTS, to: SER-101}
+- {from: 'DOC:docs/requirements/functional/identity/REQ-IDENTITY-005.md', relation: DOCUMENTS, to: REQ-IDENTITY-005}
+- {from: 'DOC:docs/requirements/functional/identity/REQ-IDENTITY-005.md', relation: DOCUMENTS, to: SER-101}
+- {from: 'DOC:docs/requirements/functional/identity/REQ-IDENTITY-006.md', relation: DOCUMENTS, to: REQ-IDENTITY-006}
+- {from: 'DOC:docs/requirements/functional/identity/REQ-IDENTITY-006.md', relation: DOCUMENTS, to: SER-101}
+- {from: 'DOC:docs/requirements/functional/workspace/REQ-WORKSPACE-001.md', relation: DOCUMENTS, to: REQ-WORKSPACE-001}
+- {from: 'DOC:docs/requirements/functional/workspace/REQ-WORKSPACE-001.md', relation: DOCUMENTS, to: SER-101}
+- {from: 'DOC:docs/requirements/functional/workspace/REQ-WORKSPACE-002.md', relation: DOCUMENTS, to: REQ-WORKSPACE-002}
+- {from: 'DOC:docs/requirements/functional/workspace/REQ-WORKSPACE-002.md', relation: DOCUMENTS, to: SER-101}
+- {from: 'DOC:docs/requirements/functional/workspace/REQ-WORKSPACE-003.md', relation: DOCUMENTS, to: REQ-WORKSPACE-003}
+- {from: 'DOC:docs/requirements/functional/workspace/REQ-WORKSPACE-003.md', relation: DOCUMENTS, to: SER-101}
+- {from: 'DOC:docs/requirements/functional/workspace/REQ-WORKSPACE-004.md', relation: DOCUMENTS, to: REQ-WORKSPACE-004}
+- {from: 'DOC:docs/requirements/functional/workspace/REQ-WORKSPACE-004.md', relation: DOCUMENTS, to: SER-101}
+- {from: 'DOC:docs/requirements/functional/workspace/REQ-WORKSPACE-005.md', relation: DOCUMENTS, to: REQ-WORKSPACE-005}
+- {from: 'DOC:docs/requirements/functional/workspace/REQ-WORKSPACE-005.md', relation: DOCUMENTS, to: SER-101}
+- {from: 'DOC:docs/requirements/functional/connectivity/REQ-CONNECTIVITY-001.md', relation: DOCUMENTS, to: REQ-CONNECTIVITY-001}
+- {from: 'DOC:docs/requirements/functional/connectivity/REQ-CONNECTIVITY-001.md', relation: DOCUMENTS, to: SER-101}
+- {from: 'DOC:docs/requirements/functional/connectivity/REQ-CONNECTIVITY-002.md', relation: DOCUMENTS, to: REQ-CONNECTIVITY-002}
+- {from: 'DOC:docs/requirements/functional/connectivity/REQ-CONNECTIVITY-002.md', relation: DOCUMENTS, to: SER-101}
+- {from: 'DOC:docs/requirements/functional/connectivity/REQ-CONNECTIVITY-003.md', relation: DOCUMENTS, to: REQ-CONNECTIVITY-003}
+- {from: 'DOC:docs/requirements/functional/connectivity/REQ-CONNECTIVITY-003.md', relation: DOCUMENTS, to: SER-101}
+- {from: 'DOC:docs/requirements/functional/connectivity/REQ-CONNECTIVITY-004.md', relation: DOCUMENTS, to: REQ-CONNECTIVITY-004}
+- {from: 'DOC:docs/requirements/functional/connectivity/REQ-CONNECTIVITY-004.md', relation: DOCUMENTS, to: SER-101}
+- {from: 'DOC:docs/requirements/functional/connectivity/REQ-CONNECTIVITY-005.md', relation: DOCUMENTS, to: REQ-CONNECTIVITY-005}
+- {from: 'DOC:docs/requirements/functional/connectivity/REQ-CONNECTIVITY-005.md', relation: DOCUMENTS, to: SER-101}
+- {from: 'DOC:docs/requirements/functional/instrument/REQ-INSTRUMENT-001.md', relation: DOCUMENTS, to: REQ-INSTRUMENT-001}
+- {from: 'DOC:docs/requirements/functional/instrument/REQ-INSTRUMENT-001.md', relation: DOCUMENTS, to: SER-101}
+- {from: 'DOC:docs/requirements/functional/instrument/REQ-INSTRUMENT-002.md', relation: DOCUMENTS, to: REQ-INSTRUMENT-002}
+- {from: 'DOC:docs/requirements/functional/instrument/REQ-INSTRUMENT-002.md', relation: DOCUMENTS, to: SER-101}
+- {from: 'DOC:docs/requirements/functional/instrument/REQ-INSTRUMENT-003.md', relation: DOCUMENTS, to: REQ-INSTRUMENT-003}
+- {from: 'DOC:docs/requirements/functional/instrument/REQ-INSTRUMENT-003.md', relation: DOCUMENTS, to: SER-101}
+- {from: 'DOC:docs/requirements/functional/instrument/REQ-INSTRUMENT-004.md', relation: DOCUMENTS, to: REQ-INSTRUMENT-004}
+- {from: 'DOC:docs/requirements/functional/instrument/REQ-INSTRUMENT-004.md', relation: DOCUMENTS, to: SER-101}
+- {from: 'DOC:docs/requirements/functional/portfolio/REQ-PORTFOLIO-001.md', relation: DOCUMENTS, to: REQ-PORTFOLIO-001}
+- {from: 'DOC:docs/requirements/functional/portfolio/REQ-PORTFOLIO-001.md', relation: DOCUMENTS, to: SER-101}
+- {from: 'DOC:docs/requirements/functional/portfolio/REQ-PORTFOLIO-002.md', relation: DOCUMENTS, to: REQ-PORTFOLIO-002}
+- {from: 'DOC:docs/requirements/functional/portfolio/REQ-PORTFOLIO-002.md', relation: DOCUMENTS, to: SER-101}
+- {from: 'DOC:docs/requirements/functional/portfolio/REQ-PORTFOLIO-003.md', relation: DOCUMENTS, to: REQ-PORTFOLIO-003}
+- {from: 'DOC:docs/requirements/functional/portfolio/REQ-PORTFOLIO-003.md', relation: DOCUMENTS, to: SER-101}
+- {from: 'DOC:docs/requirements/functional/portfolio/REQ-PORTFOLIO-004.md', relation: DOCUMENTS, to: REQ-PORTFOLIO-004}
+- {from: 'DOC:docs/requirements/functional/portfolio/REQ-PORTFOLIO-004.md', relation: DOCUMENTS, to: SER-101}
+- {from: 'DOC:docs/requirements/functional/portfolio/REQ-PORTFOLIO-005.md', relation: DOCUMENTS, to: REQ-PORTFOLIO-005}
+- {from: 'DOC:docs/requirements/functional/portfolio/REQ-PORTFOLIO-005.md', relation: DOCUMENTS, to: SER-101}
+- {from: 'DOC:docs/requirements/functional/portfolio/REQ-PORTFOLIO-006.md', relation: DOCUMENTS, to: REQ-PORTFOLIO-006}
+- {from: 'DOC:docs/requirements/functional/portfolio/REQ-PORTFOLIO-006.md', relation: DOCUMENTS, to: SER-101}
+- {from: 'DOC:docs/requirements/functional/xray/REQ-XRAY-001.md', relation: DOCUMENTS, to: REQ-XRAY-001}
+- {from: 'DOC:docs/requirements/functional/xray/REQ-XRAY-001.md', relation: DOCUMENTS, to: SER-101}
+- {from: 'DOC:docs/requirements/functional/xray/REQ-XRAY-002.md', relation: DOCUMENTS, to: REQ-XRAY-002}
+- {from: 'DOC:docs/requirements/functional/xray/REQ-XRAY-002.md', relation: DOCUMENTS, to: SER-101}
+- {from: 'DOC:docs/requirements/functional/xray/REQ-XRAY-003.md', relation: DOCUMENTS, to: REQ-XRAY-003}
+- {from: 'DOC:docs/requirements/functional/xray/REQ-XRAY-003.md', relation: DOCUMENTS, to: SER-101}
+- {from: 'DOC:docs/requirements/functional/xray/REQ-XRAY-004.md', relation: DOCUMENTS, to: REQ-XRAY-004}
+- {from: 'DOC:docs/requirements/functional/xray/REQ-XRAY-004.md', relation: DOCUMENTS, to: SER-101}
+- {from: 'DOC:docs/requirements/functional/xray/REQ-XRAY-005.md', relation: DOCUMENTS, to: REQ-XRAY-005}
+- {from: 'DOC:docs/requirements/functional/xray/REQ-XRAY-005.md', relation: DOCUMENTS, to: SER-101}
+- {from: 'DOC:docs/requirements/functional/market/REQ-MARKET-001.md', relation: DOCUMENTS, to: REQ-MARKET-001}
+- {from: 'DOC:docs/requirements/functional/market/REQ-MARKET-001.md', relation: DOCUMENTS, to: SER-101}
+- {from: 'DOC:docs/requirements/functional/market/REQ-MARKET-002.md', relation: DOCUMENTS, to: REQ-MARKET-002}
+- {from: 'DOC:docs/requirements/functional/market/REQ-MARKET-002.md', relation: DOCUMENTS, to: SER-101}
+- {from: 'DOC:docs/requirements/functional/market/REQ-MARKET-003.md', relation: DOCUMENTS, to: REQ-MARKET-003}
+- {from: 'DOC:docs/requirements/functional/market/REQ-MARKET-003.md', relation: DOCUMENTS, to: SER-101}
+- {from: 'DOC:docs/requirements/functional/market/REQ-MARKET-004.md', relation: DOCUMENTS, to: REQ-MARKET-004}
+- {from: 'DOC:docs/requirements/functional/market/REQ-MARKET-004.md', relation: DOCUMENTS, to: SER-101}
+- {from: 'DOC:docs/requirements/functional/macro/REQ-MACRO-001.md', relation: DOCUMENTS, to: REQ-MACRO-001}
+- {from: 'DOC:docs/requirements/functional/macro/REQ-MACRO-001.md', relation: DOCUMENTS, to: SER-101}
+- {from: 'DOC:docs/requirements/functional/macro/REQ-MACRO-002.md', relation: DOCUMENTS, to: REQ-MACRO-002}
+- {from: 'DOC:docs/requirements/functional/macro/REQ-MACRO-002.md', relation: DOCUMENTS, to: SER-101}
+- {from: 'DOC:docs/requirements/functional/macro/REQ-MACRO-003.md', relation: DOCUMENTS, to: REQ-MACRO-003}
+- {from: 'DOC:docs/requirements/functional/macro/REQ-MACRO-003.md', relation: DOCUMENTS, to: SER-101}
+- {from: 'DOC:docs/requirements/functional/research-knowledge/REQ-RESEARCH-001.md', relation: DOCUMENTS, to: REQ-RESEARCH-001}
+- {from: 'DOC:docs/requirements/functional/research-knowledge/REQ-RESEARCH-001.md', relation: DOCUMENTS, to: SER-101}
+- {from: 'DOC:docs/requirements/functional/research-knowledge/REQ-KNOWLEDGE-001.md', relation: DOCUMENTS, to: REQ-KNOWLEDGE-001}
+- {from: 'DOC:docs/requirements/functional/research-knowledge/REQ-KNOWLEDGE-001.md', relation: DOCUMENTS, to: SER-101}
+- {from: 'DOC:docs/requirements/functional/research-knowledge/REQ-KNOWLEDGE-002.md', relation: DOCUMENTS, to: REQ-KNOWLEDGE-002}
+- {from: 'DOC:docs/requirements/functional/research-knowledge/REQ-KNOWLEDGE-002.md', relation: DOCUMENTS, to: SER-101}
+- {from: 'DOC:docs/requirements/functional/research-knowledge/REQ-KNOWLEDGE-003.md', relation: DOCUMENTS, to: REQ-KNOWLEDGE-003}
+- {from: 'DOC:docs/requirements/functional/research-knowledge/REQ-KNOWLEDGE-003.md', relation: DOCUMENTS, to: SER-101}
+- {from: 'DOC:docs/requirements/functional/research-knowledge/REQ-KNOWLEDGE-004.md', relation: DOCUMENTS, to: REQ-KNOWLEDGE-004}
+- {from: 'DOC:docs/requirements/functional/research-knowledge/REQ-KNOWLEDGE-004.md', relation: DOCUMENTS, to: SER-101}
+- {from: 'DOC:docs/requirements/functional/analytics/REQ-ANALYTICS-001.md', relation: DOCUMENTS, to: REQ-ANALYTICS-001}
+- {from: 'DOC:docs/requirements/functional/analytics/REQ-ANALYTICS-001.md', relation: DOCUMENTS, to: SER-101}
+- {from: 'DOC:docs/requirements/functional/analytics/REQ-ANALYTICS-002.md', relation: DOCUMENTS, to: REQ-ANALYTICS-002}
+- {from: 'DOC:docs/requirements/functional/analytics/REQ-ANALYTICS-002.md', relation: DOCUMENTS, to: SER-101}
+- {from: 'DOC:docs/requirements/functional/analytics/REQ-ANALYTICS-003.md', relation: DOCUMENTS, to: REQ-ANALYTICS-003}
+- {from: 'DOC:docs/requirements/functional/analytics/REQ-ANALYTICS-003.md', relation: DOCUMENTS, to: SER-101}
+- {from: 'DOC:docs/requirements/functional/analytics/REQ-ANALYTICS-004.md', relation: DOCUMENTS, to: REQ-ANALYTICS-004}
+- {from: 'DOC:docs/requirements/functional/analytics/REQ-ANALYTICS-004.md', relation: DOCUMENTS, to: SER-101}
+- {from: 'DOC:docs/requirements/functional/analytics/REQ-ANALYTICS-005.md', relation: DOCUMENTS, to: REQ-ANALYTICS-005}
+- {from: 'DOC:docs/requirements/functional/analytics/REQ-ANALYTICS-005.md', relation: DOCUMENTS, to: SER-101}
+- {from: 'DOC:docs/requirements/functional/risk/REQ-RISK-001.md', relation: DOCUMENTS, to: REQ-RISK-001}
+- {from: 'DOC:docs/requirements/functional/risk/REQ-RISK-001.md', relation: DOCUMENTS, to: SER-101}
+- {from: 'DOC:docs/requirements/functional/risk/REQ-RISK-002.md', relation: DOCUMENTS, to: REQ-RISK-002}
+- {from: 'DOC:docs/requirements/functional/risk/REQ-RISK-002.md', relation: DOCUMENTS, to: SER-101}
+- {from: 'DOC:docs/requirements/functional/risk/REQ-RISK-003.md', relation: DOCUMENTS, to: REQ-RISK-003}
+- {from: 'DOC:docs/requirements/functional/risk/REQ-RISK-003.md', relation: DOCUMENTS, to: SER-101}
+- {from: 'DOC:docs/requirements/functional/workflow/REQ-WORKFLOW-001.md', relation: DOCUMENTS, to: REQ-WORKFLOW-001}
+- {from: 'DOC:docs/requirements/functional/workflow/REQ-WORKFLOW-001.md', relation: DOCUMENTS, to: SER-101}
+- {from: 'DOC:docs/requirements/functional/workflow/REQ-WORKFLOW-002.md', relation: DOCUMENTS, to: REQ-WORKFLOW-002}
+- {from: 'DOC:docs/requirements/functional/workflow/REQ-WORKFLOW-002.md', relation: DOCUMENTS, to: SER-101}
+- {from: 'DOC:docs/requirements/functional/workflow/REQ-WORKFLOW-003.md', relation: DOCUMENTS, to: REQ-WORKFLOW-003}
+- {from: 'DOC:docs/requirements/functional/workflow/REQ-WORKFLOW-003.md', relation: DOCUMENTS, to: SER-101}
+- {from: 'DOC:docs/requirements/functional/workflow/REQ-WORKFLOW-004.md', relation: DOCUMENTS, to: REQ-WORKFLOW-004}
+- {from: 'DOC:docs/requirements/functional/workflow/REQ-WORKFLOW-004.md', relation: DOCUMENTS, to: SER-101}
+- {from: 'DOC:docs/requirements/functional/ai/REQ-AI-001.md', relation: DOCUMENTS, to: REQ-AI-001}
+- {from: 'DOC:docs/requirements/functional/ai/REQ-AI-001.md', relation: DOCUMENTS, to: SER-101}
+- {from: 'DOC:docs/requirements/functional/ai/REQ-AI-002.md', relation: DOCUMENTS, to: REQ-AI-002}
+- {from: 'DOC:docs/requirements/functional/ai/REQ-AI-002.md', relation: DOCUMENTS, to: SER-101}
+- {from: 'DOC:docs/requirements/functional/ai/REQ-AI-003.md', relation: DOCUMENTS, to: REQ-AI-003}
+- {from: 'DOC:docs/requirements/functional/ai/REQ-AI-003.md', relation: DOCUMENTS, to: SER-101}
+- {from: 'DOC:docs/requirements/functional/ai/REQ-AI-004.md', relation: DOCUMENTS, to: REQ-AI-004}
+- {from: 'DOC:docs/requirements/functional/ai/REQ-AI-004.md', relation: DOCUMENTS, to: SER-101}
+- {from: 'DOC:docs/requirements/functional/ai/REQ-AI-005.md', relation: DOCUMENTS, to: REQ-AI-005}
+- {from: 'DOC:docs/requirements/functional/ai/REQ-AI-005.md', relation: DOCUMENTS, to: SER-101}
+- {from: 'DOC:docs/requirements/functional/reporting-notification/REQ-REPORT-001.md', relation: DOCUMENTS, to: REQ-REPORT-001}
+- {from: 'DOC:docs/requirements/functional/reporting-notification/REQ-REPORT-001.md', relation: DOCUMENTS, to: SER-101}
+- {from: 'DOC:docs/requirements/functional/reporting-notification/REQ-REPORT-002.md', relation: DOCUMENTS, to: REQ-REPORT-002}
+- {from: 'DOC:docs/requirements/functional/reporting-notification/REQ-REPORT-002.md', relation: DOCUMENTS, to: SER-101}
+- {from: 'DOC:docs/requirements/functional/reporting-notification/REQ-NOTIFICATION-001.md', relation: DOCUMENTS, to: REQ-NOTIFICATION-001}
+- {from: 'DOC:docs/requirements/functional/reporting-notification/REQ-NOTIFICATION-001.md', relation: DOCUMENTS, to: SER-101}
+- {from: 'DOC:docs/requirements/functional/frontend-realtime/REQ-FRONTEND-001.md', relation: DOCUMENTS, to: REQ-FRONTEND-001}
+- {from: 'DOC:docs/requirements/functional/frontend-realtime/REQ-FRONTEND-001.md', relation: DOCUMENTS, to: SER-101}
+- {from: 'DOC:docs/requirements/functional/frontend-realtime/REQ-FRONTEND-002.md', relation: DOCUMENTS, to: REQ-FRONTEND-002}
+- {from: 'DOC:docs/requirements/functional/frontend-realtime/REQ-FRONTEND-002.md', relation: DOCUMENTS, to: SER-101}
+- {from: 'DOC:docs/requirements/functional/frontend-realtime/REQ-FRONTEND-003.md', relation: DOCUMENTS, to: REQ-FRONTEND-003}
+- {from: 'DOC:docs/requirements/functional/frontend-realtime/REQ-FRONTEND-003.md', relation: DOCUMENTS, to: SER-101}
+- {from: 'DOC:docs/requirements/functional/frontend-realtime/REQ-REALTIME-001.md', relation: DOCUMENTS, to: REQ-REALTIME-001}
+- {from: 'DOC:docs/requirements/functional/frontend-realtime/REQ-REALTIME-001.md', relation: DOCUMENTS, to: SER-101}
+- {from: 'DOC:docs/requirements/functional/frontend-realtime/REQ-REALTIME-002.md', relation: DOCUMENTS, to: REQ-REALTIME-002}
+- {from: 'DOC:docs/requirements/functional/frontend-realtime/REQ-REALTIME-002.md', relation: DOCUMENTS, to: SER-101}
+- {from: 'DOC:docs/requirements/functional/frontend-realtime/REQ-REALTIME-003.md', relation: DOCUMENTS, to: REQ-REALTIME-003}
+- {from: 'DOC:docs/requirements/functional/frontend-realtime/REQ-REALTIME-003.md', relation: DOCUMENTS, to: SER-101}
+- {from: 'DOC:docs/requirements/functional/configuration/REQ-CONFIG-001.md', relation: DOCUMENTS, to: REQ-CONFIG-001}
+- {from: 'DOC:docs/requirements/functional/configuration/REQ-CONFIG-001.md', relation: DOCUMENTS, to: SER-101}
+- {from: 'DOC:docs/requirements/functional/configuration/REQ-CONFIG-002.md', relation: DOCUMENTS, to: REQ-CONFIG-002}
+- {from: 'DOC:docs/requirements/functional/configuration/REQ-CONFIG-002.md', relation: DOCUMENTS, to: SER-101}
+- {from: 'DOC:docs/requirements/functional/configuration/REQ-CONFIG-003.md', relation: DOCUMENTS, to: REQ-CONFIG-003}
+- {from: 'DOC:docs/requirements/functional/configuration/REQ-CONFIG-003.md', relation: DOCUMENTS, to: SER-101}
+- {from: 'DOC:docs/requirements/functional/configuration/REQ-CONFIG-004.md', relation: DOCUMENTS, to: REQ-CONFIG-004}
+- {from: 'DOC:docs/requirements/functional/configuration/REQ-CONFIG-004.md', relation: DOCUMENTS, to: SER-101}
+- {from: 'DOC:docs/requirements/nfr/security/NFR-SEC-001.md', relation: DOCUMENTS, to: NFR-SEC-001}
+- {from: 'DOC:docs/requirements/nfr/security/NFR-SEC-001.md', relation: DOCUMENTS, to: SER-101}
+- {from: 'DOC:docs/requirements/nfr/security/NFR-SEC-002.md', relation: DOCUMENTS, to: NFR-SEC-002}
+- {from: 'DOC:docs/requirements/nfr/security/NFR-SEC-002.md', relation: DOCUMENTS, to: SER-101}
+- {from: 'DOC:docs/requirements/nfr/security/NFR-SEC-003.md', relation: DOCUMENTS, to: NFR-SEC-003}
+- {from: 'DOC:docs/requirements/nfr/security/NFR-SEC-003.md', relation: DOCUMENTS, to: SER-101}
+- {from: 'DOC:docs/requirements/nfr/security/NFR-SEC-004.md', relation: DOCUMENTS, to: NFR-SEC-004}
+- {from: 'DOC:docs/requirements/nfr/security/NFR-SEC-004.md', relation: DOCUMENTS, to: SER-101}
+- {from: 'DOC:docs/requirements/nfr/security/NFR-SEC-005.md', relation: DOCUMENTS, to: NFR-SEC-005}
+- {from: 'DOC:docs/requirements/nfr/security/NFR-SEC-005.md', relation: DOCUMENTS, to: SER-101}
+- {from: 'DOC:docs/requirements/nfr/privacy/NFR-PRIVACY-001.md', relation: DOCUMENTS, to: NFR-PRIVACY-001}
+- {from: 'DOC:docs/requirements/nfr/privacy/NFR-PRIVACY-001.md', relation: DOCUMENTS, to: SER-101}
+- {from: 'DOC:docs/requirements/nfr/privacy/NFR-PRIVACY-002.md', relation: DOCUMENTS, to: NFR-PRIVACY-002}
+- {from: 'DOC:docs/requirements/nfr/privacy/NFR-PRIVACY-002.md', relation: DOCUMENTS, to: SER-101}
+- {from: 'DOC:docs/requirements/nfr/correctness/NFR-CORRECTNESS-001.md', relation: DOCUMENTS, to: NFR-CORRECTNESS-001}
+- {from: 'DOC:docs/requirements/nfr/correctness/NFR-CORRECTNESS-001.md', relation: DOCUMENTS, to: SER-101}
+- {from: 'DOC:docs/requirements/nfr/correctness/NFR-CORRECTNESS-002.md', relation: DOCUMENTS, to: NFR-CORRECTNESS-002}
+- {from: 'DOC:docs/requirements/nfr/correctness/NFR-CORRECTNESS-002.md', relation: DOCUMENTS, to: SER-101}
+- {from: 'DOC:docs/requirements/nfr/correctness/NFR-CORRECTNESS-003.md', relation: DOCUMENTS, to: NFR-CORRECTNESS-003}
+- {from: 'DOC:docs/requirements/nfr/correctness/NFR-CORRECTNESS-003.md', relation: DOCUMENTS, to: SER-101}
+- {from: 'DOC:docs/requirements/nfr/reliability/NFR-RELIABILITY-001.md', relation: DOCUMENTS, to: NFR-RELIABILITY-001}
+- {from: 'DOC:docs/requirements/nfr/reliability/NFR-RELIABILITY-001.md', relation: DOCUMENTS, to: SER-101}
+- {from: 'DOC:docs/requirements/nfr/reliability/NFR-RELIABILITY-002.md', relation: DOCUMENTS, to: NFR-RELIABILITY-002}
+- {from: 'DOC:docs/requirements/nfr/reliability/NFR-RELIABILITY-002.md', relation: DOCUMENTS, to: SER-101}
+- {from: 'DOC:docs/requirements/nfr/recoverability/NFR-RECOVERY-001.md', relation: DOCUMENTS, to: NFR-RECOVERY-001}
+- {from: 'DOC:docs/requirements/nfr/recoverability/NFR-RECOVERY-001.md', relation: DOCUMENTS, to: SER-101}
+- {from: 'DOC:docs/requirements/nfr/recoverability/NFR-RECOVERY-002.md', relation: DOCUMENTS, to: NFR-RECOVERY-002}
+- {from: 'DOC:docs/requirements/nfr/recoverability/NFR-RECOVERY-002.md', relation: DOCUMENTS, to: SER-101}
+- {from: 'DOC:docs/requirements/nfr/compatibility/NFR-COMPAT-001.md', relation: DOCUMENTS, to: NFR-COMPAT-001}
+- {from: 'DOC:docs/requirements/nfr/compatibility/NFR-COMPAT-001.md', relation: DOCUMENTS, to: SER-101}
+- {from: 'DOC:docs/requirements/nfr/accessibility/NFR-A11Y-001.md', relation: DOCUMENTS, to: NFR-A11Y-001}
+- {from: 'DOC:docs/requirements/nfr/accessibility/NFR-A11Y-001.md', relation: DOCUMENTS, to: SER-101}
+- {from: 'DOC:docs/requirements/nfr/accessibility/NFR-A11Y-002.md', relation: DOCUMENTS, to: NFR-A11Y-002}
+- {from: 'DOC:docs/requirements/nfr/accessibility/NFR-A11Y-002.md', relation: DOCUMENTS, to: SER-101}
+- {from: 'DOC:docs/requirements/nfr/accessibility/NFR-A11Y-003.md', relation: DOCUMENTS, to: NFR-A11Y-003}
+- {from: 'DOC:docs/requirements/nfr/accessibility/NFR-A11Y-003.md', relation: DOCUMENTS, to: SER-101}
+- {from: 'DOC:docs/requirements/nfr/ux/NFR-UX-001.md', relation: DOCUMENTS, to: NFR-UX-001}
+- {from: 'DOC:docs/requirements/nfr/ux/NFR-UX-001.md', relation: DOCUMENTS, to: SER-101}
+- {from: 'DOC:docs/requirements/nfr/configurability/NFR-CONFIG-001.md', relation: DOCUMENTS, to: NFR-CONFIG-001}
+- {from: 'DOC:docs/requirements/nfr/configurability/NFR-CONFIG-001.md', relation: DOCUMENTS, to: SER-101}
+- {from: 'DOC:docs/requirements/nfr/modularity/NFR-MODULARITY-001.md', relation: DOCUMENTS, to: NFR-MODULARITY-001}
+- {from: 'DOC:docs/requirements/nfr/modularity/NFR-MODULARITY-001.md', relation: DOCUMENTS, to: SER-101}
+- {from: 'DOC:docs/requirements/nfr/modularity/NFR-MODULARITY-002.md', relation: DOCUMENTS, to: NFR-MODULARITY-002}
+- {from: 'DOC:docs/requirements/nfr/modularity/NFR-MODULARITY-002.md', relation: DOCUMENTS, to: SER-101}
+- {from: 'DOC:docs/requirements/nfr/observability/NFR-OBS-001.md', relation: DOCUMENTS, to: NFR-OBS-001}
+- {from: 'DOC:docs/requirements/nfr/observability/NFR-OBS-001.md', relation: DOCUMENTS, to: SER-101}
+- {from: 'DOC:docs/requirements/nfr/performance/NFR-PERF-001.md', relation: DOCUMENTS, to: NFR-PERF-001}
+- {from: 'DOC:docs/requirements/nfr/performance/NFR-PERF-001.md', relation: DOCUMENTS, to: SER-101}
+- {from: 'DOC:docs/requirements/nfr/supply-chain/NFR-SUPPLY-001.md', relation: DOCUMENTS, to: NFR-SUPPLY-001}
+- {from: 'DOC:docs/requirements/nfr/supply-chain/NFR-SUPPLY-001.md', relation: DOCUMENTS, to: SER-101}
+- {from: 'DOC:docs/requirements/nfr/traceability/NFR-TRACE-001.md', relation: DOCUMENTS, to: NFR-TRACE-001}
+- {from: 'DOC:docs/requirements/nfr/traceability/NFR-TRACE-001.md', relation: DOCUMENTS, to: SER-101}
+- {from: 'DOC:docs/requirements/nfr/traceability/NFR-TRACE-002.md', relation: DOCUMENTS, to: NFR-TRACE-002}
+- {from: 'DOC:docs/requirements/nfr/traceability/NFR-TRACE-002.md', relation: DOCUMENTS, to: SER-101}
+legacyExceptions:
+- LEGACY-PR-001

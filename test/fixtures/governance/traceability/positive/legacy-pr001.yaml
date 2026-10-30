@@ -1,0 +1,8 @@
+schemaVersion: 1
+mode: MATERIALIZED
+nodes:
+  - { id: "LEGACY-PR-001", nodeType: "LEGACY_EXCEPTION", status: "ACCEPTED_EXCEPTION", externalRef: "GitHub PR #1", metadata: { reason: "predates R37" } }
+  - { id: "P0-R37", nodeType: "DECISION_PACK", status: "LOCKED" }
+edges: []
+legacyExceptions:
+  - LEGACY-PR-001

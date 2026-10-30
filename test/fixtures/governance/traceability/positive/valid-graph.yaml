@@ -1,0 +1,14 @@
+schemaVersion: 1
+mode: MATERIALIZED
+nodes:
+  - { id: "REQ-IDENTITY-001", nodeType: "REQUIREMENT", status: "LOCKED", owner: "fixture" }
+  - { id: "NFR-SEC-001", nodeType: "NFR", status: "LOCKED", owner: "fixture" }
+  - { id: "TEST-SEC-FIXTURE-DENY", nodeType: "TEST", status: "PLANNED" }
+  - { id: "P0-R37", nodeType: "DECISION_PACK", status: "LOCKED" }
+  - { id: "SER-97", nodeType: "LINEAR_ISSUE", status: "ACTIVE" }
+  - { id: "DOC:docs/governance/traceability/traceability.yaml", nodeType: "DOCUMENTATION", status: "ACTIVE", canonicalPath: "docs/governance/traceability/traceability.yaml" }
+edges:
+  - { from: "TEST-SEC-FIXTURE-DENY", relation: "VERIFIES", to: "REQ-IDENTITY-001" }
+  - { from: "DOC:docs/governance/traceability/traceability.yaml", relation: "DOCUMENTS", to: "REQ-IDENTITY-001" }
+  - { from: "P0-R37", relation: "TRACKED_BY", to: "SER-97" }
+legacyExceptions: []

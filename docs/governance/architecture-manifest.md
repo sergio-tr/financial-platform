@@ -72,7 +72,7 @@ There is no fourth replies destination. Client acknowledgment is session flow-co
 
 ## Legacy traceability exception
 
-GitHub PR #1 predates P0-R37. It is recorded as `DOC:LEGACY-PR-001` and is not rewritten. No later pull request is aligned unless its primary `SER-*` resolves in this traceability graph.
+GitHub PR #1 predates P0-R37. It is recorded as `LEGACY-PR-001` (`LEGACY_EXCEPTION`, `ACCEPTED_EXCEPTION`) and is not rewritten. No later pull request is aligned unless its primary `SER-*` resolves in this traceability graph.
 
 ## Key documents
 

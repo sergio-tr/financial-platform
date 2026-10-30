@@ -1,73 +1,98 @@
 #!/usr/bin/env python3
 from __future__ import annotations
 
+import argparse
 import json
-from pathlib import Path
 import sys
+from pathlib import Path
 
 import yaml
 from jsonschema import Draft202012Validator
 
 ROOT = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(ROOT / "scripts/governance"))
+
+from traceability.graph_rules import foundation_invariants, validate_graph  # noqa: E402
+from traceability.profile import ValidationProfile, parse_profile  # noqa: E402
+
 
 def load_yaml(path: Path):
     return yaml.safe_load(path.read_text())
 
-def validate(instance, schema_path: Path):
+
+def validate_schema(instance, schema_path: Path):
     schema = json.loads(schema_path.read_text())
     return list(Draft202012Validator(schema).iter_errors(instance))
 
+
 def main() -> int:
-    graph = load_yaml(ROOT / "docs/governance/traceability/traceability.yaml")
-    errors = validate(graph, ROOT / "docs/governance/traceability/traceability.schema.json")
+    parser = argparse.ArgumentParser(description="SER-97 traceability foundation validator")
+    parser.add_argument(
+        "--profile",
+        default="foundation",
+        help="foundation (Stage A, default) | full (Stage B; requires SER-102 mappings)",
+    )
+    parser.add_argument(
+        "--graph",
+        type=Path,
+        default=ROOT / "docs/governance/traceability/traceability.yaml",
+    )
+    args = parser.parse_args()
+    try:
+        profile = parse_profile(args.profile)
+    except ValueError as exc:
+        print(f"TRACE_SCHEMA {exc}", file=sys.stderr)
+        return 2
+
+    graph = load_yaml(args.graph)
+    errors = validate_schema(graph, ROOT / "docs/governance/traceability/traceability.schema.json")
     if errors:
         for error in errors:
             print(f"TRACE_SCHEMA {error.message}", file=sys.stderr)
         return 2
 
-    nodes = graph["nodes"]
-    ids = [node["id"] for node in nodes]
-    if len(ids) != len(set(ids)):
-        print("TRACE_DUPLICATE_ID", file=sys.stderr)
+    graph_errors = validate_graph(graph, profile=profile)
+    if graph_errors:
+        for err in graph_errors:
+            print(err.format(), file=sys.stderr)
         return 3
-    node_map = {node["id"]: node for node in nodes}
 
-    for edge in graph["edges"]:
-        if edge["from"] not in node_map or edge["to"] not in node_map:
-            print(f"TRACE_ORPHAN_EDGE {edge}", file=sys.stderr)
-            return 4
-        if node_map[edge["to"]].get("status") == "SUPERSEDED" and edge["relation"] != "supersedes":
-            print(f"TRACE_ACTIVE_TO_SUPERSEDED {edge}", file=sys.stderr)
-            return 5
+    if args.graph.resolve() == (ROOT / "docs/governance/traceability/traceability.yaml").resolve():
+        invariant_errors = foundation_invariants(graph)
+        if invariant_errors:
+            for err in invariant_errors:
+                print(err.format(), file=sys.stderr)
+            return 8
 
-    tests = load_yaml(ROOT / "docs/verification/test-catalog.yaml")
-    errors = validate(tests, ROOT / "docs/verification/test-catalog.schema.json")
-    if errors:
-        for error in errors:
-            print(f"TEST_SCHEMA {error.message}", file=sys.stderr)
-        return 6
+        tests = load_yaml(ROOT / "docs/verification/test-catalog.yaml")
+        errors = validate_schema(tests, ROOT / "docs/verification/test-catalog.schema.json")
+        if errors:
+            for error in errors:
+                print(f"TEST_SCHEMA {error.message}", file=sys.stderr)
+            return 6
 
-    design = load_yaml(ROOT / "docs/design/design-manifest.yaml")
-    errors = validate(design, ROOT / "docs/design/design-manifest.schema.json")
-    if errors:
-        for error in errors:
-            print(f"DESIGN_SCHEMA {error.message}", file=sys.stderr)
-        return 7
+        design = load_yaml(ROOT / "docs/design/design-manifest.yaml")
+        errors = validate_schema(design, ROOT / "docs/design/design-manifest.schema.json")
+        if errors:
+            for error in errors:
+                print(f"DESIGN_SCHEMA {error.message}", file=sys.stderr)
+            return 7
 
-    req = sum(1 for n in nodes if n["type"] == "REQ" and n.get("status") == "LOCKED")
-    nfr = sum(1 for n in nodes if n["type"] == "NFR" and n.get("status") == "LOCKED")
-    tests_planned = sum(1 for n in nodes if n["type"] == "TEST" and n.get("status") == "PLANNED")
-    aliases = sum(1 for n in nodes if n["type"] in {"REQ", "NFR"} and n.get("status") == "SUPERSEDED")
-    supersedes = sum(1 for e in graph["edges"] if e["relation"] == "supersedes")
-    # aliases = SUPERSEDED REQ/NFR only; supersedes = supersedes edges (includes SER-111 via P0-R59)
-    expected = (73, 27, 18, 9, 11)
-    actual = (req, nfr, tests_planned, aliases, supersedes)
-    if actual != expected:
-        print(f"TRACE_INVARIANT expected={expected} actual={actual}", file=sys.stderr)
-        return 8
-
-    print(f"TRACEABILITY_PASS req={req} nfr={nfr} tests={tests_planned} aliases={aliases} supersedes={supersedes}")
+    nodes = graph["nodes"]
+    req = sum(1 for n in nodes if n["nodeType"] == "REQUIREMENT" and n["status"] == "LOCKED")
+    nfr = sum(1 for n in nodes if n["nodeType"] == "NFR" and n["status"] == "LOCKED")
+    tests_planned = sum(1 for n in nodes if n["nodeType"] == "TEST" and n["status"] == "PLANNED")
+    aliases = sum(
+        1 for n in nodes if n["nodeType"] in {"REQUIREMENT", "NFR"} and n["status"] == "SUPERSEDED"
+    )
+    print(
+        f"TRACEABILITY_PASS profile={profile.value} "
+        f"req={req} nfr={nfr} tests={tests_planned} aliases={aliases}"
+    )
+    if profile == ValidationProfile.FULL:
+        print("TRACEABILITY_FULL_PROFILE_ACTIVE", file=sys.stderr)
     return 0
+
 
 if __name__ == "__main__":
     raise SystemExit(main())
