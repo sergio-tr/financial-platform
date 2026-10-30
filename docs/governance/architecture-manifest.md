@@ -23,7 +23,7 @@ The PR #2 and PR #3 Git snapshot is a `STALE_PRE_FREEZE_SNAPSHOT` wherever it di
 
 - Implementation authority after merge: Git `main`.
 - Planning: Linear Phase-0 packs P0-R26 through P0-R59. Planning discovery is closed.
-- Requirements: SER-101 is the sole locked REQ/NFR registry. Bodies stay with SER-101.
+- Requirements: SER-101 is the sole locked REQ/NFR registry. Bodies are materialized under `docs/requirements/**`.
 - Verification: SER-107 is the sole locked normative TEST registry. Entries are PLANNED.
 - Visual semantics: SER-108. Physical MEDIUM and COMPACT frames remain pending.
 - Active first-party namespace: `sergiotr` / `Sergiotr`.
@@ -111,7 +111,7 @@ GitHub PR #1 predates P0-R37. It is recorded as `DOC:LEGACY-PR-001` and is not r
 
 ## Pending material owned after this synchronization
 
-- Requirement bodies: SER-101
+- Requirement bodies: SER-101 (materialized under `docs/requirements/**`; identities unchanged)
 - Traceability validator and richer graph links: SER-97 and SER-102
 - Public contract bodies: post-SER-70 contract materialization of the accepted SER-92..95 planning packs. No `contracts/**` stub is created here.
 - SecretVault crypto format and key lifecycle: SER-106
