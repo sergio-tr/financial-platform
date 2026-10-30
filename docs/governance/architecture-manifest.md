@@ -66,7 +66,7 @@ STOMP user destinations, exactly three:
 
 - `/user/exchange/amq.direct/sergiotr.v1.control`
 - `/user/exchange/amq.direct/sergiotr.v1.events`
-- `/user/exchange/amq.direct/sergiotr.v1.commands`
+- `/user/exchange/amq.direct/sergiotr.v1.ticks`
 
 There is no fourth replies destination. Client acknowledgment is session flow-control. PostgreSQL is the replay authority. The default Origin host is `sergiotr.home.arpa`.
 
