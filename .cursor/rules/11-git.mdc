@@ -1,9 +1,10 @@
 Title: Git and PR Rules
 Status: CANONICAL
 
-- Branch prefixes: `feature/`, `bugfix/`, `refactor/`, `docs/`, `chore/`. Use Spanish Conventional Commits.
-- Prefer human-chosen `chore/SER-*` / `feature/SER-*` branches; do not treat Linear auto branches or `cursor/*` as canonical work branches for governance tickets.
+- Branch regex (SER-96): `^(feature|bugfix|chore)/SER-[1-9][0-9]*-[a-z0-9]+(?:-[a-z0-9]+)*$`. Use Spanish Conventional Commits.
+- Prefer human-chosen `chore/SER-*` / `feature/SER-*` / `bugfix/SER-*` branches; do not treat Linear auto branches or `cursor/*` as canonical work branches for governance tickets.
 - No force-push to shared branches; do not push directly to `main`.
-- PR body sections per R37: Linear, Requirements, Architecture, Use cases, Contracts, Design, Verification, Tests, Docs/Runbooks, Security/Data impact, Migrations.
-- No AI/coauthor/prompt references in commits/PR metadata.
+- PR body machine headings (exact): Linear, Requirements, Architecture, Use cases, Contracts, Design, Tests, Docs / Runbooks, Security / Data impact, Migrations.
+- Linear section: `Primary: SER-N` then optional `Related: SER-N, SER-M`.
+- No AI/tool/coauthor/generated-by attribution in contribution metadata (branch/title/commit/PR trailers).
 - AUTO_MERGE=OFF; merge only after explicit human approval.

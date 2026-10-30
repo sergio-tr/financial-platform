@@ -1,0 +1,6 @@
+schemaVersion: 1
+mode: MATERIALIZED
+nodes:
+  - { id: "REQ-BAD", nodeType: "REQUIREMENT", status: "LOCKED" }
+edges: []
+legacyExceptions: []

@@ -86,11 +86,17 @@ def main() -> int:
     for rid in ids:
         if rid not in nodes:
             return fail(f"trace missing node {rid}")
-        if nodes[rid].get("status") != "LOCKED":
+        node = nodes[rid]
+        expected_type = "REQUIREMENT" if rid.startswith("REQ-") else "NFR"
+        if node.get("nodeType") != expected_type:
+            return fail(f"trace nodeType mismatch {rid} actual={node.get('nodeType')}")
+        if node.get("status") != "LOCKED":
             return fail(f"active id not LOCKED in trace {rid}")
         doc = f"DOC:{next(e['path'] for e in entries if e['id']==rid)}"
         if doc not in nodes:
-            return fail(f"trace missing DOC node {doc}")
+            return fail(f"trace missing DOCUMENTATION node {doc}")
+        if nodes[doc].get("nodeType") != "DOCUMENTATION":
+            return fail(f"trace DOC id not DOCUMENTATION {doc}")
     for alias in ALIASES:
         if alias not in nodes or nodes[alias].get("status") != "SUPERSEDED":
             return fail(f"alias not SUPERSEDED {alias}")
@@ -99,11 +105,11 @@ def main() -> int:
         if bodies:
             return fail(f"alias has body file {bodies}")
 
-    if "SER-101" not in nodes or nodes["SER-101"].get("status") != "LOCKED":
-        return fail("SER-101 node missing/not LOCKED")
-
-    # no SER-102-style invented relations from this materialization beyond documents/implements
-    # (presence of pre-existing tests edges is OK)
+    ser101 = nodes.get("SER-101")
+    if ser101 is None or ser101.get("nodeType") != "LINEAR_ISSUE":
+        return fail("SER-101 LINEAR_ISSUE node missing")
+    if ser101.get("status") not in {"ACTIVE", "DONE"}:
+        return fail(f"SER-101 status unexpected {ser101.get('status')}")
 
     print(
         "SER101_REQUIREMENTS_PASS "

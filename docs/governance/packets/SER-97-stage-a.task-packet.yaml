@@ -1,0 +1,56 @@
+schemaVersion: 1
+taskId: SER-97
+taskKind: GOVERNANCE
+mode: IMPLEMENT
+risk: SENSITIVE
+baseRevision: a82e477fb6cf979ac4df78eee594b6feebd9f920
+packetHash: f3b36d81fb8869c35dcb8c97e8609fc141c9caef03086c511d3e67912db91d0e
+authorityRefs:
+- SER-97
+- SER-96
+- P0-R37
+- P0-R39
+- P0-R44
+- P0-R52
+- P0-R53
+- P0-R57
+- P0-R59
+- d3d6bb51-3c7b-470d-bede-2b7eb3c91ac9
+allowedPaths:
+- docs/governance/traceability/**
+- docs/governance/packets/**
+- docs/governance/architecture-manifest.md
+- scripts/governance/**
+- .github/workflows/**
+- .github/PULL_REQUEST_TEMPLATE.md
+- .cursor/rules/11-git.mdc
+- test/fixtures/governance/**
+- MANIFEST.txt
+forbiddenPaths:
+- backend/**
+- frontend/**
+- contracts/**
+- design/**
+- docs/requirements/**
+- docs/architecture/**
+- docs/adr/**
+- infrastructure/**
+requirements: NOT_APPLICABLE
+contracts: NOT_APPLICABLE
+design: NOT_APPLICABLE
+tests: NOT_APPLICABLE
+security: NOT_APPLICABLE
+financial: NOT_APPLICABLE
+migrations: NOT_APPLICABLE
+workflows: NOT_APPLICABLE
+acceptance:
+  required: false
+  environment: NOT_APPLICABLE
+  humanApproval: true
+definitionOfDone:
+- SER-96 taxonomy materialized in traceability.schema.json
+- traceability.yaml migrated with adjudicated DROPs only
+- foundation validators and fixtures pass
+- SER-101 invariants pass without body edits
+- CI workflow runs foundation profile
+- SER-97 remains IN PROGRESS (Stage A only)
