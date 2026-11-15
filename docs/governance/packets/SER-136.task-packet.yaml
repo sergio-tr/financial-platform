@@ -1,0 +1,44 @@
+schemaVersion: 1
+taskId: SER-136
+taskKind: GOVERNANCE
+mode: IMPLEMENT
+risk: SENSITIVE
+baseRevision: "9a1cb3d848148d9213b922b950dadfe663048925"
+packetHash: "0f20dfda8966f064830a724e307b3ab8a4ab22c4769715d3336b2e9e6a1bff80"
+authorityRefs:
+  - SER-136
+  - P0-R59
+  - P0-R52
+  - P0-R54
+  - ADR-0023
+allowedPaths:
+  - AGENTS.md
+  - docs/governance/execution-baseline.md
+  - .cursor/rules/00-governance.mdc
+  - .cursor/rules/12-agent-execution.mdc
+  - docs/delivery/orchestration.md
+forbiddenPaths:
+  - backend/**
+  - frontend/**
+  - contracts/**
+  - infrastructure/**
+  - design/**
+  - apps/**
+requirements: NOT_APPLICABLE
+contracts: NOT_APPLICABLE
+design: NOT_APPLICABLE
+tests: NOT_APPLICABLE
+security:
+  - NFR-SEC-001
+financial: NOT_APPLICABLE
+migrations: NOT_APPLICABLE
+workflows: NOT_APPLICABLE
+acceptance:
+  required: false
+  environment: NOT_APPLICABLE
+  humanApproval: true
+definitionOfDone:
+  - Delegated orchestration is canonicalized with DELEGATED_ORCHESTRATION=ON and a limited SER-136 handshake.
+  - AUTOEXECUTION=OFF; SER-111 remains CANCELED_SUPERSEDED; GHA is CI/verification only.
+  - IMPLEMENTATION_LOCK=ON and P0_IMPLEMENTATION_READY=NO remain unchanged; one active work unit rule codified.
+  - All governance validators pass; no product code added; documentation and rules remain consistent.
