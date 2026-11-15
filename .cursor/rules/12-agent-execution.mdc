@@ -10,3 +10,5 @@ Status: CANONICAL
 - SENSITIVE/CRITICAL IMPLEMENT requires a current PLAN for the same packet hash/base; CRITICAL also requires independent REVIEW.
 - Never read real credentials or financial/provider production data into agent context.
 - SER-111 is CANCELED_SUPERSEDED; GitHub Actions is CI/verification only.
+
+- Under DELEGATED_ORCHESTRATION=ON and an active Delegation Grant (SER-136), an agent may advance PLAN→IMPLEMENT→REVIEW for the selected ticket without a fresh human message only when authority and DoD are unambiguous and zero-assumption holds. Exactly one Cursor work unit may be active; no cross-ticket widening; any ambiguity or failed check must block and escalate (no false green).
