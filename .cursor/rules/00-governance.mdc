@@ -4,7 +4,7 @@ Status: CANONICAL
 - Follow AGENTS.md, ADR-0023 and docs/governance/execution-baseline.md.
 - P0_PLANNING_FROZEN=YES; DOCUMENTATION_PLANNING_CLOSED=YES; ARCHITECTURE_DISCOVERY_MODE=OFF.
 - EXECUTION_MODE=MANUAL_CURSOR; venues LOCAL and CURSOR_CLOUD only when Sergio starts them.
-- AUTOEXECUTION=OFF; Slack/Linear dispatch forbidden EXCEPT the SER-136 delegated-orchestration handshake; no auto next-task; SER-111 is CANCELED_SUPERSEDED.
+- AUTOEXECUTION=OFF for product implementation; Slack/Linear dispatch forbidden EXCEPT the SER-136 delegated-orchestration handshake; automatic next‑task selection is forbidden EXCEPT the SER‑136 delegated selection of the single next executable Phase‑0 ticket; SER-111 is CANCELED_SUPERSEDED.
 - IMPLEMENTATION_LOCK=ON; P0_IMPLEMENTATION_READY=NO until SER-20 unlock.
 - Do not calculate authoritative financial metrics with LLMs.
 - Do not expose real credentials or portfolio data.

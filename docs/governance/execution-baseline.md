@@ -47,14 +47,14 @@ Do not use for this project:
 
 - Slack/Linear as dispatchers — EXCEPT the SER-136 delegated-orchestration handshake limited to PLAN/IMPLEMENT/REVIEW handoffs and status publication; Slack/Linear remain non-authoritative for product edits;
 - `@cursor` as automatic trigger;
-- scheduled agents;
+- scheduled agents; — EXCEPT the SER-136 delegated hourly control‑loop tick (ChatGPT‑hosted, not Cursor Automations) that only re-evaluates the single selected ticket and, when blocked, may select the next executable Phase‑0 ticket via Slack handoffs;
 - Cursor Automations;
 - cron execution;
 - webhook autoexecution;
 - automatic issue selection;
 - recursive agent dispatch;
-- automatic next-task execution;
-- `ORCHESTRATOR_TICK`;
+- automatic next-task execution; — EXCEPT the SER-136 delegated selection of the single next executable Phase‑0 ticket from the dependency graph when the active ticket is genuinely blocked;
+- `ORCHESTRATOR_TICK`; — EXCEPT the SER-136 delegated hourly control‑loop tick defined below; this tick never performs product edits and is not a Cursor Automation;
 - automatic `CURSOR_HANDOFF`;
 - autonomous Cursor runner;
 - JIT/self-hosted acceptance runner as a Phase-0 prerequisite;
@@ -69,6 +69,16 @@ Scope-limited delegated orchestration is permitted only with an active Delegatio
 - zero-assumption and fail-closed remain mandatory; ambiguity or missing authority blocks progress;
 - a single Cursor work unit may be active at any time; no cross-ticket widening;
 - this delegation does not authorize product edits beyond existing locks: AUTOEXECUTION=OFF; IMPLEMENTATION_LOCK=ON; P0_IMPLEMENTATION_READY=NO; no direct `main` push, no force-push/history rewrite; squash-only after checks/review/DoD; no production/secrets/real financial data/trading.
+
+### Delegated hourly control‑loop tick
+
+- A ChatGPT‑hosted hourly control‑loop tick may re‑evaluate the state of the currently selected ticket. If that ticket is genuinely blocked, the tick may select the single next executable Phase‑0 ticket from the dependency graph and issue PLAN/IMPLEMENT/REVIEW handoffs in `#financial-platform`.
+- The tick is not a Cursor Automation and does not perform code edits, merges, acceptance, or production actions. It posts Slack handoffs/status only and remains subject to zero‑assumption and fail‑closed rules.
+- Exactly one Cursor work unit remains active at any time across ticks.
+
+### Clarification: AUTOEXECUTION=OFF
+
+`AUTOEXECUTION=OFF` means no autonomous product implementation (code edits, merges, acceptance or production actions) without explicit human gates. Delegated orchestration under SER‑136 is coordination only and does not constitute product autoexecution.
 
 ## Allowed Cloud Agent actions (manual venue only)
 

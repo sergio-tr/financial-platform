@@ -18,7 +18,7 @@ PR opened/update
 -> cleanup
 ```
 
-There is no autonomous agent tick, Slack/Linear dispatch, auto-select next issue, automatic next-task execution, auto-merge, or Phase-0-required JIT/self-hosted acceptance runner.
+There is no autonomous agent tick, Slack/Linear dispatch, auto-select next issue, automatic next-task execution, auto-merge, or Phase-0-required JIT/self-hosted acceptance runner — EXCEPT the SER-136 delegated hourly control‑loop tick (ChatGPT‑hosted, not Cursor Automations) that may re‑evaluate the active ticket and, if genuinely blocked, select the single next executable Phase‑0 ticket and post PLAN/IMPLEMENT/REVIEW handoffs and status in `#financial-platform`. This exception does not authorize product edits and preserves all existing locks.
 
 ## Trust boundary
 

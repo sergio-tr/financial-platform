@@ -51,11 +51,12 @@ DELEGATED_ORCHESTRATION=ON (scope-limited). With an active Delegation Grant by S
 - select the next executable ticket strictly from the current dependency graph;
 - set only that selected ticket In Progress;
 - issue PLAN/IMPLEMENT/REVIEW handoffs and status updates in `#financial-platform` without a fresh user message when authority and Definition of Done are unambiguous;
-- perform hourly rechecks to resume independent Phase-0 work when one ticket is genuinely blocked.
+- perform a delegated hourly control‑loop tick (ChatGPT‑hosted, not Cursor Automations) to re‑evaluate blocked work and, when allowed by the dependency graph, proceed to the single next executable Phase‑0 ticket via Slack handoffs; this loop posts handoffs/status only and never performs product edits.
 
 Constraints that remain unchanged:
 
-- AUTOEXECUTION=OFF; Slack/Linear are coordination UX and remain non-authoritative outside this handshake;
+- AUTOEXECUTION=OFF for product implementation (no autonomous code edits, merges or production actions). Delegated orchestration under SER‑136 is coordination only and does not constitute product autoexecution;
+- Slack/Linear are coordination UX and remain non‑authoritative outside this handshake;
 - one active Cursor work unit at a time; no cross-ticket widening;
 - IMPLEMENTATION_LOCK=ON; P0_IMPLEMENTATION_READY=NO;
 - zero-assumption and fail-closed are mandatory; no direct push to `main`, no force-push/history rewrite; squash merge only after checks/review/DoD;
