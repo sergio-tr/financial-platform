@@ -32,7 +32,7 @@ There is no autonomous agent tick, Slack/Linear dispatch, auto-select next issue
 ## GitHub / Linear / Slack
 
 - Primary `SER-*` is the lifecycle key.
-- Slack and Linear are coordination/indexing UX only. They are not an execution control plane and must not dispatch agents.
+- Slack and Linear are coordination/indexing UX only. They are not an execution control plane and must not dispatch agents, EXCEPT the SER-136 delegated-orchestration handshake that may post and transition PLAN/IMPLEMENT/REVIEW for the selected ticket; they never confer product-edit authority.
 - GitHub Actions is CI/verification only. It is not an agent orchestrator.
 - Merge and post-merge audit must not auto-close an issue whose DoD is not proven.
 - `AUTO_MERGE=OFF`.
