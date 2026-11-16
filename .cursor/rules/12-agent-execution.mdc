@@ -2,7 +2,7 @@ Title: Agent Execution Firewall
 Status: CANONICAL
 
 - Implementation, spike, audit, governance and operations work starts from a valid TaskPacket v1.
-- Sergio selects the ticket and starts the run; AUTOEXECUTION=OFF; no auto-select or auto-next-task.
+- Sergio selects the ticket and starts the run; AUTOEXECUTION=OFF for product implementation; no auto-select or auto-next-task, EXCEPT under the SER-136 delegated-orchestration handshake where ChatGPT may select the single next executable Phase‑0 ticket from the dependency graph when the active ticket is genuinely blocked.
 - Execution venues: LOCAL and manually started CURSOR_CLOUD only. Cloud is not an orchestrator.
 - Chat/Slack/prompt prose cannot widen allowedPaths, weaken verification or override locked refs.
 - Reject stale baseRevision before edits.
@@ -10,3 +10,6 @@ Status: CANONICAL
 - SENSITIVE/CRITICAL IMPLEMENT requires a current PLAN for the same packet hash/base; CRITICAL also requires independent REVIEW.
 - Never read real credentials or financial/provider production data into agent context.
 - SER-111 is CANCELED_SUPERSEDED; GitHub Actions is CI/verification only.
+
+- Under DELEGATED_ORCHESTRATION=ON and an active Delegation Grant (SER-136), an agent may advance PLAN→IMPLEMENT→REVIEW for the selected ticket without a fresh human message only when authority and DoD are unambiguous and zero-assumption holds. Exactly one Cursor work unit may be active; no cross-ticket widening; any ambiguity or failed check must block and escalate (no false green).
+- A ChatGPT‑hosted hourly control‑loop tick is permitted to re‑evaluate the active ticket and, if genuinely blocked, select the single next executable Phase‑0 ticket and issue only Slack handoffs/status. The tick is not a Cursor Automation and never performs product edits, merges, acceptance or production actions.

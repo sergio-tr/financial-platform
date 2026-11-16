@@ -25,7 +25,7 @@ P0_IMPLEMENTATION_READY=NO
 SER-111=CANCELED_SUPERSEDED
 ```
 
-Sergio explicitly selects each ticket and starts each run. Cursor Cloud is only a manually started venue. Slack/Linear are not dispatchers. GitHub Actions is CI/verification only.
+Sergio explicitly selects each ticket and starts each run, EXCEPT under the SER-136 delegated-orchestration handshake when an active Delegation Grant is in force: ChatGPT may select the next executable ticket from the current dependency graph and set only that ticket In Progress. Cursor Cloud is only a manually started venue. Slack/Linear remain non-authoritative outside the SER-136 handshake. GitHub Actions is CI/verification only.
 
 ## Non-negotiable architecture
 
@@ -43,6 +43,24 @@ Sergio explicitly selects each ticket and starts each run. Cursor Cloud is only 
 - Financial calculations are deterministic code. LLMs interpret structured outputs; they do not calculate authoritative portfolio metrics.
 - Financial execution tools (buy/sell/transfer/withdraw) are forbidden.
 - Real credentials, portfolio exports, statements and production financial snapshots never enter Git, Cursor Cloud, Slack, fixtures or logs.
+
+## Delegated orchestration (SER-136)
+
+DELEGATED_ORCHESTRATION=ON (scope-limited). With an active Delegation Grant by Sergio (explicit, revocable at any time), ChatGPT may:
+
+- select the next executable ticket strictly from the current dependency graph;
+- set only that selected ticket In Progress;
+- issue PLAN/IMPLEMENT/REVIEW handoffs and status updates in `#financial-platform` without a fresh user message when authority and Definition of Done are unambiguous;
+- perform a delegated hourly control‑loop tick (ChatGPT‑hosted, not Cursor Automations) to re‑evaluate blocked work and, when allowed by the dependency graph, proceed to the single next executable Phase‑0 ticket via Slack handoffs; this loop posts handoffs/status only and never performs product edits.
+
+Constraints that remain unchanged:
+
+- AUTOEXECUTION=OFF for product implementation (no autonomous code edits, merges or production actions). Delegated orchestration under SER‑136 is coordination only and does not constitute product autoexecution;
+- Slack/Linear are coordination UX and remain non‑authoritative outside this handshake;
+- one active Cursor work unit at a time; no cross-ticket widening;
+- IMPLEMENTATION_LOCK=ON; P0_IMPLEMENTATION_READY=NO;
+- zero-assumption and fail-closed are mandatory; no direct push to `main`, no force-push/history rewrite; squash merge only after checks/review/DoD;
+- no production actions, no secrets, no real financial data, and no trading.
 
 ## Decision workflow
 
