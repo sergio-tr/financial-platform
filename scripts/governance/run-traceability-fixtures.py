@@ -78,6 +78,7 @@ def main() -> int:
     assert validate_branch("feature/docs-only")
     assert any(e.code == "TRACE_BRANCH_INVALID" for e in validate_branch("feature/docs-only"))
     assert not validate_branch("chore/SER-97-traceability-foundation")
+    assert not validate_branch("cursor/ser-97-stage-b-5680")
 
     body_ok = (FIX / "pr/valid-body.md").read_text()
     assert not validate_pr_body(body_ok, branch_ser="SER-97")

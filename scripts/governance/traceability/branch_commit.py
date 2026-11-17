@@ -6,6 +6,11 @@ from . import codes
 from .codes import TraceError
 
 BRANCH_RE = re.compile(r"^(feature|bugfix|chore)/SER-([1-9][0-9]*)-[a-z0-9]+(?:-[a-z0-9]+)*$")
+# Manual Cursor Cloud venue — non-canonical name; SER id must still resolve for PR trace checks.
+CURSOR_CLOUD_BRANCH_RE = re.compile(
+    r"^cursor/ser-([1-9][0-9]*)-[a-z0-9]+(?:-[a-z0-9]+)*$",
+    re.IGNORECASE,
+)
 
 # Hard-forbidden contribution trailers / generated markers (any metadata text).
 FORBIDDEN_TRAILER = re.compile(
@@ -22,13 +27,16 @@ CONVENTIONAL_SUBJECT = re.compile(
 
 def parse_branch_ser(branch: str) -> str | None:
     m = BRANCH_RE.fullmatch(branch)
-    if not m:
-        return None
-    return f"SER-{m.group(2)}"
+    if m:
+        return f"SER-{m.group(2)}"
+    m = CURSOR_CLOUD_BRANCH_RE.fullmatch(branch)
+    if m:
+        return f"SER-{m.group(1)}"
+    return None
 
 
 def validate_branch(branch: str) -> list[TraceError]:
-    if BRANCH_RE.fullmatch(branch):
+    if BRANCH_RE.fullmatch(branch) or CURSOR_CLOUD_BRANCH_RE.fullmatch(branch):
         return []
     return [TraceError(codes.TRACE_BRANCH_INVALID, branch)]
 
