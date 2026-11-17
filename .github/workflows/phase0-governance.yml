@@ -42,9 +42,11 @@ jobs:
             --pr-number "$PR_NUMBER"
       - name: PR diff impact (SER-97 Stage B)
         if: github.event_name == 'pull_request'
+        env:
+          PR_BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          PR_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
         run: |
-          git fetch origin "${{ github.base_ref }}"
-          git diff --name-only "origin/${{ github.base_ref }}...HEAD" > /tmp/changed-files.txt
+          git diff --name-only "$PR_BASE_SHA" "$PR_HEAD_SHA" > /tmp/changed-files.txt
           python scripts/governance/validate-pr-diff-impact.py --changed-files /tmp/changed-files.txt
       - name: TaskPacket example schema
         run: python scripts/governance/validate-task-packet.py --skip-hash docs/governance/task-packet.example.yaml
