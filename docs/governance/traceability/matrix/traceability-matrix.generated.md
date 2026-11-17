@@ -139,6 +139,7 @@ UseCase / contract / SOURCE_OWNER columns are omitted until authoritative mappin
 | id | status | title |
 |---|---|---|
 | SER-101 | DONE | Materialize canonical functional and NFR requirement catalog in Git |
+| SER-106 | ACTIVE | SecretVault crypto format and KEK lifecycle (SER-106) |
 | SER-111 | CANCELED | PR orchestration / Slack-Linear automation / JIT runner — CANCELED_SUPERSEDED by P0-R59 |
 | SER-132 | DONE | Materialize P0-R59 manual Cursor execution baseline in Git |
 | SER-70 | DONE | Architecture/governance sync P0-R26..P0-R57 |
