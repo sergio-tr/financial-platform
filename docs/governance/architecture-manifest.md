@@ -93,7 +93,7 @@ GitHub PR #1 predates P0-R37. It is recorded as `LEGACY-PR-001` (`LEGACY_EXCEPTI
 - `docs/design/README.md`
 - `docs/design/design-manifest.schema.json`
 - `docs/design/design-manifest.yaml` (two semantic records)
-- `design/tokens/` (placeholder only; values owned by SER-51)
+- `design/tokens/` (SER-51 DTCG foundation v1 materialized)
 - `docs/security/security-architecture.md`
 - `docs/security/README-data-classification.md`
 - `docs/security/data-classification.schema.json`
@@ -118,7 +118,7 @@ GitHub PR #1 predates P0-R37. It is recorded as `LEGACY-PR-001` (`LEGACY_EXCEPTI
 - Normative test sources, lanes and fixtures: SER-112 and SER-116
 - Task Packet firewall: SER-115 (schema/firewall already materializing; remains active under P0-R59)
 - Isolated acceptance environment and human approval: SER-113 (SER-111 is `CANCELED_SUPERSEDED` and is not a blocker)
-- DTCG token values: SER-51
+- DTCG token pipeline build/Figma parity: SER-51 (foundation values materialized in Git)
 - Physical MEDIUM and COMPACT frames and visual approval: SER-108
 - Field-level classification inventory: SER-109
 - Retention registry values: SER-110

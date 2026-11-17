@@ -1,0 +1,44 @@
+{
+  "$description": "SER-51 primitive colors — candidate v1",
+  "color": {
+    "primitive": {
+      "white": { "$type": "color", "$value": "#FFFFFF" },
+      "ink": {
+        "950": { "$type": "color", "$value": "#0B1117" },
+        "925": { "$type": "color", "$value": "#111922" },
+        "900": { "$type": "color", "$value": "#17202B" },
+        "875": { "$type": "color", "$value": "#17212C" }
+      },
+      "slate": {
+        "800": { "$type": "color", "$value": "#2A3745" },
+        "700": { "$type": "color", "$value": "#465667" },
+        "600": { "$type": "color", "$value": "#5C6674" },
+        "400": { "$type": "color", "$value": "#AAB4BF" },
+        "200": { "$type": "color", "$value": "#DCE3EA" },
+        "100": { "$type": "color", "$value": "#EEF2F6" },
+        "050": { "$type": "color", "$value": "#F7F9FB" },
+        "025": { "$type": "color", "$value": "#F4F7FA" }
+      },
+      "teal": {
+        "700": { "$type": "color", "$value": "#0F766E" },
+        "400": { "$type": "color", "$value": "#3DBF9F" }
+      },
+      "green": {
+        "700": { "$type": "color", "$value": "#167A4B" },
+        "400": { "$type": "color", "$value": "#45C486" }
+      },
+      "red": {
+        "700": { "$type": "color", "$value": "#B42318" },
+        "400": { "$type": "color", "$value": "#FF7A70" }
+      },
+      "amber": {
+        "700": { "$type": "color", "$value": "#B54708" },
+        "400": { "$type": "color", "$value": "#F5B041" }
+      },
+      "blue": {
+        "700": { "$type": "color", "$value": "#175CD3" },
+        "400": { "$type": "color", "$value": "#60A5FA" }
+      }
+    }
+  }
+}

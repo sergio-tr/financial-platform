@@ -1,0 +1,40 @@
+{
+  "$description": "SER-51 semantic colors — light theme; paths match Linear candidate v1 IDs",
+  "color": {
+    "bg": {
+      "canvas": { "$type": "color", "$value": "{color.primitive.slate.050}" },
+      "surface": {
+        "$type": "color",
+        "$value": "{color.primitive.white}",
+        "subtle": { "$type": "color", "$value": "{color.primitive.slate.100}" }
+      }
+    },
+    "text": {
+      "primary": { "$type": "color", "$value": "{color.primitive.ink.900}" },
+      "secondary": { "$type": "color", "$value": "{color.primitive.slate.600}" },
+      "inverse": { "$type": "color", "$value": "{color.primitive.white}" }
+    },
+    "border": {
+      "default": { "$type": "color", "$value": "{color.primitive.slate.200}" },
+      "strong": { "$type": "color", "$value": "{color.primitive.slate.400}" }
+    },
+    "action": {
+      "primary": {
+        "$type": "color",
+        "$value": "{color.primitive.teal.700}",
+        "text": { "$type": "color", "$value": "{color.primitive.white}" }
+      }
+    },
+    "state": {
+      "positive": { "$type": "color", "$value": "{color.primitive.green.700}" },
+      "negative": { "$type": "color", "$value": "{color.primitive.red.700}" },
+      "warning": { "$type": "color", "$value": "{color.primitive.amber.700}" },
+      "info": { "$type": "color", "$value": "{color.primitive.blue.700}" },
+      "unknown": { "$type": "color", "$value": "{color.primitive.slate.600}" },
+      "stale": { "$type": "color", "$value": "{color.primitive.amber.700}" }
+    },
+    "focus": {
+      "ring": { "$type": "color", "$value": "{color.primitive.blue.700}" }
+    }
+  }
+}

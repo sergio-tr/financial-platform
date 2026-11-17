@@ -15,6 +15,12 @@ MANIFEST.txt
 README.md
 .github/PULL_REQUEST_TEMPLATE.md
 design/tokens/.keep
+design/tokens/README.md
+design/tokens/dimension.json
+design/tokens/primitive.color.json
+design/tokens/semantic.color.dark.json
+design/tokens/semantic.color.light.json
+design/tokens/typography.json
 docs/adr/ADR-0001-modular-monolith.md
 docs/adr/ADR-0002-runtime-baseline.md
 docs/adr/ADR-0003-stomp-over-websocket.md
