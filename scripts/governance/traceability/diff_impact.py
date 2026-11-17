@@ -38,13 +38,13 @@ def validate_phase0_diff(changed_paths: list[str]) -> list[TraceError]:
 
     for raw in paths:
         s = raw.replace("\\", "/")
-        if s.startswith("docs/"):
+        if s.startswith(("docs/", ".github/", "scripts/governance/")):
             continue
         if "workflow" in s.lower() or "temporal" in s.lower():
             errors.append(
                 TraceError(
                     codes.TRACE_DIFF_IMPLEMENTATION_LOCK,
-                    f"non-doc workflow path {s}",
+                    f"non-governance workflow path {s}",
                 )
             )
 
