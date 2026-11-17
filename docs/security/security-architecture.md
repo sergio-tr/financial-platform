@@ -29,7 +29,7 @@ Every command/query that references workspace state verifies membership and requ
 
 ## Secrets
 
-Application code accesses credentials through `SecretVaultPort` and opaque `SecretRef`. Secrets are encrypted at rest using authenticated encryption; master key material remains outside DB, Git, Cursor and LLM context. Logs and exceptions must never print resolved secrets.
+Application code accesses credentials through `SecretVaultPort` and opaque `SecretRef`. Secrets use envelope encryption; the **SecretVault KEK** remains outside DB, Git, Cursor and LLM context. Canonical crypto contract: `docs/security/secretvault-crypto-contract.md` (P0-R43 / SER-106). Logs and exceptions must never print resolved secrets.
 
 SecretVault boundary (R43):
 - Envelope encryption AES-256-GCM. KEK remains outside PostgreSQL/Git; DEK per secret version.
@@ -56,7 +56,7 @@ Append-only audit events cover authentication, authorization failures, provider 
 
 ## Backups
 
-Backups are encrypted. Retention baseline: 7 daily, 4 weekly, 3 monthly. Restore is periodically tested; a successful dump without a restore test is not considered a proven backup.
+Backups are encrypted. Retention baseline per **P0-R30 R30-03** (routed SER-78): 7 daily, 4 weekly, **6 monthly** recovery points. Restore is periodically tested; a successful dump without a restore test is not considered a proven backup.
 
 ## Database security (R41)
 - Data classes: GLOBAL_REFERENCE, WORKSPACE_SENSITIVE, USER_PRIVATE, SYSTEM_SECURITY, SYSTEM_INTERNAL.
