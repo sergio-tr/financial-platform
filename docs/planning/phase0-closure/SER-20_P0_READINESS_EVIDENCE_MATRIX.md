@@ -70,7 +70,7 @@ Statuses: **PASS** only with explicit Git path/commit/check; **BLOCKED** with mi
 | C1 | Decision Register: no unresolved P0/Open | **PASS** | `docs/planning/decision-register.md` — D-001…D-036 `LOCKED` only |
 | C2 | Accepted ADR for every invariant | **PASS** | `docs/adr/ADR-0001` … `ADR-0037` + `docs/adr/README.md` |
 | C3 | Bounded contexts / dependency graph acyclic | **PASS** | `docs/governance/architecture-manifest.md`; `SER-117_REAUDIT_MATRICES.md` NO_CYCLE (sequencing) |
-| C4 | Public Java API / port interface metadata | **BLOCKED** | `docs/governance/api-registry.md` — rows `PENDING (SER-92..95)` |
+| C4 | Public Java API / port interface metadata | **PARTIAL** | `docs/governance/api-registry.md` — indexed from accepted Linear SER-92..SER-95 packs; Git `contracts/**` and caller index still PENDING |
 | C5 | AsyncAPI 3.1 + JSON Schemas (all flows) | **BLOCKED** | Only `docs/contracts/README.md`; no `contracts/asyncapi/**` or `contracts/schemas/**` on `main` |
 | C6 | WebSocket replay/security/backpressure fully specified | **BLOCKED** | Planning docs reviewed in checklist; **no** materialized contract tree (C5) |
 | C7 | Identity/auth/MFA/RLS/threat/secret/DR closed | **PARTIAL** | Threat model reviewed (`phase-0-acceptance-checklist.md`); SER-103/106/109/110 **In Progress** — field-level + lifecycle catalogs incomplete |
