@@ -1,0 +1,48 @@
+schemaVersion: 1
+taskId: SER-93
+taskKind: GOVERNANCE
+mode: IMPLEMENT
+risk: LOW
+baseRevision: 0fc129c3f535cc23d4b29578e56ece463a91e4a0
+packetHash: a5ff5c62c209aa7836956a1b1f7496042e4ce055d38940e537589a8caa25265b
+authorityRefs:
+  - SER-93
+  - SER-20
+  - P0-R35
+  - P0-R59
+  - faf775736687
+allowedPaths:
+  - contracts/schemas/**
+  - docs/contracts/README.md
+  - docs/governance/api-registry.md
+  - docs/governance/packets/SER-93-contracts-connectivity-vocabulary-v1.task-packet.yaml
+  - docs/planning/phase0-closure/SER-20_P0_READINESS_EVIDENCE_MATRIX.md
+  - scripts/governance/traceability/diff_impact.py
+  - scripts/governance/run-traceability-fixtures.py
+  - scripts/governance/README.md
+  - MANIFEST.txt
+forbiddenPaths:
+  - backend/**
+  - frontend/**
+  - contracts/asyncapi/**
+  - design/**
+  - docs/adr/**
+  - infrastructure/**
+requirements: NOT_APPLICABLE
+contracts:
+  - urn:sergiotr:schema:connectivity:canonical-enums:v1
+design: NOT_APPLICABLE
+tests: NOT_APPLICABLE
+security: NOT_APPLICABLE
+financial: NOT_APPLICABLE
+migrations: NOT_APPLICABLE
+workflows: NOT_APPLICABLE
+acceptance:
+  required: false
+  environment: NOT_APPLICABLE
+  humanApproval: true
+definitionOfDone:
+  - JSON Schema contracts/schemas/connectivity/canonical-enums.v1.schema.json matches SER-93 pack connectivity §3 and freeze D/E sort/quarantine enums only
+  - validate-pr-diff-impact.py allows this materialization slice under IMPLEMENTATION_LOCK carve-out
+  - validate-task-packet.py and validate-traceability.py --profile foundation pass
+  - No AsyncAPI files, Java implementation, §8 problem-code registry or invented fields beyond pack authority

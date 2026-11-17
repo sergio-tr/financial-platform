@@ -71,6 +71,7 @@ contracts/schemas/README.md
 contracts/schemas/audit/canonical-enums.v1.schema.json
 contracts/schemas/common/uuid.v1.schema.json
 contracts/schemas/configuration/canonical-enums.v1.schema.json
+contracts/schemas/connectivity/canonical-enums.v1.schema.json
 contracts/schemas/identity/canonical-enums.v1.schema.json
 contracts/schemas/ser-92/problem-codes.v1.schema.json
 contracts/schemas/workspace/canonical-enums.v1.schema.json
@@ -91,6 +92,7 @@ docs/governance/traceability/traceability.yaml
 docs/governance/traceability/review-adjudication.md
 docs/governance/packets/SER-92-api-registry-index.task-packet.yaml
 docs/governance/packets/SER-92-contracts-vocabulary-v1.task-packet.yaml
+docs/governance/packets/SER-93-contracts-connectivity-vocabulary-v1.task-packet.yaml
 docs/governance/packets/SER-132.task-packet.yaml
 docs/governance/packets/SER-132-post-merge-remediation.task-packet.yaml
 docs/governance/packets/SER-101.task-packet.yaml
