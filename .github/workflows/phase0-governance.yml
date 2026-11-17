@@ -46,6 +46,7 @@ jobs:
           PR_BASE_SHA: ${{ github.event.pull_request.base.sha }}
           PR_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
         run: |
+          git fetch --no-tags --depth=1 origin "$PR_BASE_SHA" "$PR_HEAD_SHA"
           git diff --name-only "$PR_BASE_SHA" "$PR_HEAD_SHA" > /tmp/changed-files.txt
           python scripts/governance/validate-pr-diff-impact.py --changed-files /tmp/changed-files.txt
       - name: TaskPacket example schema
