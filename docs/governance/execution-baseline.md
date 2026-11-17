@@ -80,6 +80,12 @@ Scope-limited delegated orchestration is permitted only with an active Delegatio
 
 `AUTOEXECUTION=OFF` means no autonomous product implementation (code edits, merges, acceptance or production actions) without explicit human gates. Delegated orchestration under SER‑136 is coordination only and does not constitute product autoexecution.
 
+### Solo maintainer: Cursor Approval Agent as code review (SER-136)
+
+With an active Delegation Grant, when the repository has a single human maintainer and Sergio has accepted Cursor Approval Agent as PR reviewer, **Cursor Approval Agent** — an automated **bot** actor, explicitly not a human reviewer — may satisfy the **code review** gate for in-scope PRs that remain within the ticket's `allowedPaths` and locks (`IMPLEMENTATION_LOCK=ON`, `P0_IMPLEMENTATION_READY=NO`, `AUTO_MERGE=OFF`).
+
+This does not replace explicit **human maintainer** approval to merge, human **ACCEPT/REJECT** on the exact SHA, sensitive promotion decisions, or CI/DoD/traceability and squash-only merge discipline. Evidence must identify bot review distinctly from human approval.
+
 ## Allowed Cloud Agent actions (manual venue only)
 
 A Cloud Agent may, for the ticket Sergio selected and started:
