@@ -1,0 +1,8 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:sergiotr:schema:common:uuid:v1",
+  "title": "UuidV7",
+  "description": "Internally generated UUID identifiers use UUIDv7 (SER-92 pack §2).",
+  "type": "string",
+  "format": "uuid"
+}

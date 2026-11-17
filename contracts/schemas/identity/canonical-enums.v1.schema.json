@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:sergiotr:schema:identity:canonical-enums:v1",
+  "title": "IdentityCanonicalEnums",
+  "description": "Canonical enums from SER-92 Contract Pack §2 (identity).",
+  "$defs": {
+    "UserStatus": {
+      "type": "string",
+      "enum": [
+        "INVITED",
+        "MFA_ENROLLMENT_REQUIRED",
+        "ACTIVE",
+        "RECOVERY_REQUIRED",
+        "DISABLED"
+      ]
+    },
+    "AuthenticationStage": {
+      "type": "string",
+      "enum": [
+        "ANONYMOUS",
+        "PRIMARY_AUTH_VERIFIED",
+        "MFA_REQUIRED",
+        "MFA_ENROLLMENT_REQUIRED",
+        "AUTHENTICATED",
+        "RECOVERY_REQUIRED"
+      ]
+    },
+    "AuthenticationAssurance": {
+      "type": "string",
+      "enum": ["PRIMARY_ONLY", "MFA", "RECENT_MFA"]
+    },
+    "AuthenticatorKind": {
+      "type": "string",
+      "enum": ["TOTP"]
+    }
+  }
+}

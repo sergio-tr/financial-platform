@@ -1,0 +1,53 @@
+schemaVersion: 1
+taskId: SER-92
+taskKind: GOVERNANCE
+mode: IMPLEMENT
+risk: LOW
+baseRevision: 8ac5f787528285fc0692cf961fa2cb7e71029aab
+packetHash: 4633b055ad2fd0514b9b7dc84b9acd23adfbf90601e23a564d053a917a7eaa52
+authorityRefs:
+  - SER-92
+  - SER-20
+  - P0-R35
+  - P0-R59
+  - de3c80be0a59
+allowedPaths:
+  - contracts/schemas/**
+  - docs/contracts/README.md
+  - docs/governance/api-registry.md
+  - docs/governance/packets/SER-92-contracts-vocabulary-v1.task-packet.yaml
+  - docs/planning/phase0-closure/SER-20_P0_READINESS_EVIDENCE_MATRIX.md
+  - scripts/governance/traceability/diff_impact.py
+  - scripts/governance/run-traceability-fixtures.py
+  - scripts/governance/README.md
+  - MANIFEST.txt
+forbiddenPaths:
+  - backend/**
+  - frontend/**
+  - contracts/asyncapi/**
+  - design/**
+  - docs/adr/**
+  - infrastructure/**
+requirements: NOT_APPLICABLE
+contracts:
+  - urn:sergiotr:schema:identity:canonical-enums:v1
+  - urn:sergiotr:schema:workspace:canonical-enums:v1
+  - urn:sergiotr:schema:configuration:canonical-enums:v1
+  - urn:sergiotr:schema:audit:canonical-enums:v1
+  - urn:sergiotr:schema:ser-92:problem-codes:v1
+  - urn:sergiotr:schema:common:uuid:v1
+design: NOT_APPLICABLE
+tests: NOT_APPLICABLE
+security: NOT_APPLICABLE
+financial: NOT_APPLICABLE
+migrations: NOT_APPLICABLE
+workflows: NOT_APPLICABLE
+acceptance:
+  required: false
+  environment: NOT_APPLICABLE
+  humanApproval: true
+definitionOfDone:
+  - JSON Schemas under contracts/schemas/** match SER-92 pack §2 canonical enums, §7 problem codes and UUID id note only
+  - validate-pr-diff-impact.py allows this materialization slice under IMPLEMENTATION_LOCK carve-out
+  - validate-task-packet.py and validate-traceability.py --profile foundation pass
+  - No AsyncAPI files, Java implementation or invented fields beyond pack authority
