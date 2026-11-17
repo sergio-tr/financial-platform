@@ -57,7 +57,7 @@ CI green on `main` (e.g. `phase0-governance` @ `854d091`) is **not** `P0_IMPLEME
 | SER-112 | In Progress | **Evidence** (test layers) | **PARTIAL** | ADR-0030 PROPOSED amendment + test gate; full P0-R49 matrix still blocked |
 | SER-113 | In Progress | **Decision** + ops evidence | **BLOCKED** | Acceptance controller prose in `docs/delivery/*`; isolated acceptance **not** proved executed |
 | SER-116 | In Progress | **Evidence** (fixtures) | **BLOCKED** | `test/fixtures/catalog.yaml` — `contentHash: PENDING` on fixtures |
-| SER-19 | In Progress | **Decision** + Figma | **BLOCKED** | Parent UX gate open; depends on SER-51 + physical design |
+| SER-19 | In Progress | **Decision** + Figma | **PARTIAL** | Non-normative COMPACT/MEDIUM proposals in Git; Figma frames + approval still blocked |
 | SER-51 | In Progress | **Decision** + tokens | **PARTIAL** | `design-manifest.yaml` `tokenMaterialization: MATERIALIZED_FOUNDATION_V1`; DTCG v1 under **`design/tokens/**`**; Figma parity/SCSS pipeline + review gate still open |
 | SER-108 | Done (Linear) | Manifest **PASS**; physical design **BLOCKED** | **PARTIAL** | Linear Done ≠ physical Figma lock: `docs/planning/phase0-closure/SER-108_AUDIT.md`, `docs/design/design-manifest.yaml` (`FIGMA_EVIDENCE_PENDING`, MEDIUM/COMPACT `NO_NODE_ID`) |
 
