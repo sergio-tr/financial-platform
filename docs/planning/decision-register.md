@@ -35,7 +35,7 @@ Canonical status vocabulary: `LOCKED`, `DEFERRED`, `SUPERSEDED`.
 | D-027 | Portfolio snapshots are immutable append-only historical snapshots | LOCKED | ADR-0027 |
 | D-028 | Authentication uses server-side session + Secure/HttpOnly/SameSite cookies; no browser-stored JWT | LOCKED | ADR-0028 |
 | D-029 | PWA shell may cache; sensitive financial data is not persisted for offline use | LOCKED | ADR-0029 |
-| D-030 | No Kafka, RabbitMQ, Redis or Kubernetes in the initial platform | LOCKED | ADR-0030 |
+| D-030 | No Kafka, Redis or Kubernetes initially; RabbitMQ allowed **only** as private STOMP broker relay (ADR-0037); no other buses | LOCKED | ADR-0030, ADR-0037 |
 | D-031 | Dashboard layouts are responsive and independently configurable for mobile/tablet/desktop | LOCKED | ADR-0031 |
 | D-032 | No global NgRx by default; feature facades/stores use Signals + RxJS | LOCKED | ADR-0032 |
 | D-033 | Real financial data is forbidden in source control, cloud-agent context and test fixtures | LOCKED | ADR-0033 |

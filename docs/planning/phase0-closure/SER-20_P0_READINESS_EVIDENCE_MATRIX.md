@@ -54,7 +54,7 @@ CI green on `main` (e.g. `phase0-governance` @ `854d091`) is **not** `P0_IMPLEME
 | SER-106 | In Progress | **Decision** + materialization | **PARTIAL** | P0-R43 registries + runbooks materialized; runtime implementation still blocked |
 | SER-109 | In Progress | **Evidence** (field-level) | **BLOCKED** | `docs/security/data-classification.yaml` — all class `owner: PENDING (SER-109)` |
 | SER-110 | In Progress | **Decision** + materialization | **BLOCKED** | `retention-policies.yaml` / runbooks not closed per issue DoD |
-| SER-112 | In Progress | **Evidence** (test layers) | **PARTIAL** | ADR-0030 PROPOSED amendment + test gate; full P0-R49 matrix still blocked |
+| SER-112 | In Progress | **Evidence** (test layers) | **PARTIAL** | **ADR-0037** accepted (D-030 reconciled); test gate updated; full P0-R49 matrix still blocked |
 | SER-113 | In Progress | **Decision** + ops evidence | **BLOCKED** | Acceptance controller prose in `docs/delivery/*`; isolated acceptance **not** proved executed |
 | SER-116 | In Progress | **Evidence** (fixtures) | **BLOCKED** | `test/fixtures/catalog.yaml` — `contentHash: PENDING` on fixtures |
 | SER-19 | In Progress | **Decision** + Figma | **PARTIAL** | Non-normative COMPACT/MEDIUM proposals in Git; Figma frames + approval still blocked |
@@ -68,7 +68,7 @@ Statuses: **PASS** only with explicit Git path/commit/check; **BLOCKED** with mi
 | # | Criterion (from SER-20) | Status | Evidence or precise blocker |
 |---|-------------------------|--------|----------------------------|
 | C1 | Decision Register: no unresolved P0/Open | **PASS** | `docs/planning/decision-register.md` — D-001…D-036 `LOCKED` only |
-| C2 | Accepted ADR for every invariant | **PASS** | `docs/adr/ADR-0001` … `ADR-0036` + `docs/adr/README.md` |
+| C2 | Accepted ADR for every invariant | **PASS** | `docs/adr/ADR-0001` … `ADR-0037` + `docs/adr/README.md` |
 | C3 | Bounded contexts / dependency graph acyclic | **PASS** | `docs/governance/architecture-manifest.md`; `SER-117_REAUDIT_MATRICES.md` NO_CYCLE (sequencing) |
 | C4 | Public Java API / port interface metadata | **BLOCKED** | `docs/governance/api-registry.md` — rows `PENDING (SER-92..95)` |
 | C5 | AsyncAPI 3.1 + JSON Schemas (all flows) | **BLOCKED** | Only `docs/contracts/README.md`; no `contracts/asyncapi/**` or `contracts/schemas/**` on `main` |

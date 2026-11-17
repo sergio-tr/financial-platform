@@ -51,6 +51,7 @@ docs/adr/ADR-0027-immutable-portfolio-snapshots.md
 docs/adr/ADR-0028-server-side-session-authentication.md
 docs/adr/ADR-0029-sensitive-pwa-caching.md
 docs/adr/ADR-0030-initial-infrastructure-exclusions.md
+docs/adr/ADR-0037-stomp-broker-relay-carve-out.md
 docs/adr/ADR-0031-responsive-configurable-dashboards.md
 docs/adr/ADR-0032-angular-state-model.md
 docs/adr/ADR-0033-synthetic-development-data.md

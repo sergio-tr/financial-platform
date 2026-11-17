@@ -1,7 +1,7 @@
 # Proposed amendment: ADR-0030 STOMP broker relay carve-out
 
-Status: **PROPOSED** — not accepted; **does not modify** `D-030`, `decision-register.md`, or `docs/adr/ADR-0030-initial-infrastructure-exclusions.md` until a human promotion step.  
-Routing: SER-20 D3 / FP-P0 Q4 (SER-112 gate).  
+Status: **ACCEPTED — promoted** to `docs/adr/ADR-0037-stomp-broker-relay-carve-out.md` (2026-11-17, FP-P0-SEQUENTIAL-02 Q02).  
+Routing: SER-20 D3 / SER-112 / SER-38.  
 `IMPLEMENTATION_LOCK=ON`.
 
 ## Summary

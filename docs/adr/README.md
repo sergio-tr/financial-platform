@@ -38,3 +38,4 @@ All records listed below are accepted for Architecture Baseline v1.0.
 - [ADR-0034: Connector data quality metadata](ADR-0034-connector-data-quality-metadata.md)
 - [ADR-0035: Unknown X-Ray weight](ADR-0035-unknown-x-ray-weight.md)
 - [ADR-0036: Configurable local LLM](ADR-0036-configurable-local-llm.md)
+- [ADR-0037: STOMP broker relay carve-out](ADR-0037-stomp-broker-relay-carve-out.md)
