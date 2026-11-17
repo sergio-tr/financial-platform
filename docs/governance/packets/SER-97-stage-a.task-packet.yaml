@@ -3,8 +3,8 @@ taskId: SER-97
 taskKind: GOVERNANCE
 mode: IMPLEMENT
 risk: SENSITIVE
-baseRevision: a82e477fb6cf979ac4df78eee594b6feebd9f920
-packetHash: f3b36d81fb8869c35dcb8c97e8609fc141c9caef03086c511d3e67912db91d0e
+baseRevision: 2eabfd5683de06e420c06b45867cc8a29d01c869
+packetHash: b0b610962f3e97cc86d35eb5ea57f1ab2170cdc7635359c61834502f63cd9f2d
 authorityRefs:
 - SER-97
 - SER-96

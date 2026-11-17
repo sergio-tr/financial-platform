@@ -82,6 +82,7 @@ NodeTypes `SCHEMA`, `MESSAGE`, `ROUTE`, `DOCUMENTATION`, `RELEASE_CONTROL`, `LEG
 ### Validator profiles (implementation detail — not graph statuses)
 
 - `foundation` (Stage A CI default): structural SER-96 grammar, relation matrix, duplicate/orphan/superseded checks, SER-101 invariants.
-- `full` (Stage B after SER-102): coverage cardinalities that need UseCase/SOURCE_OWNER mappings.
+- `full` (graph coverage after SER-102): coverage cardinalities that need UseCase/SOURCE_OWNER mappings.
+- PR diff impact (SER-97 Stage B, CI on pull_request): path classifier enforces `IMPLEMENTATION_LOCK` before merge; independent of the `full` graph profile.
 
 `DEFINED_BUT_NOT_ACTIVATED` is not a Node status. `PENDING_AUTHORITY` is not a graph status.

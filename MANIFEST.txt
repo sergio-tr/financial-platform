@@ -282,6 +282,7 @@ test/golden/README.md
 test/provider-simulators/README.md
 docs/governance/traceability/matrix/traceability-matrix.generated.md
 docs/governance/packets/SER-97-stage-a.task-packet.yaml
+docs/governance/packets/SER-97-stage-b.task-packet.yaml
 scripts/governance/traceability/__init__.py
 scripts/governance/traceability/codes.py
 scripts/governance/traceability/id_grammar.py
@@ -291,7 +292,9 @@ scripts/governance/traceability/graph_rules.py
 scripts/governance/traceability/pr_parser.py
 scripts/governance/traceability/branch_commit.py
 scripts/governance/traceability/diff_classifier.py
+scripts/governance/traceability/diff_impact.py
 scripts/governance/traceability/matrix.py
+scripts/governance/validate-pr-diff-impact.py
 scripts/governance/validate-pr-trace.py
 scripts/governance/generate-trace-matrix.py
 scripts/governance/run-traceability-fixtures.py

@@ -40,10 +40,18 @@ jobs:
             --pr-body /tmp/pr-body.md \
             --pr-title "$PR_TITLE" \
             --pr-number "$PR_NUMBER"
+      - name: PR diff impact (SER-97 Stage B)
+        if: github.event_name == 'pull_request'
+        run: |
+          git fetch origin "${{ github.base_ref }}"
+          git diff --name-only "origin/${{ github.base_ref }}...HEAD" > /tmp/changed-files.txt
+          python scripts/governance/validate-pr-diff-impact.py --changed-files /tmp/changed-files.txt
       - name: TaskPacket example schema
         run: python scripts/governance/validate-task-packet.py --skip-hash docs/governance/task-packet.example.yaml
       - name: SER-97 Stage A TaskPacket
         run: python scripts/governance/validate-task-packet.py docs/governance/packets/SER-97-stage-a.task-packet.yaml
+      - name: SER-97 Stage B TaskPacket
+        run: python scripts/governance/validate-task-packet.py docs/governance/packets/SER-97-stage-b.task-packet.yaml
       - name: Fixture catalog schema
         run: |
           python - <<'PY'

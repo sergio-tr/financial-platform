@@ -18,6 +18,7 @@ from traceability.branch_commit import (  # noqa: E402
 from traceability.codes import TraceError  # noqa: E402
 from traceability.graph_rules import validate_graph  # noqa: E402
 from traceability.pr_parser import validate_pr_body  # noqa: E402
+from traceability.diff_impact import validate_phase0_diff  # noqa: E402
 from traceability.profile import ValidationProfile  # noqa: E402
 
 FIX = ROOT / "test/fixtures/governance"
@@ -100,6 +101,17 @@ def main() -> int:
     errs = validate_graph(legacy, profile=ValidationProfile.FOUNDATION)
     assert not errs, [e.format() for e in errs]
     assert legacy["legacyExceptions"] == ["LEGACY-PR-001"]
+
+    assert not validate_phase0_diff(["docs/governance/execution-baseline.md"])
+    assert not validate_phase0_diff(["scripts/governance/validate-pr-diff-impact.py"])
+    expect_codes(
+        validate_phase0_diff(["backend/src/main/App.java"]),
+        "TRACE_DIFF_IMPLEMENTATION_LOCK",
+    )
+    expect_codes(
+        validate_phase0_diff(["contracts/asyncapi/ws.yaml"]),
+        "TRACE_DIFF_IMPLEMENTATION_LOCK",
+    )
 
     print("TRACEABILITY_FIXTURES_PASS")
     return 0
