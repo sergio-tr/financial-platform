@@ -19,6 +19,11 @@ nodes:
 - {id: P0-R30, nodeType: DECISION_PACK, status: LOCKED, title: 'Operational continuity, backup/PITR and disaster recovery'}
 - {id: SER-106, nodeType: LINEAR_ISSUE, status: ACTIVE, title: SecretVault crypto format and KEK lifecycle (SER-106)}
 - {id: 'DOC:docs/security/secretvault-crypto-contract.md', nodeType: DOCUMENTATION, status: ACTIVE, canonicalPath: docs/security/secretvault-crypto-contract.md}
+- {id: 'DOC:docs/security/secretvault-crypto-format.yaml', nodeType: DOCUMENTATION, status: ACTIVE, canonicalPath: docs/security/secretvault-crypto-format.yaml}
+- {id: 'DOC:docs/security/secretvault-crypto-record.schema.json', nodeType: DOCUMENTATION, status: ACTIVE, canonicalPath: docs/security/secretvault-crypto-record.schema.json}
+- {id: 'DOC:docs/security/secretvault-normative-tests.yaml', nodeType: DOCUMENTATION, status: ACTIVE, canonicalPath: docs/security/secretvault-normative-tests.yaml}
+- {id: 'DOC:docs/runbooks/secretvault-kek-rotation.md', nodeType: DOCUMENTATION, status: ACTIVE, canonicalPath: docs/runbooks/secretvault-kek-rotation.md}
+- {id: 'DOC:docs/runbooks/secretvault-kek-compromise.md', nodeType: DOCUMENTATION, status: ACTIVE, canonicalPath: docs/runbooks/secretvault-kek-compromise.md}
 - {id: ADR-0003, nodeType: ADR, status: LOCKED}
 - {id: ADR-0004, nodeType: ADR, status: LOCKED}
 - {id: ADR-0005, nodeType: ADR, status: LOCKED}
@@ -430,6 +435,11 @@ edges:
 - {from: 'DOC:docs/security/data-classification.yaml', relation: DOCUMENTS, to: P0-R46}
 - {from: 'DOC:docs/security/data-lifecycle.md', relation: DOCUMENTS, to: P0-R47}
 - {from: 'DOC:docs/security/secretvault-crypto-contract.md', relation: DOCUMENTS, to: P0-R43}
+- {from: 'DOC:docs/security/secretvault-crypto-format.yaml', relation: DOCUMENTS, to: P0-R43}
+- {from: 'DOC:docs/security/secretvault-crypto-record.schema.json', relation: DOCUMENTS, to: P0-R43}
+- {from: 'DOC:docs/security/secretvault-normative-tests.yaml', relation: DOCUMENTS, to: P0-R43}
+- {from: 'DOC:docs/runbooks/secretvault-kek-rotation.md', relation: DOCUMENTS, to: P0-R43}
+- {from: 'DOC:docs/runbooks/secretvault-kek-compromise.md', relation: DOCUMENTS, to: P0-R43}
 - {from: 'DOC:docs/security/retention-policies.schema.json', relation: DOCUMENTS, to: P0-R47}
 - {from: 'DOC:docs/security/retention-policies.yaml', relation: DOCUMENTS, to: P0-R47}
 - {from: 'DOC:docs/security/retention-policies.yaml', relation: DOCUMENTS, to: P0-R30}
