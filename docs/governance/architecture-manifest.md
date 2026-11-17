@@ -114,7 +114,7 @@ GitHub PR #1 predates P0-R37. It is recorded as `LEGACY-PR-001` (`LEGACY_EXCEPTI
 - Requirement bodies: SER-101 (materialized under `docs/requirements/**`; identities unchanged)
 - Traceability validator and richer graph links: SER-97 and SER-102
 - Public contract bodies: post-SER-70 contract materialization of the accepted SER-92..95 planning packs. No `contracts/**` stub is created here.
-- SecretVault crypto format and key lifecycle: SER-106 (`docs/security/secretvault-crypto-contract.md` partial materialization)
+- SecretVault crypto format and key lifecycle: SER-106 (`docs/security/secretvault-crypto-contract.md` + format/record schema, normative tests registry, KEK runbooks)
 - Normative test sources, lanes and fixtures: SER-112 and SER-116
 - Task Packet firewall: SER-115 (schema/firewall already materializing; remains active under P0-R59)
 - Isolated acceptance environment and human approval: SER-113 (SER-111 is `CANCELED_SUPERSEDED` and is not a blocker)

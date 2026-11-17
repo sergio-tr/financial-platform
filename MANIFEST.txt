@@ -197,9 +197,15 @@ docs/security/data-classification.yaml
 docs/security/data-lifecycle.md
 docs/security/retention-policies.schema.json
 docs/security/retention-policies.yaml
+docs/security/secretvault-crypto-contract.md
+docs/security/secretvault-crypto-format.yaml
+docs/security/secretvault-crypto-record.schema.json
+docs/security/secretvault-normative-tests.yaml
 docs/runbooks/workspace-deletion.md
 docs/runbooks/provider-disconnect.md
 docs/runbooks/data-export.md
+docs/runbooks/secretvault-kek-rotation.md
+docs/runbooks/secretvault-kek-compromise.md
 docs/ux/dashboard-system.md
 docs/verification/README.md
 docs/verification/test-catalog.schema.json
