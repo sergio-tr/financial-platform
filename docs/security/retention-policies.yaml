@@ -1,3 +1,8 @@
-# PENDING — owned by SER-110
-items: []
-
+# SER-110 — retention registry (materialization in progress)
+# Schema: docs/security/retention-policies.schema.json
+items:
+  - dataClass: SECURITY_SENSITIVE
+    window: "P0-R30 R30-03 — encrypted backup recovery points: 7 daily, 4 weekly, 6 monthly"
+    exceptions: "WAL/prune must not break the oldest retained recoverable base/incremental chain (P0-R30 R30-03). Narrative summary also in docs/security/security-architecture.md (D1 ratified 2026-11-17)."
+    owner: SER-110
+    status: LOCKED
