@@ -16,6 +16,8 @@ nodes:
 - {id: P0-R45, nodeType: DECISION_PACK, status: LOCKED}
 - {id: P0-R46, nodeType: DECISION_PACK, status: LOCKED}
 - {id: P0-R47, nodeType: DECISION_PACK, status: LOCKED}
+- {id: SER-106, nodeType: LINEAR_ISSUE, status: ACTIVE, title: SecretVault crypto format and KEK lifecycle (SER-106)}
+- {id: 'DOC:docs/security/secretvault-crypto-contract.md', nodeType: DOCUMENTATION, status: ACTIVE, canonicalPath: docs/security/secretvault-crypto-contract.md}
 - {id: ADR-0003, nodeType: ADR, status: LOCKED}
 - {id: ADR-0004, nodeType: ADR, status: LOCKED}
 - {id: ADR-0005, nodeType: ADR, status: LOCKED}
@@ -426,6 +428,7 @@ edges:
 - {from: 'DOC:docs/security/data-classification.schema.json', relation: DOCUMENTS, to: P0-R46}
 - {from: 'DOC:docs/security/data-classification.yaml', relation: DOCUMENTS, to: P0-R46}
 - {from: 'DOC:docs/security/data-lifecycle.md', relation: DOCUMENTS, to: P0-R47}
+- {from: 'DOC:docs/security/secretvault-crypto-contract.md', relation: DOCUMENTS, to: P0-R43}
 - {from: 'DOC:docs/security/retention-policies.schema.json', relation: DOCUMENTS, to: P0-R47}
 - {from: 'DOC:docs/security/retention-policies.yaml', relation: DOCUMENTS, to: P0-R47}
 - {from: 'DOC:docs/runbooks/workspace-deletion.md', relation: DOCUMENTS, to: P0-R47}

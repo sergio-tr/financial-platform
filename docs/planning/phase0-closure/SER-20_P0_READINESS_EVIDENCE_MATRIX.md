@@ -58,7 +58,7 @@ CI green on `main` (e.g. `phase0-governance` @ `854d091`) is **not** `P0_IMPLEME
 | SER-113 | In Progress | **Decision** + ops evidence | **BLOCKED** | Acceptance controller prose in `docs/delivery/*`; isolated acceptance **not** proved executed |
 | SER-116 | In Progress | **Evidence** (fixtures) | **BLOCKED** | `test/fixtures/catalog.yaml` — `contentHash: PENDING` on fixtures |
 | SER-19 | In Progress | **Decision** + Figma | **BLOCKED** | Parent UX gate open; depends on SER-51 + physical design |
-| SER-51 | In Progress | **Decision** + tokens | **BLOCKED** | `design-manifest.yaml` `tokenMaterialization: PENDING_SER-51`; no `frontend/design-system/tokens/**` tree |
+| SER-51 | In Progress | **Decision** + tokens | **BLOCKED** | `design-manifest.yaml` `tokenMaterialization: PENDING_SER-51`; canonical Git path **`design/tokens/**`** (placeholder only; ratified 2026-11-17 SER-20) |
 | SER-108 | Done (Linear) | Manifest **PASS**; physical design **BLOCKED** | **PARTIAL** | Linear Done ≠ physical Figma lock: `docs/planning/phase0-closure/SER-108_AUDIT.md`, `docs/design/design-manifest.yaml` (`FIGMA_EVIDENCE_PENDING`, MEDIUM/COMPACT `NO_NODE_ID`) |
 
 ## SER-20 closure criteria (compact matrix)
