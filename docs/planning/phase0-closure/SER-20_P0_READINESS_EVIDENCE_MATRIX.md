@@ -54,7 +54,7 @@ CI green on `main` (e.g. `phase0-governance` @ `854d091`) is **not** `P0_IMPLEME
 | SER-106 | In Progress | **Decision** + materialization | **PARTIAL** | P0-R43 registries + runbooks materialized; runtime implementation still blocked |
 | SER-109 | In Progress | **Evidence** (field-level) | **BLOCKED** | `docs/security/data-classification.yaml` — all class `owner: PENDING (SER-109)` |
 | SER-110 | In Progress | **Decision** + materialization | **BLOCKED** | `retention-policies.yaml` / runbooks not closed per issue DoD |
-| SER-112 | In Progress | **Evidence** (test layers) | **BLOCKED** | Test layer matrix / Playwright gates not materialized |
+| SER-112 | In Progress | **Evidence** (test layers) | **PARTIAL** | ADR-0030 PROPOSED amendment + test gate; full P0-R49 matrix still blocked |
 | SER-113 | In Progress | **Decision** + ops evidence | **BLOCKED** | Acceptance controller prose in `docs/delivery/*`; isolated acceptance **not** proved executed |
 | SER-116 | In Progress | **Evidence** (fixtures) | **BLOCKED** | `test/fixtures/catalog.yaml` — `contentHash: PENDING` on fixtures |
 | SER-19 | In Progress | **Decision** + Figma | **BLOCKED** | Parent UX gate open; depends on SER-51 + physical design |

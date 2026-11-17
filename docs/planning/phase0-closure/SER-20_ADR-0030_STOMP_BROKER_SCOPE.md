@@ -1,7 +1,7 @@
 # SER-20 — ADR-0030 vs STOMP broker relay scope (D3 investigation)
 
-Status: INVESTIGATION COMPLETE — **no ADR merge in this MWU**.  
-Owner: SER-20 authority recovery. `IMPLEMENTATION_LOCK=ON`.
+Status: INVESTIGATION COMPLETE — **amendment PROPOSED** in `ADR-0030-STOMP-BROKER-RELAY-AMENDMENT-PROPOSED.md` (human gate pending).  
+Owner: SER-20 authority recovery / FP-P0 Q4. `IMPLEMENTATION_LOCK=ON`.
 
 ## Conflicting literals (sources)
 
@@ -25,14 +25,11 @@ Owner: SER-20 authority recovery. `IMPLEMENTATION_LOCK=ON`.
 
 For runtime and test planning, **SER-38 + REQ-REALTIME-002 + `websocket-architecture.md`** control broker-relay behavior. **ADR-0030** remains LOCKED as written in Git ADR text and register until superseded.
 
-## Recommended enmienda (human gate — not implemented here)
+## Recommended enmienda (human gate)
 
-Adopt a **superseding ADR** (or accepted amendment to ADR-0030 consequences) that states:
+Formal proposal: **`ADR-0030-STOMP-BROKER-RELAY-AMENDMENT-PROPOSED.md`**. Test fail-closed rules: **`SER-112_ADR-0030_TEST_GATE.md`**.
 
-- **In scope (required):** a single private-network RabbitMQ deployment used **only** as the STOMP broker relay defined in SER-38 / P0-R42, with no durable financial truth in the broker.
-- **Out of scope (unchanged):** Kafka, Redis, Kubernetes, and **optional** additional message buses or SaaS brokers without a future ADR.
-
-Until that ADR is accepted, treat D-030 as **ambiguous at register level** but **fail-closed on implementation** using SER-38 + REQ-REALTIME-002 for tests and topology.
+Until promotion, treat D-030 as **ambiguous at register level** but **fail-closed on implementation** using SER-38 + REQ-REALTIME-002 for topology planning (not register-level waiver).
 
 ## Test-layer contract (no invention)
 

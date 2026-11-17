@@ -26,6 +26,7 @@ Owner: SER-112 / P0-R49
 - Automated acceptance uses repository-safe synthetic fixtures only.
 - Deterministic tests pin Clock/timezone and random seeds.
 - Manual acceptance never waives failed automated gates.
+- T3 broker-relay (RabbitMQ/WebSocket) suites follow `docs/planning/phase0-closure/SER-112_ADR-0030_TEST_GATE.md` until the ADR-0030 carve-out proposal is promoted.
 
 ## Lanes
 
