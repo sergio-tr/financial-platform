@@ -1,9 +1,10 @@
 # Governance validators
 
-## Traceability (SER-97 Stage A)
+## Traceability (SER-97)
 
 - `validate-traceability.py --profile foundation` — SER-96 schema, relation matrix, duplicate/orphan/superseded checks, Phase-0 invariants (default CI profile).
-- `validate-traceability.py --profile full` — Stage B coverage (requires SER-102 mappings; not CI-default).
+- `validate-traceability.py --profile full` — graph coverage rules (requires SER-102 mappings; not CI-default until SER-102 completes).
+- `validate-pr-diff-impact.py` — Stage B PR diff classifier; blocks product/contract/migration paths while `IMPLEMENTATION_LOCK=ON`.
 - `generate-trace-matrix.py` / `--check-clean` — deterministic human-readable matrix from the graph.
 - `validate-pr-trace.py` — branch / PR Linear primary / headings / contribution attribution (Git-local).
 - `run-traceability-fixtures.py` — synthetic positive/negative fixtures.
