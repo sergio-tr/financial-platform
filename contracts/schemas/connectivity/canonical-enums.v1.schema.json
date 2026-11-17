@@ -1,0 +1,75 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:sergiotr:schema:connectivity:canonical-enums:v1",
+  "title": "ConnectivityCanonicalEnums",
+  "description": "Canonical enums from SER-93 Contract Pack connectivity sections (§3) and freeze amendment D/E.",
+  "$defs": {
+    "ProviderCertificationStatus": {
+      "type": "string",
+      "enum": ["EXPERIMENTAL", "CERTIFIED", "DEPRECATED", "DISABLED"]
+    },
+    "ProviderConnectionStatus": {
+      "type": "string",
+      "enum": [
+        "ACTIVE",
+        "AUTH_REQUIRED",
+        "DEGRADED",
+        "RATE_LIMITED",
+        "DISCONNECTED",
+        "REVALIDATION_REQUIRED",
+        "UNAVAILABLE"
+      ]
+    },
+    "ConnectorOperationalStatus": {
+      "type": "string",
+      "enum": [
+        "READY",
+        "DEGRADED",
+        "AUTH_REQUIRED",
+        "RATE_LIMITED",
+        "UNAVAILABLE",
+        "DISABLED",
+        "REVALIDATION_REQUIRED"
+      ]
+    },
+    "SyncMode": {
+      "type": "string",
+      "enum": ["INCREMENTAL", "FULL_RECONCILIATION", "REVALIDATION"]
+    },
+    "SyncOperationStatus": {
+      "type": "string",
+      "enum": [
+        "ACCEPTED",
+        "RUNNING",
+        "CANCELLATION_REQUESTED",
+        "SUCCEEDED",
+        "PARTIAL",
+        "FAILED",
+        "CANCELLED"
+      ]
+    },
+    "SecretSlotStatus": {
+      "type": "string",
+      "enum": ["PRESENT", "MISSING", "REVOKED", "KEY_UNAVAILABLE_REAUTH_REQUIRED"]
+    },
+    "QuarantineReasonCode": {
+      "type": "string",
+      "enum": [
+        "MALFORMED_SOURCE",
+        "SCHEMA_VALIDATION_FAILED",
+        "AMBIGUOUS_INSTRUMENT",
+        "POLICY_MISMATCH",
+        "UNSUPPORTED_SEMANTICS",
+        "SOURCE_CONFLICT"
+      ]
+    },
+    "ProviderSort": {
+      "type": "string",
+      "enum": ["DISPLAY_NAME_ASC", "UPDATED_AT_DESC"]
+    },
+    "SyncOperationSort": {
+      "type": "string",
+      "enum": ["REQUESTED_AT_DESC"]
+    }
+  }
+}
