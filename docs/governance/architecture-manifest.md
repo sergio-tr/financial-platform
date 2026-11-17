@@ -70,6 +70,8 @@ STOMP user destinations, exactly three:
 
 There is no fourth replies destination. Client acknowledgment is session flow-control. PostgreSQL is the replay authority. The default Origin host is `sergiotr.home.arpa`.
 
+RabbitMQ on the LAN is permitted **only** as the ephemeral STOMP broker relay (**ADR-0037**; partial supersession of **ADR-0030** / **D-030**). It is not restored from backup (P0-R30 R30-10) and must not hold durable financial truth.
+
 ## Legacy traceability exception
 
 GitHub PR #1 predates P0-R37. It is recorded as `LEGACY-PR-001` (`LEGACY_EXCEPTION`, `ACCEPTED_EXCEPTION`) and is not rewritten. No later pull request is aligned unless its primary `SER-*` resolves in this traceability graph.

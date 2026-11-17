@@ -25,4 +25,6 @@ A future ADR may add one after demonstrated requirements.
 
 ## Supersession
 
-Any incompatible change requires a new ADR that explicitly supersedes this record.
+**ADR-0037** partially supersedes this record for **RabbitMQ used exclusively as the private STOMP broker relay** (SER-38 / REQ-REALTIME-002). Kafka, Redis, Kubernetes, and other RabbitMQ roles remain governed by ADR-0030 until a future ADR changes them.
+
+Any other incompatible change requires a new ADR that explicitly supersedes this record.
