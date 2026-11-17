@@ -1,0 +1,40 @@
+{
+  "$description": "SER-51 semantic colors — dark theme",
+  "color": {
+    "bg": {
+      "canvas": { "$type": "color", "$value": "{color.primitive.ink.950}" },
+      "surface": {
+        "$type": "color",
+        "$value": "{color.primitive.ink.925}",
+        "subtle": { "$type": "color", "$value": "{color.primitive.ink.875}" }
+      }
+    },
+    "text": {
+      "primary": { "$type": "color", "$value": "{color.primitive.slate.025}" },
+      "secondary": { "$type": "color", "$value": "{color.primitive.slate.400}" },
+      "inverse": { "$type": "color", "$value": "{color.primitive.ink.950}" }
+    },
+    "border": {
+      "default": { "$type": "color", "$value": "{color.primitive.slate.800}" },
+      "strong": { "$type": "color", "$value": "{color.primitive.slate.700}" }
+    },
+    "action": {
+      "primary": {
+        "$type": "color",
+        "$value": "{color.primitive.teal.400}",
+        "text": { "$type": "color", "$value": "{color.primitive.ink.950}" }
+      }
+    },
+    "state": {
+      "positive": { "$type": "color", "$value": "{color.primitive.green.400}" },
+      "negative": { "$type": "color", "$value": "{color.primitive.red.400}" },
+      "warning": { "$type": "color", "$value": "{color.primitive.amber.400}" },
+      "info": { "$type": "color", "$value": "{color.primitive.blue.400}" },
+      "unknown": { "$type": "color", "$value": "{color.primitive.slate.400}" },
+      "stale": { "$type": "color", "$value": "{color.primitive.amber.400}" }
+    },
+    "focus": {
+      "ring": { "$type": "color", "$value": "{color.primitive.blue.400}" }
+    }
+  }
+}

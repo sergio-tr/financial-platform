@@ -32,7 +32,7 @@
         ]
       }
     },
-    "tokenMaterialization": { "const": "PENDING_SER-51" },
+    "tokenMaterialization": { "const": "MATERIALIZED_FOUNDATION_V1" },
     "components": {
       "type": "array",
       "items": {

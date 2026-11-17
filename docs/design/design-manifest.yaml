@@ -12,7 +12,7 @@ canonicalNames:
   - "Sergiotr/Semantic/Light"
   - "Sergiotr/Semantic/Dark"
   - "Sergiotr Foundations / Review Candidate"
-tokenMaterialization: PENDING_SER-51
+tokenMaterialization: MATERIALIZED_FOUNDATION_V1
 components:
   - id: "DES-COMPONENT-METRIC-CARD-001"
     semanticStatus: LOCKED_FOR_P0_SEMANTICS
