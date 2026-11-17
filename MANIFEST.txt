@@ -82,6 +82,7 @@ docs/governance/api-registry.md
 docs/governance/traceability/traceability.schema.json
 docs/governance/traceability/traceability.yaml
 docs/governance/traceability/review-adjudication.md
+docs/governance/packets/SER-92-api-registry-index.task-packet.yaml
 docs/governance/packets/SER-132.task-packet.yaml
 docs/governance/packets/SER-132-post-merge-remediation.task-packet.yaml
 docs/governance/packets/SER-101.task-packet.yaml

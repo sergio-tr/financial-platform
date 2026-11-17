@@ -82,7 +82,7 @@ GitHub PR #1 predates P0-R37. It is recorded as `LEGACY-PR-001` (`LEGACY_EXCEPTI
 - `docs/governance/protocol-ownership.md`
 - `docs/governance/review-adjudication.md`
 - `docs/governance/typed-configuration.md`
-- `docs/governance/api-registry.md` (PLANNED entries where the owning contract is not materialized)
+- `docs/governance/api-registry.md` (INDEXED from accepted Linear SER-92..SER-95; Git contract bodies still pending materialization)
 - `docs/governance/agent-execution.md`
 - `docs/governance/traceability/traceability.schema.json`
 - `docs/governance/traceability/traceability.yaml`

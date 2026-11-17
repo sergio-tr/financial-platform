@@ -1,0 +1,51 @@
+schemaVersion: 1
+taskId: SER-92
+taskKind: GOVERNANCE
+mode: IMPLEMENT
+risk: LOW
+baseRevision: 135b05767dfdfc0aab6e82fe9de5ed0eea616d57
+packetHash: b13dab23120b89322a29969cec93b562d5282f5828dc05276adcea161f0be3a9
+authorityRefs:
+- SER-92
+- SER-93
+- SER-94
+- SER-95
+- SER-20
+- P0-R35
+- P0-R52
+- P0-R59
+- de3c80be0a59
+- faf775736687
+- 7ca250b8fde1
+- ba08082c2706
+allowedPaths:
+- docs/governance/api-registry.md
+- docs/governance/packets/**
+- docs/governance/architecture-manifest.md
+- docs/planning/phase0-closure/SER-20_P0_READINESS_EVIDENCE_MATRIX.md
+forbiddenPaths:
+- backend/**
+- frontend/**
+- contracts/**
+- design/**
+- docs/requirements/**
+- docs/adr/**
+- infrastructure/**
+- scripts/**
+requirements: NOT_APPLICABLE
+contracts: NOT_APPLICABLE
+design: NOT_APPLICABLE
+tests: NOT_APPLICABLE
+security: NOT_APPLICABLE
+financial: NOT_APPLICABLE
+migrations: NOT_APPLICABLE
+workflows: NOT_APPLICABLE
+acceptance:
+  required: false
+  environment: NOT_APPLICABLE
+  humanApproval: true
+definitionOfDone:
+- docs/governance/api-registry.md lists every indexed context with interface or UseCaseId refs from accepted Linear SER-92..SER-95 packs only
+- SER-20_P0_READINESS_EVIDENCE_MATRIX C4 reflects PARTIAL indexed metadata
+- validate-task-packet.py and validate-traceability.py --profile foundation pass
+- No contracts/** or Java implementation added
