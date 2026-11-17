@@ -11,10 +11,11 @@ SER-111 is `CANCELED_SUPERSEDED` and is not an active owner or readiness blocker
 PR opened/update
 -> GitHub Actions CI/verification on exact head SHA
 -> CI evidence/artifacts
--> human review and explicit next steps
+-> code review (human reviewer and/or Cursor Approval Agent bot under active SER-136 grant for in-scope PRs in single-maintainer mode)
+-> human maintainer explicit next steps
 -> optional isolated synthetic acceptance under SER-113 / P0-R50 when manually initiated
--> HUMAN ACCEPT/REJECT for exact SHA
--> merge-ready status only after human approval
+-> HUMAN ACCEPT/REJECT for exact SHA (human maintainer only; not Cursor Approval Agent)
+-> merge-ready status only after explicit human maintainer approval (AUTO_MERGE=OFF; squash-only after checks/DoD/traceability)
 -> cleanup
 ```
 
@@ -28,6 +29,10 @@ There is no autonomous agent tick, Slack/Linear dispatch, auto-select next issue
 - Candidate has no privileged/rootful Docker socket or host mount.
 - Privileged status publication, if any, is performed by a trusted controller after reading candidate evidence — never by autonomous agent selection.
 - Stale SHA invalidates prior acceptance.
+
+## Solo maintainer code review (SER-136)
+
+When an active SER-136 Delegation Grant is in force and the project has a single human maintainer, **Cursor Approval Agent** (bot actor; not a human reviewer) may satisfy the code-review step for in-scope PRs. It must not be recorded or interpreted as human merge approval, ACCEPT/REJECT, or sensitive promotion authority.
 
 ## GitHub / Linear / Slack
 
