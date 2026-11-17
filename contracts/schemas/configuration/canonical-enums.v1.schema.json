@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:sergiotr:schema:configuration:canonical-enums:v1",
+  "title": "ConfigurationCanonicalEnums",
+  "description": "Canonical enums from SER-92 Contract Pack §2 and freeze-closure amendments (settings/flags).",
+  "$defs": {
+    "SettingScope": {
+      "type": "string",
+      "enum": ["INSTANCE_STARTUP", "INSTANCE_RUNTIME", "WORKSPACE", "USER"]
+    },
+    "SettingChangeMode": {
+      "type": "string",
+      "enum": [
+        "STARTUP_ONLY",
+        "LIVE_SAFE",
+        "LIVE_RECONNECT",
+        "LIVE_RESUBSCRIBE",
+        "LIVE_RECOMPUTE_FUTURE_ONLY",
+        "NEW_WORKFLOW_RUNS_ONLY",
+        "NEW_AI_RUNS_ONLY",
+        "NEW_REPORTS_ONLY"
+      ]
+    },
+    "SettingValueKind": {
+      "type": "string",
+      "enum": ["BOOLEAN", "INTEGER", "DECIMAL", "TEXT", "ENUM_CODE", "TEXT_LIST"]
+    },
+    "VaultSealState": {
+      "type": "string",
+      "enum": ["SEALED", "UNSEALED", "DEGRADED"]
+    },
+    "AuthenticationSubsystemState": {
+      "type": "string",
+      "enum": ["READY", "DEGRADED", "NOT_READY"]
+    },
+    "ClockHealth": {
+      "type": "string",
+      "enum": ["HEALTHY", "WARNING", "UNSAFE"]
+    },
+    "IdempotencyConflictCode": {
+      "type": "string",
+      "enum": ["KEY_REUSED_WITH_DIFFERENT_INPUT", "PRIOR_OUTCOME_NOT_REPLAYABLE"]
+    }
+  }
+}

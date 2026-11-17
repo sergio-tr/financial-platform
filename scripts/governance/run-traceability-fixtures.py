@@ -113,6 +113,9 @@ def main() -> int:
         validate_phase0_diff(["contracts/asyncapi/ws.yaml"]),
         "TRACE_DIFF_IMPLEMENTATION_LOCK",
     )
+    assert not validate_phase0_diff(
+        ["contracts/schemas/identity/user-status.v1.schema.json", "docs/contracts/README.md"]
+    )
 
     print("TRACEABILITY_FIXTURES_PASS")
     return 0

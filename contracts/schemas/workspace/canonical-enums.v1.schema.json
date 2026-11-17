@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:sergiotr:schema:workspace:canonical-enums:v1",
+  "title": "WorkspaceCanonicalEnums",
+  "description": "Canonical enums from SER-92 Contract Pack §2 (workspace).",
+  "$defs": {
+    "WorkspaceRole": {
+      "type": "string",
+      "enum": ["OWNER", "ADMIN", "MEMBER", "VIEWER"]
+    },
+    "MembershipStatus": {
+      "type": "string",
+      "enum": ["ACTIVE", "REMOVED"]
+    },
+    "WorkspaceStatus": {
+      "type": "string",
+      "enum": ["ACTIVE", "DELETION_REQUESTED", "DELETING", "DELETED"]
+    },
+    "InvitationStatus": {
+      "type": "string",
+      "enum": ["PENDING", "ACCEPTED", "REVOKED", "EXPIRED"]
+    },
+    "WorkspaceDeletionRequestStatus": {
+      "type": "string",
+      "enum": [
+        "PREVIEWED",
+        "CONFIRMED",
+        "FENCED",
+        "PURGING_LIVE_DATA",
+        "PURGING_DERIVED_DATA",
+        "WRITING_RECOVERY_TOMBSTONE",
+        "VERIFYING",
+        "DELETED",
+        "CANCELLED",
+        "FAILED"
+      ]
+    }
+  }
+}

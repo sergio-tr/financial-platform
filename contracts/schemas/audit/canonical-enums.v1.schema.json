@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:sergiotr:schema:audit:canonical-enums:v1",
+  "title": "AuditCanonicalEnums",
+  "description": "Canonical enums from SER-92 Contract Pack §2 and freeze-closure §B (audit export).",
+  "$defs": {
+    "AuditResult": {
+      "type": "string",
+      "enum": ["SUCCESS", "REJECTED", "FAILED"]
+    },
+    "AuditExportStatus": {
+      "type": "string",
+      "enum": ["ACCEPTED", "BUILDING", "READY", "EXPIRED", "REVOKED", "FAILED"]
+    },
+    "AuditExportFormat": {
+      "type": "string",
+      "enum": ["JSONL", "CSV"]
+    }
+  }
+}
