@@ -13,6 +13,8 @@ Status: **INDEXED** — public Java API metadata is synchronized from accepted L
 
 Field-level records, outcome unions and use-case bodies are defined only in the Linear packs above. This registry does not duplicate them.
 
+SER-93 Q04 coverage: integral audit matrix (R7-01, non-normative) — `docs/planning/phase0-closure/SER-93_COVERAGE_AUDIT_R7.md`. Macro structural gaps — `SER-93_MACRO_STRUCTURAL_AUTHORITY_AUDIT_R5.md`.
+
 ## Guidelines
 
 - Only `<context>.api` is a public interface surface. Outbound ports are consumer-owned.
