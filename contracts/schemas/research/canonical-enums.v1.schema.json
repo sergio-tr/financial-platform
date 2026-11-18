@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:sergiotr:schema:research:canonical-enums:v1",
+  "title": "ResearchCanonicalEnums",
+  "description": "Canonical enums from SER-93 Contract Pack research section §7.2 NewsSearchApi (content availability).",
+  "$defs": {
+    "ContentAvailability": {
+      "type": "string",
+      "enum": ["METADATA_ONLY", "EXCERPT", "FULL_TEXT_LICENSED"]
+    }
+  }
+}
