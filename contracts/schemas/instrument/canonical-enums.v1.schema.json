@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:sergiotr:schema:instrument:canonical-enums:v1",
+  "title": "InstrumentCanonicalEnums",
+  "description": "Canonical enums from SER-93 Contract Pack instrument section §4.1 (canonical instrument identity).",
+  "$defs": {
+    "InstrumentType": {
+      "type": "string",
+      "enum": ["EQUITY", "ETF", "FUND", "BOND", "CASH", "CRYPTO", "INDEX", "DERIVATIVE", "OTHER"]
+    },
+    "InstrumentStatus": {
+      "type": "string",
+      "enum": ["ACTIVE", "INACTIVE", "DELISTED", "UNKNOWN"]
+    },
+    "IdentifierNamespace": {
+      "type": "string",
+      "enum": ["ISIN", "FIGI", "LEI", "MIC_TICKER", "PROVIDER_INTERNAL", "OTHER"]
+    }
+  }
+}
