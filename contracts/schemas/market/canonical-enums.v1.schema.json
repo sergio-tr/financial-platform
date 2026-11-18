@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:sergiotr:schema:market:canonical-enums:v1",
+  "title": "MarketCanonicalEnums",
+  "description": "Canonical enums from SER-93 Contract Pack market section §5.1 (numeric/quote semantics).",
+  "$defs": {
+    "QuoteType": {
+      "type": "string",
+      "enum": ["BID", "ASK", "MID", "LAST", "CLOSE", "NAV", "SETTLEMENT"]
+    },
+    "AdjustmentMode": {
+      "type": "string",
+      "enum": ["RAW", "SPLIT_ADJUSTED", "TOTAL_RETURN_ADJUSTED"]
+    }
+  }
+}
