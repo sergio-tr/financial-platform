@@ -71,7 +71,7 @@ Statuses: **PASS** only with explicit Git path/commit/check; **BLOCKED** with mi
 | C2 | Accepted ADR for every invariant | **PASS** | `docs/adr/ADR-0001` … `ADR-0037` + `docs/adr/README.md` |
 | C3 | Bounded contexts / dependency graph acyclic | **PASS** | `docs/governance/architecture-manifest.md`; `SER-117_REAUDIT_MATRICES.md` NO_CYCLE (sequencing) |
 | C4 | Public Java API / port interface metadata | **PARTIAL** | `docs/governance/api-registry.md` — indexed from accepted Linear SER-92..SER-95 packs; Git `contracts/**` and caller index still PENDING |
-| C5 | AsyncAPI 3.1 + JSON Schemas (all flows) | **PARTIAL** | Q04 slices: SER-92 vocabulary + SER-93 connectivity enums in `contracts/schemas/**`; `contracts/asyncapi/**` and use-case payloads still unmaterialized |
+| C5 | AsyncAPI 3.1 + JSON Schemas (all flows) | **PARTIAL** | Q04 slices: SER-92 vocabulary + SER-93 connectivity and instrument §4.1 enums in `contracts/schemas/**`; `contracts/asyncapi/**` and use-case payloads still unmaterialized |
 | C6 | WebSocket replay/security/backpressure fully specified | **BLOCKED** | Planning docs reviewed in checklist; AsyncAPI/control replay bodies still missing (C5 partial) |
 | C7 | Identity/auth/MFA/RLS/threat/secret/DR closed | **PARTIAL** | Threat model reviewed (`phase-0-acceptance-checklist.md`); SER-103/106/109/110 **In Progress** — field-level + lifecycle catalogs incomplete |
 | C8 | Connector SPI / TCK / sync contracts closed | **PARTIAL** | ADR-0010 + rules; compile-ready contract packs **BLOCKED** (SER-92..95 reviews `CHANGES_REQUIRED` under `docs/planning/phase0-closure/SER-9*_INDEPENDENT_REVIEW.md`) |

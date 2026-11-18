@@ -22,6 +22,18 @@ REQUIRED_HEADINGS = (
 PRIMARY_RE = re.compile(r"^Primary:\s*(SER-[1-9][0-9]*)\s*$")
 RELATED_RE = re.compile(r"^Related:\s*(SER-[1-9][0-9]*(?:\s*,\s*SER-[1-9][0-9]*)*)\s*$")
 
+_AGENT_BODY_BEGIN = "<!-- CURSOR_AGENT_PR_BODY_BEGIN -->"
+_AGENT_BODY_END = "<!-- CURSOR_AGENT_PR_BODY_END -->"
+
+
+def _canonical_pr_body(text: str) -> str:
+    """When Cursor appends a SER-96 body block, parse only that slice."""
+    if _AGENT_BODY_BEGIN in text and _AGENT_BODY_END in text:
+        start = text.index(_AGENT_BODY_BEGIN) + len(_AGENT_BODY_BEGIN)
+        end = text.index(_AGENT_BODY_END)
+        return text[start:end].strip()
+    return text
+
 
 def _strip_fenced(text: str) -> str:
     """Ignore fenced/indented code and HTML for machine parsing (SER-96 PR parsing)."""
@@ -56,6 +68,7 @@ def parse_sections(body: str) -> dict[str, list[str]]:
 
 
 def validate_pr_body(body: str, *, branch_ser: str | None = None) -> list[TraceError]:
+    body = _canonical_pr_body(body)
     errors: list[TraceError] = []
     sections = parse_sections(body)
 
