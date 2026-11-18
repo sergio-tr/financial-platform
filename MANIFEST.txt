@@ -74,6 +74,7 @@ contracts/schemas/configuration/canonical-enums.v1.schema.json
 contracts/schemas/connectivity/canonical-enums.v1.schema.json
 contracts/schemas/instrument/canonical-enums.v1.schema.json
 contracts/schemas/market/canonical-enums.v1.schema.json
+contracts/schemas/research/canonical-enums.v1.schema.json
 contracts/schemas/identity/canonical-enums.v1.schema.json
 contracts/schemas/ser-92/problem-codes.v1.schema.json
 contracts/schemas/workspace/canonical-enums.v1.schema.json
