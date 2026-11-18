@@ -1,0 +1,42 @@
+schemaVersion: 1
+taskId: SER-93
+taskKind: GOVERNANCE
+mode: IMPLEMENT
+risk: LOW
+baseRevision: cfc903c4d75878cb626fe95eca015de0b3f8071e
+packetHash: 5045eeef4f02b76a83b0d6d5bbb4fc4d574a275960777a8746f1938e8637f5cc
+authorityRefs:
+  - SER-93
+  - SER-20
+  - P0-R35
+  - P0-R59
+  - faf775736687
+allowedPaths:
+  - docs/planning/phase0-closure/SER-93_MACRO_STRUCTURAL_AUTHORITY_AUDIT_R5.md
+  - docs/governance/packets/SER-93-macro-structural-authority-audit-r5.task-packet.yaml
+  - docs/planning/phase0-closure/SER-20_P0_READINESS_EVIDENCE_MATRIX.md
+  - docs/contracts/README.md
+  - MANIFEST.txt
+forbiddenPaths:
+  - backend/**
+  - frontend/**
+  - contracts/asyncapi/**
+  - contracts/schemas/**
+  - design/**
+  - infrastructure/**
+requirements: NOT_APPLICABLE
+contracts: NOT_APPLICABLE
+design: NOT_APPLICABLE
+tests: NOT_APPLICABLE
+security: NOT_APPLICABLE
+financial: NOT_APPLICABLE
+migrations: NOT_APPLICABLE
+workflows: NOT_APPLICABLE
+acceptance:
+  required: false
+  environment: NOT_APPLICABLE
+  humanApproval: true
+definitionOfDone:
+  - docs/planning/phase0-closure/SER-93_MACRO_STRUCTURAL_AUTHORITY_AUDIT_R5.md contains §6 structural matrix and R5 D3 gap register with ratification options only
+  - No new contracts/schemas/macro artifacts or invented enums, types or payloads
+  - validate-task-packet.py and validate-traceability.py --profile foundation pass
