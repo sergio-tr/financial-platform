@@ -1,0 +1,48 @@
+schemaVersion: 1
+taskId: SER-93
+taskKind: GOVERNANCE
+mode: IMPLEMENT
+risk: LOW
+baseRevision: ed26aa2a583ba3acd027eb1f87a2448a6a1d2472
+packetHash: 7dd6ee36216f708c3bfd56f5791733e4a80f134064996243f2fc515824b6b88c
+authorityRefs:
+  - SER-93
+  - SER-20
+  - P0-R35
+  - P0-R59
+  - faf775736687
+allowedPaths:
+  - contracts/schemas/**
+  - docs/contracts/README.md
+  - docs/governance/api-registry.md
+  - docs/governance/packets/SER-93-contracts-market-vocabulary-v1.task-packet.yaml
+  - docs/planning/phase0-closure/SER-20_P0_READINESS_EVIDENCE_MATRIX.md
+  - scripts/governance/traceability/diff_impact.py
+  - scripts/governance/run-traceability-fixtures.py
+  - scripts/governance/README.md
+  - MANIFEST.txt
+forbiddenPaths:
+  - backend/**
+  - frontend/**
+  - contracts/asyncapi/**
+  - design/**
+  - docs/adr/**
+  - infrastructure/**
+requirements: NOT_APPLICABLE
+contracts:
+  - urn:sergiotr:schema:market:canonical-enums:v1
+design: NOT_APPLICABLE
+tests: NOT_APPLICABLE
+security: NOT_APPLICABLE
+financial: NOT_APPLICABLE
+migrations: NOT_APPLICABLE
+workflows: NOT_APPLICABLE
+acceptance:
+  required: false
+  environment: NOT_APPLICABLE
+  humanApproval: true
+definitionOfDone:
+  - JSON Schema contracts/schemas/market/canonical-enums.v1.schema.json matches SER-93 pack market §5.1 QuoteType and AdjustmentMode only
+  - validate-pr-diff-impact.py allows this materialization slice under IMPLEMENTATION_LOCK carve-out
+  - validate-task-packet.py and validate-traceability.py --profile foundation pass
+  - No AsyncAPI files, Java implementation, §8 problem-code registry, FxPurpose or invented fields beyond pack authority
