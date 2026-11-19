@@ -1,0 +1,44 @@
+schemaVersion: 1
+taskId: SER-93
+taskKind: GOVERNANCE
+mode: IMPLEMENT
+risk: LOW
+baseRevision: c23f0c28cfadba9db2e7f44241fa1d3583a81a52
+packetHash: 75d22bcd4694a706c5ad8400261eed9342e1e6a2f7a1617b08dd04f04d32aef7
+authorityRefs:
+  - SER-93
+  - SER-20
+  - P0-R35
+  - P0-R59
+  - faf775736687
+allowedPaths:
+  - docs/planning/phase0-closure/SER-93_COVERAGE_AUDIT_R7.md
+  - docs/governance/packets/SER-93-coverage-audit-r7.task-packet.yaml
+  - docs/planning/phase0-closure/SER-20_P0_READINESS_EVIDENCE_MATRIX.md
+  - docs/contracts/README.md
+  - docs/governance/api-registry.md
+  - MANIFEST.txt
+forbiddenPaths:
+  - backend/**
+  - frontend/**
+  - contracts/**
+  - contracts/asyncapi/**
+  - design/**
+  - infrastructure/**
+requirements: NOT_APPLICABLE
+contracts: NOT_APPLICABLE
+design: NOT_APPLICABLE
+tests: NOT_APPLICABLE
+security: NOT_APPLICABLE
+financial: NOT_APPLICABLE
+migrations: NOT_APPLICABLE
+workflows: NOT_APPLICABLE
+acceptance:
+  required: false
+  environment: NOT_APPLICABLE
+  humanApproval: true
+definitionOfDone:
+  - docs/planning/phase0-closure/SER-93_COVERAGE_AUDIT_R7.md is the SER-93 integral coverage matrix with MATERIALIZED/PARTIAL/BLOCKED/NOT_MATERIALIZED per subdomain and shared dependency audit per R7 D1-D3
+  - Identifies first complete API materialization candidate as none; lists human-gated next priorities without normative promotion
+  - No new contracts/schemas, no repetition of PR #26-33 slices, macro R5 register, or research enum materialization
+  - validate-task-packet.py and validate-traceability.py --profile foundation pass
