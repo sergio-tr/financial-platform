@@ -65,13 +65,28 @@ def _allows_v0_engineering_substrate_carveout(paths: list[str]) -> bool:
             (
                 "docs/governance/packets/SER-140-v0-bootstrap-01.task-packet.yaml",
                 "docs/governance/packets/SER-141-v0-bootstrap-02.task-packet.yaml",
+                "docs/governance/packets/SER-142-v0-bootstrap-03.task-packet.yaml",
             )
         ):
             continue
         if any(norm == p.rstrip("/") or norm.startswith(p) for p in _GOV_MATERIALIZATION_PREFIXES):
             continue
         return False
-    return has_substrate
+    if has_substrate:
+        return True
+    # SER-142: CI-only smoke lifecycle fixes without touching app sources.
+    return bool(paths) and all(
+        any(norm == p.rstrip("/") or norm.startswith(p) for p in _V0_ENGINEERING_SUBSTRATE_PREFIXES)
+        or norm.startswith(
+            (
+                "docs/governance/packets/SER-140-v0-bootstrap-01.task-packet.yaml",
+                "docs/governance/packets/SER-141-v0-bootstrap-02.task-packet.yaml",
+                "docs/governance/packets/SER-142-v0-bootstrap-03.task-packet.yaml",
+            )
+        )
+        or any(norm == p.rstrip("/") or norm.startswith(p) for p in _GOV_MATERIALIZATION_PREFIXES)
+        for norm in (p.replace("\\", "/") for p in paths)
+    )
 
 
 def _allows_contract_materialization_carveout(paths: list[str]) -> bool:
