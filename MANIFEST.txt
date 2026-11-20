@@ -305,6 +305,10 @@ docs/delivery/candidate-state.example.yaml
 docs/delivery/candidate-state.schema.json
 docs/delivery/orchestration.md
 docs/governance/agent-execution.md
+docs/governance/dev-synthetic-v1-gate.md
+docs/governance/dev-synthetic-v1-carve-out-registry.yaml
+docs/governance/packets/SER-143-dev-gate-01.task-packet.yaml
+docs/planning/phase0-closure/PR-42_MERGE_REVIEW_EVIDENCE.md
 docs/governance/task-packet.example.yaml
 docs/governance/task-packet.schema.json
 docs/testing/fixture-policy.md
@@ -334,12 +338,15 @@ scripts/governance/traceability/pr_parser.py
 scripts/governance/traceability/branch_commit.py
 scripts/governance/traceability/diff_classifier.py
 scripts/governance/traceability/diff_impact.py
+scripts/governance/traceability/dev_synthetic_v1_gate.py
+scripts/governance/validate-dev-synthetic-v1-gate.py
 scripts/governance/traceability/matrix.py
 scripts/governance/validate-pr-diff-impact.py
 scripts/governance/validate-pr-body-preclaim.py
 scripts/governance/validate-pr-trace.py
 scripts/governance/generate-trace-matrix.py
 scripts/governance/run-traceability-fixtures.py
+test/fixtures/governance/dev-gate/registry-with-identity-slice.yaml
 test/fixtures/governance/pr/agent-block-ser-nnn.md
 test/fixtures/governance/pr/agent-duplicate-begin.md
 test/fixtures/governance/pr/agent-end-before-begin.md

@@ -25,6 +25,7 @@ AUTO_MERGE=OFF
 
 IMPLEMENTATION_LOCK=ON
 P0_IMPLEMENTATION_READY=NO
+DEV_SYNTHETIC_V1_GATE=SCOPED
 
 SER-111=CANCELED_SUPERSEDED
 DELEGATED_ORCHESTRATION=ON   # SER-136 (scope-limited; see below)
@@ -122,6 +123,10 @@ Use synthetic data only.
 ## GitHub Actions
 
 GitHub Actions is CI/verification only. It is not an agent orchestrator.
+
+## DEV synthetic V1 gate (SER-143)
+
+`DEV_SYNTHETIC_V1_GATE=SCOPED` authorizes **future** small DEV/TEST synthetic functional verticals only via an explicit TaskPacket plus a row in `docs/governance/dev-synthetic-v1-carve-out-registry.yaml`. It does **not** set `IMPLEMENTATION_LOCK=OFF`, `P0_IMPLEMENTATION_READY=YES`, or unlock SER-98 / SER-20 final gates. Canonical policy: `docs/governance/dev-synthetic-v1-gate.md`. V0 substrate (SER-140..142) remains a separate carve-out.
 
 ## SER-111
 
