@@ -1,0 +1,45 @@
+schemaVersion: 1
+taskId: SER-96
+taskKind: GOVERNANCE
+mode: IMPLEMENT
+risk: SENSITIVE
+baseRevision: 618275bbc69f151763347db206259d9964e545c5
+packetHash: 1dc932ace9f633cf68527afda4be99f5aedbad0242b022bca973addaace12652
+authorityRefs:
+  - SER-96
+  - SER-20
+  - P0-R37
+  - abadff83-51eb-415c-9bb0-b42b85a223fb
+allowedPaths:
+  - scripts/governance/traceability/pr_parser.py
+  - scripts/governance/validate-pr-body-preclaim.py
+  - scripts/governance/run-traceability-fixtures.py
+  - scripts/governance/README.md
+  - test/fixtures/governance/pr/**
+  - docs/governance/packets/SER-96-pr-body-preclaim-r9-02.task-packet.yaml
+  - MANIFEST.txt
+forbiddenPaths:
+  - backend/**
+  - frontend/**
+  - contracts/**
+  - design/**
+  - infrastructure/**
+  - docs/planning/**
+requirements: NOT_APPLICABLE
+contracts: NOT_APPLICABLE
+design: NOT_APPLICABLE
+tests: NOT_APPLICABLE
+security: NOT_APPLICABLE
+financial: NOT_APPLICABLE
+migrations: NOT_APPLICABLE
+workflows: NOT_APPLICABLE
+acceptance:
+  required: false
+  environment: NOT_APPLICABLE
+  humanApproval: true
+definitionOfDone:
+  - validate_cursor_agent_envelope rejects duplicate/misordered CURSOR_AGENT_PR_BODY markers without relaxing SER-96 section rules
+  - Canonical slice rejects Primary SER-NNN placeholder inside agent delimited block
+  - validate-pr-body-preclaim.py available for agents before PR creation; fixtures in run-traceability-fixtures.py
+  - validate-traceability.py --profile foundation and validate-task-packet.py pass
+  - No change to _canonical_pr_body slicing semantics established in PR #30 audit (template outside block still allowed)

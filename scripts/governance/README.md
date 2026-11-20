@@ -7,6 +7,7 @@
 - `validate-pr-diff-impact.py` — Stage B PR diff classifier; blocks product/migration paths while `IMPLEMENTATION_LOCK=ON`. Accepted-pack JSON Schema materialization under `contracts/schemas/**` with governance paths is permitted (SER-20 Q04 D1). `contracts/asyncapi/**` remains blocked until an owning MWU widens the carve-out.
 - `generate-trace-matrix.py` / `--check-clean` — deterministic human-readable matrix from the graph.
 - `validate-pr-trace.py` — branch / PR Linear primary / headings / contribution attribution (Git-local).
+- `validate-pr-body-preclaim.py` — R9-02 draft PR body check before opening a PR (`CURSOR_AGENT_PR_BODY_*` envelope, no `SER-NNN`, SER-96 sections).
 - `run-traceability-fixtures.py` — synthetic positive/negative fixtures.
 - Modules live under `scripts/governance/traceability/`.
 
