@@ -13,7 +13,7 @@ Status: **INDEXED** — public Java API metadata is synchronized from accepted L
 
 Field-level records, outcome unions and use-case bodies are defined only in the Linear packs above. This registry does not duplicate them.
 
-SER-93 Q04 coverage: integral audit matrix (R7-01, non-normative) — `docs/planning/phase0-closure/SER-93_COVERAGE_AUDIT_R7.md`. Macro structural gaps — `SER-93_MACRO_STRUCTURAL_AUTHORITY_AUDIT_R5.md`.
+SER-93 Q04 coverage: integral audit matrix (R7-01, non-normative) — `docs/planning/phase0-closure/SER-93_COVERAGE_AUDIT_R7.md`. Macro structural gaps — `SER-93_MACRO_STRUCTURAL_AUTHORITY_AUDIT_R5.md`. §11 idempotency/pagination and §12 mandatory contract-test eligibility (R9-01) — `SER-93_SECTION_11_12_AUTHORITY_AUDIT_R9.md` (non-normative; schemas/fixtures still NOT_MATERIALIZED).
 
 ## Guidelines
 

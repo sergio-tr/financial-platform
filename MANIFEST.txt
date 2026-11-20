@@ -101,6 +101,7 @@ docs/governance/packets/SER-93-contracts-instrument-vocabulary-v1.task-packet.ya
 docs/governance/packets/SER-93-contracts-market-vocabulary-v1.task-packet.yaml
 docs/governance/packets/SER-93-contracts-research-vocabulary-v1.task-packet.yaml
 docs/governance/packets/SER-93-coverage-audit-r7.task-packet.yaml
+docs/governance/packets/SER-93-section-11-12-authority-audit-r9.task-packet.yaml
 docs/governance/packets/SER-93-macro-structural-authority-audit-r5.task-packet.yaml
 docs/governance/packets/SER-93-shared-source-quality-authority-audit-r8.task-packet.yaml
 docs/governance/packets/SER-132.task-packet.yaml
@@ -264,6 +265,7 @@ docs/planning/phase0-closure/SER-93_COVERAGE_AUDIT_R7.md
 docs/planning/phase0-closure/SER-93_SHARED_SOURCE_QUALITY_AUTHORITY_AUDIT_R8.md
 docs/planning/phase0-closure/SER-93_INDEPENDENT_REVIEW.md
 docs/planning/phase0-closure/SER-93_MACRO_STRUCTURAL_AUTHORITY_AUDIT_R5.md
+docs/planning/phase0-closure/SER-93_SECTION_11_12_AUTHORITY_AUDIT_R9.md
 docs/planning/phase0-closure/SER-94_INDEPENDENT_REVIEW.md
 docs/planning/phase0-closure/SER-95_INDEPENDENT_REVIEW.md
 docs/planning/phase0-closure/SER-36/run-20260926T124724Z-auto/CORRECTNESS.json
