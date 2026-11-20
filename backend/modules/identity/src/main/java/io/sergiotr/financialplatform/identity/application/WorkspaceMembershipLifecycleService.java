@@ -161,7 +161,7 @@ public final class WorkspaceMembershipLifecycleService {
         if (actorRole == WorkspaceRole.OWNER) {
             return true;
         }
-        return assignedRole.rank() <= actorRole.rank();
+        return actorRole.isAtLeast(assignedRole);
     }
 
     private boolean wouldViolateLastOwner(WorkspaceId workspaceId, WorkspaceMembership target, WorkspaceRole newRole) {
