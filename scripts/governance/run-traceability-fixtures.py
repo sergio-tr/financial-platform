@@ -125,6 +125,12 @@ def main() -> int:
     )
     assert ser93_codes.returncode == 0
 
+    ser93_events = subprocess.run(
+        [sys.executable, str(ROOT / "scripts/governance/validate-ser-93-domain-event-codes.py")],
+        check=False,
+    )
+    assert ser93_events.returncode == 0
+
     print("TRACEABILITY_FIXTURES_PASS")
     return 0
 

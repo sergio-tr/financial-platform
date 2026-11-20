@@ -1,0 +1,50 @@
+schemaVersion: 1
+taskId: SER-93
+taskKind: GOVERNANCE
+mode: IMPLEMENT
+risk: LOW
+baseRevision: dc3a570c5952e20d2d5b2e1e92cb8dc9dbfc5b60
+packetHash: 854e3c80de5cf439c23087281174a3ed1058233f489d169d7b908d6990b17fc4
+authorityRefs:
+  - SER-93
+  - SER-20
+  - P0-R35
+  - P0-R59
+  - faf775736687
+allowedPaths:
+  - contracts/schemas/**
+  - docs/contracts/README.md
+  - docs/governance/api-registry.md
+  - docs/governance/packets/SER-93-contracts-domain-event-codes-v1.task-packet.yaml
+  - docs/planning/phase0-closure/SER-20_P0_READINESS_EVIDENCE_MATRIX.md
+  - scripts/governance/validate-ser-93-domain-event-codes.py
+  - scripts/governance/run-traceability-fixtures.py
+  - scripts/governance/README.md
+  - MANIFEST.txt
+forbiddenPaths:
+  - backend/**
+  - frontend/**
+  - contracts/asyncapi/**
+  - design/**
+  - docs/adr/**
+  - infrastructure/**
+  - contracts/schemas/ser-92/**
+requirements: NOT_APPLICABLE
+contracts:
+  - urn:sergiotr:schema:ser-93:domain-event-codes:v1
+design: NOT_APPLICABLE
+tests: NOT_APPLICABLE
+security: NOT_APPLICABLE
+financial: NOT_APPLICABLE
+migrations: NOT_APPLICABLE
+workflows: NOT_APPLICABLE
+acceptance:
+  required: false
+  environment: NOT_APPLICABLE
+  humanApproval: true
+definitionOfDone:
+  - contracts/schemas/ser-93/domain-event-codes.v1.schema.json lists exactly the 17 §9 event codes from pack faf775736687; no payload or envelope schemas
+  - validate-ser-93-domain-event-codes.py and run-traceability-fixtures.py pass
+  - validate-pr-diff-impact.py allows this slice under IMPLEMENTATION_LOCK carve-out
+  - validate-task-packet.py and validate-traceability.py --profile foundation pass
+  - No AsyncAPI, event payload bodies, shared §B schemas or macro view materialization

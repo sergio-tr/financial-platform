@@ -78,6 +78,7 @@ contracts/schemas/research/canonical-enums.v1.schema.json
 contracts/schemas/identity/canonical-enums.v1.schema.json
 contracts/schemas/ser-92/problem-codes.v1.schema.json
 contracts/schemas/ser-93/problem-codes.v1.schema.json
+contracts/schemas/ser-93/domain-event-codes.v1.schema.json
 contracts/schemas/workspace/canonical-enums.v1.schema.json
 docs/domain/portfolio-xray.md
 docs/planning/cursor-operating-model.md
