@@ -8,6 +8,15 @@ readonly SMOKE_URL="http://${SMOKE_HOST}:${SMOKE_PORT}/"
 readonly WAIT_SECONDS="${WAIT_SECONDS:-90}"
 
 _SERVER_PGID=""
+_SERVER_LOG=""
+
+_emit_server_log() {
+  if [[ -n "${_SERVER_LOG}" && -f "${_SERVER_LOG}" ]]; then
+    echo "----- V0 ng serve output (last 200 lines) -----" >&2
+    tail -n 200 "${_SERVER_LOG}" >&2 || true
+    echo "----- end ng serve output -----" >&2
+  fi
+}
 
 _cleanup() {
   if [[ -z "${_SERVER_PGID}" ]]; then
@@ -48,11 +57,19 @@ trap _cleanup EXIT
 
 export NG_CLI_ANALYTICS="${NG_CLI_ANALYTICS:-false}"
 
-setsid pnpm --dir frontend/app start >/tmp/v0-ng-serve-smoke.log 2>&1 &
+_SERVER_LOG="$(mktemp)"
+chmod 600 "${_SERVER_LOG}"
+
+setsid pnpm --dir frontend/app start >"${_SERVER_LOG}" 2>&1 &
 _SERVER_PGID=$!
 
 _smoke_passed=false
 for _ in $(seq 1 "${WAIT_SECONDS}"); do
+  if ! kill -0 "-${_SERVER_PGID}" 2>/dev/null; then
+    echo "V0_FRONTEND_DEV_SERVER_SMOKE_FAIL: dev server exited before ready" >&2
+    _emit_server_log
+    exit 1
+  fi
   if curl -sf "${SMOKE_URL}" >/dev/null; then
     echo "V0_FRONTEND_DEV_SERVER_SMOKE_PASS"
     _smoke_passed=true
@@ -62,10 +79,17 @@ for _ in $(seq 1 "${WAIT_SECONDS}"); do
 done
 
 if [[ "${_smoke_passed}" != "true" ]]; then
-  echo "V0_FRONTEND_DEV_SERVER_SMOKE_FAIL: no HTTP 200 from dev server (see /tmp/v0-ng-serve-smoke.log)" >&2
+  echo "V0_FRONTEND_DEV_SERVER_SMOKE_FAIL: no HTTP 200 from dev server" >&2
+  _emit_server_log
   exit 1
 fi
 
 _cleanup
 trap - EXIT
-_verify_port_released
+if ! _verify_port_released; then
+  _emit_server_log
+  exit 1
+fi
+
+rm -f "${_SERVER_LOG}"
+_SERVER_LOG=""
