@@ -8,6 +8,7 @@
   },
   "scripts": {
     "build": "pnpm --dir frontend/app run build",
+    "start": "pnpm --dir frontend/app run start",
     "test": "pnpm --dir frontend/app run test",
     "lint": "pnpm --dir frontend/app run lint"
   }

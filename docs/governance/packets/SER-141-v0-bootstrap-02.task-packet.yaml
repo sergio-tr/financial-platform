@@ -1,0 +1,47 @@
+schemaVersion: 1
+taskId: SER-141
+taskKind: IMPLEMENTATION
+mode: IMPLEMENT
+risk: LOW
+baseRevision: dcae0d1559c914888e7162fdde74eee2bf00ffea
+packetHash: 14b82f12e5447d88e0fcc1078bc00514527b63a70aed26e94589258dc27ba4e3
+authorityRefs:
+  - SER-141
+  - SER-140
+  - SER-34
+  - SER-35
+  - SER-20
+  - 4fa11893-c8f6-41d0-8b4d-ed564c4bff68
+allowedPaths:
+  - backend/application/**
+  - frontend/app/**
+  - package.json
+  - .github/workflows/v0-engineering-substrate.yml
+  - scripts/governance/traceability/diff_impact.py
+  - scripts/governance/run-traceability-fixtures.py
+  - scripts/dev/**
+  - docs/governance/packets/SER-141-v0-bootstrap-02.task-packet.yaml
+  - MANIFEST.txt
+forbiddenPaths:
+  - contracts/**
+  - backend/modules/**
+  - docs/planning/phase0-closure/**
+  - infrastructure/**
+requirements: NOT_APPLICABLE
+contracts: NOT_APPLICABLE
+design: NOT_APPLICABLE
+tests: NOT_APPLICABLE
+security: NOT_APPLICABLE
+financial: NOT_APPLICABLE
+migrations: NOT_APPLICABLE
+workflows: NOT_APPLICABLE
+acceptance:
+  required: false
+  environment: CI_SYNTHETIC
+  humanApproval: true
+definitionOfDone:
+  - spring-boot-starter-webmvc enables embedded servlet container; /actuator/health returns HTTP 200 on loopback only
+  - ActuatorHealthSmokeTest in Maven verify (JDK 25 CI)
+  - Angular zone.js import before bootstrap; ng serve target and pnpm start on 127.0.0.1
+  - v0-engineering-substrate CI dev-server HTTP smoke
+  - PR body passes SER-96 preclaim with Primary SER-141
