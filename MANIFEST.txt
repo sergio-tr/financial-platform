@@ -101,6 +101,7 @@ docs/governance/packets/SER-93-contracts-market-vocabulary-v1.task-packet.yaml
 docs/governance/packets/SER-93-contracts-research-vocabulary-v1.task-packet.yaml
 docs/governance/packets/SER-93-coverage-audit-r7.task-packet.yaml
 docs/governance/packets/SER-93-macro-structural-authority-audit-r5.task-packet.yaml
+docs/governance/packets/SER-93-shared-source-quality-authority-audit-r8.task-packet.yaml
 docs/governance/packets/SER-132.task-packet.yaml
 docs/governance/packets/SER-132-post-merge-remediation.task-packet.yaml
 docs/governance/packets/SER-101.task-packet.yaml
@@ -259,6 +260,7 @@ docs/planning/phase0-closure/SER-58/PACKET_VALIDATION.md
 docs/planning/phase0-closure/SER-58/SUMMARY.txt
 docs/planning/phase0-closure/SER-92_INDEPENDENT_REVIEW.md
 docs/planning/phase0-closure/SER-93_COVERAGE_AUDIT_R7.md
+docs/planning/phase0-closure/SER-93_SHARED_SOURCE_QUALITY_AUTHORITY_AUDIT_R8.md
 docs/planning/phase0-closure/SER-93_INDEPENDENT_REVIEW.md
 docs/planning/phase0-closure/SER-93_MACRO_STRUCTURAL_AUTHORITY_AUDIT_R5.md
 docs/planning/phase0-closure/SER-94_INDEPENDENT_REVIEW.md

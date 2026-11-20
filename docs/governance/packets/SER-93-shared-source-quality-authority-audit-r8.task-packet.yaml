@@ -1,0 +1,43 @@
+schemaVersion: 1
+taskId: SER-93
+taskKind: GOVERNANCE
+mode: IMPLEMENT
+risk: LOW
+baseRevision: 128c35e49e362e3596dec8d36a6899201ae39afb
+packetHash: 61734c0dd6e05971bc940be416c769b610e30f52cac97da02bebdb0fc45cd0c3
+authorityRefs:
+  - SER-93
+  - SER-20
+  - P0-R35
+  - P0-R59
+  - faf775736687
+allowedPaths:
+  - docs/planning/phase0-closure/SER-93_SHARED_SOURCE_QUALITY_AUTHORITY_AUDIT_R8.md
+  - docs/governance/packets/SER-93-shared-source-quality-authority-audit-r8.task-packet.yaml
+  - docs/planning/phase0-closure/SER-20_P0_READINESS_EVIDENCE_MATRIX.md
+  - docs/contracts/README.md
+  - MANIFEST.txt
+forbiddenPaths:
+  - backend/**
+  - frontend/**
+  - contracts/**
+  - contracts/asyncapi/**
+  - design/**
+  - infrastructure/**
+requirements: NOT_APPLICABLE
+contracts: NOT_APPLICABLE
+design: NOT_APPLICABLE
+tests: NOT_APPLICABLE
+security: NOT_APPLICABLE
+financial: NOT_APPLICABLE
+migrations: NOT_APPLICABLE
+workflows: NOT_APPLICABLE
+acceptance:
+  required: false
+  environment: NOT_APPLICABLE
+  humanApproval: true
+definitionOfDone:
+  - docs/planning/phase0-closure/SER-93_SHARED_SOURCE_QUALITY_AUTHORITY_AUDIT_R8.md contains §1/§B field matrices, consumer graph, SER-92 dependencies, and R8-02 eligibility verdict without normative contract promotion
+  - G-COV-001..007 and G-MACRO-001..010 preserved; additive G-SHARED-001..008 gap register only
+  - No new contracts/schemas or repetition of PR #26-34 contract slices, R7 coverage matrix duplication, or Macro R4/R5 enum investigations
+  - validate-task-packet.py and validate-traceability.py --profile foundation pass
