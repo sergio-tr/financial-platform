@@ -3,6 +3,7 @@ from __future__ import annotations
 from . import codes
 from .codes import TraceError
 from .diff_classifier import classify_paths
+from .dev_synthetic_v1_gate import allows_dev_synthetic_v1_carveout
 
 # Product / implementation surfaces forbidden while IMPLEMENTATION_LOCK=ON (Phase 0 materialization).
 _PHASE0_FORBIDDEN_CLASSES = frozenset(
@@ -123,6 +124,8 @@ def validate_phase0_diff(changed_paths: list[str]) -> list[TraceError]:
     if blocked and "CONTRACT_CHANGE" in blocked and _allows_contract_materialization_carveout(paths):
         blocked = [c for c in blocked if c != "CONTRACT_CHANGE"]
     if blocked and "OBSERVABLE_BEHAVIOR" in blocked and _allows_v0_engineering_substrate_carveout(paths):
+        blocked = [c for c in blocked if c != "OBSERVABLE_BEHAVIOR"]
+    if blocked and "OBSERVABLE_BEHAVIOR" in blocked and allows_dev_synthetic_v1_carveout(paths):
         blocked = [c for c in blocked if c != "OBSERVABLE_BEHAVIOR"]
     if blocked:
         errors.append(

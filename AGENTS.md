@@ -22,8 +22,11 @@ AUTO_NEXT_TASK=OFF
 AUTO_MERGE=OFF
 IMPLEMENTATION_LOCK=ON
 P0_IMPLEMENTATION_READY=NO
+DEV_SYNTHETIC_V1_GATE=SCOPED
 SER-111=CANCELED_SUPERSEDED
 ```
+
+`DEV_SYNTHETIC_V1_GATE=SCOPED` (SER-143) permits only registry-backed synthetic DEV/TEST vertical MWUs; see `docs/governance/dev-synthetic-v1-gate.md`. It does not flip `P0_IMPLEMENTATION_READY` or `IMPLEMENTATION_LOCK`.
 
 Sergio explicitly selects each ticket and starts each run, EXCEPT under the SER-136 delegated-orchestration handshake when an active Delegation Grant is in force: ChatGPT may select the next executable ticket from the current dependency graph and set only that ticket In Progress. Cursor Cloud is only a manually started venue. Slack/Linear remain non-authoritative outside the SER-136 handshake. GitHub Actions is CI/verification only.
 

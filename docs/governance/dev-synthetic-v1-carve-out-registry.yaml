@@ -1,0 +1,21 @@
+schemaVersion: 1
+gateId: DEV-SYNTHETIC-V1
+authorityRefs:
+  - SER-143
+  - SER-20
+  - 9a135858-67a9-414e-be27-911d8635bc16
+  - 4fa11893-c8f6-41d0-8b4d-ed564c4bff68
+operationalFlag: SCOPED
+lockedInvariants:
+  IMPLEMENTATION_LOCK: "ON"
+  P0_IMPLEMENTATION_READY: "NO"
+  P0_PLANNING_FROZEN: "YES"
+globalForbiddenPrefixes:
+  - infrastructure/
+  - contracts/asyncapi/
+  - contracts/generated/
+  - docs/planning/phase0-closure/
+  - design/
+  - "**/SecretVault/**"
+  - "**/production/**"
+verticalSlices: []

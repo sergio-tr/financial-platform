@@ -136,6 +136,10 @@ def main() -> int:
             "pom.xml",
         ]
     )
+    expect_codes(
+        validate_phase0_diff(["backend/modules/identity/application/Workspace.java"]),
+        "TRACE_DIFF_IMPLEMENTATION_LOCK",
+    )
 
     import subprocess
 
