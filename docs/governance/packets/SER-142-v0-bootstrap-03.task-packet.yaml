@@ -1,0 +1,45 @@
+schemaVersion: 1
+taskId: SER-142
+taskKind: IMPLEMENTATION
+mode: IMPLEMENT
+risk: LOW
+baseRevision: 207f5b6a4aeb3f02d3b65ae20af923516c3aa89a
+packetHash: d1cd7309e2cc771d0e4415614816912e7b748a92bbe3fe59fed7ea2e9feac778
+authorityRefs:
+  - SER-142
+  - SER-141
+  - SER-140
+  - SER-34
+  - SER-35
+  - SER-20
+allowedPaths:
+  - .github/workflows/v0-engineering-substrate.yml
+  - scripts/build/frontend-dev-server-smoke.sh
+  - scripts/build/test-process-group-cleanup.sh
+  - scripts/governance/traceability/diff_impact.py
+  - scripts/governance/run-traceability-fixtures.py
+  - docs/governance/packets/SER-142-v0-bootstrap-03.task-packet.yaml
+  - .github/workflows/phase0-governance.yml
+forbiddenPaths:
+  - contracts/**
+  - backend/application/**
+  - frontend/app/**
+  - docs/planning/phase0-closure/**
+  - infrastructure/**
+requirements: NOT_APPLICABLE
+contracts: NOT_APPLICABLE
+design: NOT_APPLICABLE
+tests: NOT_APPLICABLE
+security: NOT_APPLICABLE
+financial: NOT_APPLICABLE
+migrations: NOT_APPLICABLE
+workflows: NOT_APPLICABLE
+acceptance:
+  required: false
+  environment: CI_SYNTHETIC
+  humanApproval: true
+definitionOfDone:
+  - Dev-server smoke starts via setsid process group and tears down descendants without orphan ng serve
+  - test-process-group-cleanup.sh regression in v0-engineering-substrate CI
+  - frontend-dev-server-smoke.sh verifies HTTP 200 and port release after cleanup
+  - PR body passes SER-96 preclaim with Primary SER-142
