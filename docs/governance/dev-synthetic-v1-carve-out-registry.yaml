@@ -39,3 +39,14 @@ verticalSlices:
     allowedPathPrefixes:
       - backend/modules/identity/**
       - test/fixtures/synthetic/identity/**
+  - id: V1-IDENTITY-SPRING-INTEGRATION
+    taskPacket: docs/governance/packets/SER-146-v1-identity-03.task-packet.yaml
+    dataClass: SYNTHETIC_ONLY
+    environments:
+      - DEV
+      - TEST
+      - CI_SYNTHETIC
+    allowedPathPrefixes:
+      - backend/application/**
+      - backend/modules/identity/pom.xml
+      - backend/modules/identity/src/main/java/io/sergiotr/financialplatform/identity/package-info.java
