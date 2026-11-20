@@ -61,7 +61,12 @@ def _allows_v0_engineering_substrate_carveout(paths: list[str]) -> bool:
             if norm.startswith(("backend/", "frontend/")):
                 has_substrate = True
             continue
-        if norm.startswith("docs/governance/packets/SER-140-v0-bootstrap-01.task-packet.yaml"):
+        if norm.startswith(
+            (
+                "docs/governance/packets/SER-140-v0-bootstrap-01.task-packet.yaml",
+                "docs/governance/packets/SER-141-v0-bootstrap-02.task-packet.yaml",
+            )
+        ):
             continue
         if any(norm == p.rstrip("/") or norm.startswith(p) for p in _GOV_MATERIALIZATION_PREFIXES):
             continue

@@ -63,6 +63,14 @@ jobs:
           else
             echo "SKIP SER-140 packet (no bootstrap paths in PR)"
           fi
+      - name: SER-141 V0 bootstrap fixes TaskPacket
+        if: github.event_name == 'pull_request'
+        run: |
+          if git diff --name-only "${{ github.event.pull_request.base.sha }}" "${{ github.event.pull_request.head.sha }}" | grep -q '^docs/governance/packets/SER-141-v0-bootstrap-02.task-packet.yaml'; then
+            python scripts/governance/validate-task-packet.py docs/governance/packets/SER-141-v0-bootstrap-02.task-packet.yaml
+          else
+            echo "SKIP SER-141 packet (path not in PR)"
+          fi
       - name: Fixture catalog schema
         run: |
           python - <<'PY'

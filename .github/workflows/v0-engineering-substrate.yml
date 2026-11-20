@@ -43,3 +43,20 @@ jobs:
           pnpm run build
       - name: Unit tests
         run: pnpm run test
+      - name: Dev server HTTP smoke
+        env:
+          NG_CLI_ANALYTICS: "false"
+        run: |
+          pnpm --dir frontend/app start &
+          SERVER_PID=$!
+          cleanup() { kill "$SERVER_PID" 2>/dev/null || true; wait "$SERVER_PID" 2>/dev/null || true; }
+          trap cleanup EXIT
+          for _ in $(seq 1 90); do
+            if curl -sf http://127.0.0.1:4200/ >/dev/null; then
+              echo "V0_FRONTEND_DEV_SERVER_SMOKE_PASS"
+              exit 0
+            fi
+            sleep 1
+          done
+          echo "V0_FRONTEND_DEV_SERVER_SMOKE_FAIL: no HTTP 200 from dev server" >&2
+          exit 1

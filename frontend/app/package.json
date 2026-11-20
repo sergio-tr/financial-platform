@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "ng": "ng",
+    "start": "NG_CLI_ANALYTICS=false ng serve",
     "build": "ng build",
     "test": "ng test --watch=false --browsers=ChromeHeadless",
     "lint": "ng build --configuration=development"
