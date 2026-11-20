@@ -128,6 +128,14 @@ def main() -> int:
     assert not validate_phase0_diff(
         ["contracts/schemas/identity/user-status.v1.schema.json", "docs/contracts/README.md"]
     )
+    assert not validate_phase0_diff(
+        [
+            "backend/application/pom.xml",
+            "frontend/app/package.json",
+            "docs/governance/packets/SER-140-v0-bootstrap-01.task-packet.yaml",
+            "pom.xml",
+        ]
+    )
 
     import subprocess
 

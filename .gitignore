@@ -1,0 +1,25 @@
+# Build outputs
+**/target/
+frontend/app/dist/
+frontend/app/out-tsc/
+frontend/app/.angular/
+frontend/app/coverage/
+
+# Node
+node_modules/
+
+# IDE
+.idea/
+*.iml
+.vscode/
+
+# OS
+.DS_Store
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# Modulith docs generated in tests
+**/spring-modulith-docs/

@@ -55,6 +55,14 @@ jobs:
         run: python scripts/governance/validate-task-packet.py docs/governance/packets/SER-97-stage-a.task-packet.yaml
       - name: SER-97 Stage B TaskPacket
         run: python scripts/governance/validate-task-packet.py docs/governance/packets/SER-97-stage-b.task-packet.yaml
+      - name: SER-140 V0 bootstrap TaskPacket
+        if: github.event_name == 'pull_request'
+        run: |
+          if git diff --name-only "${{ github.event.pull_request.base.sha }}" "${{ github.event.pull_request.head.sha }}" | grep -q '^docs/governance/packets/SER-140-v0-bootstrap-01.task-packet.yaml\|^backend/\|^frontend/app/'; then
+            python scripts/governance/validate-task-packet.py docs/governance/packets/SER-140-v0-bootstrap-01.task-packet.yaml
+          else
+            echo "SKIP SER-140 packet (no bootstrap paths in PR)"
+          fi
       - name: Fixture catalog schema
         run: |
           python - <<'PY'

@@ -25,6 +25,49 @@ _GOV_MATERIALIZATION_PREFIXES = (
     "README.md",
 )
 
+# SER-140 / FASTSTART V0: runnable engineering substrate only (SER-34 Iteration 13, SER-35 V0).
+_V0_ENGINEERING_SUBSTRATE_PREFIXES = (
+    "backend/application/",
+    "backend/test-support/",
+    "backend/pom.xml",
+    "frontend/app/",
+    "pom.xml",
+    ".mvn/",
+    "mvnw",
+    "mvnw.cmd",
+    "compose.yaml",
+    "package.json",
+    "pnpm-workspace.yaml",
+    "pnpm-lock.yaml",
+    ".node-version",
+    ".java-version",
+    ".gitignore",
+    "scripts/bootstrap/",
+    "scripts/build/",
+    "scripts/contract/",
+    "scripts/dev/",
+    ".github/workflows/v0-engineering-substrate.yml",
+)
+
+
+def _allows_v0_engineering_substrate_carveout(paths: list[str]) -> bool:
+    """SER-140: backend/frontend skeleton paths only, plus supporting bootstrap infra."""
+    if not paths:
+        return False
+    has_substrate = False
+    for raw in paths:
+        norm = raw.replace("\\", "/")
+        if any(norm == p.rstrip("/") or norm.startswith(p) for p in _V0_ENGINEERING_SUBSTRATE_PREFIXES):
+            if norm.startswith(("backend/", "frontend/")):
+                has_substrate = True
+            continue
+        if norm.startswith("docs/governance/packets/SER-140-v0-bootstrap-01.task-packet.yaml"):
+            continue
+        if any(norm == p.rstrip("/") or norm.startswith(p) for p in _GOV_MATERIALIZATION_PREFIXES):
+            continue
+        return False
+    return has_substrate
+
 
 def _allows_contract_materialization_carveout(paths: list[str]) -> bool:
     """SER-92..95 / Q04: accepted-pack AsyncAPI+JSON Schema bodies only (SER-20 D1)."""
@@ -59,6 +102,8 @@ def validate_phase0_diff(changed_paths: list[str]) -> list[TraceError]:
     blocked = sorted(classes & _PHASE0_FORBIDDEN_CLASSES)
     if blocked and "CONTRACT_CHANGE" in blocked and _allows_contract_materialization_carveout(paths):
         blocked = [c for c in blocked if c != "CONTRACT_CHANGE"]
+    if blocked and "OBSERVABLE_BEHAVIOR" in blocked and _allows_v0_engineering_substrate_carveout(paths):
+        blocked = [c for c in blocked if c != "OBSERVABLE_BEHAVIOR"]
     if blocked:
         errors.append(
             TraceError(
