@@ -1,0 +1,53 @@
+schemaVersion: 1
+taskId: SER-144
+taskKind: IMPLEMENTATION
+mode: IMPLEMENT
+risk: LOW
+baseRevision: ffa77308d17cf76e9e2ef5c1c5e7c946f8450818
+packetHash: f6dbcd97e96e2290eecff64ec49cda327d84e34de3f6138a0bedcb72cd990ce2
+authorityRefs:
+  - SER-144
+  - SER-143
+  - SER-92
+  - SER-20
+  - 3b7a4498-eb5f-4383-831d-9e271cee3dda
+  - 9a135858-67a9-414e-be27-911d8635bc16
+allowedPaths:
+  - backend/pom.xml
+  - backend/modules/identity/**
+  - pom.xml
+  - test/fixtures/synthetic/identity/**
+  - docs/governance/dev-synthetic-v1-carve-out-registry.yaml
+  - docs/governance/dev-synthetic-v1-gate.md
+  - docs/governance/packets/SER-144-v1-identity-01.task-packet.yaml
+  - scripts/governance/validate-dev-synthetic-v1-gate.py
+  - scripts/governance/traceability/dev_synthetic_v1_gate.py
+  - .github/workflows/phase0-governance.yml
+  - MANIFEST.txt
+forbiddenPaths:
+  - contracts/**
+  - contracts/asyncapi/**
+  - infrastructure/**
+  - design/**
+  - backend/application/**
+  - frontend/**
+  - docs/planning/phase0-closure/**
+requirements: NOT_APPLICABLE
+contracts: NOT_APPLICABLE
+design: NOT_APPLICABLE
+tests: NOT_APPLICABLE
+security: NOT_APPLICABLE
+financial: NOT_APPLICABLE
+migrations: NOT_APPLICABLE
+workflows: NOT_APPLICABLE
+acceptance:
+  required: false
+  environment: CI_SYNTHETIC
+  humanApproval: true
+definitionOfDone:
+  - Registry slice V1-IDENTITY-WORKSPACE active with dataClass SYNTHETIC_ONLY
+  - Synthetic Identity+Workspace authorization domain in backend/modules/identity with in-memory adapter
+  - Deny unknown/revoked/foreign workspace/stale auth and horizontal role escalation covered by tests
+  - validate-dev-synthetic-v1-gate.py accepts slice paths and rejects portfolio/asyncapi
+  - validate-traceability.py --profile foundation and governance CI green; SER-96 preclaim on PR body
+  - IMPLEMENTATION_LOCK=ON and P0_IMPLEMENTATION_READY=NO unchanged; no login/MFA/REST business API

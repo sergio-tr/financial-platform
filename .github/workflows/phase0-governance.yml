@@ -89,6 +89,14 @@ jobs:
           else
             echo "SKIP SER-143 packet (path not in PR)"
           fi
+      - name: SER-144 V1 identity synthetic vertical TaskPacket
+        if: github.event_name == 'pull_request'
+        run: |
+          if git diff --name-only "${{ github.event.pull_request.base.sha }}" "${{ github.event.pull_request.head.sha }}" | grep -q '^backend/modules/identity/\|^docs/governance/packets/SER-144-v1-identity-01.task-packet.yaml'; then
+            python scripts/governance/validate-task-packet.py docs/governance/packets/SER-144-v1-identity-01.task-packet.yaml
+          else
+            echo "SKIP SER-144 packet (no identity vertical paths in PR)"
+          fi
       - name: Fixture catalog schema
         run: |
           python - <<'PY'

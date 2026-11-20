@@ -51,6 +51,11 @@
         <artifactId>test-support</artifactId>
         <version>${project.version}</version>
       </dependency>
+      <dependency>
+        <groupId>io.sergiotr.financialplatform</groupId>
+        <artifactId>identity</artifactId>
+        <version>${project.version}</version>
+      </dependency>
     </dependencies>
   </dependencyManagement>
 
