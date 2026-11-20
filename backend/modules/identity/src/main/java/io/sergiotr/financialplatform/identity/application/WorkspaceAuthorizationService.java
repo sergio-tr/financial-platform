@@ -45,8 +45,11 @@ public final class WorkspaceAuthorizationService {
         if (!member.isActive()) {
             return AuthorizationDecision.deny(AuthorizationDenialReason.MEMBERSHIP_REVOKED);
         }
-        if (clientAuthRevision < member.authRevision()) {
-            return AuthorizationDecision.deny(AuthorizationDenialReason.STALE_AUTH_CONTEXT);
+        if (clientAuthRevision != member.authRevision()) {
+            if (clientAuthRevision < member.authRevision()) {
+                return AuthorizationDecision.deny(AuthorizationDenialReason.STALE_AUTH_CONTEXT);
+            }
+            return AuthorizationDecision.deny(AuthorizationDenialReason.FUTURE_AUTH_CONTEXT);
         }
 
         if (!member.role().isAtLeast(operation.minimumRole())) {

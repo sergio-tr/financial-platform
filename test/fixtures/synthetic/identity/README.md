@@ -10,4 +10,6 @@ Stable UUIDs for DEV/TEST only. Values mirror `SyntheticWorkspaceFixtures` in `b
 | Bob (VIEWER on ALPHA) | `10000000-0000-4000-8000-000000000002` |
 | Carol (ADMIN on BETA) | `10000000-0000-4000-8000-000000000003` |
 
+SER-145 adds synthetic membership lifecycle tests (compare-and-set on `authRevision`); see `WorkspaceMembershipLifecycleService`.
+
 No production data. Not a normative contract artifact.

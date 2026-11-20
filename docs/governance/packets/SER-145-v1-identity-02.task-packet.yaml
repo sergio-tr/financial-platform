@@ -1,0 +1,50 @@
+schemaVersion: 1
+taskId: SER-145
+taskKind: IMPLEMENTATION
+mode: IMPLEMENT
+risk: LOW
+baseRevision: b679c8ad1f73dd1713373891eeb4e7015372c2e5
+packetHash: 404d8aae6aedebfe4157ef9afafd9cca27b6ed7c0b676396ceaf0ea24208cc3d
+authorityRefs:
+  - SER-145
+  - SER-144
+  - SER-143
+  - SER-92
+  - SER-25
+  - SER-20
+  - REQ-WORKSPACE-004
+  - 3b7a4498-eb5f-4383-831d-9e271cee3dda
+allowedPaths:
+  - backend/modules/identity/**
+  - test/fixtures/synthetic/identity/**
+  - docs/governance/dev-synthetic-v1-carve-out-registry.yaml
+  - docs/governance/packets/SER-145-v1-identity-02.task-packet.yaml
+  - MANIFEST.txt
+forbiddenPaths:
+  - contracts/**
+  - contracts/asyncapi/**
+  - infrastructure/**
+  - design/**
+  - backend/application/**
+  - frontend/**
+  - docs/planning/phase0-closure/**
+  - docs/governance/packets/SER-144-v1-identity-01.task-packet.yaml
+requirements: NOT_APPLICABLE
+contracts: NOT_APPLICABLE
+design: NOT_APPLICABLE
+tests: NOT_APPLICABLE
+security: NOT_APPLICABLE
+financial: NOT_APPLICABLE
+migrations: NOT_APPLICABLE
+workflows: NOT_APPLICABLE
+acceptance:
+  required: false
+  environment: CI_SYNTHETIC
+  humanApproval: true
+definitionOfDone:
+  - Registry slice V1-IDENTITY-MEMBERSHIP-LIFECYCLE active; SER-144 slice unchanged
+  - clientAuthRevision exact equality (stale and future denied) in WorkspaceAuthorizationService
+  - Synthetic membership lifecycle writes with compare-and-set authRevision and last-OWNER guard
+  - Unit tests for stale/future/revoke/role change/privilege escalation; v0-engineering-substrate CI JDK25
+  - validate-dev-synthetic-v1-gate.py and validate-traceability.py --profile foundation PASS
+  - IMPLEMENTATION_LOCK=ON and P0_IMPLEMENTATION_READY=NO unchanged
