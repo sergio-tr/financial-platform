@@ -1,0 +1,45 @@
+schemaVersion: 1
+taskId: SER-93
+taskKind: GOVERNANCE
+mode: IMPLEMENT
+risk: LOW
+baseRevision: cb1e12ba07aa5311de137e6735c3785bc90ba357
+packetHash: b29751a5d44f04d2882fc0ac76daeb149f11a3a73282809a51db66feaff62ff5
+authorityRefs:
+  - SER-93
+  - SER-20
+  - P0-R35
+  - P0-R59
+  - faf775736687
+  - abadff83-51eb-415c-9bb0-b42b85a223fb
+allowedPaths:
+  - docs/planning/phase0-closure/SER-93_SECTION_11_12_AUTHORITY_AUDIT_R9.md
+  - docs/governance/packets/SER-93-section-11-12-authority-audit-r9.task-packet.yaml
+  - docs/planning/phase0-closure/SER-20_P0_READINESS_EVIDENCE_MATRIX.md
+  - docs/contracts/README.md
+  - docs/governance/api-registry.md
+  - MANIFEST.txt
+forbiddenPaths:
+  - backend/**
+  - frontend/**
+  - contracts/**
+  - contracts/asyncapi/**
+  - design/**
+  - infrastructure/**
+  - scripts/governance/traceability/**
+requirements: NOT_APPLICABLE
+contracts: NOT_APPLICABLE
+design: NOT_APPLICABLE
+tests: NOT_APPLICABLE
+security: NOT_APPLICABLE
+financial: NOT_APPLICABLE
+migrations: NOT_APPLICABLE
+workflows: NOT_APPLICABLE
+acceptance:
+  required: false
+  environment: NOT_APPLICABLE
+  humanApproval: true
+definitionOfDone:
+  - docs/planning/phase0-closure/SER-93_SECTION_11_12_AUTHORITY_AUDIT_R9.md contains §11 element matrix, §12 sixteen-line test matrix, eligibility verdict, and additive G-1112-* gaps without normative contract promotion
+  - G-COV-001..007, G-MACRO-001..010, and G-SHARED-001..008 preserved; no repetition of PR #26-37 slices, R7 full matrix duplication, R8 shared field re-audit, or R9-02 SER-96 generator changes
+  - validate-task-packet.py and validate-traceability.py --profile foundation pass
