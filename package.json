@@ -6,14 +6,6 @@
     "node": ">=24.0.0",
     "pnpm": "12.7.0"
   },
-  "pnpm": {
-    "onlyBuiltDependencies": [
-      "@parcel/watcher",
-      "esbuild",
-      "lmdb",
-      "msgpackr-extract"
-    ]
-  },
   "scripts": {
     "build": "pnpm --dir frontend/app run build",
     "test": "pnpm --dir frontend/app run test",
