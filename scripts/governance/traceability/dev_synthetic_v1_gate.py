@@ -39,7 +39,10 @@ def load_registry() -> dict:
 
 
 def _normalize(path: str) -> str:
-    return path.replace("\\", "/").lstrip("./")
+    norm = path.replace("\\", "/")
+    if norm.startswith("./"):
+        norm = norm[2:]
+    return norm
 
 
 def path_matches_pattern(path: str, pattern: str) -> bool:

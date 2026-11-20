@@ -72,6 +72,7 @@ def _test_active_registry_slice_paths() -> None:
     slices = registry.get("verticalSlices") or []
     identity_only = [
         "backend/modules/identity/domain/WorkspaceId.java",
+        ".github/workflows/phase0-governance.yml",
         "docs/governance/packets/SER-144-v1-identity-01.task-packet.yaml",
         "backend/pom.xml",
         "test/fixtures/synthetic/identity/README.md",
