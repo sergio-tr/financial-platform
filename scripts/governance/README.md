@@ -14,5 +14,6 @@
 
 - `validate-task-packet.py` rejects invalid execution packets before edits.
 - `validate-ser-101-requirements.py` asserts SER-101 requirement body materialization invariants (73/27/9 aliases/paths).
+- `validate-ser-93-problem-codes.py` asserts SER-93 pack §8 problem-code registry fidelity (`contracts/schemas/ser-93/problem-codes.v1.schema.json`).
 
 CI installs pinned PyYAML/jsonschema and runs the foundation set.

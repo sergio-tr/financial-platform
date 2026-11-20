@@ -117,6 +117,14 @@ def main() -> int:
         ["contracts/schemas/identity/user-status.v1.schema.json", "docs/contracts/README.md"]
     )
 
+    import subprocess
+
+    ser93_codes = subprocess.run(
+        [sys.executable, str(ROOT / "scripts/governance/validate-ser-93-problem-codes.py")],
+        check=False,
+    )
+    assert ser93_codes.returncode == 0
+
     print("TRACEABILITY_FIXTURES_PASS")
     return 0
 
