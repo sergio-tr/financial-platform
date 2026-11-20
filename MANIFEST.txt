@@ -311,6 +311,7 @@ docs/governance/packets/SER-143-dev-gate-01.task-packet.yaml
 docs/governance/packets/SER-144-v1-identity-01.task-packet.yaml
 docs/governance/packets/SER-145-v1-identity-02.task-packet.yaml
 docs/governance/packets/SER-146-v1-identity-03.task-packet.yaml
+docs/governance/packets/SER-147-v1-identity-04.task-packet.yaml
 test/fixtures/synthetic/identity/README.md
 docs/planning/phase0-closure/PR-42_MERGE_REVIEW_EVIDENCE.md
 docs/governance/task-packet.example.yaml

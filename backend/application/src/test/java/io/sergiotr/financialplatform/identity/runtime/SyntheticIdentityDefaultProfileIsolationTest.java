@@ -3,6 +3,7 @@ package io.sergiotr.financialplatform.identity.runtime;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import io.sergiotr.financialplatform.identity.adapter.memory.InMemorySyntheticWorkspaceStore;
+import io.sergiotr.financialplatform.identity.application.TrustedWorkspaceActorBoundary;
 import io.sergiotr.financialplatform.identity.application.WorkspaceAuthorizationService;
 import io.sergiotr.financialplatform.identity.application.WorkspaceMembershipLifecycleService;
 import org.junit.jupiter.api.Test;
@@ -22,5 +23,6 @@ class SyntheticIdentityDefaultProfileIsolationTest {
         assertThat(context.getBeansOfType(WorkspaceAuthorizationService.class)).isEmpty();
         assertThat(context.getBeansOfType(WorkspaceMembershipLifecycleService.class)).isEmpty();
         assertThat(context.getBeansOfType(SyntheticIdentityWorkspaceConfiguration.class)).isEmpty();
+        assertThat(context.getBeansOfType(TrustedWorkspaceActorBoundary.class)).isEmpty();
     }
 }

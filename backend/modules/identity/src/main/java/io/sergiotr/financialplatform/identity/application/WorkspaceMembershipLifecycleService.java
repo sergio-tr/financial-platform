@@ -98,6 +98,9 @@ public final class WorkspaceMembershipLifecycleService {
         }
 
         var actorMembership = access.findMembership(actorUserId, workspaceId).orElseThrow();
+        if (!actorMayMutateTarget(actorMembership.role(), current.role())) {
+            return MembershipMutationResult.mutationDenied(MembershipMutationDenialReason.PRIVILEGE_ESCALATION);
+        }
         if (!actorMayAssignRole(actorMembership.role(), newRole)) {
             return MembershipMutationResult.mutationDenied(MembershipMutationDenialReason.PRIVILEGE_ESCALATION);
         }
@@ -141,6 +144,10 @@ public final class WorkspaceMembershipLifecycleService {
         if (current.authRevision() != expectedTargetAuthRevision) {
             return MembershipMutationResult.mutationDenied(MembershipMutationDenialReason.STALE_WRITE);
         }
+        var actorMembership = access.findMembership(actorUserId, workspaceId).orElseThrow();
+        if (!actorMayMutateTarget(actorMembership.role(), current.role())) {
+            return MembershipMutationResult.mutationDenied(MembershipMutationDenialReason.PRIVILEGE_ESCALATION);
+        }
         if (wouldViolateLastOwner(workspaceId, current, null)) {
             return MembershipMutationResult.mutationDenied(MembershipMutationDenialReason.LAST_OWNER_PROTECTED);
         }
@@ -162,6 +169,14 @@ public final class WorkspaceMembershipLifecycleService {
             return true;
         }
         return actorRole.isAtLeast(assignedRole);
+    }
+
+    /** Non-OWNER actors must not change or revoke an active OWNER membership (SER-25 / REQ-WORKSPACE-004). */
+    private static boolean actorMayMutateTarget(WorkspaceRole actorRole, WorkspaceRole targetRole) {
+        if (targetRole != WorkspaceRole.OWNER) {
+            return true;
+        }
+        return actorRole == WorkspaceRole.OWNER;
     }
 
     private boolean wouldViolateLastOwner(WorkspaceId workspaceId, WorkspaceMembership target, WorkspaceRole newRole) {
