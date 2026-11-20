@@ -1,0 +1,55 @@
+schemaVersion: 1
+taskId: SER-146
+taskKind: IMPLEMENTATION
+mode: IMPLEMENT
+risk: LOW
+baseRevision: 0a1f8d7c3f7eda52db84ea4332cb951b2e861b47
+packetHash: b585a011786212fe964611968dceb6978006ca83d2b32548e1a9bd3b5deff72e
+authorityRefs:
+  - SER-146
+  - SER-145
+  - SER-144
+  - SER-143
+  - SER-92
+  - SER-24
+  - SER-25
+  - SER-20
+  - 3b7a4498-eb5f-4383-831d-9e271cee3dda
+allowedPaths:
+  - backend/application/**
+  - backend/modules/identity/pom.xml
+  - backend/modules/identity/src/main/java/io/sergiotr/financialplatform/identity/package-info.java
+  - docs/governance/dev-synthetic-v1-carve-out-registry.yaml
+  - docs/governance/dev-synthetic-v1-gate.md
+  - docs/governance/packets/SER-146-v1-identity-03.task-packet.yaml
+  - MANIFEST.txt
+forbiddenPaths:
+  - contracts/**
+  - contracts/asyncapi/**
+  - infrastructure/**
+  - design/**
+  - frontend/**
+  - docs/planning/phase0-closure/**
+  - backend/modules/identity/src/main/java/io/sergiotr/financialplatform/identity/application/**
+  - backend/modules/identity/src/main/java/io/sergiotr/financialplatform/identity/domain/**
+  - backend/modules/identity/src/main/java/io/sergiotr/financialplatform/identity/adapter/**
+  - backend/modules/identity/src/main/java/io/sergiotr/financialplatform/identity/port/**
+requirements: NOT_APPLICABLE
+contracts: NOT_APPLICABLE
+design: NOT_APPLICABLE
+tests: NOT_APPLICABLE
+security: NOT_APPLICABLE
+financial: NOT_APPLICABLE
+migrations: NOT_APPLICABLE
+workflows: NOT_APPLICABLE
+acceptance:
+  required: false
+  environment: CI_SYNTHETIC
+  humanApproval: true
+definitionOfDone:
+  - Registry slice V1-IDENTITY-SPRING-INTEGRATION active; SER-144/145 slices unchanged
+  - backend/application depends on identity module; no synthetic beans without dev-synthetic profile + explicit flag
+  - Spring integration tests for permit/deny/stale/future/foreign/revoke via runtime wiring
+  - validate-dev-synthetic-v1-gate.py and validate-traceability.py --profile foundation PASS
+  - v0-engineering-substrate CI JDK25 verify; SER-96 preclaim on PR body
+  - IMPLEMENTATION_LOCK=ON and P0_IMPLEMENTATION_READY=NO unchanged

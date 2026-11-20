@@ -36,3 +36,5 @@ Recorded in `docs/governance/execution-baseline.md`. V0 engineering substrate (S
 | Slice ID | TaskPacket | Status |
 |----------|------------|--------|
 | `V1-IDENTITY-WORKSPACE` | `docs/governance/packets/SER-144-v1-identity-01.task-packet.yaml` | SER-144 synthetic Identity+Workspace authorization (DEV/TEST only) |
+| `V1-IDENTITY-MEMBERSHIP-LIFECYCLE` | `docs/governance/packets/SER-145-v1-identity-02.task-packet.yaml` | SER-145 membership lifecycle + auth revision hardening |
+| `V1-IDENTITY-SPRING-INTEGRATION` | `docs/governance/packets/SER-146-v1-identity-03.task-packet.yaml` | SER-146 Spring Boot runtime wiring (`dev-synthetic` profile only) |
