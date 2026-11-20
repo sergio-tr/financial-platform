@@ -29,3 +29,13 @@ verticalSlices:
     allowedPathPrefixes:
       - backend/modules/identity/**
       - test/fixtures/synthetic/identity/**
+  - id: V1-IDENTITY-MEMBERSHIP-LIFECYCLE
+    taskPacket: docs/governance/packets/SER-145-v1-identity-02.task-packet.yaml
+    dataClass: SYNTHETIC_ONLY
+    environments:
+      - DEV
+      - TEST
+      - CI_SYNTHETIC
+    allowedPathPrefixes:
+      - backend/modules/identity/**
+      - test/fixtures/synthetic/identity/**

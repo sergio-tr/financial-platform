@@ -95,6 +95,26 @@ class WorkspaceAuthorizationServiceTest {
     }
 
     @Test
+    void deniesFutureForgedClientAuthRevision() {
+        var decision = service.authorize(
+                SyntheticWorkspaceFixtures.ALICE,
+                SyntheticWorkspaceFixtures.ALPHA_WORKSPACE,
+                WorkspaceOperation.VIEW_WORKSPACE,
+                99L);
+        assertEquals(AuthorizationDenialReason.FUTURE_AUTH_CONTEXT, decision.denialReason());
+    }
+
+    @Test
+    void permitsExactClientAuthRevision() {
+        var decision = service.authorize(
+                SyntheticWorkspaceFixtures.ALICE,
+                SyntheticWorkspaceFixtures.ALPHA_WORKSPACE,
+                WorkspaceOperation.VIEW_WORKSPACE,
+                2L);
+        assertTrue(decision.permitted());
+    }
+
+    @Test
     void deniesWhenWorkspaceNotAccessible() {
         store.putWorkspace(SyntheticWorkspaceFixtures.BETA_WORKSPACE, WorkspaceStatus.DELETED);
         var decision = service.authorize(
