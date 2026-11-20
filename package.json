@@ -1,0 +1,14 @@
+{
+  "name": "financial-platform",
+  "private": true,
+  "packageManager": "pnpm@12.7.0",
+  "engines": {
+    "node": ">=24.0.0",
+    "pnpm": "12.7.0"
+  },
+  "scripts": {
+    "build": "pnpm --dir frontend/app run build",
+    "test": "pnpm --dir frontend/app run test",
+    "lint": "pnpm --dir frontend/app run lint"
+  }
+}

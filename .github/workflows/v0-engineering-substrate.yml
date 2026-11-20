@@ -1,0 +1,45 @@
+name: v0-engineering-substrate
+
+on:
+  pull_request:
+    paths:
+      - 'backend/**'
+      - 'frontend/app/**'
+      - 'pom.xml'
+      - 'mvnw'
+      - '.mvn/**'
+      - 'package.json'
+      - 'pnpm-lock.yaml'
+      - 'pnpm-workspace.yaml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  backend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '25'
+          cache: maven
+      - name: Backend verify
+        run: ./mvnw -B verify
+  frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Enable pnpm
+        run: corepack enable && corepack prepare pnpm@12.7.0 --activate
+      - name: Install and build
+        run: |
+          pnpm install
+          pnpm run build
+      - name: Unit tests
+        run: pnpm run test

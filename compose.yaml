@@ -1,0 +1,15 @@
+# Synthetic local dev skeleton only (SER-140). No production credentials.
+services:
+  postgres:
+    image: postgres:18.0-alpine
+    environment:
+      POSTGRES_USER: fp_dev
+      POSTGRES_PASSWORD: fp_dev_synthetic_only
+      POSTGRES_DB: financial_platform_dev
+    ports:
+      - "127.0.0.1:5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U fp_dev -d financial_platform_dev"]
+      interval: 5s
+      timeout: 5s
+      retries: 5

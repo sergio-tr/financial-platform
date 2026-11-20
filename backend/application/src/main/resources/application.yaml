@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: financial-platform
+  main:
+    banner-mode: off
+
+financial-platform:
+  runtime:
+    role: ALL
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+  endpoint:
+    health:
+      probes:
+        enabled: true
+
+server:
+  port: 8080
