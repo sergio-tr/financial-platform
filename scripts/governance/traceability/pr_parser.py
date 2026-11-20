@@ -21,9 +21,61 @@ REQUIRED_HEADINGS = (
 
 PRIMARY_RE = re.compile(r"^Primary:\s*(SER-[1-9][0-9]*)\s*$")
 RELATED_RE = re.compile(r"^Related:\s*(SER-[1-9][0-9]*(?:\s*,\s*SER-[1-9][0-9]*)*)\s*$")
+PLACEHOLDER_PRIMARY_RE = re.compile(r"^Primary:\s*SER-NNN\s*$", re.IGNORECASE)
 
 _AGENT_BODY_BEGIN = "<!-- CURSOR_AGENT_PR_BODY_BEGIN -->"
 _AGENT_BODY_END = "<!-- CURSOR_AGENT_PR_BODY_END -->"
+
+
+def _marker_positions_outside_fence(text: str) -> tuple[list[int], list[int]]:
+    begins: list[int] = []
+    ends: list[int] = []
+    in_fence = False
+    offset = 0
+    for line in text.splitlines(keepends=True):
+        if line.startswith("```"):
+            in_fence = not in_fence
+            offset += len(line)
+            continue
+        if not in_fence:
+            if _AGENT_BODY_BEGIN in line:
+                begins.append(offset + line.index(_AGENT_BODY_BEGIN))
+            if _AGENT_BODY_END in line:
+                ends.append(offset + line.index(_AGENT_BODY_END))
+        offset += len(line)
+    return begins, ends
+
+
+def validate_cursor_agent_envelope(text: str) -> list[TraceError]:
+    """SER-96 / R9-02 — fail closed on Cursor agent PR wrapper markers before claim."""
+    begins, ends = _marker_positions_outside_fence(text)
+    if not begins and not ends:
+        return []
+    errors: list[TraceError] = []
+    if len(begins) != 1 or len(ends) != 1:
+        errors.append(
+            TraceError(
+                codes.TRACE_PR_PRIMARY_ISSUE_MISMATCH,
+                f"cursor agent block markers begin={len(begins)} end={len(ends)} (exactly one pair required)",
+            )
+        )
+        return errors
+    if begins[0] >= ends[0]:
+        errors.append(
+            TraceError(
+                codes.TRACE_PR_PRIMARY_ISSUE_MISMATCH,
+                "CURSOR_AGENT_PR_BODY_END precedes BEGIN",
+            )
+        )
+    slice_text = _canonical_pr_body(text)
+    if _AGENT_BODY_BEGIN in slice_text or _AGENT_BODY_END in slice_text:
+        errors.append(
+            TraceError(
+                codes.TRACE_PR_PRIMARY_ISSUE_MISMATCH,
+                "nested CURSOR_AGENT_PR_BODY markers inside delimited block",
+            )
+        )
+    return errors
 
 
 def _canonical_pr_body(text: str) -> str:
@@ -68,8 +120,18 @@ def parse_sections(body: str) -> dict[str, list[str]]:
 
 
 def validate_pr_body(body: str, *, branch_ser: str | None = None) -> list[TraceError]:
+    errors: list[TraceError] = list(validate_cursor_agent_envelope(body))
     body = _canonical_pr_body(body)
-    errors: list[TraceError] = []
+    for line in body.splitlines():
+        stripped = line.strip()
+        if PLACEHOLDER_PRIMARY_RE.match(stripped):
+            errors.append(
+                TraceError(
+                    codes.TRACE_PR_PRIMARY_ISSUE_MISMATCH,
+                    "placeholder Primary: SER-NNN in canonical PR body",
+                )
+            )
+            break
     sections = parse_sections(body)
 
     for heading in REQUIRED_HEADINGS:

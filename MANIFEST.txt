@@ -321,6 +321,7 @@ test/fixtures/personas/alpha.yaml
 test/golden/README.md
 test/provider-simulators/README.md
 docs/governance/traceability/matrix/traceability-matrix.generated.md
+docs/governance/packets/SER-96-pr-body-preclaim-r9-02.task-packet.yaml
 docs/governance/packets/SER-97-stage-a.task-packet.yaml
 docs/governance/packets/SER-97-stage-b.task-packet.yaml
 scripts/governance/traceability/__init__.py
@@ -335,9 +336,14 @@ scripts/governance/traceability/diff_classifier.py
 scripts/governance/traceability/diff_impact.py
 scripts/governance/traceability/matrix.py
 scripts/governance/validate-pr-diff-impact.py
+scripts/governance/validate-pr-body-preclaim.py
 scripts/governance/validate-pr-trace.py
 scripts/governance/generate-trace-matrix.py
 scripts/governance/run-traceability-fixtures.py
+test/fixtures/governance/pr/agent-block-ser-nnn.md
+test/fixtures/governance/pr/agent-duplicate-begin.md
+test/fixtures/governance/pr/agent-end-before-begin.md
+test/fixtures/governance/pr/agent-wrapped-valid.md
 test/fixtures/governance/pr/branch-mismatch.md
 test/fixtures/governance/pr/missing-primary.md
 test/fixtures/governance/pr/missing-section.md

@@ -92,6 +92,18 @@ def main() -> int:
     body_section = (FIX / "pr/missing-section.md").read_text()
     expect_codes(validate_pr_body(body_section, branch_ser="SER-97"), "TRACE_PR_SECTION_MISSING")
 
+    body_wrapped = (FIX / "pr/agent-wrapped-valid.md").read_text()
+    assert not validate_pr_body(body_wrapped, branch_ser="SER-97")
+
+    body_placeholder = (FIX / "pr/agent-block-ser-nnn.md").read_text()
+    expect_codes(validate_pr_body(body_placeholder, branch_ser="SER-97"), "TRACE_PR_PRIMARY_ISSUE_MISMATCH")
+
+    body_dup_markers = (FIX / "pr/agent-duplicate-begin.md").read_text()
+    expect_codes(validate_pr_body(body_dup_markers, branch_ser="SER-97"), "TRACE_PR_PRIMARY_ISSUE_MISMATCH")
+
+    body_marker_order = (FIX / "pr/agent-end-before-begin.md").read_text()
+    expect_codes(validate_pr_body(body_marker_order, branch_ser="SER-97"), "TRACE_PR_PRIMARY_ISSUE_MISMATCH")
+
     expect_codes(
         validate_contribution_metadata("feat: stuff\n\nCo-authored-by: Bot <bot@example.com>", check_assistant_names=True),
         "TRACE_FORBIDDEN_CONTRIBUTION_ATTRIBUTION",
