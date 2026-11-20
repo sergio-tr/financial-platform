@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:sergiotr:schema:ser-93:domain-event-codes:v1",
+  "title": "Ser93StableDomainEventCodes",
+  "description": "Initial safe v1 domain event code registry from SER-93 Contract Pack §9 (pack faf775736687, ACCEPTED_FOR_P0_FREEZE). Code strings only; payload shapes and AsyncAPI remain unmaterialized.",
+  "type": "string",
+  "enum": [
+    "connectivity.provider-account.created:v1",
+    "connectivity.provider-account.updated:v1",
+    "connectivity.provider-account.disconnected:v1",
+    "connectivity.sync.requested:v1",
+    "connectivity.sync.started:v1",
+    "connectivity.sync.completed:v1",
+    "connectivity.sync.quarantined:v1",
+    "instrument.canonical.changed:v1",
+    "instrument.composition.accepted:v1",
+    "instrument.classification.accepted:v1",
+    "instrument.corporate-action.accepted:v1",
+    "market.observation.accepted:v1",
+    "macro.vintage.accepted:v1",
+    "research.case.created:v1",
+    "research.case.evidence-added:v1",
+    "research.case.closed:v1",
+    "research.source-data.accepted:v1"
+  ]
+}
