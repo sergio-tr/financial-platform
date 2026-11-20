@@ -38,7 +38,6 @@ def _test_negative_unauthorized_paths() -> None:
     assert is_gate_active()
     registry = load_registry()
     blocked = [
-        "backend/modules/identity/WorkspaceService.java",
         "backend/modules/portfolio/Calculator.java",
         "infrastructure/terraform/main.tf",
         "contracts/asyncapi/ws-v1.asyncapi.yaml",
@@ -48,7 +47,7 @@ def _test_negative_unauthorized_paths() -> None:
         assert path_globally_forbidden(path, registry) or not allows_dev_synthetic_v1_carveout(
             [path]
         ), path
-    expect_lock = validate_phase0_diff(["backend/modules/identity/Workspace.java"])
+    expect_lock = validate_phase0_diff(["backend/modules/portfolio/Portfolio.java"])
     assert expect_lock, "expected IMPLEMENTATION_LOCK for unauthorized module path"
 
 
@@ -68,15 +67,21 @@ def _test_fixture_scoped_slice() -> None:
     )
 
 
-def _test_production_registry_empty_slices() -> None:
+def _test_active_registry_slice_paths() -> None:
     registry = load_registry()
-    assert registry["verticalSlices"] == []
-    assert not allows_dev_synthetic_v1_carveout(
-        [
-            "backend/modules/identity/Foo.java",
-            "docs/governance/packets/foo.task-packet.yaml",
-        ]
-    )
+    slices = registry.get("verticalSlices") or []
+    identity_only = [
+        "backend/modules/identity/domain/WorkspaceId.java",
+        ".github/workflows/phase0-governance.yml",
+        "docs/governance/packets/SER-144-v1-identity-01.task-packet.yaml",
+        "backend/pom.xml",
+        "test/fixtures/synthetic/identity/README.md",
+    ]
+    if not slices:
+        assert not allows_dev_synthetic_v1_carveout(identity_only)
+        return
+    assert allows_dev_synthetic_v1_carveout(identity_only)
+    assert not allows_dev_synthetic_v1_carveout(["backend/modules/portfolio/Calculator.java"])
 
 
 def main() -> int:
@@ -84,7 +89,7 @@ def main() -> int:
     _test_invariants()
     _test_negative_unauthorized_paths()
     _test_fixture_scoped_slice()
-    _test_production_registry_empty_slices()
+    _test_active_registry_slice_paths()
     print("DEV_SYNTHETIC_V1_GATE_PASS")
     return 0
 

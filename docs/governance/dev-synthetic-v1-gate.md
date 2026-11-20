@@ -31,6 +31,8 @@ Recorded in `docs/governance/execution-baseline.md`. V0 engineering substrate (S
 - `scripts/governance/validate-dev-synthetic-v1-gate.py` — CI invariant checks and fixture-driven negative/positive path tests.
 - `scripts/governance/traceability/diff_impact.py` — waives `OBSERVABLE_BEHAVIOR` only when the dev gate and an **active registry vertical slice** both permit the diff (empty `verticalSlices` = no V1 product paths yet).
 
-## Next expected MWU (not part of SER-143)
+## Active vertical slices
 
-Identity/Workspace vertical synthetic-only implementation after this gate merges and a new TaskPacket + registry slice is ratified.
+| Slice ID | TaskPacket | Status |
+|----------|------------|--------|
+| `V1-IDENTITY-WORKSPACE` | `docs/governance/packets/SER-144-v1-identity-01.task-packet.yaml` | SER-144 synthetic Identity+Workspace authorization (DEV/TEST only) |

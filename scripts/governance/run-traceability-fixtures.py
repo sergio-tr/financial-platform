@@ -136,8 +136,14 @@ def main() -> int:
             "pom.xml",
         ]
     )
+    assert not validate_phase0_diff(
+        [
+            "backend/modules/identity/domain/WorkspaceId.java",
+            "docs/governance/packets/SER-144-v1-identity-01.task-packet.yaml",
+        ]
+    )
     expect_codes(
-        validate_phase0_diff(["backend/modules/identity/application/Workspace.java"]),
+        validate_phase0_diff(["backend/modules/portfolio/Portfolio.java"]),
         "TRACE_DIFF_IMPLEMENTATION_LOCK",
     )
 

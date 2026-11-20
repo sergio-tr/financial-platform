@@ -18,4 +18,14 @@ globalForbiddenPrefixes:
   - design/
   - "**/SecretVault/**"
   - "**/production/**"
-verticalSlices: []
+verticalSlices:
+  - id: V1-IDENTITY-WORKSPACE
+    taskPacket: docs/governance/packets/SER-144-v1-identity-01.task-packet.yaml
+    dataClass: SYNTHETIC_ONLY
+    environments:
+      - DEV
+      - TEST
+      - CI_SYNTHETIC
+    allowedPathPrefixes:
+      - backend/modules/identity/**
+      - test/fixtures/synthetic/identity/**
