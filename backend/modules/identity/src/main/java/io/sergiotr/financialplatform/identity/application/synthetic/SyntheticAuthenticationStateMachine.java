@@ -137,13 +137,7 @@ public final class SyntheticAuthenticationStateMachine {
 
     private AuthenticationTransitionResult fromMfaEnrollment(
             SyntheticAuthSession session, AuthenticationTransitionEvent event, String evidenceRef) {
-        if (event != AuthenticationTransitionEvent.COMPLETE_MFA_ENROLLMENT) {
-            return AuthenticationTransitionResult.denied(AuthenticationTransitionDenialReason.INVALID_TRANSITION);
-        }
-        if (!mfaEvidence.acceptsMfa(session.userId(), evidenceRef)) {
-            return AuthenticationTransitionResult.denied(AuthenticationTransitionDenialReason.INSUFFICIENT_EVIDENCE);
-        }
-        return AuthenticationTransitionResult.applied(AuthenticationStage.AUTHENTICATED);
+        return AuthenticationTransitionResult.denied(AuthenticationTransitionDenialReason.INVALID_TRANSITION);
     }
 
     private SyntheticAuthSession mint(

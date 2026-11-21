@@ -1,0 +1,54 @@
+schemaVersion: 1
+taskId: SER-157
+taskKind: IMPLEMENTATION
+mode: IMPLEMENT
+risk: SENSITIVE
+baseRevision: b0eb05155ca21d4db972512ceaeb194d49f2674c
+packetHash: "b31123fe7370580dee33be976e291edeeaddebf9175f0a164d9365348bf72f3c"
+authorityRefs:
+  - SER-157
+  - SER-156
+  - SER-155
+  - SER-143
+  - SER-92
+  - SER-24
+  - SER-25
+  - SER-20
+  - 9a135858-67a9-414e-be27-911d8635bc16
+  - 4fa11893-c8f6-41d0-8b4d-ed564c4bff68
+allowedPaths:
+  - backend/modules/identity/**
+  - test/fixtures/synthetic/identity/**
+  - docs/governance/dev-synthetic-v1-carve-out-registry.yaml
+  - docs/governance/packets/SER-157-v1-identity-14.task-packet.yaml
+  - docs/governance/PR-49-50_HUMAN_AUTH_REVIEW_GAP.md
+  - MANIFEST.txt
+forbiddenPaths:
+  - contracts/**
+  - infrastructure/**
+  - design/**
+  - frontend/**
+  - docs/planning/phase0-closure/**
+  - backend/application/**
+requirements: NOT_APPLICABLE
+contracts: NOT_APPLICABLE
+design: NOT_APPLICABLE
+tests: NOT_APPLICABLE
+security: NOT_APPLICABLE
+financial: NOT_APPLICABLE
+migrations: NOT_APPLICABLE
+workflows: NOT_APPLICABLE
+acceptance:
+  required: false
+  environment: CI_SYNTHETIC
+  humanApproval: true
+definitionOfDone:
+  - Registry slice V1-IDENTITY-TOTP-ENROLLMENT active; prior slices unchanged
+  - Two-phase synthetic enrollment with 10m pending TTL and ephemeral server-side seed only
+  - RFC6238 confirm within ±1; CONFIRMED_SYNTHETIC without AUTHENTICATED_FULL or runtime ACTIVE
+  - Fail-closed runtime activation; no seed/password in logs or record toString
+  - Adversarial tests for TTL, duplicate, replay, foreign owner, stale revision, disabled, window ±2
+  - validate-dev-synthetic-v1-gate.py and validate-traceability.py --profile foundation PASS
+  - v0-engineering-substrate CI JDK25 verify; SER-96 preclaim on PR body
+  - PR #49/#50/#52 human auth review gaps preserved; Bugbot SKIP != security approval
+  - IMPLEMENTATION_LOCK=ON and P0_IMPLEMENTATION_READY=NO unchanged
