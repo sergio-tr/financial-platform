@@ -1,0 +1,47 @@
+catalogVersion: 1
+sliceId: fixture-negative-workspace-no-rls
+parentTicket: SER-103
+authorityRefs:
+  - id: FIXTURE
+runtimeDatabaseRoles:
+  - sergiotr_gateway
+  - sergiotr_worker
+  - sergiotr_migrator
+  - sergiotr_backup
+  - sergiotr_db_owner
+objects:
+  - objectKey: workspace.demo_table
+    materializationStatus: NORMATIVE_PLANNED
+    boundedContext: workspace
+    schema: workspace
+    objectName: demo_table
+    objectKind: TABLE
+    securityClass: WORKSPACE_SENSITIVE
+    ownershipColumns:
+      workspaceId: workspace_id
+      userId: null
+    rls:
+      applicable: true
+      enabled: false
+      force: false
+      usingIntent: missing
+      withCheckIntent: missing
+    rolePrivileges:
+      - role: sergiotr_gateway
+        operations: [SELECT]
+      - role: sergiotr_worker
+        operations: [NONE]
+      - role: sergiotr_migrator
+        operations: [SELECT, INSERT, UPDATE, DELETE]
+      - role: sergiotr_backup
+        operations: [SELECT]
+      - role: sergiotr_db_owner
+        operations: [SELECT]
+    migrationOwnerRole: sergiotr_migrator
+    backupReadable: true
+    searchPathQualification: workspace.demo_table
+    retentionClass: FIXTURE
+    requirementRefs: []
+    testRefs: []
+    authorityRefs:
+      - FIXTURE

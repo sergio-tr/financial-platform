@@ -26,6 +26,18 @@ jobs:
         run: python scripts/governance/run-traceability-fixtures.py
       - name: DEV synthetic V1 gate (SER-143)
         run: python scripts/governance/validate-dev-synthetic-v1-gate.py
+      - name: SER-159 physical security catalog slice
+        run: |
+          python scripts/governance/validate-ser-159-physical-catalog.py
+          python scripts/governance/run-ser-159-catalog-fixtures.py
+      - name: SER-159 physical catalog TaskPacket
+        if: github.event_name == 'pull_request'
+        run: |
+          if git diff --name-only "${{ github.event.pull_request.base.sha }}" "${{ github.event.pull_request.head.sha }}" | grep -qE '^docs/security/postgres-physical-catalog/|^docs/governance/packets/SER-159-'; then
+            python scripts/governance/validate-task-packet.py docs/governance/packets/SER-159-p0-c2c-identity-01.task-packet.yaml
+          else
+            echo "SKIP SER-159 packet (paths not in PR)"
+          fi
       - name: Generated trace matrix clean
         run: python scripts/governance/generate-trace-matrix.py --check-clean
       - name: PR/branch policy (pull_request)

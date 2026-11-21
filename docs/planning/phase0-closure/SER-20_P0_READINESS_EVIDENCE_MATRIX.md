@@ -50,7 +50,7 @@ CI green on `main` (e.g. `phase0-governance` @ `854d091`) is **not** `P0_IMPLEME
 | Ticket | Linear | Kind | Status | Evidence / blocker |
 |--------|--------|------|--------|-------------------|
 | SER-102 | In Progress | **Evidence** + linking work | **BLOCKED** | Full traceability profile and REQ graph links incomplete; blocks `--profile full` |
-| SER-103 | In Progress | **Evidence** (RLS catalog) | **BLOCKED** | No completed physical security-classification catalog on `main` (issue In Progress) |
+| SER-103 | In Progress | **Evidence** (RLS catalog) | **PARTIAL** | SER-159 slice: `docs/security/postgres-physical-catalog/identity-workspace-session.v1.yaml` + validator (session tables planned; G-IDW-001..008 blocked; other BCs not cataloged) |
 | SER-106 | In Progress | **Decision** + materialization | **PARTIAL** | P0-R43 registries + runbooks materialized; runtime implementation still blocked |
 | SER-109 | In Progress | **Evidence** (field-level) | **BLOCKED** | `docs/security/data-classification.yaml` — all class `owner: PENDING (SER-109)` |
 | SER-110 | In Progress | **Decision** + materialization | **BLOCKED** | `retention-policies.yaml` / runbooks not closed per issue DoD |

@@ -225,6 +225,9 @@ docs/security/secretvault-crypto-contract.md
 docs/security/secretvault-crypto-format.yaml
 docs/security/secretvault-crypto-record.schema.json
 docs/security/secretvault-normative-tests.yaml
+docs/security/postgres-physical-catalog.schema.json
+docs/security/postgres-physical-catalog/README.md
+docs/security/postgres-physical-catalog/identity-workspace-session.v1.yaml
 docs/runbooks/workspace-deletion.md
 docs/runbooks/provider-disconnect.md
 docs/runbooks/data-export.md
@@ -320,9 +323,11 @@ docs/governance/packets/SER-152-v1-identity-09.task-packet.yaml
 docs/governance/packets/SER-153-v1-identity-10.task-packet.yaml
 docs/governance/packets/SER-154-v1-identity-11.task-packet.yaml
 docs/governance/packets/SER-155-v1-identity-12.task-packet.yaml
+docs/governance/packets/SER-159-p0-c2c-identity-01.task-packet.yaml
 docs/governance/PR-49-50_HUMAN_AUTH_REVIEW_GAP.md
 test/fixtures/synthetic/identity/README.md
 docs/planning/phase0-closure/PR-42_MERGE_REVIEW_EVIDENCE.md
+docs/planning/phase0-closure/SER-159_IDENTITY_WORKSPACE_CATALOG_GAPS.md
 docs/governance/task-packet.example.yaml
 docs/governance/task-packet.schema.json
 docs/testing/fixture-policy.md
@@ -354,6 +359,8 @@ scripts/governance/traceability/diff_classifier.py
 scripts/governance/traceability/diff_impact.py
 scripts/governance/traceability/dev_synthetic_v1_gate.py
 scripts/governance/validate-dev-synthetic-v1-gate.py
+scripts/governance/validate-ser-159-physical-catalog.py
+scripts/governance/run-ser-159-catalog-fixtures.py
 scripts/governance/traceability/matrix.py
 scripts/governance/validate-pr-diff-impact.py
 scripts/governance/validate-pr-body-preclaim.py
