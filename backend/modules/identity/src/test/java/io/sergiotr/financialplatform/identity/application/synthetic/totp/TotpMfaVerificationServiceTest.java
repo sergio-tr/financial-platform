@@ -2,9 +2,19 @@ package io.sergiotr.financialplatform.identity.application.synthetic.totp;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import io.sergiotr.financialplatform.identity.adapter.crypto.Argon2idSyntheticPasswordHasher;
+import io.sergiotr.financialplatform.identity.adapter.crypto.Argon2idTrustedPrimaryAuthEvidence;
 import io.sergiotr.financialplatform.identity.adapter.memory.FailClosedAuthenticatorStepCompareAndSetPort;
 import io.sergiotr.financialplatform.identity.adapter.memory.InMemoryAccountSecurityAuthRevisionStore;
+import io.sergiotr.financialplatform.identity.adapter.memory.InMemorySyntheticPasswordCredentialStore;
+import io.sergiotr.financialplatform.identity.application.synthetic.password.SyntheticCommonPasswordBlocklist;
+import io.sergiotr.financialplatform.identity.application.synthetic.password.SyntheticPasswordPolicy;
+import io.sergiotr.financialplatform.identity.application.synthetic.password.SyntheticPasswordService;
+import io.sergiotr.financialplatform.identity.domain.SyntheticPasswordCredential;
+import io.sergiotr.financialplatform.identity.application.synthetic.SyntheticAuthFixtureSupport;
+import io.sergiotr.financialplatform.identity.application.synthetic.VerifiedPrimaryForMfaIssuance;
 import io.sergiotr.financialplatform.identity.application.synthetic.challenge.TrustedPreMfaChallengeLifecycleService;
+import io.sergiotr.financialplatform.identity.domain.UserAccountSecurityStatus;
 import io.sergiotr.financialplatform.identity.domain.AuthenticatorId;
 import io.sergiotr.financialplatform.identity.domain.TrustedPreMfaChallengeId;
 import io.sergiotr.financialplatform.identity.domain.AuthenticationStage;
@@ -34,8 +44,10 @@ class TotpMfaVerificationServiceTest {
             AuthenticatorId.of(UUID.fromString("aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee"));
     private static final UserId OWNER = UserId.parse("10000000-0000-4000-8000-000000000001");
     private static final UserId FOREIGN = UserId.parse("10000000-0000-4000-8000-000000000099");
+    private static final String FOREIGN_PRIMARY_PASSWORD = "synthetic-primary-foreign-test-only";
 
     private InMemoryAccountSecurityAuthRevisionStore revisions;
+    private InMemorySyntheticPasswordCredentialStore passwordStore;
     private TrustedPreMfaChallengeLifecycleService lifecycle;
     private Clock clock;
     private final AtomicReference<Optional<TrustedPreMfaChallengeId>> boundChallenge = new AtomicReference<>(Optional.empty());
@@ -44,13 +56,37 @@ class TotpMfaVerificationServiceTest {
     void setUp() {
         clock = Clock.fixed(Instant.ofEpochSecond(1_234_567_890L), ZoneOffset.UTC);
         revisions = new InMemoryAccountSecurityAuthRevisionStore();
-        revisions.setRevision(OWNER, 3L);
-        revisions.setRevision(FOREIGN, 3L);
-        lifecycle = new TrustedPreMfaChallengeLifecycleService(clock, revisions);
+        revisions.put(OWNER, 3L, UserAccountSecurityStatus.ENABLED);
+        revisions.put(FOREIGN, 3L, UserAccountSecurityStatus.ENABLED);
+        var hasher = new Argon2idSyntheticPasswordHasher();
+        var passwordService = new SyntheticPasswordService(
+                new SyntheticPasswordPolicy(new SyntheticCommonPasswordBlocklist().loadFromClasspath()), hasher);
+        passwordStore = new InMemorySyntheticPasswordCredentialStore();
+        passwordStore.put(new SyntheticPasswordCredential(
+                OWNER, hasher.encode(SyntheticAuthFixtureSupport.ALICE_PRIMARY_PASSWORD), false));
+        var primary =
+                new Argon2idTrustedPrimaryAuthEvidence(passwordStore, passwordService);
+        lifecycle = new TrustedPreMfaChallengeLifecycleService(clock, revisions, primary);
     }
 
     private void bindFreshChallenge(UserId owner, long authRevision) {
-        boundChallenge.set(Optional.of(lifecycle.issue(owner, authRevision, AuthenticationStage.MFA_REQUIRED)));
+        var evidence = SyntheticAuthFixtureSupport.ALICE_PRIMARY_PASSWORD;
+        if (owner.equals(FOREIGN)) {
+            ensureForeignPrimaryRegistered();
+            evidence = FOREIGN_PRIMARY_PASSWORD;
+        }
+        var issuance = new VerifiedPrimaryForMfaIssuance(
+                owner, authRevision, AuthenticationStage.MFA_REQUIRED, evidence);
+        boundChallenge.set(Optional.of(lifecycle.issueAfterVerifiedPrimary(issuance)));
+    }
+
+    private void ensureForeignPrimaryRegistered() {
+        if (passwordStore.findByUserId(FOREIGN).isPresent()) {
+            return;
+        }
+        var hasher = new Argon2idSyntheticPasswordHasher();
+        passwordStore.put(
+                new SyntheticPasswordCredential(FOREIGN, hasher.encode(FOREIGN_PRIMARY_PASSWORD), false));
     }
 
     private TrustedMfaChallengeContextPort serverChallengeContext() {

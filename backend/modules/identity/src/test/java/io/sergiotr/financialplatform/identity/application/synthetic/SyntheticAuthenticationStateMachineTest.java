@@ -49,7 +49,8 @@ class SyntheticAuthenticationStateMachineTest {
         var auth = SyntheticAuthFixtureSupport.aliceAndBobPrimaryArgon2();
         var revisionStore = new InMemoryAccountSecurityAuthRevisionStore();
         revisionStore.setRevision(SyntheticWorkspaceFixtures.ALICE, 2L);
-        var lifecycle = new TrustedPreMfaChallengeLifecycleService(clock, revisionStore);
+        var lifecycle =
+                new TrustedPreMfaChallengeLifecycleService(clock, revisionStore, auth.primary());
         var machine = new SyntheticAuthenticationStateMachine(clock, auth.primary(), auth.mfa(), lifecycle);
         var session = machine.begin(SyntheticWorkspaceFixtures.ALICE, 2L);
         var primary = machine.transition(
@@ -136,6 +137,7 @@ class SyntheticAuthenticationStateMachineTest {
                 Instant.parse("2026-11-20T12:05:00Z"),
                 false,
                 AuthSessionTrustMark.bootstrap(),
+                Optional.empty(),
                 Optional.empty());
         var result = expiredMachine.transition(
                 session,
@@ -153,6 +155,7 @@ class SyntheticAuthenticationStateMachineTest {
                 Instant.parse("2026-11-20T12:20:00Z"),
                 true,
                 AuthSessionTrustMark.bootstrap(),
+                Optional.empty(),
                 Optional.empty());
         var result = machine.transition(
                 session,
@@ -171,6 +174,7 @@ class SyntheticAuthenticationStateMachineTest {
                 Instant.parse("2026-11-20T12:20:00Z"),
                 false,
                 AuthSessionTrustMark.intermediate(),
+                Optional.empty(),
                 Optional.empty());
         assertThrows(IllegalStateException.class, forged::toTrustedActor);
     }

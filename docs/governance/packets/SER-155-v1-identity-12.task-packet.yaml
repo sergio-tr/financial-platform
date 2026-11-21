@@ -1,0 +1,53 @@
+schemaVersion: 1
+taskId: SER-155
+taskKind: IMPLEMENTATION
+mode: IMPLEMENT
+risk: SENSITIVE
+baseRevision: b6fd83cee3fe95c244f187e29a85ceb73f634fee
+packetHash: de3cecdf43f9ce43411e6215b40dc297d976716007567d8a13ba4e74952e4802
+authorityRefs:
+  - SER-155
+  - SER-154
+  - SER-153
+  - SER-143
+  - SER-92
+  - SER-24
+  - SER-25
+  - SER-20
+  - 9a135858-67a9-414e-be27-911d8635bc16
+  - 4fa11893-c8f6-41d0-8b4d-ed564c4bff68
+allowedPaths:
+  - backend/modules/identity/**
+  - test/fixtures/synthetic/identity/**
+  - docs/governance/dev-synthetic-v1-carve-out-registry.yaml
+  - docs/governance/packets/SER-155-v1-identity-12.task-packet.yaml
+  - docs/governance/PR-49-50_HUMAN_AUTH_REVIEW_GAP.md
+  - MANIFEST.txt
+forbiddenPaths:
+  - contracts/**
+  - infrastructure/**
+  - design/**
+  - frontend/**
+  - docs/planning/phase0-closure/**
+  - backend/application/**
+requirements: NOT_APPLICABLE
+contracts: NOT_APPLICABLE
+design: NOT_APPLICABLE
+tests: NOT_APPLICABLE
+security: NOT_APPLICABLE
+financial: NOT_APPLICABLE
+migrations: NOT_APPLICABLE
+workflows: NOT_APPLICABLE
+acceptance:
+  required: false
+  environment: CI_SYNTHETIC
+  humanApproval: true
+definitionOfDone:
+  - Registry slice V1-IDENTITY-MFA-ISSUER-HARDENING active; prior SER-144..154 slices unchanged
+  - Challenge issuance requires verified primary evidence and server-owned account snapshot
+  - TOTP validation uses authoritative account status; no caller-supplied disabled flag
+  - Adversarial tests for forged issuance and locked/disabled subjects
+  - PR #49/#50/#52 human auth review gaps preserved; Bugbot SKIP != security approval
+  - validate-dev-synthetic-v1-gate.py and validate-traceability.py --profile foundation PASS
+  - v0-engineering-substrate CI JDK25 verify; SER-96 preclaim on PR body
+  - IMPLEMENTATION_LOCK=ON and P0_IMPLEMENTATION_READY=NO unchanged
