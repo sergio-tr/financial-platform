@@ -56,9 +56,12 @@ class TrustedPreMfaChallengeLifecycleServiceTest {
 
     @Test
     void expiredChallengeDenied() {
-        var id = lifecycle.issue(USER, 3L, AuthenticationStage.MFA_REQUIRED);
+        var store = new TrustedPreMfaChallengeLifecycleService.InMemoryTrustedPreMfaChallengeStore();
+        var issuing =
+                new TrustedPreMfaChallengeLifecycleService(clock, revisions, store);
+        var id = issuing.issue(USER, 3L, AuthenticationStage.MFA_REQUIRED);
         var lateClock = Clock.fixed(clock.instant().plus(Duration.ofMinutes(16)), ZoneOffset.UTC);
-        var lateLifecycle = new TrustedPreMfaChallengeLifecycleService(lateClock, revisions);
+        var lateLifecycle = new TrustedPreMfaChallengeLifecycleService(lateClock, revisions, store);
         var validation = lateLifecycle.validateForTotp(Optional.of(id), false);
         assertEquals(TrustedPreMfaChallengeLifecycleService.ValidationOutcome.EXPIRED, validation);
     }

@@ -6,6 +6,7 @@ import io.sergiotr.financialplatform.identity.adapter.memory.FailClosedAuthentic
 import io.sergiotr.financialplatform.identity.adapter.memory.InMemoryAccountSecurityAuthRevisionStore;
 import io.sergiotr.financialplatform.identity.application.synthetic.challenge.TrustedPreMfaChallengeLifecycleService;
 import io.sergiotr.financialplatform.identity.domain.AuthenticatorId;
+import io.sergiotr.financialplatform.identity.domain.TrustedPreMfaChallengeId;
 import io.sergiotr.financialplatform.identity.domain.AuthenticationStage;
 import io.sergiotr.financialplatform.identity.domain.TotpSeed;
 import io.sergiotr.financialplatform.identity.domain.UserId;
@@ -22,6 +23,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.concurrent.atomic.AtomicReference;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -36,6 +38,7 @@ class TotpMfaVerificationServiceTest {
     private InMemoryAccountSecurityAuthRevisionStore revisions;
     private TrustedPreMfaChallengeLifecycleService lifecycle;
     private Clock clock;
+    private final AtomicReference<Optional<TrustedPreMfaChallengeId>> boundChallenge = new AtomicReference<>(Optional.empty());
 
     @BeforeEach
     void setUp() {
@@ -46,22 +49,18 @@ class TotpMfaVerificationServiceTest {
         lifecycle = new TrustedPreMfaChallengeLifecycleService(clock, revisions);
     }
 
-    private IssueAndContext issueChallenge(UserId owner, long authRevision) {
-        var challengeId = lifecycle.issue(owner, authRevision, AuthenticationStage.MFA_REQUIRED);
-        TrustedMfaChallengeContextPort challenge = () -> Optional.of(challengeId);
-        return new IssueAndContext(challengeId, challenge);
+    private void bindFreshChallenge(UserId owner, long authRevision) {
+        boundChallenge.set(Optional.of(lifecycle.issue(owner, authRevision, AuthenticationStage.MFA_REQUIRED)));
     }
 
-    private record IssueAndContext(
-            io.sergiotr.financialplatform.identity.domain.TrustedPreMfaChallengeId challengeId,
-            TrustedMfaChallengeContextPort context) {}
+    private TrustedMfaChallengeContextPort serverChallengeContext() {
+        return () -> boundChallenge.get();
+    }
 
     private TotpMfaVerificationService service(
-            TrustedMfaChallengeContextPort challenge,
-            TotpAuthenticatorBindingReadPort bindings,
-            AuthenticatorStepCompareAndSetPort cas) {
+            TotpAuthenticatorBindingReadPort bindings, AuthenticatorStepCompareAndSetPort cas) {
         TotpSecretReadPort secrets = id -> Optional.of(new TotpSeed(RFC_SECRET));
-        return new TotpMfaVerificationService(clock, challenge, lifecycle, secrets, bindings, cas);
+        return new TotpMfaVerificationService(clock, serverChallengeContext(), lifecycle, secrets, bindings, cas);
     }
 
     private static TotpAuthenticatorBindingReadPort activeBinding(UserId owner, long lastAcceptedStep) {
@@ -74,8 +73,8 @@ class TotpMfaVerificationServiceTest {
         var crypto = new Rfc6238TotpCryptographicVerifier(clock);
         String code = String.format("%06d", crypto.codeAtEpochSecond(new TotpSeed(RFC_SECRET), 1_234_567_890L)
                 .orElseThrow());
-        var issued = issueChallenge(OWNER, 3L);
-        var svc = service(issued.context(), activeBinding(OWNER, -1), new FailClosedAuthenticatorStepCompareAndSetPort());
+        bindFreshChallenge(OWNER, 3L);
+        var svc = service(activeBinding(OWNER, -1), new FailClosedAuthenticatorStepCompareAndSetPort());
         assertEquals(TotpVerificationOutcome.REPLAY_PERSISTENCE_NOT_CONFIGURED, svc.verify(AUTH, code));
     }
 
@@ -85,19 +84,20 @@ class TotpMfaVerificationServiceTest {
         String code = String.format("%06d", crypto.codeAtEpochSecond(new TotpSeed(RFC_SECRET), 1_234_567_890L)
                 .orElseThrow());
         var fakeCas = new UnitTestOnlyInMemoryStepCas(OWNER);
-        var issued = issueChallenge(OWNER, 3L);
-        var svc = service(issued.context(), activeBinding(OWNER, -1), fakeCas);
+        bindFreshChallenge(OWNER, 3L);
+        var svc = service(activeBinding(OWNER, -1), fakeCas);
         assertEquals(TotpVerificationOutcome.ACCEPTED, svc.verify(AUTH, code));
+        bindFreshChallenge(OWNER, 3L);
         assertEquals(TotpVerificationOutcome.REPLAY_STEP_ALREADY_ACCEPTED, svc.verify(AUTH, code));
     }
 
     @Test
     void deniesInactiveAuthenticatorAndUnknownSecret() {
-        var issued = issueChallenge(OWNER, 3L);
+        bindFreshChallenge(OWNER, 3L);
         TotpSecretReadPort noSecret = id -> Optional.empty();
         var serviceNoSecret = new TotpMfaVerificationService(
                 clock,
-                issued.context(),
+                serverChallengeContext(),
                 lifecycle,
                 noSecret,
                 activeBinding(OWNER, -1),
@@ -107,7 +107,7 @@ class TotpMfaVerificationServiceTest {
         TotpAuthenticatorBindingReadPort revoked =
                 id -> Optional.of(new TotpAuthenticatorBindingReadPort.Binding(
                         OWNER, TotpAuthenticatorBindingReadPort.Status.REVOKED, -1, 0));
-        var serviceInactive = service(issued.context(), revoked, new FailClosedAuthenticatorStepCompareAndSetPort());
+        var serviceInactive = service(revoked, new FailClosedAuthenticatorStepCompareAndSetPort());
         assertEquals(TotpVerificationOutcome.AUTHENTICATOR_INACTIVE, serviceInactive.verify(AUTH, "005924"));
     }
 
@@ -122,25 +122,24 @@ class TotpMfaVerificationServiceTest {
                 new FailClosedAuthenticatorStepCompareAndSetPort());
         assertEquals(TotpVerificationOutcome.TRUSTED_CHALLENGE_MISSING, noChallenge.verify(AUTH, "005924"));
 
-        var foreignIssued = issueChallenge(FOREIGN, 3L);
-        var foreignActor = service(
-                foreignIssued.context(), activeBinding(OWNER, -1), new FailClosedAuthenticatorStepCompareAndSetPort());
+        bindFreshChallenge(FOREIGN, 3L);
+        var foreignActor = service(activeBinding(OWNER, -1), new FailClosedAuthenticatorStepCompareAndSetPort());
         assertEquals(TotpVerificationOutcome.AUTHENTICATOR_OWNER_MISMATCH, foreignActor.verify(AUTH, "005924"));
     }
 
     @Test
     void deniesStaleAuthRevisionBeforeTotp() {
-        var issued = issueChallenge(OWNER, 3L);
+        bindFreshChallenge(OWNER, 3L);
         revisions.setRevision(OWNER, 4L);
-        var svc = service(issued.context(), activeBinding(OWNER, -1), new FailClosedAuthenticatorStepCompareAndSetPort());
+        var svc = service(activeBinding(OWNER, -1), new FailClosedAuthenticatorStepCompareAndSetPort());
         assertEquals(TotpVerificationOutcome.TRUSTED_CHALLENGE_STALE_AUTH_REVISION, svc.verify(AUTH, "005924"));
     }
 
     @Test
     void deniesUnknownAuthenticator() {
-        var issued = issueChallenge(OWNER, 3L);
+        bindFreshChallenge(OWNER, 3L);
         TotpAuthenticatorBindingReadPort unknown = id -> Optional.empty();
-        var svc = service(issued.context(), unknown, new FailClosedAuthenticatorStepCompareAndSetPort());
+        var svc = service(unknown, new FailClosedAuthenticatorStepCompareAndSetPort());
         assertEquals(TotpVerificationOutcome.AUTHENTICATOR_UNKNOWN, svc.verify(AUTH, "005924"));
     }
 
