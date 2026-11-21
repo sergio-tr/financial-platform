@@ -12,14 +12,11 @@ final class SecurityContextWorkspaceActorAdapter implements WorkspaceActorContex
     @Override
     public Optional<TrustedWorkspaceActor> currentActor() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication == null) {
+        if (authentication == null || !authentication.isAuthenticated()) {
             return Optional.empty();
         }
         if (authentication instanceof SyntheticTrustedActorAuthentication synthetic) {
             return Optional.of(synthetic.actor());
-        }
-        if (authentication.getPrincipal() instanceof TrustedWorkspaceActor actor) {
-            return Optional.of(actor);
         }
         return Optional.empty();
     }
