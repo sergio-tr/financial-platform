@@ -77,26 +77,6 @@ public final class Rfc6238TotpCryptographicVerifier {
         return false;
     }
 
-    public boolean matchesWithExpandedWindow(TotpSeed seed, String totpCode, int extraStepsBeyondPermitted) {
-        long currentStep = epochSecondToStep(clock.instant());
-        byte[] key = seed.copyMaterial();
-        try {
-            int limit = PERMITTED_WINDOW_STEPS + extraStepsBeyondPermitted;
-            for (long offset = -limit; offset <= limit; offset++) {
-                long candidate = currentStep + offset;
-                if (candidate < 0) {
-                    continue;
-                }
-                if (constantTimeEquals(computeTotpCode(key, candidate), totpCode)) {
-                    return true;
-                }
-            }
-        } finally {
-            java.util.Arrays.fill(key, (byte) 0);
-        }
-        return false;
-    }
-
   /** RFC 6238 / known-test helper: compute code for an explicit epoch second. */
     public OptionalInt codeAtEpochSecond(TotpSeed seed, long epochSecond) {
         Objects.requireNonNull(seed, "seed");

@@ -2,15 +2,13 @@ package io.sergiotr.financialplatform.identity.port;
 
 import io.sergiotr.financialplatform.identity.domain.AuthenticatorId;
 
-/** Active authenticator ownership/status (server-owned). */
-public interface TotpAuthenticatorStatusReadPort {
+/** @deprecated Prefer {@link TotpAuthenticatorBindingReadPort}. */
+@Deprecated(forRemoval = false)
+public interface TotpAuthenticatorStatusReadPort extends TotpAuthenticatorBindingReadPort {
 
-    enum Status {
-        ACTIVE,
-        DISABLED,
-        REVOKED,
-        UNKNOWN
+    /** @deprecated Use {@link #findBinding(AuthenticatorId)} */
+    @Deprecated(forRemoval = false)
+    default Status status(AuthenticatorId authenticatorId) {
+        return findBinding(authenticatorId).map(Binding::status).orElse(Status.UNKNOWN);
     }
-
-    Status status(AuthenticatorId authenticatorId);
 }

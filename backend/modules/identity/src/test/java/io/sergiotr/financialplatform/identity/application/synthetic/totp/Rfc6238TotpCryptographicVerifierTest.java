@@ -63,7 +63,7 @@ class Rfc6238TotpCryptographicVerifierTest {
         String twoStepsAhead =
                 Rfc6238TotpCryptographicVerifier.computeTotpCode(RFC_SECRET.clone(), step + 2);
         assertFalse(verifier.findGreatestMatchingStep(seed, twoStepsAhead, -1).isPresent());
-        assertTrue(verifier.matchesWithExpandedWindow(seed, twoStepsAhead, 1));
+        assertFalse(verifier.findGreatestMatchingStep(seed, twoStepsAhead, step + 1).isPresent());
     }
 
     @Test
