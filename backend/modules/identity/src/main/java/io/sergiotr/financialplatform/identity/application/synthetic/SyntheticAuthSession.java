@@ -2,10 +2,12 @@ package io.sergiotr.financialplatform.identity.application.synthetic;
 
 import io.sergiotr.financialplatform.identity.domain.AuthenticationStage;
 import io.sergiotr.financialplatform.identity.domain.SecurityAssuranceStatus;
+import io.sergiotr.financialplatform.identity.domain.TrustedPreMfaChallengeId;
 import io.sergiotr.financialplatform.identity.domain.TrustedWorkspaceActor;
 import io.sergiotr.financialplatform.identity.domain.UserId;
 import java.time.Instant;
 import java.util.Objects;
+import java.util.Optional;
 
 /** In-memory synthetic session; construct only from this package via the state machine. */
 record SyntheticAuthSession(
@@ -14,13 +16,15 @@ record SyntheticAuthSession(
         long authRevision,
         Instant stageExpiresAt,
         boolean disabled,
-        AuthSessionTrustMark trustMark) {
+        AuthSessionTrustMark trustMark,
+        Optional<TrustedPreMfaChallengeId> preMfaChallengeId) {
 
     SyntheticAuthSession {
         Objects.requireNonNull(userId, "userId");
         Objects.requireNonNull(stage, "stage");
         Objects.requireNonNull(stageExpiresAt, "stageExpiresAt");
         Objects.requireNonNull(trustMark, "trustMark");
+        Objects.requireNonNull(preMfaChallengeId, "preMfaChallengeId");
         if (authRevision < 0) {
             throw new IllegalArgumentException("authRevision");
         }
