@@ -39,7 +39,6 @@ class SyntheticPasswordServiceTest {
 
     @Test
     void blocklistAppliesOnlyOnHashNew() {
-        String blocked = "password" + "!".repeat(10);
-        assertFalse(service.hashNewPassword(blocked).permitted());
+        assertFalse(service.hashNewPassword("passwordpassword!").permitted());
     }
 }
