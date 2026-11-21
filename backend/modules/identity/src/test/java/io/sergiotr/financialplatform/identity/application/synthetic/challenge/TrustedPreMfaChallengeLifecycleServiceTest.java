@@ -66,9 +66,10 @@ class TrustedPreMfaChallengeLifecycleServiceTest {
                 1L,
                 SyntheticAuthFixtureSupport.BOB_PRIMARY_PASSWORD,
                 AuthenticationStage.MFA_REQUIRED);
-        var swapped = new VerifiedPrimaryForMfaIssuance(
-                USER, 3L, AuthenticationStage.MFA_REQUIRED, otherIssuance.primaryProof());
-        assertThrows(IllegalArgumentException.class, () -> lifecycle.issueAfterVerifiedPrimary(swapped));
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> new VerifiedPrimaryForMfaIssuance(
+                        USER, 3L, AuthenticationStage.MFA_REQUIRED, otherIssuance.primaryProof()));
     }
 
     @Test
