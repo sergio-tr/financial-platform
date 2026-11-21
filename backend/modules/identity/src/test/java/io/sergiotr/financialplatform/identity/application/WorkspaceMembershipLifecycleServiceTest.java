@@ -119,6 +119,53 @@ class WorkspaceMembershipLifecycleServiceTest {
     }
 
     @Test
+    void adminCannotRevokeOwnerWhenTwoOwnersExist() {
+        store.putMembership(
+                SyntheticWorkspaceFixtures.CAROL,
+                SyntheticWorkspaceFixtures.ALPHA_WORKSPACE,
+                WorkspaceRole.OWNER,
+                MembershipStatus.ACTIVE,
+                1L);
+        store.putMembership(
+                SyntheticWorkspaceFixtures.ALICE,
+                SyntheticWorkspaceFixtures.ALPHA_WORKSPACE,
+                WorkspaceRole.ADMIN,
+                MembershipStatus.ACTIVE,
+                3L);
+        var result = lifecycle.revokeMember(
+                SyntheticWorkspaceFixtures.ALICE,
+                3L,
+                SyntheticWorkspaceFixtures.ALPHA_WORKSPACE,
+                SyntheticWorkspaceFixtures.CAROL,
+                1L);
+        assertEquals(MembershipMutationDenialReason.PRIVILEGE_ESCALATION, result.mutationDenial().orElseThrow());
+    }
+
+    @Test
+    void adminCannotDemoteOwnerWhenTwoOwnersExist() {
+        store.putMembership(
+                SyntheticWorkspaceFixtures.CAROL,
+                SyntheticWorkspaceFixtures.ALPHA_WORKSPACE,
+                WorkspaceRole.OWNER,
+                MembershipStatus.ACTIVE,
+                1L);
+        store.putMembership(
+                SyntheticWorkspaceFixtures.ALICE,
+                SyntheticWorkspaceFixtures.ALPHA_WORKSPACE,
+                WorkspaceRole.ADMIN,
+                MembershipStatus.ACTIVE,
+                3L);
+        var result = lifecycle.changeRole(
+                SyntheticWorkspaceFixtures.ALICE,
+                3L,
+                SyntheticWorkspaceFixtures.ALPHA_WORKSPACE,
+                SyntheticWorkspaceFixtures.CAROL,
+                WorkspaceRole.MEMBER,
+                1L);
+        assertEquals(MembershipMutationDenialReason.PRIVILEGE_ESCALATION, result.mutationDenial().orElseThrow());
+    }
+
+    @Test
     void authorizationAfterRoleChangeDeniesStaleClientRevision() {
         lifecycle.changeRole(
                 SyntheticWorkspaceFixtures.ALICE,
