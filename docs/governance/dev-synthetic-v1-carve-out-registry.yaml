@@ -143,3 +143,13 @@ verticalSlices:
     allowedPathPrefixes:
       - backend/modules/identity/**
       - test/fixtures/synthetic/identity/**
+  - id: V1-IDENTITY-MFA-CREDENTIAL-LIFETIME
+    taskPacket: docs/governance/packets/SER-156-v1-identity-13.task-packet.yaml
+    dataClass: SYNTHETIC_ONLY
+    environments:
+      - DEV
+      - TEST
+      - CI_SYNTHETIC
+    allowedPathPrefixes:
+      - backend/modules/identity/**
+      - test/fixtures/synthetic/identity/**

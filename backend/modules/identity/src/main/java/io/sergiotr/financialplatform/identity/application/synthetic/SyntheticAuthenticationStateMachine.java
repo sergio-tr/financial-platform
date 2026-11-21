@@ -82,11 +82,11 @@ public final class SyntheticAuthenticationStateMachine {
                         : AuthSessionTrustMark.intermediate();
         Optional<TrustedPreMfaChallengeId> challengeId =
                 mintChallengeIdIfRequired(session, nextStage, event);
-        Optional<String> verifiedPrimary =
+        Optional<VerifiedPrimaryAuthProof> verifiedPrimary =
                 nextStage == AuthenticationStage.PRIMARY_AUTH_VERIFIED
                                 && event == AuthenticationTransitionEvent.VERIFY_PRIMARY_AUTH
-                        ? Optional.ofNullable(evidenceRef).filter(ref -> !ref.isBlank())
-                        : session.verifiedPrimaryEvidenceRef();
+                        ? Optional.of(mintAndRegisterPrimaryProof(session))
+                        : session.verifiedPrimaryProof();
         var next = mint(
                 session.userId(),
                 nextStage,
@@ -153,7 +153,7 @@ public final class SyntheticAuthenticationStateMachine {
             boolean disabled,
             AuthSessionTrustMark trustMark,
             Optional<TrustedPreMfaChallengeId> preMfaChallengeId,
-            Optional<String> verifiedPrimaryEvidenceRef) {
+            Optional<VerifiedPrimaryAuthProof> verifiedPrimaryProof) {
         return new SyntheticAuthSession(
                 userId,
                 stage,
@@ -162,7 +162,15 @@ public final class SyntheticAuthenticationStateMachine {
                 disabled,
                 trustMark,
                 preMfaChallengeId,
-                verifiedPrimaryEvidenceRef);
+                verifiedPrimaryProof);
+    }
+
+    private VerifiedPrimaryAuthProof mintAndRegisterPrimaryProof(SyntheticAuthSession session) {
+        var proof = VerifiedPrimaryAuthProof.mint(session.userId(), session.authRevision(), clock.instant(), expiresAt());
+        if (challengeLifecycle != null) {
+            challengeLifecycle.registerVerifiedPrimaryProof(proof);
+        }
+        return proof;
     }
 
     private Optional<TrustedPreMfaChallengeId> mintChallengeIdIfRequired(
@@ -173,19 +181,19 @@ public final class SyntheticAuthenticationStateMachine {
         if (session.stage() != AuthenticationStage.PRIMARY_AUTH_VERIFIED) {
             return Optional.empty();
         }
-        var primaryEvidence = session.verifiedPrimaryEvidenceRef();
-        if (primaryEvidence.isEmpty()) {
+        var primaryProof = session.verifiedPrimaryProof();
+        if (primaryProof.isEmpty()) {
             return Optional.empty();
         }
         if (event == AuthenticationTransitionEvent.DIRECT_MFA_CHALLENGE
                 && nextStage == AuthenticationStage.MFA_REQUIRED) {
             return Optional.of(challengeLifecycle.issueAfterVerifiedPrimary(new VerifiedPrimaryForMfaIssuance(
-                    session.userId(), session.authRevision(), nextStage, primaryEvidence.get())));
+                    session.userId(), session.authRevision(), nextStage, primaryProof.get())));
         }
         if (event == AuthenticationTransitionEvent.DIRECT_MFA_ENROLLMENT
                 && nextStage == AuthenticationStage.MFA_ENROLLMENT_REQUIRED) {
             return Optional.of(challengeLifecycle.issueAfterVerifiedPrimary(new VerifiedPrimaryForMfaIssuance(
-                    session.userId(), session.authRevision(), nextStage, primaryEvidence.get())));
+                    session.userId(), session.authRevision(), nextStage, primaryProof.get())));
         }
         return Optional.empty();
     }

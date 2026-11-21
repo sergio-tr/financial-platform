@@ -12,12 +12,10 @@ import io.sergiotr.financialplatform.identity.application.synthetic.password.Syn
 import io.sergiotr.financialplatform.identity.application.synthetic.password.SyntheticPasswordService;
 import io.sergiotr.financialplatform.identity.domain.SyntheticPasswordCredential;
 import io.sergiotr.financialplatform.identity.application.synthetic.SyntheticAuthFixtureSupport;
-import io.sergiotr.financialplatform.identity.application.synthetic.VerifiedPrimaryForMfaIssuance;
 import io.sergiotr.financialplatform.identity.application.synthetic.challenge.TrustedPreMfaChallengeLifecycleService;
 import io.sergiotr.financialplatform.identity.domain.UserAccountSecurityStatus;
 import io.sergiotr.financialplatform.identity.domain.AuthenticatorId;
 import io.sergiotr.financialplatform.identity.domain.TrustedPreMfaChallengeId;
-import io.sergiotr.financialplatform.identity.domain.AuthenticationStage;
 import io.sergiotr.financialplatform.identity.domain.TotpSeed;
 import io.sergiotr.financialplatform.identity.domain.UserId;
 import io.sergiotr.financialplatform.identity.port.AuthenticatorStepCompareAndSetPort;
@@ -66,18 +64,16 @@ class TotpMfaVerificationServiceTest {
                 OWNER, hasher.encode(SyntheticAuthFixtureSupport.ALICE_PRIMARY_PASSWORD), false));
         var primary =
                 new Argon2idTrustedPrimaryAuthEvidence(passwordStore, passwordService);
-        lifecycle = new TrustedPreMfaChallengeLifecycleService(clock, revisions, primary);
+        lifecycle = new TrustedPreMfaChallengeLifecycleService(clock, revisions);
     }
 
     private void bindFreshChallenge(UserId owner, long authRevision) {
-        var evidence = SyntheticAuthFixtureSupport.ALICE_PRIMARY_PASSWORD;
+        var password = owner.equals(FOREIGN) ? FOREIGN_PRIMARY_PASSWORD : SyntheticAuthFixtureSupport.ALICE_PRIMARY_PASSWORD;
         if (owner.equals(FOREIGN)) {
             ensureForeignPrimaryRegistered();
-            evidence = FOREIGN_PRIMARY_PASSWORD;
         }
-        var issuance = new VerifiedPrimaryForMfaIssuance(
-                owner, authRevision, AuthenticationStage.MFA_REQUIRED, evidence);
-        boundChallenge.set(Optional.of(lifecycle.issueAfterVerifiedPrimary(issuance)));
+        boundChallenge.set(Optional.of(SyntheticAuthFixtureSupport.issueMfaChallengeAfterPrimary(
+                clock, revisions, lifecycle, owner, authRevision, password)));
     }
 
     private void ensureForeignPrimaryRegistered() {
