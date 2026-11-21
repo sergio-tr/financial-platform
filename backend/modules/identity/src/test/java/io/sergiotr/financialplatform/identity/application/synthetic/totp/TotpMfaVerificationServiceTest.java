@@ -46,8 +46,7 @@ class TotpMfaVerificationServiceTest {
         lifecycle = new TrustedPreMfaChallengeLifecycleService(clock, revisions);
     }
 
-  private TrustedPreMfaChallengeLifecycleService.IssueAndContext issueChallenge(
-            UserId owner, long authRevision) {
+    private IssueAndContext issueChallenge(UserId owner, long authRevision) {
         var challengeId = lifecycle.issue(owner, authRevision, AuthenticationStage.MFA_REQUIRED);
         TrustedMfaChallengeContextPort challenge = () -> Optional.of(challengeId);
         return new IssueAndContext(challengeId, challenge);
