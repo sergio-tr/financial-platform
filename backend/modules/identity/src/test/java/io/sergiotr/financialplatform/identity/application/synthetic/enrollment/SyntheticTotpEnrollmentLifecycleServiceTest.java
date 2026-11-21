@@ -2,21 +2,23 @@ package io.sergiotr.financialplatform.identity.application.synthetic.enrollment;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import io.sergiotr.financialplatform.identity.adapter.memory.FailClosedTotpEnrollmentRuntimeActivationPort;
 import io.sergiotr.financialplatform.identity.adapter.memory.InMemoryAccountSecurityAuthRevisionStore;
 import io.sergiotr.financialplatform.identity.adapter.memory.SyntheticWorkspaceFixtures;
 import io.sergiotr.financialplatform.identity.application.synthetic.SyntheticAuthFixtureSupport;
 import io.sergiotr.financialplatform.identity.application.synthetic.challenge.TrustedPreMfaChallengeLifecycleService;
 import io.sergiotr.financialplatform.identity.application.synthetic.totp.Rfc6238TotpCryptographicVerifier;
 import io.sergiotr.financialplatform.identity.domain.TotpSeed;
+import io.sergiotr.financialplatform.identity.domain.TrustedPreMfaChallengeId;
 import io.sergiotr.financialplatform.identity.domain.UserAccountSecurityStatus;
-import io.sergiotr.financialplatform.identity.port.TotpEnrollmentRuntimeActivationPort;
+import io.sergiotr.financialplatform.identity.port.TrustedMfaChallengeContextPort;
 import java.nio.charset.StandardCharsets;
 import java.time.Clock;
 import java.time.Duration;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
+import java.util.Optional;
+import java.util.concurrent.atomic.AtomicReference;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -29,6 +31,7 @@ class SyntheticTotpEnrollmentLifecycleServiceTest {
     private TrustedPreMfaChallengeLifecycleService challengeLifecycle;
     private SyntheticAuthFixtureSupport.SyntheticPrimaryMfaAuth auth;
     private SyntheticTotpEnrollmentLifecycleService enrollment;
+    private final AtomicReference<Optional<TrustedPreMfaChallengeId>> boundChallenge = new AtomicReference<>(Optional.empty());
 
     @BeforeEach
     void setUp() {
@@ -37,26 +40,27 @@ class SyntheticTotpEnrollmentLifecycleServiceTest {
         revisionStore.setRevision(SyntheticWorkspaceFixtures.ALICE, 2L);
         challengeLifecycle = new TrustedPreMfaChallengeLifecycleService(clock, revisionStore);
         auth = SyntheticAuthFixtureSupport.aliceAndBobPrimaryArgon2();
+        TrustedMfaChallengeContextPort context = boundChallenge::get;
         enrollment = new SyntheticTotpEnrollmentLifecycleService(
-                clock,
-                revisionStore,
-                challengeLifecycle,
-                new FailClosedTotpEnrollmentRuntimeActivationPort(),
-                () -> RFC_SECRET.clone());
+                clock, revisionStore, challengeLifecycle, context, () -> RFC_SECRET.clone());
+    }
+
+    private void bindChallenge(TrustedPreMfaChallengeId id) {
+        boundChallenge.set(Optional.of(id));
     }
 
     @Test
     void happyPathPrimaryToConfirmedSyntheticWithoutAuthenticatedFull() {
         var challengeId = SyntheticAuthFixtureSupport.issueEnrollmentChallengeAfterPrimary(
                 clock, auth, challengeLifecycle, SyntheticWorkspaceFixtures.ALICE, 2L);
+        bindChallenge(challengeId);
         var started = enrollment.beginPending(challengeId);
         assertEquals(TotpEnrollmentOutcome.Result.PENDING_STARTED, started.result());
         assertTrue(started.pendingId().isPresent());
         assertTrue(started.pendingAuthenticatorId().isPresent());
 
         String code = currentTotpCode();
-        var confirmed = enrollment.confirm(
-                started.pendingId().orElseThrow(), SyntheticWorkspaceFixtures.ALICE, code);
+        var confirmed = enrollment.confirm(started.pendingId().orElseThrow(), code);
         assertEquals(TotpEnrollmentOutcome.Result.CONFIRMED_SYNTHETIC, confirmed.result());
         assertNotEquals(TotpEnrollmentOutcome.Result.DENIED_INVALID_TOTP, confirmed.result());
     }
@@ -65,6 +69,7 @@ class SyntheticTotpEnrollmentLifecycleServiceTest {
     void pendingRecordToStringNeverContainsSeedMaterial() {
         var challengeId = SyntheticAuthFixtureSupport.issueEnrollmentChallengeAfterPrimary(
                 clock, auth, challengeLifecycle, SyntheticWorkspaceFixtures.ALICE, 2L);
+        bindChallenge(challengeId);
         var started = enrollment.beginPending(challengeId);
         var recordText = started.toString();
         assertFalse(recordText.contains("12345678901234567890"));
@@ -75,10 +80,10 @@ class SyntheticTotpEnrollmentLifecycleServiceTest {
     void exactTenMinuteTtlDeniesAfterExpiry() {
         var challengeId = SyntheticAuthFixtureSupport.issueEnrollmentChallengeAfterPrimary(
                 clock, auth, challengeLifecycle, SyntheticWorkspaceFixtures.ALICE, 2L);
+        bindChallenge(challengeId);
         var started = enrollment.beginPending(challengeId);
         clock.advance(SyntheticTotpEnrollmentLifecycleService.PENDING_TTL);
-        var denied = enrollment.confirm(
-                started.pendingId().orElseThrow(), SyntheticWorkspaceFixtures.ALICE, currentTotpCode());
+        var denied = enrollment.confirm(started.pendingId().orElseThrow(), currentTotpCode());
         assertEquals(TotpEnrollmentOutcome.Result.DENIED_EXPIRED, denied.result());
     }
 
@@ -95,6 +100,7 @@ class SyntheticTotpEnrollmentLifecycleServiceTest {
     void rejectsDuplicatePendingForSameChallenge() {
         var challengeId = SyntheticAuthFixtureSupport.issueEnrollmentChallengeAfterPrimary(
                 clock, auth, challengeLifecycle, SyntheticWorkspaceFixtures.ALICE, 2L);
+        bindChallenge(challengeId);
         assertEquals(TotpEnrollmentOutcome.Result.PENDING_STARTED, enrollment.beginPending(challengeId).result());
         assertEquals(
                 TotpEnrollmentOutcome.Result.DENIED_DUPLICATE_PENDING, enrollment.beginPending(challengeId).result());
@@ -104,12 +110,11 @@ class SyntheticTotpEnrollmentLifecycleServiceTest {
     void rejectsDoubleConfirm() {
         var challengeId = SyntheticAuthFixtureSupport.issueEnrollmentChallengeAfterPrimary(
                 clock, auth, challengeLifecycle, SyntheticWorkspaceFixtures.ALICE, 2L);
+        bindChallenge(challengeId);
         var started = enrollment.beginPending(challengeId);
-        var first = enrollment.confirm(
-                started.pendingId().orElseThrow(), SyntheticWorkspaceFixtures.ALICE, currentTotpCode());
+        var first = enrollment.confirm(started.pendingId().orElseThrow(), currentTotpCode());
         assertEquals(TotpEnrollmentOutcome.Result.CONFIRMED_SYNTHETIC, first.result());
-        var second = enrollment.confirm(
-                started.pendingId().orElseThrow(), SyntheticWorkspaceFixtures.ALICE, currentTotpCode());
+        var second = enrollment.confirm(started.pendingId().orElseThrow(), currentTotpCode());
         assertEquals(TotpEnrollmentOutcome.Result.DENIED_NOT_PENDING, second.result());
     }
 
@@ -117,6 +122,7 @@ class SyntheticTotpEnrollmentLifecycleServiceTest {
     void rejectsCodeOutsideWindow() {
         var challengeId = SyntheticAuthFixtureSupport.issueEnrollmentChallengeAfterPrimary(
                 clock, auth, challengeLifecycle, SyntheticWorkspaceFixtures.ALICE, 2L);
+        bindChallenge(challengeId);
         var started = enrollment.beginPending(challengeId);
         long outsideEpoch =
                 clock.instant().getEpochSecond() + 2L * Rfc6238TotpCryptographicVerifier.TIME_STEP_SECONDS;
@@ -127,74 +133,72 @@ class SyntheticTotpEnrollmentLifecycleServiceTest {
                 outsideVerifier
                         .codeAtEpochSecond(new TotpSeed(RFC_SECRET), outsideEpoch)
                         .orElseThrow());
-        var denied = enrollment.confirm(
-                started.pendingId().orElseThrow(), SyntheticWorkspaceFixtures.ALICE, outside);
+        var denied = enrollment.confirm(started.pendingId().orElseThrow(), outside);
         assertEquals(TotpEnrollmentOutcome.Result.DENIED_INVALID_TOTP, denied.result());
     }
 
     @Test
-    void rejectsForeignOwner() {
+    void rejectsMismatchedServerChallengeContext() {
+        var aliceChallenge = SyntheticAuthFixtureSupport.issueEnrollmentChallengeAfterPrimary(
+                clock, auth, challengeLifecycle, SyntheticWorkspaceFixtures.ALICE, 2L);
+        bindChallenge(aliceChallenge);
+        var started = enrollment.beginPending(aliceChallenge);
+        revisionStore.setRevision(SyntheticWorkspaceFixtures.BOB, 2L);
+        var bobChallenge = SyntheticAuthFixtureSupport.issueEnrollmentChallengeAfterPrimary(
+                clock, auth, challengeLifecycle, SyntheticWorkspaceFixtures.BOB, 2L);
+        bindChallenge(bobChallenge);
+        var denied = enrollment.confirm(started.pendingId().orElseThrow(), currentTotpCode());
+        assertEquals(TotpEnrollmentOutcome.Result.DENIED_CHALLENGE_INACTIVE, denied.result());
+    }
+
+    @Test
+    void deniesWhenServerChallengeContextMissing() {
         var challengeId = SyntheticAuthFixtureSupport.issueEnrollmentChallengeAfterPrimary(
                 clock, auth, challengeLifecycle, SyntheticWorkspaceFixtures.ALICE, 2L);
+        bindChallenge(challengeId);
         var started = enrollment.beginPending(challengeId);
-        var denied = enrollment.confirm(
-                started.pendingId().orElseThrow(), SyntheticWorkspaceFixtures.BOB, currentTotpCode());
-        assertEquals(TotpEnrollmentOutcome.Result.DENIED_WRONG_OWNER, denied.result());
+        boundChallenge.set(Optional.empty());
+        assertEquals(
+                TotpEnrollmentOutcome.Result.DENIED_MISSING_CHALLENGE,
+                enrollment.confirm(started.pendingId().orElseThrow(), currentTotpCode()).result());
     }
 
     @Test
     void cancelRemovesPending() {
         var challengeId = SyntheticAuthFixtureSupport.issueEnrollmentChallengeAfterPrimary(
                 clock, auth, challengeLifecycle, SyntheticWorkspaceFixtures.ALICE, 2L);
+        bindChallenge(challengeId);
         var started = enrollment.beginPending(challengeId);
         assertEquals(
                 TotpEnrollmentOutcome.Result.CANCELLED,
-                enrollment.cancel(started.pendingId().orElseThrow(), SyntheticWorkspaceFixtures.ALICE).result());
+                enrollment.cancel(started.pendingId().orElseThrow()).result());
         assertEquals(
                 TotpEnrollmentOutcome.Result.DENIED_NOT_PENDING,
-                enrollment.confirm(
-                                started.pendingId().orElseThrow(),
-                                SyntheticWorkspaceFixtures.ALICE,
-                                currentTotpCode())
-                        .result());
+                enrollment.confirm(started.pendingId().orElseThrow(), currentTotpCode()).result());
     }
 
     @Test
     void staleAuthRevisionDeniedOnConfirm() {
         var challengeId = SyntheticAuthFixtureSupport.issueEnrollmentChallengeAfterPrimary(
                 clock, auth, challengeLifecycle, SyntheticWorkspaceFixtures.ALICE, 2L);
+        bindChallenge(challengeId);
         var started = enrollment.beginPending(challengeId);
         revisionStore.setRevision(SyntheticWorkspaceFixtures.ALICE, 99L);
         assertEquals(
                 TotpEnrollmentOutcome.Result.DENIED_STALE_AUTH_REVISION,
-                enrollment
-                        .confirm(started.pendingId().orElseThrow(), SyntheticWorkspaceFixtures.ALICE, currentTotpCode())
-                        .result());
+                enrollment.confirm(started.pendingId().orElseThrow(), currentTotpCode()).result());
     }
 
     @Test
     void disabledSubjectDeniedOnConfirm() {
         var challengeId = SyntheticAuthFixtureSupport.issueEnrollmentChallengeAfterPrimary(
                 clock, auth, challengeLifecycle, SyntheticWorkspaceFixtures.ALICE, 2L);
+        bindChallenge(challengeId);
         var started = enrollment.beginPending(challengeId);
         revisionStore.setStatus(SyntheticWorkspaceFixtures.ALICE, UserAccountSecurityStatus.DISABLED);
         assertEquals(
                 TotpEnrollmentOutcome.Result.DENIED_DISABLED,
-                enrollment
-                        .confirm(started.pendingId().orElseThrow(), SyntheticWorkspaceFixtures.ALICE, currentTotpCode())
-                        .result());
-    }
-
-    @Test
-    void runtimeActivationRemainsFailClosed() {
-        var tracking = new TrackingActivationPort();
-        var svc = new SyntheticTotpEnrollmentLifecycleService(
-                clock, revisionStore, challengeLifecycle, tracking, () -> RFC_SECRET.clone());
-        var challengeId = SyntheticAuthFixtureSupport.issueEnrollmentChallengeAfterPrimary(
-                clock, auth, challengeLifecycle, SyntheticWorkspaceFixtures.ALICE, 2L);
-        var started = svc.beginPending(challengeId);
-        svc.confirm(started.pendingId().orElseThrow(), SyntheticWorkspaceFixtures.ALICE, currentTotpCode());
-        assertEquals(TotpEnrollmentRuntimeActivationPort.ActivationOutcome.NOT_CONFIGURED, tracking.lastOutcome);
+                enrollment.confirm(started.pendingId().orElseThrow(), currentTotpCode()).result());
     }
 
     private String currentTotpCode() {
@@ -233,18 +237,6 @@ class SyntheticTotpEnrollmentLifecycleServiceTest {
         @Override
         public Instant instant() {
             return instant;
-        }
-    }
-
-    static final class TrackingActivationPort implements TotpEnrollmentRuntimeActivationPort {
-        ActivationOutcome lastOutcome;
-
-        @Override
-        public ActivationOutcome activateForRuntimeLogin(
-                io.sergiotr.financialplatform.identity.domain.UserId owner,
-                io.sergiotr.financialplatform.identity.domain.AuthenticatorId authenticatorId) {
-            lastOutcome = ActivationOutcome.NOT_CONFIGURED;
-            return lastOutcome;
         }
     }
 }

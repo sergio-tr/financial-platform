@@ -163,3 +163,13 @@ verticalSlices:
     allowedPathPrefixes:
       - backend/modules/identity/**
       - test/fixtures/synthetic/identity/**
+  - id: V1-IDENTITY-TOTP-ENROLLMENT-HARDENING
+    taskPacket: docs/governance/packets/SER-158-v1-identity-15.task-packet.yaml
+    dataClass: SYNTHETIC_ONLY
+    environments:
+      - DEV
+      - TEST
+      - CI_SYNTHETIC
+    allowedPathPrefixes:
+      - backend/modules/identity/**
+      - test/fixtures/synthetic/identity/**
