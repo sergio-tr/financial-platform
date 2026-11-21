@@ -1,0 +1,33 @@
+catalogVersion: 1
+sliceId: fixture-missing-retention
+parentTicket: SER-109
+authorityRefs:
+  - id: FIXTURE
+canonicalSinkVocabulary:
+  - application_heap_transient
+  - git_repository
+  - ci_artifact
+  - slack
+  - linear
+  - figma
+  - ai_inference
+  - rag_index
+  - external_export
+  - cloud_saas
+  - collaboration_tool
+fields:
+  - fieldId: fixture.retention.missing
+    boundedContext: identity
+    fieldFamily: subject_identifier
+    dataClass: PERSONAL
+    owner: FIXTURE
+    materializationStatus: SYNTHETIC_IN_MEMORY_ONLY
+    storageSurfaces:
+      - surface: synthetic_java_heap
+        permitted: true
+    sinks:
+      allow: [application_heap_transient]
+      deny: [git_repository, ci_artifact, slack, linear, figma, external_export, cloud_saas, collaboration_tool, ai_inference, rag_index]
+    retention:
+      status: REF
+    authorityRefs: [FIXTURE]

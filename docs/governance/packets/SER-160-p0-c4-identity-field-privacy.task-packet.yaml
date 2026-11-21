@@ -1,0 +1,51 @@
+schemaVersion: 1
+taskId: SER-160
+taskKind: GOVERNANCE
+mode: IMPLEMENT
+risk: SENSITIVE
+baseRevision: 58aa9c82973c9d5f0d06376bcbeddb9c8e52dc0e
+packetHash: 6f0eb42ec98e8555835c2bdfc82aa73d822d499d6397a16956958b00b26658fd
+authorityRefs:
+  - SER-160
+  - SER-109
+  - SER-20
+  - P0-R46
+  - P0-R47
+  - SER-159
+  - SER-110
+allowedPaths:
+  - docs/security/field-privacy-catalog/**
+  - docs/security/field-privacy-catalog.schema.json
+  - docs/planning/phase0-closure/SER-160_IDENTITY_FIELD_PRIVACY_GAPS.md
+  - docs/planning/phase0-closure/SER-20_P0_READINESS_EVIDENCE_MATRIX.md
+  - docs/governance/packets/SER-160-p0-c4-identity-field-privacy.task-packet.yaml
+  - scripts/governance/validate-ser-160-field-privacy-catalog.py
+  - scripts/governance/run-ser-160-catalog-fixtures.py
+  - test/fixtures/governance/ser-160/**
+  - .github/workflows/phase0-governance.yml
+  - MANIFEST.txt
+forbiddenPaths:
+  - backend/**
+  - frontend/**
+  - contracts/**
+  - infrastructure/**
+  - design/**
+  - docs/security/data-classification.yaml
+requirements: NOT_APPLICABLE
+contracts: NOT_APPLICABLE
+design: NOT_APPLICABLE
+tests: NOT_APPLICABLE
+security: NOT_APPLICABLE
+financial: NOT_APPLICABLE
+migrations: NOT_APPLICABLE
+workflows: NOT_APPLICABLE
+acceptance:
+  required: false
+  environment: CI_SYNTHETIC
+  humanApproval: true
+definitionOfDone:
+  - Field privacy catalog YAML + JSON Schema for SER-160 identity/workspace/session/MFA slice
+  - validate-ser-160-field-privacy-catalog.py PASS; negative ser-160 fixtures PASS
+  - phase0-governance wires validator; foundation traceability unchanged PASS
+  - G-IDW and G-COV-FIELD blockers documented; data-classification.yaml class owners unchanged
+  - SER-109 evidence matrix shows PARTIAL field slice only; not global Done

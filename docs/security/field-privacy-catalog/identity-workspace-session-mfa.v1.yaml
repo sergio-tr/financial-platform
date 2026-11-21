@@ -1,0 +1,517 @@
+catalogVersion: 1
+sliceId: SER-160-identity-field-privacy-v1
+parentTicket: SER-109
+statusNote: >
+  First SER-109 field-level slice (SER-160). Cross-refs SER-159 physical catalog and R46 class policy.
+  Does not complete SER-109 globally; does not change class-level owners in data-classification.yaml.
+  No runtime egress enforcement; governance validation only.
+physicalCatalogCrossRef: docs/security/postgres-physical-catalog/identity-workspace-session.v1.yaml
+classPolicyCrossRef: docs/security/data-classification.yaml
+retentionRegistryCrossRef: docs/security/retention-policies.yaml
+authorityRefs:
+  - id: P0-R46
+    source: data classification and sink deny-by-default
+  - id: P0-R47
+    source: retention cross-ref only
+  - id: SER-109
+    source: parent field inventory ticket
+  - id: SER-159
+    source: identity/workspace/session physical slice
+  - id: SER-110
+    source: retention registry baseline
+  - id: SER-24
+    source: Iteration 16/20 auth MFA semantics
+  - id: SER-25
+    source: workspace authorization
+  - id: SER-40
+    source: Spring Session JDBC naming
+  - id: SER-92
+    source: identity vocabulary enums
+canonicalSinkVocabulary:
+  - secretvault_protected_ipc_scoped_lease
+  - postgresql_encrypted_at_rest
+  - application_heap_transient
+  - structured_application_log_redacted
+  - application_trace_redacted
+  - rabbitmq
+  - outbox
+  - replay_buffer
+  - temporal
+  - ai_inference
+  - rag_index
+  - telemetry
+  - git_repository
+  - ci_artifact
+  - slack
+  - linear
+  - figma
+  - external_export
+  - cloud_saas
+  - collaboration_tool
+blockerMatrix:
+  - gapId: G-IDW-001
+    scope: identity.credential.argon2id_hash
+    status: OPEN
+    reason: Physical verifier column pending SER-159 ratification
+  - gapId: G-COV-FIELD-001
+    scope: finance.connectors.portfolio
+    status: OPEN
+    reason: SER-160 does not inventory non-identity contexts; SER-109 remainder
+fields:
+  - fieldId: identity.user.user_id
+    boundedContext: identity
+    fieldFamily: subject_identifier
+    dataClass: PERSONAL
+    owner: SER-160-slice-identity
+    materializationStatus: BLOCKED_DECISION
+    physicalBinding:
+      blockedGapId: G-IDW-002
+    storageSurfaces:
+      - surface: postgresql_planned_column
+        permitted: false
+        notes: Column name pending physical catalog ratification
+      - surface: synthetic_java_heap
+        permitted: true
+    sinks:
+      allow: [postgresql_encrypted_at_rest, application_heap_transient]
+      deny: [git_repository, ci_artifact, slack, linear, figma, external_export, cloud_saas, collaboration_tool, ai_inference, rag_index]
+    retention:
+      status: BLOCKED_DECISION
+      blockedReason: User profile retention not ratified in P0-R47 slice for this MWU
+    authorityRefs: [SER-92 UserId, P0-R46]
+    requirementRefs: [REQ-IDENTITY-001]
+    notes: Opaque UUID subject key; never collaboration or AI sinks.
+
+  - fieldId: identity.user.email
+    boundedContext: identity
+    fieldFamily: contact
+    dataClass: PERSONAL
+    owner: SER-160-slice-identity
+    materializationStatus: BLOCKED_DECISION
+    physicalBinding:
+      blockedGapId: G-IDW-002
+    storageSurfaces:
+      - surface: postgresql_planned_column
+        permitted: false
+      - surface: synthetic_java_heap
+        permitted: true
+    sinks:
+      allow: [postgresql_encrypted_at_rest]
+      deny: [git_repository, ci_artifact, slack, linear, figma, external_export, cloud_saas, collaboration_tool, ai_inference, rag_index, telemetry]
+    retention:
+      status: BLOCKED_DECISION
+      blockedReason: Email column retention pending human ratification
+    authorityRefs: [SER-24 I16, P0-R46]
+    notes: PERSONAL; default deny external export and AI.
+
+  - fieldId: identity.security.auth_revision
+    boundedContext: identity
+    fieldFamily: authorization_context
+    dataClass: SECURITY_SENSITIVE
+    owner: SER-160-slice-identity
+    materializationStatus: BLOCKED_DECISION
+    physicalBinding:
+      blockedGapId: G-IDW-002
+    storageSurfaces:
+      - surface: postgresql_planned_column
+        permitted: false
+      - surface: synthetic_java_heap
+        permitted: true
+      - surface: spring_session_attributes_jsonb
+        permitted: false
+        notes: Must not appear in Spring Session attribute JSONB bag
+    sinks:
+      allow: [postgresql_encrypted_at_rest, application_heap_transient]
+      deny: [ai_inference, rag_index, git_repository, ci_artifact, slack, linear, figma, collaboration_tool]
+    retention:
+      status: BLOCKED_DECISION
+      blockedReason: Revision registry retention ties to G-IDW-002 table ratification
+    authorityRefs: [SER-25, SER-92 authRevision]
+    requirementRefs: [REQ-WORKSPACE-003]
+
+  - fieldId: identity.credential.argon2id_password_hash
+    boundedContext: identity
+    fieldFamily: password_verifier
+    dataClass: SECURITY_SENSITIVE
+    owner: SER-160-slice-identity
+    materializationStatus: BLOCKED_DECISION
+    physicalBinding:
+      blockedGapId: G-IDW-001
+    storageSurfaces:
+      - surface: postgresql_planned_column
+        permitted: false
+      - surface: spring_session_attributes_jsonb
+        permitted: false
+      - surface: synthetic_java_heap
+        permitted: true
+        notes: DEV synthetic read port only; not production persistence claim
+    sinks:
+      allow: [postgresql_encrypted_at_rest, secretvault_protected_ipc_scoped_lease]
+      deny: [git_repository, ci_artifact, slack, linear, figma, ai_inference, rag_index, structured_application_log_redacted, rabbitmq, temporal]
+    retention:
+      status: BLOCKED_DECISION
+      blockedReason: Verifier at-rest retention pending G-IDW-001
+    authorityRefs: [SER-24 Iteration 16 Argon2id, G-IDW-001]
+    notes: Verifier hash only; distinct from raw password SECRET field.
+
+  - fieldId: identity.credential.raw_password
+    boundedContext: identity
+    fieldFamily: password_plaintext
+    dataClass: SECRET
+    owner: SER-160-slice-identity
+    materializationStatus: SYNTHETIC_IN_MEMORY_ONLY
+    storageSurfaces:
+      - surface: not_persisted
+        permitted: true
+        notes: Transient verification only; never logged or stored
+      - surface: postgresql_planned_column
+        permitted: false
+      - surface: spring_session_column
+        permitted: false
+      - surface: spring_session_attributes_jsonb
+        permitted: false
+    sinks:
+      allow: [application_heap_transient, secretvault_protected_ipc_scoped_lease]
+      deny:
+        - git_repository
+        - ci_artifact
+        - slack
+        - linear
+        - figma
+        - rabbitmq
+        - outbox
+        - replay_buffer
+        - temporal
+        - ai_inference
+        - rag_index
+        - telemetry
+        - structured_application_log_redacted
+        - application_trace_redacted
+        - postgresql_encrypted_at_rest
+        - external_export
+        - cloud_saas
+        - collaboration_tool
+    retention:
+      status: REF
+      policyRef: P0-R47/not_persisted_transient
+    authorityRefs: [SER-24 I16, P0-R46 SECRET]
+    notes: SECRET; SECRET only via SecretVault IPC scoped lease when explicitly designed.
+
+  - fieldId: identity.mfa.totp_seed_raw
+    boundedContext: identity
+    fieldFamily: totp_secret
+    dataClass: SECRET
+    owner: SER-160-slice-identity
+    materializationStatus: BLOCKED_DECISION
+    physicalBinding:
+      blockedGapId: G-IDW-003
+    storageSurfaces:
+      - surface: synthetic_java_heap
+        permitted: true
+        notes: Ephemeral enrollment vault in synthetic DEV only
+      - surface: postgresql_planned_column
+        permitted: false
+      - surface: spring_session_attributes_jsonb
+        permitted: false
+    sinks:
+      allow: [secretvault_protected_ipc_scoped_lease, application_heap_transient]
+      deny:
+        - git_repository
+        - ci_artifact
+        - slack
+        - linear
+        - figma
+        - rabbitmq
+        - outbox
+        - replay_buffer
+        - temporal
+        - ai_inference
+        - rag_index
+        - telemetry
+        - structured_application_log_redacted
+        - application_trace_redacted
+        - postgresql_encrypted_at_rest
+        - external_export
+        - cloud_saas
+        - collaboration_tool
+    retention:
+      status: BLOCKED_DECISION
+      blockedReason: Encrypted seed at-rest envelope pending G-IDW-003 and SER-103
+    authorityRefs: [SER-24 Iteration 20, G-IDW-003]
+    notes: Raw seed never in session bag or Git.
+
+  - fieldId: identity.mfa.totp_seed_secret_ref
+    boundedContext: identity
+    fieldFamily: totp_secret_ref
+    dataClass: SECRET
+    owner: SER-160-slice-identity
+    materializationStatus: BLOCKED_DECISION
+    physicalBinding:
+      blockedGapId: G-IDW-003
+    storageSurfaces:
+      - surface: postgresql_planned_column
+        permitted: false
+      - surface: spring_session_attributes_jsonb
+        permitted: false
+    sinks:
+      allow: [secretvault_protected_ipc_scoped_lease]
+      deny:
+        - git_repository
+        - ci_artifact
+        - slack
+        - linear
+        - figma
+        - ai_inference
+        - rag_index
+        - rabbitmq
+        - outbox
+        - replay_buffer
+        - temporal
+        - telemetry
+        - collaboration_tool
+        - postgresql_encrypted_at_rest
+    retention:
+      status: BLOCKED_DECISION
+      blockedReason: SecretRef persistence policy pending G-IDW-003
+    authorityRefs: [P0-R46, G-IDW-003]
+    notes: Opaque reference only; resolver inside SecretVault boundary.
+
+  - fieldId: identity.mfa.authenticator_last_accepted_step
+    boundedContext: identity
+    fieldFamily: totp_replay_checkpoint
+    dataClass: SECURITY_SENSITIVE
+    owner: SER-160-slice-identity
+    materializationStatus: BLOCKED_DECISION
+    physicalBinding:
+      blockedGapId: G-IDW-003
+    storageSurfaces:
+      - surface: postgresql_planned_column
+        permitted: false
+      - surface: synthetic_java_heap
+        permitted: true
+    sinks:
+      allow: [postgresql_encrypted_at_rest]
+      deny: [ai_inference, rag_index, git_repository, ci_artifact, slack, linear, figma, collaboration_tool]
+    retention:
+      status: BLOCKED_DECISION
+      blockedReason: PostgreSQL CAS column pending SER-24 I20 ratification
+    authorityRefs: [SER-24 Iteration 20, G-IDW-003]
+
+  - fieldId: identity.mfa.replay_state_version
+    boundedContext: identity
+    fieldFamily: totp_replay_version
+    dataClass: SECURITY_SENSITIVE
+    owner: SER-160-slice-identity
+    materializationStatus: BLOCKED_DECISION
+    physicalBinding:
+      blockedGapId: G-IDW-003
+    storageSurfaces:
+      - surface: postgresql_planned_column
+        permitted: false
+    sinks:
+      allow: [postgresql_encrypted_at_rest]
+      deny: [ai_inference, rag_index, git_repository, collaboration_tool]
+    retention:
+      status: BLOCKED_DECISION
+      blockedReason: CAS version column not ratified
+    authorityRefs: [SER-24 Iteration 20]
+
+  - fieldId: identity.mfa.pre_mfa_challenge_id
+    boundedContext: identity
+    fieldFamily: mfa_challenge
+    dataClass: SECURITY_SENSITIVE
+    owner: SER-160-slice-identity
+    materializationStatus: SYNTHETIC_IN_MEMORY_ONLY
+    physicalBinding:
+      blockedGapId: G-IDW-004
+    storageSurfaces:
+      - surface: synthetic_java_heap
+        permitted: true
+      - surface: postgresql_planned_column
+        permitted: false
+      - surface: spring_session_attributes_jsonb
+        permitted: false
+    sinks:
+      allow: [application_heap_transient]
+      deny: [git_repository, ci_artifact, slack, linear, figma, ai_inference, rag_index, rabbitmq, temporal]
+    retention:
+      status: REF
+      policyRef: P0-R47/ephemeral_challenge_ttl
+    authorityRefs: [SER-159 G-IDW-004, P0-R21]
+    notes: Opaque server-issued challenge id; 10m synthetic TTL in DEV.
+
+  - fieldId: identity.mfa.pending_enrollment_handle
+    boundedContext: identity
+    fieldFamily: totp_enrollment_pending
+    dataClass: SECURITY_SENSITIVE
+    owner: SER-160-slice-identity
+    materializationStatus: SYNTHETIC_IN_MEMORY_ONLY
+    physicalBinding:
+      blockedGapId: G-IDW-004
+    storageSurfaces:
+      - surface: synthetic_java_heap
+        permitted: true
+      - surface: spring_session_attributes_jsonb
+        permitted: false
+    sinks:
+      allow: [application_heap_transient]
+      deny: [git_repository, ci_artifact, slack, ai_inference, rag_index, collaboration_tool]
+    retention:
+      status: REF
+      policyRef: P0-R47/ephemeral_enrollment_ttl
+    authorityRefs: [SER-157 synthetic enrollment]
+
+  - fieldId: workspace.membership.workspace_id
+    boundedContext: workspace
+    fieldFamily: tenancy_key
+    dataClass: SECURITY_SENSITIVE
+    owner: SER-160-slice-workspace
+    materializationStatus: BLOCKED_DECISION
+    physicalBinding:
+      blockedGapId: G-IDW-007
+    storageSurfaces:
+      - surface: postgresql_planned_column
+        permitted: false
+    sinks:
+      allow: [postgresql_encrypted_at_rest, application_heap_transient]
+      deny: [external_export, cloud_saas, git_repository, ci_artifact, slack, linear, figma, ai_inference, rag_index]
+    retention:
+      status: BLOCKED_DECISION
+      blockedReason: Membership table retention pending G-IDW-007
+    authorityRefs: [REQ-WORKSPACE-002, G-IDW-007]
+    notes: Maps to physical R46 via workspace sensitivity; not FINANCIAL.
+
+  - fieldId: workspace.membership.role
+    boundedContext: workspace
+    fieldFamily: authorization_role
+    dataClass: SECURITY_SENSITIVE
+    owner: SER-160-slice-workspace
+    materializationStatus: BLOCKED_DECISION
+    physicalBinding:
+      blockedGapId: G-IDW-007
+    storageSurfaces:
+      - surface: postgresql_planned_column
+        permitted: false
+    sinks:
+      allow: [postgresql_encrypted_at_rest]
+      deny: [ai_inference, rag_index, git_repository, collaboration_tool, slack, linear, figma]
+    retention:
+      status: BLOCKED_DECISION
+      blockedReason: Role column ratification pending
+    authorityRefs: [SER-92 WorkspaceRole, SER-25]
+
+  - fieldId: platform_session.spring_session.primary_id
+    boundedContext: platform_session
+    fieldFamily: session_identifier
+    dataClass: SECURITY_SENSITIVE
+    owner: SER-160-slice-session
+    materializationStatus: NORMATIVE_PLANNED
+    physicalBinding:
+      postgresObjectKey: platform_session.spring_session
+      columnOrAttribute: PRIMARY_ID
+    storageSurfaces:
+      - surface: spring_session_column
+        permitted: true
+    sinks:
+      allow: [postgresql_encrypted_at_rest]
+      deny: [git_repository, ci_artifact, slack, linear, figma, ai_inference, rag_index, external_export]
+    retention:
+      status: REF
+      policyRef: SER-159/SESSION_OPERATIONAL
+    authorityRefs: [P0-R21 R21-02, SER-40]
+    requirementRefs: [REQ-IDENTITY-001]
+
+  - fieldId: platform_session.spring_session.principal_name
+    boundedContext: platform_session
+    fieldFamily: session_principal
+    dataClass: SECURITY_SENSITIVE
+    owner: SER-160-slice-session
+    materializationStatus: NORMATIVE_PLANNED
+    physicalBinding:
+      postgresObjectKey: platform_session.spring_session
+      columnOrAttribute: PRINCIPAL_NAME
+    storageSurfaces:
+      - surface: spring_session_column
+        permitted: true
+      - surface: spring_session_attributes_jsonb
+        permitted: false
+    sinks:
+      allow: [postgresql_encrypted_at_rest]
+      deny: [git_repository, ci_artifact, slack, linear, figma, ai_inference, rag_index]
+    retention:
+      status: REF
+      policyRef: SER-159/SESSION_OPERATIONAL
+    authorityRefs: [P0-R21 R21-02]
+
+  - fieldId: platform_session.spring_session_attributes.attribute_bytes
+    boundedContext: platform_session
+    fieldFamily: session_attribute_jsonb
+    dataClass: INTERNAL
+    owner: SER-160-slice-session
+    materializationStatus: NORMATIVE_PLANNED
+    physicalBinding:
+      postgresObjectKey: platform_session.spring_session_attributes
+      columnOrAttribute: ATTRIBUTE_BYTES
+    storageSurfaces:
+      - surface: spring_session_attributes_jsonb
+        permitted: true
+        notes: Allowlisted security DTOs only; see forbidden companion fields in this catalog
+    sinks:
+      allow: [postgresql_encrypted_at_rest]
+      deny: [git_repository, ci_artifact, slack, ai_inference, rag_index]
+    retention:
+      status: REF
+      policyRef: SER-159/SESSION_OPERATIONAL
+    authorityRefs: [P0-R21 R21-02]
+    notes: Container surface; must not store fields classified SECRET or raw credentials.
+
+  - fieldId: platform_session.forbidden.credentials_in_attribute_bag
+    boundedContext: platform_session
+    fieldFamily: session_bag_policy
+    dataClass: SECRET
+    owner: SER-160-slice-session
+    materializationStatus: NORMATIVE_PLANNED
+    storageSurfaces:
+      - surface: spring_session_attributes_jsonb
+        permitted: false
+        notes: Normative prohibition aggregate for validator — passwords, TOTP seeds, portfolio payloads
+    sinks:
+      allow: []
+      deny:
+        - git_repository
+        - ci_artifact
+        - slack
+        - linear
+        - figma
+        - ai_inference
+        - rag_index
+        - rabbitmq
+        - outbox
+        - replay_buffer
+        - temporal
+        - telemetry
+        - postgresql_encrypted_at_rest
+    retention:
+      status: REF
+      policyRef: P0-R47/not_persisted_transient
+    authorityRefs: [P0-R21 R21-02, P0-R46]
+    notes: Policy field documenting forbidden bag content classes.
+
+  - fieldId: audit.authentication.event_metadata
+    boundedContext: audit
+    fieldFamily: audit_payload
+    dataClass: SECURITY_SENSITIVE
+    owner: SER-160-slice-audit
+    materializationStatus: BLOCKED_DECISION
+    physicalBinding:
+      blockedGapId: G-IDW-008
+    storageSurfaces:
+      - surface: postgresql_planned_column
+        permitted: false
+    sinks:
+      allow: [postgresql_encrypted_at_rest, structured_application_log_redacted]
+      deny: [ai_inference, rag_index, git_repository, slack, linear, figma, external_export]
+    retention:
+      status: BLOCKED_DECISION
+      blockedReason: Append-only audit table not ratified (G-IDW-008)
+    authorityRefs: [SER-92 audit section, G-IDW-008]

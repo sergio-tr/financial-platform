@@ -228,6 +228,13 @@ docs/security/secretvault-normative-tests.yaml
 docs/security/postgres-physical-catalog.schema.json
 docs/security/postgres-physical-catalog/README.md
 docs/security/postgres-physical-catalog/identity-workspace-session.v1.yaml
+docs/security/field-privacy-catalog.schema.json
+docs/security/field-privacy-catalog/README.md
+docs/security/field-privacy-catalog/identity-workspace-session-mfa.v1.yaml
+docs/planning/phase0-closure/SER-160_IDENTITY_FIELD_PRIVACY_GAPS.md
+docs/governance/packets/SER-160-p0-c4-identity-field-privacy.task-packet.yaml
+scripts/governance/validate-ser-160-field-privacy-catalog.py
+scripts/governance/run-ser-160-catalog-fixtures.py
 docs/runbooks/workspace-deletion.md
 docs/runbooks/provider-disconnect.md
 docs/runbooks/data-export.md
