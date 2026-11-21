@@ -13,7 +13,9 @@ import io.sergiotr.financialplatform.identity.domain.UserAccountSecurityStatus;
 import io.sergiotr.financialplatform.identity.port.TotpEnrollmentRuntimeActivationPort;
 import java.nio.charset.StandardCharsets;
 import java.time.Clock;
+import java.time.Duration;
 import java.time.Instant;
+import java.time.ZoneId;
 import java.time.ZoneOffset;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,7 +24,7 @@ class SyntheticTotpEnrollmentLifecycleServiceTest {
 
     private static final byte[] RFC_SECRET = "12345678901234567890".getBytes(StandardCharsets.US_ASCII);
 
-    private Clock clock;
+    private MutableClock clock;
     private InMemoryAccountSecurityAuthRevisionStore revisionStore;
     private TrustedPreMfaChallengeLifecycleService challengeLifecycle;
     private SyntheticAuthFixtureSupport.SyntheticPrimaryMfaAuth auth;
@@ -30,7 +32,7 @@ class SyntheticTotpEnrollmentLifecycleServiceTest {
 
     @BeforeEach
     void setUp() {
-        clock = Clock.fixed(Instant.parse("2026-11-21T10:00:00Z"), ZoneOffset.UTC);
+        clock = new MutableClock(Instant.parse("2026-11-21T10:00:00Z"), ZoneOffset.UTC);
         revisionStore = new InMemoryAccountSecurityAuthRevisionStore();
         revisionStore.setRevision(SyntheticWorkspaceFixtures.ALICE, 2L);
         challengeLifecycle = new TrustedPreMfaChallengeLifecycleService(clock, revisionStore);
@@ -74,12 +76,8 @@ class SyntheticTotpEnrollmentLifecycleServiceTest {
         var challengeId = SyntheticAuthFixtureSupport.issueEnrollmentChallengeAfterPrimary(
                 clock, auth, challengeLifecycle, SyntheticWorkspaceFixtures.ALICE, 2L);
         var started = enrollment.beginPending(challengeId);
-        var expiredClock = Clock.fixed(
-                Instant.parse("2026-11-21T10:00:00Z").plus(SyntheticTotpEnrollmentLifecycleService.PENDING_TTL),
-                ZoneOffset.UTC);
-        var expiredEnrollment = new SyntheticTotpEnrollmentLifecycleService(
-                expiredClock, revisionStore, challengeLifecycle, new FailClosedTotpEnrollmentRuntimeActivationPort(), () -> RFC_SECRET.clone());
-        var denied = expiredEnrollment.confirm(
+        clock.advance(SyntheticTotpEnrollmentLifecycleService.PENDING_TTL);
+        var denied = enrollment.confirm(
                 started.pendingId().orElseThrow(), SyntheticWorkspaceFixtures.ALICE, currentTotpCode());
         assertEquals(TotpEnrollmentOutcome.Result.DENIED_EXPIRED, denied.result());
     }
@@ -204,6 +202,35 @@ class SyntheticTotpEnrollmentLifecycleServiceTest {
         return String.format(
                 "%06d",
                 verifier.codeAtEpochSecond(new TotpSeed(RFC_SECRET), clock.instant().getEpochSecond()).orElseThrow());
+    }
+
+    static final class MutableClock extends Clock {
+        private Instant instant;
+        private final ZoneId zone;
+
+        MutableClock(Instant start, ZoneId zone) {
+            this.instant = Objects.requireNonNull(start);
+            this.zone = Objects.requireNonNull(zone);
+        }
+
+        void advance(Duration duration) {
+            instant = instant.plus(duration);
+        }
+
+        @Override
+        public ZoneId getZone() {
+            return zone;
+        }
+
+        @Override
+        public Clock withZone(ZoneId zone) {
+            return new MutableClock(instant, zone);
+        }
+
+        @Override
+        public Instant instant() {
+            return instant;
+        }
     }
 
     static final class TrackingActivationPort implements TotpEnrollmentRuntimeActivationPort {
