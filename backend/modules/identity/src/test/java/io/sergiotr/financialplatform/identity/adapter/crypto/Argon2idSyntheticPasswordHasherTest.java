@@ -19,8 +19,8 @@ class Argon2idSyntheticPasswordHasherTest {
         String second = hasher.encode(password);
         assertNotEquals(first, second);
         assertTrue(first.startsWith("$argon2id$"));
-        assertTrue(first.contains("m=19456"));
-        assertTrue(first.contains("t=2"));
+        assertTrue(first.contains("m=" + Argon2idSyntheticPasswordHasher.MEMORY_COST_KIB));
+        assertTrue(first.contains("t=" + Argon2idSyntheticPasswordHasher.ITERATIONS));
         assertTrue(first.contains("p=1"));
         assertTrue(hasher.matches(password, first));
         assertTrue(hasher.matches(password, second));

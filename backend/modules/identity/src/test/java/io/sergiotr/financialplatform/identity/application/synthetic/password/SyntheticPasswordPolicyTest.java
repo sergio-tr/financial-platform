@@ -33,6 +33,8 @@ class SyntheticPasswordPolicyTest {
 
     @Test
     void rejectsBlockedCommonPasswordCaseInsensitive() {
-        assertFalse(policy.evaluateNewPassword("PASSWORDPASSWORD!").permitted());
+        assertFalse(SyntheticCommonPasswordBlocklist.defaultPolicy()
+                .evaluateNewPassword("PASSWORDPASSWORD!")
+                .permitted());
     }
 }

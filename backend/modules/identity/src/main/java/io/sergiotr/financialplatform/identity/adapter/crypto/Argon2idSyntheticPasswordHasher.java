@@ -11,12 +11,17 @@ import org.springframework.security.crypto.password.PasswordEncoder;
  */
 public final class Argon2idSyntheticPasswordHasher implements SyntheticPasswordHashPort {
 
-    public static final String FORMAT_ID = "spring-security-argon2id-v5_8";
+    /** SER-24 iteration-16 floor: 19 MiB memory cost in KiB. */
+    public static final int MEMORY_COST_KIB = 19 * 1024;
+
+    public static final int ITERATIONS = 2;
+
+    public static final String FORMAT_ID = "spring-security-argon2id-ser24-i16";
 
     private final PasswordEncoder delegate;
 
     public Argon2idSyntheticPasswordHasher() {
-        this(Argon2PasswordEncoder.defaultsForSpringSecurity_v5_8());
+        this(new Argon2PasswordEncoder(16, 32, 1, MEMORY_COST_KIB, ITERATIONS));
     }
 
     Argon2idSyntheticPasswordHasher(PasswordEncoder delegate) {
