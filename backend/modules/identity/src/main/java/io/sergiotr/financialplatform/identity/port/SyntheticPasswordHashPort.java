@@ -13,5 +13,6 @@ public interface SyntheticPasswordHashPort {
 
     boolean requiresUpgrade(String encodedHash);
 
-    String upgrade(String encodedHash);
+    /** Re-encodes with current parameters when {@link #requiresUpgrade(String)} is true. */
+    String upgrade(String encodedHash, String rawPassword);
 }

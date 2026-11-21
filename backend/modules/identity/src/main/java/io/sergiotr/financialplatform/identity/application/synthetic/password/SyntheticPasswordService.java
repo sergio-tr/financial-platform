@@ -19,8 +19,8 @@ public final class SyntheticPasswordService {
   /** Hash a new password after policy checks. */
     public SyntheticNewPasswordResult hashNewPassword(String rawPassword) {
         var decision = policy.evaluateNewPassword(rawPassword);
-        if (!decision.accepted()) {
-            return SyntheticNewPasswordResult.rejected(decision.violationReason().orElseThrow());
+        if (!decision.permitted()) {
+            return SyntheticNewPasswordResult.reject(decision.violationReason().orElseThrow());
         }
         return SyntheticNewPasswordResult.hashed(hasher.encode(rawPassword));
     }

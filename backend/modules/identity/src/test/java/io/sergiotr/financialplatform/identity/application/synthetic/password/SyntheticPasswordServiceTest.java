@@ -21,7 +21,7 @@ class SyntheticPasswordServiceTest {
     @Test
     void newPasswordRequiresPolicyButVerifyDoesNot() {
         var rejected = service.hashNewPassword("short");
-        assertFalse(rejected.accepted());
+        assertFalse(rejected.permitted());
         assertTrue(
                 rejected.violationReason().filter(v -> v == SyntheticPasswordPolicyViolation.TOO_SHORT).isPresent());
 
@@ -31,7 +31,7 @@ class SyntheticPasswordServiceTest {
 
         String acceptable = "unique-passphrase!";
         var hashed = service.hashNewPassword(acceptable);
-        assertTrue(hashed.accepted());
+        assertTrue(hashed.permitted());
         assertNotNull(hashed.encodedHash());
         assertTrue(service.verifyExistingPassword(acceptable, hashed.encodedHash()));
         assertFalse(service.verifyExistingPassword("wrong", hashed.encodedHash()));
@@ -40,6 +40,6 @@ class SyntheticPasswordServiceTest {
     @Test
     void blocklistAppliesOnlyOnHashNew() {
         String blocked = "password" + "!".repeat(10);
-        assertFalse(service.hashNewPassword(blocked).accepted());
+        assertFalse(service.hashNewPassword(blocked).permitted());
     }
 }

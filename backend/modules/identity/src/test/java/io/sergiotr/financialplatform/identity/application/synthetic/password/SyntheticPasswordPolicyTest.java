@@ -15,24 +15,24 @@ class SyntheticPasswordPolicyTest {
     @Test
     void acceptsFifteenCodePointsWithoutNormalization() {
         String fifteen = "a".repeat(15);
-        assertTrue(policy.evaluateNewPassword(fifteen).accepted());
-        assertTrue(policy.evaluateNewPassword(" " + fifteen).accepted());
+        assertTrue(policy.evaluateNewPassword(fifteen).permitted());
+        assertTrue(policy.evaluateNewPassword(" " + fifteen).permitted());
     }
 
     @Test
     void rejectsTooShortAndTooLong() {
-        assertFalse(policy.evaluateNewPassword("short").accepted());
+        assertFalse(policy.evaluateNewPassword("short").permitted());
         assertTrue(
                 policy.evaluateNewPassword("short")
                         .violationReason()
                         .filter(v -> v == SyntheticPasswordPolicyViolation.TOO_SHORT)
                         .isPresent());
         String tooLong = "x".repeat(SyntheticPasswordPolicy.MAX_CODE_POINTS + 1);
-        assertFalse(policy.evaluateNewPassword(tooLong).accepted());
+        assertFalse(policy.evaluateNewPassword(tooLong).permitted());
     }
 
     @Test
     void rejectsBlockedCommonPasswordCaseInsensitive() {
-        assertFalse(policy.evaluateNewPassword("PaSsWoRd!!!!!!!!").accepted());
+        assertFalse(policy.evaluateNewPassword("PaSsWoRd!!!!!!!!").permitted());
     }
 }

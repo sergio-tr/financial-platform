@@ -35,6 +35,13 @@ class Argon2idSyntheticPasswordHasherTest {
     }
 
     @Test
+    void freshHashDoesNotRequireUpgrade() {
+        String encoded = hasher.encode("upgrade-check-password");
+        assertFalse(hasher.requiresUpgrade(encoded));
+        assertEquals(encoded, hasher.upgrade(encoded, "upgrade-check-password"));
+    }
+
+    @Test
     void verifyLegacyShortPasswordWithoutPolicy() {
         String shortPassword = "legacy-short";
         String encoded = hasher.encode(shortPassword);

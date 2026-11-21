@@ -4,13 +4,13 @@ import io.sergiotr.financialplatform.identity.domain.SyntheticPasswordPolicyViol
 import java.util.Optional;
 
 public record SyntheticNewPasswordResult(
-        boolean accepted, String encodedHash, SyntheticPasswordPolicyViolation reason) {
+        boolean permitted, String encodedHash, SyntheticPasswordPolicyViolation reason) {
 
     public static SyntheticNewPasswordResult hashed(String encodedHash) {
         return new SyntheticNewPasswordResult(true, encodedHash, null);
     }
 
-    public static SyntheticNewPasswordResult rejected(SyntheticPasswordPolicyViolation reason) {
+    public static SyntheticNewPasswordResult reject(SyntheticPasswordPolicyViolation reason) {
         return new SyntheticNewPasswordResult(false, null, reason);
     }
 

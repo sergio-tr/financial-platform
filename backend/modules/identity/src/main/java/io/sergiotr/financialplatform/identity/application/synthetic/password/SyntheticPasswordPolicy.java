@@ -26,16 +26,16 @@ public final class SyntheticPasswordPolicy {
         Objects.requireNonNull(rawPassword, "rawPassword");
         int codePoints = rawPassword.codePointCount(0, rawPassword.length());
         if (codePoints < MIN_CODE_POINTS) {
-            return SyntheticPasswordPolicyDecision.rejected(SyntheticPasswordPolicyViolation.TOO_SHORT);
+            return SyntheticPasswordPolicyDecision.reject(SyntheticPasswordPolicyViolation.TOO_SHORT);
         }
         if (codePoints > MAX_CODE_POINTS) {
-            return SyntheticPasswordPolicyDecision.rejected(SyntheticPasswordPolicyViolation.TOO_LONG);
+            return SyntheticPasswordPolicyDecision.reject(SyntheticPasswordPolicyViolation.TOO_LONG);
         }
         String blockKey = toBlockKey(rawPassword);
         if (blockedCommonPasswordsLowercase.contains(blockKey)) {
-            return SyntheticPasswordPolicyDecision.rejected(SyntheticPasswordPolicyViolation.BLOCKED_COMMON_PASSWORD);
+            return SyntheticPasswordPolicyDecision.reject(SyntheticPasswordPolicyViolation.BLOCKED_COMMON_PASSWORD);
         }
-        return SyntheticPasswordPolicyDecision.accepted();
+        return SyntheticPasswordPolicyDecision.permit();
     }
 
     private static String toBlockKey(String rawPassword) {

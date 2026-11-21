@@ -49,19 +49,19 @@ public final class Argon2idSyntheticPasswordHasher implements SyntheticPasswordH
         if (encodedHash == null || encodedHash.isBlank()) {
             return true;
         }
-        if (delegate instanceof Argon2PasswordEncoder argon2) {
-            String upgraded = argon2.upgradeEncoding(encodedHash);
-            return upgraded != null && !upgraded.equals(encodedHash);
+        try {
+            return delegate.upgradeEncoding(encodedHash);
+        } catch (IllegalArgumentException ex) {
+            return true;
         }
-        return false;
     }
 
     @Override
-    public String upgrade(String encodedHash) {
+    public String upgrade(String encodedHash, String rawPassword) {
         Objects.requireNonNull(encodedHash, "encodedHash");
-        if (delegate instanceof Argon2PasswordEncoder argon2) {
-            String upgraded = argon2.upgradeEncoding(encodedHash);
-            return upgraded != null ? upgraded : encodedHash;
+        Objects.requireNonNull(rawPassword, "rawPassword");
+        if (requiresUpgrade(encodedHash)) {
+            return encode(rawPassword);
         }
         return encodedHash;
     }
