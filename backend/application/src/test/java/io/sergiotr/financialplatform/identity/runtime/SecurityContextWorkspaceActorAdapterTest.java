@@ -37,4 +37,13 @@ class SecurityContextWorkspaceActorAdapterTest {
 
         assertThat(adapter.currentActor()).contains(actor);
     }
+
+    @Test
+    void exposesPreMfaSyntheticTokenForInsufficientAssuranceDeny() {
+        var actor = new TrustedWorkspaceActor(UserId.parse("10000000-0000-4000-8000-000000000001"), 1L,
+                SecurityAssuranceStatus.PRE_MFA);
+        SecurityContextHolder.getContext().setAuthentication(new SyntheticTrustedActorAuthentication(actor));
+
+        assertThat(adapter.currentActor()).contains(actor);
+    }
 }
