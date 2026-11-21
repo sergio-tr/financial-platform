@@ -1,6 +1,5 @@
 package io.sergiotr.financialplatform.identity.adapter.crypto;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -9,8 +8,6 @@ import io.sergiotr.financialplatform.identity.application.synthetic.SyntheticAut
 import io.sergiotr.financialplatform.identity.application.synthetic.password.SyntheticCommonPasswordBlocklist;
 import io.sergiotr.financialplatform.identity.application.synthetic.password.SyntheticPasswordPolicy;
 import io.sergiotr.financialplatform.identity.application.synthetic.password.SyntheticPasswordService;
-import io.sergiotr.financialplatform.identity.domain.AuthenticationStage;
-import io.sergiotr.financialplatform.identity.domain.AuthenticationTransitionEvent;
 import io.sergiotr.financialplatform.identity.domain.UserId;
 import org.junit.jupiter.api.Test;
 
@@ -39,18 +36,4 @@ class Argon2idTrustedPrimaryAuthEvidenceTest {
         SyntheticAuthFixtureSupport.ALICE_PRIMARY_PASSWORD));
   }
 
-  @Test
-  void passwordSuccessDoesNotSkipMfa() {
-    var auth = SyntheticAuthFixtureSupport.aliceAndBobPrimaryArgon2();
-    var clock = java.time.Clock.systemUTC();
-    var machine = new io.sergiotr.financialplatform.identity.application.synthetic.SyntheticAuthenticationStateMachine(
-        clock, auth.primary(), auth.mfa());
-    var session = machine.begin(SyntheticWorkspaceFixtures.ALICE, 2L);
-    var primary = machine.transition(
-        session, AuthenticationTransitionEvent.VERIFY_PRIMARY_AUTH, SyntheticAuthFixtureSupport.ALICE_PRIMARY_PASSWORD);
-    assertTrue(primary.result().applied());
-    assertEquals(
-        AuthenticationStage.PRIMARY_AUTH_VERIFIED, primary.nextSession().orElseThrow().stage());
-    assertFalse(primary.nextSession().orElseThrow().toTrustedActor().hasWorkspaceAssurance());
-  }
 }

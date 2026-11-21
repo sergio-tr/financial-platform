@@ -29,6 +29,18 @@ class SyntheticAuthenticationStateMachineTest {
     }
 
     @Test
+    void argon2PrimaryVerifiedDoesNotGrantAuthenticatedFull() {
+        var session = machine.begin(SyntheticWorkspaceFixtures.ALICE, 2L);
+        var primary = machine.transition(
+                session,
+                AuthenticationTransitionEvent.VERIFY_PRIMARY_AUTH,
+                SyntheticAuthFixtureSupport.ALICE_PRIMARY_PASSWORD);
+        assertTrue(primary.result().applied());
+        assertEquals(AuthenticationStage.PRIMARY_AUTH_VERIFIED, primary.nextSession().orElseThrow().stage());
+        assertFalse(primary.nextSession().orElseThrow().toTrustedActor().hasWorkspaceAssurance());
+    }
+
+    @Test
     void fullPathThroughMfaChallenge() {
         var session = machine.begin(SyntheticWorkspaceFixtures.ALICE, 2L);
         assertEquals(AuthenticationStage.ANONYMOUS, session.stage());
