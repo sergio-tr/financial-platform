@@ -80,4 +80,41 @@ public final class SyntheticAuthFixtureSupport {
         return lifecycle.issueAfterVerifiedPrimary(
                 new VerifiedPrimaryForMfaIssuance(user, authRevision, AuthenticationStage.MFA_REQUIRED, proof));
     }
+
+    /** Builds issuance DTO with server-minted proof (for tests outside the synthetic package). */
+    public static VerifiedPrimaryForMfaIssuance mintVerifiedPrimaryForMfaIssuance(
+            Clock clock,
+            TrustedPreMfaChallengeLifecycleService lifecycle,
+            UserId user,
+            long authRevision,
+            String primaryPassword,
+            AuthenticationStage targetStage) {
+        var auth = aliceAndBobPrimaryArgon2();
+        var machine = new SyntheticAuthenticationStateMachine(clock, auth.primary(), auth.mfa(), lifecycle);
+        var primary = machine.transition(
+                machine.begin(user, authRevision),
+                AuthenticationTransitionEvent.VERIFY_PRIMARY_AUTH,
+                primaryPassword);
+        var proof = primary.nextSession().orElseThrow().verifiedPrimaryProof().orElseThrow();
+        return new VerifiedPrimaryForMfaIssuance(user, authRevision, targetStage, proof);
+    }
+
+    public static TrustedPreMfaChallengeId issueEnrollmentChallengeAfterPrimary(
+            Clock clock,
+            TrustedPreMfaChallengeLifecycleService lifecycle,
+            UserId user,
+            long authRevision,
+            String primaryPassword) {
+        var auth = aliceAndBobPrimaryArgon2();
+        var machine = new SyntheticAuthenticationStateMachine(clock, auth.primary(), auth.mfa(), lifecycle);
+        var verified = machine.transition(
+                        machine.begin(user, authRevision),
+                        AuthenticationTransitionEvent.VERIFY_PRIMARY_AUTH,
+                        primaryPassword)
+                .nextSession()
+                .orElseThrow();
+        var enrollment = machine.transition(
+                verified, AuthenticationTransitionEvent.DIRECT_MFA_ENROLLMENT, null);
+        return enrollment.nextSession().orElseThrow().preMfaChallengeId().orElseThrow();
+    }
 }

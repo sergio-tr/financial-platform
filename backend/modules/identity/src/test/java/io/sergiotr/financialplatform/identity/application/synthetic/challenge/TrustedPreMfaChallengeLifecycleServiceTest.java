@@ -4,14 +4,13 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import io.sergiotr.financialplatform.identity.adapter.memory.InMemoryAccountSecurityAuthRevisionStore;
 import io.sergiotr.financialplatform.identity.application.synthetic.SyntheticAuthFixtureSupport;
-import io.sergiotr.financialplatform.identity.application.synthetic.SyntheticAuthenticationStateMachine;
 import io.sergiotr.financialplatform.identity.application.synthetic.VerifiedPrimaryForMfaIssuance;
 import io.sergiotr.financialplatform.identity.domain.AuthenticationStage;
-import io.sergiotr.financialplatform.identity.domain.AuthenticationTransitionEvent;
 import io.sergiotr.financialplatform.identity.domain.UserAccountSecurityStatus;
 import io.sergiotr.financialplatform.identity.domain.UserId;
 import io.sergiotr.financialplatform.identity.port.TrustedPreMfaChallengeConsumePort;
 import java.time.Clock;
+import java.time.Duration;
 import java.time.Instant;
 import java.time.ZoneOffset;
 import java.util.Optional;
@@ -33,22 +32,13 @@ class TrustedPreMfaChallengeLifecycleServiceTest {
         securityStore = new InMemoryAccountSecurityAuthRevisionStore();
         securityStore.put(USER, 3L, UserAccountSecurityStatus.ENABLED);
         lifecycle = new TrustedPreMfaChallengeLifecycleService(clock, securityStore);
-        validIssuance = mintIssuanceThroughStateMachine(
-                USER, 3L, SyntheticAuthFixtureSupport.ALICE_PRIMARY_PASSWORD);
-    }
-
-  private VerifiedPrimaryForMfaIssuance mintIssuanceThroughStateMachine(
-            UserId user, long authRevision, String primaryPassword) {
-        var auth = SyntheticAuthFixtureSupport.aliceAndBobPrimaryArgon2();
-        var machine = new SyntheticAuthenticationStateMachine(clock, auth.primary(), auth.mfa(), lifecycle);
-        var primary = machine.transition(
-                machine.begin(user, authRevision),
-                AuthenticationTransitionEvent.VERIFY_PRIMARY_AUTH,
-                primaryPassword);
-        var verified = primary.nextSession().orElseThrow();
-        var proof = verified.verifiedPrimaryProof().orElseThrow();
-        return new VerifiedPrimaryForMfaIssuance(
-                user, authRevision, AuthenticationStage.MFA_REQUIRED, proof);
+        validIssuance = SyntheticAuthFixtureSupport.mintVerifiedPrimaryForMfaIssuance(
+                clock,
+                lifecycle,
+                USER,
+                3L,
+                SyntheticAuthFixtureSupport.ALICE_PRIMARY_PASSWORD,
+                AuthenticationStage.MFA_REQUIRED);
     }
 
     @Test
@@ -69,8 +59,13 @@ class TrustedPreMfaChallengeLifecycleServiceTest {
     void arbitraryUserIdProofMismatchRejected() {
         var other = UserId.parse("10000000-0000-4000-8000-000000000099");
         securityStore.put(other, 1L, UserAccountSecurityStatus.ENABLED);
-        var otherIssuance = mintIssuanceThroughStateMachine(
-                other, 1L, SyntheticAuthFixtureSupport.BOB_PRIMARY_PASSWORD);
+        var otherIssuance = SyntheticAuthFixtureSupport.mintVerifiedPrimaryForMfaIssuance(
+                clock,
+                lifecycle,
+                other,
+                1L,
+                SyntheticAuthFixtureSupport.BOB_PRIMARY_PASSWORD,
+                AuthenticationStage.MFA_REQUIRED);
         var swapped = new VerifiedPrimaryForMfaIssuance(
                 USER, 3L, AuthenticationStage.MFA_REQUIRED, otherIssuance.primaryProof());
         assertThrows(IllegalArgumentException.class, () -> lifecycle.issueAfterVerifiedPrimary(swapped));
@@ -120,17 +115,12 @@ class TrustedPreMfaChallengeLifecycleServiceTest {
 
     @Test
     void wrongStageEnrollmentChallengeNotValidForTotp() {
-        var auth = SyntheticAuthFixtureSupport.aliceAndBobPrimaryArgon2();
-        var machine = new SyntheticAuthenticationStateMachine(clock, auth.primary(), auth.mfa(), lifecycle);
-        var verified = machine.transition(
-                        machine.begin(USER, 3L),
-                        AuthenticationTransitionEvent.VERIFY_PRIMARY_AUTH,
-                        SyntheticAuthFixtureSupport.ALICE_PRIMARY_PASSWORD)
-                .nextSession()
-                .orElseThrow();
-        var enrollment = machine.transition(
-                verified, AuthenticationTransitionEvent.DIRECT_MFA_ENROLLMENT, null);
-        var challengeId = enrollment.nextSession().orElseThrow().preMfaChallengeId().orElseThrow();
+        var challengeId = SyntheticAuthFixtureSupport.issueEnrollmentChallengeAfterPrimary(
+                clock,
+                lifecycle,
+                USER,
+                3L,
+                SyntheticAuthFixtureSupport.ALICE_PRIMARY_PASSWORD);
         assertEquals(
                 TrustedPreMfaChallengeLifecycleService.ValidationOutcome.WRONG_STAGE,
                 lifecycle.validateForTotp(Optional.of(challengeId)));
