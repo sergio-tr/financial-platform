@@ -36,8 +36,9 @@ class SyntheticAuthenticationStateMachineTest {
                 AuthenticationTransitionEvent.VERIFY_PRIMARY_AUTH,
                 SyntheticAuthFixtureSupport.ALICE_PRIMARY_PASSWORD);
         assertTrue(primary.result().applied());
-        assertEquals(AuthenticationStage.PRIMARY_AUTH_VERIFIED, primary.nextSession().orElseThrow().stage());
-        assertFalse(primary.nextSession().orElseThrow().toTrustedActor().hasWorkspaceAssurance());
+        var afterPrimary = primary.nextSession().orElseThrow();
+        assertEquals(AuthenticationStage.PRIMARY_AUTH_VERIFIED, afterPrimary.stage());
+        assertThrows(IllegalStateException.class, afterPrimary::toTrustedActor);
     }
 
     @Test
