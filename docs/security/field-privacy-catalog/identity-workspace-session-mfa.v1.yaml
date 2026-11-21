@@ -55,8 +55,8 @@ blockerMatrix:
     reason: Physical verifier column pending SER-159 ratification
   - gapId: G-COV-FIELD-001
     scope: finance.connectors.portfolio
-    status: OPEN
-    reason: SER-160 does not inventory non-identity contexts; SER-109 remainder
+    status: PARTIAL
+    reason: SER-161 finance vertical slice in Git; connectors/AI remainder SER-109
 fields:
   - fieldId: identity.user.user_id
     boundedContext: identity

@@ -231,10 +231,17 @@ docs/security/postgres-physical-catalog/identity-workspace-session.v1.yaml
 docs/security/field-privacy-catalog.schema.json
 docs/security/field-privacy-catalog/README.md
 docs/security/field-privacy-catalog/identity-workspace-session-mfa.v1.yaml
+docs/security/field-privacy-catalog/manual-import-portfolio-snapshot.v1.yaml
 docs/planning/phase0-closure/SER-160_IDENTITY_FIELD_PRIVACY_GAPS.md
+docs/planning/phase0-closure/SER-161_FINANCE_FIELD_PRIVACY_GAPS.md
 docs/governance/packets/SER-160-p0-c4-identity-field-privacy.task-packet.yaml
+docs/governance/packets/SER-161-p0-c4-finance-field-privacy.task-packet.yaml
+scripts/governance/field_privacy_catalog_lib.py
 scripts/governance/validate-ser-160-field-privacy-catalog.py
+scripts/governance/validate-ser-161-field-privacy-catalog.py
+scripts/governance/validate-field-privacy-catalogs-regression.py
 scripts/governance/run-ser-160-catalog-fixtures.py
+scripts/governance/run-ser-161-catalog-fixtures.py
 docs/runbooks/workspace-deletion.md
 docs/runbooks/provider-disconnect.md
 docs/runbooks/data-export.md

@@ -18,7 +18,7 @@ Cross-refs: `docs/security/postgres-physical-catalog/identity-workspace-session.
 | Gap ID | Scope | Status |
 | --- | --- | --- |
 | G-IDW-001..008 | Physical PostgreSQL columns for identity/workspace/MFA/audit | OPEN (SER-159) |
-| G-COV-FIELD-001 | Finance, connectors, portfolio, AI context field inventories | OPEN (remainder SER-109) |
+| G-COV-FIELD-001 | Finance, connectors, portfolio, AI context field inventories | PARTIAL (SER-161 finance slice; connectors/AI remainder SER-109) |
 | G-COV-FIELD-002 | Global class owners in `data-classification.yaml` | OPEN (`PENDING (SER-109)`) |
 | G-COV-FIELD-003 | Runtime egress enforcement | OUT OF SCOPE (static CI validation only) |
 

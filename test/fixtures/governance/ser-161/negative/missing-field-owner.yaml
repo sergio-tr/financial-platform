@@ -1,0 +1,34 @@
+catalogVersion: 1
+sliceId: SER-161-fixture-missing-owner
+parentTicket: SER-109
+authorityRefs:
+  - id: FIXTURE
+canonicalSinkVocabulary:
+  - application_heap_transient
+  - git_repository
+  - ci_artifact
+  - slack
+  - linear
+  - figma
+  - ai_inference
+  - rag_index
+  - external_export
+  - cloud_saas
+  - collaboration_tool
+fields:
+  - fieldId: finance.position.lot_quantity
+    boundedContext: portfolio
+    fieldFamily: holding_quantity
+    dataClass: FINANCIAL_SENSITIVE
+    owner: ""
+    materializationStatus: SYNTHETIC_IN_MEMORY_ONLY
+    storageSurfaces:
+      - surface: application_heap_transient
+        permitted: true
+    sinks:
+      allow: [application_heap_transient]
+      deny: [git_repository, ci_artifact, slack, linear, figma, ai_inference, rag_index, external_export, cloud_saas, collaboration_tool]
+    retention:
+      status: REF
+      policyRef: FIXTURE
+    authorityRefs: [FIXTURE]

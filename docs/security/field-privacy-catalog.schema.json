@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "Field-level privacy and sink catalog (SER-109 / SER-160)",
-  "description": "Machine-readable Identity/Workspace/Session/MFA field classification. Static governance validation only; no runtime egress enforcement.",
+  "title": "Field-level privacy and sink catalog (SER-109)",
+  "description": "Machine-readable field classification (SER-160 Identity, SER-161 Finance slices). Static governance validation only; no runtime egress enforcement.",
   "type": "object",
   "required": [
     "catalogVersion",
@@ -39,6 +39,10 @@
     "blockerMatrix": {
       "type": "array",
       "items": { "$ref": "#/$defs/blockerRow" }
+    },
+    "crossCatalogRefs": {
+      "type": "array",
+      "items": { "type": "string" }
     }
   },
   "$defs": {
@@ -138,6 +142,8 @@
             "spring_session_attributes_jsonb",
             "postgresql_planned_column",
             "synthetic_java_heap",
+            "application_heap_transient",
+            "secretvault_lease_only",
             "not_persisted"
           ]
         },
@@ -173,7 +179,16 @@
         "fieldId": { "type": "string", "pattern": "^[a-z][a-z0-9._-]+$" },
         "boundedContext": {
           "type": "string",
-          "enum": ["identity", "workspace", "platform_session", "audit"]
+          "enum": [
+            "identity",
+            "workspace",
+            "platform_session",
+            "audit",
+            "connectivity",
+            "portfolio",
+            "instrument",
+            "portfolio-xray"
+          ]
         },
         "fieldFamily": { "type": "string", "minLength": 2 },
         "dataClass": { "$ref": "#/$defs/r46Class" },

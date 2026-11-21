@@ -38,17 +38,24 @@ jobs:
           else
             echo "SKIP SER-159 packet (paths not in PR)"
           fi
-      - name: SER-160 field privacy catalog slice
+      - name: Field privacy catalogs (SER-160 + SER-161)
         run: |
-          python scripts/governance/validate-ser-160-field-privacy-catalog.py
+          python scripts/governance/validate-field-privacy-catalogs-regression.py
           python scripts/governance/run-ser-160-catalog-fixtures.py
-      - name: SER-160 field privacy TaskPacket
+          python scripts/governance/run-ser-161-catalog-fixtures.py
+      - name: Field privacy TaskPackets
         if: github.event_name == 'pull_request'
         run: |
-          if git diff --name-only "${{ github.event.pull_request.base.sha }}" "${{ github.event.pull_request.head.sha }}" | grep -qE '^docs/security/field-privacy-catalog/|^docs/governance/packets/SER-160-'; then
+          CHANGED=$(git diff --name-only "${{ github.event.pull_request.base.sha }}" "${{ github.event.pull_request.head.sha }}")
+          if echo "$CHANGED" | grep -qE '^docs/security/field-privacy-catalog/|^docs/governance/packets/SER-160-'; then
             python scripts/governance/validate-task-packet.py docs/governance/packets/SER-160-p0-c4-identity-field-privacy.task-packet.yaml
           else
             echo "SKIP SER-160 packet (paths not in PR)"
+          fi
+          if echo "$CHANGED" | grep -qE '^docs/security/field-privacy-catalog/|^docs/governance/packets/SER-161-'; then
+            python scripts/governance/validate-task-packet.py docs/governance/packets/SER-161-p0-c4-finance-field-privacy.task-packet.yaml
+          else
+            echo "SKIP SER-161 packet (paths not in PR)"
           fi
       - name: Generated trace matrix clean
         run: python scripts/governance/generate-trace-matrix.py --check-clean

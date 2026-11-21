@@ -1,0 +1,56 @@
+schemaVersion: 1
+taskId: SER-161
+taskKind: GOVERNANCE
+mode: IMPLEMENT
+risk: SENSITIVE
+baseRevision: 62f84101e3c2dc754fccdb41db35c28aecb084d7
+packetHash: 0b402e4a5ffa1f2dcfa819d5cc30a188a7ad7f406d2c1f9270f938dad49bc1f9
+authorityRefs:
+  - SER-161
+  - SER-109
+  - SER-20
+  - P0-R46
+  - P0-R47
+  - P0-R24
+  - P0-R25
+  - SER-160
+allowedPaths:
+  - docs/security/field-privacy-catalog/**
+  - docs/security/field-privacy-catalog.schema.json
+  - docs/planning/phase0-closure/SER-161_FINANCE_FIELD_PRIVACY_GAPS.md
+  - docs/planning/phase0-closure/SER-160_IDENTITY_FIELD_PRIVACY_GAPS.md
+  - docs/planning/phase0-closure/SER-20_P0_READINESS_EVIDENCE_MATRIX.md
+  - docs/governance/packets/SER-161-p0-c4-finance-field-privacy.task-packet.yaml
+  - scripts/governance/field_privacy_catalog_lib.py
+  - scripts/governance/validate-ser-160-field-privacy-catalog.py
+  - scripts/governance/validate-ser-161-field-privacy-catalog.py
+  - scripts/governance/validate-field-privacy-catalogs-regression.py
+  - scripts/governance/run-ser-161-catalog-fixtures.py
+  - test/fixtures/governance/ser-161/**
+  - .github/workflows/phase0-governance.yml
+  - MANIFEST.txt
+forbiddenPaths:
+  - backend/**
+  - frontend/**
+  - contracts/**
+  - infrastructure/**
+  - design/**
+  - docs/security/data-classification.yaml
+requirements: NOT_APPLICABLE
+contracts: NOT_APPLICABLE
+design: NOT_APPLICABLE
+tests: NOT_APPLICABLE
+security: NOT_APPLICABLE
+financial: NOT_APPLICABLE
+migrations: NOT_APPLICABLE
+workflows: NOT_APPLICABLE
+acceptance:
+  required: false
+  environment: CI_SYNTHETIC
+  humanApproval: true
+definitionOfDone:
+  - Finance field privacy catalog YAML (22 families) + schema extension for finance BCs
+  - Shared lib + regression validates SER-160 and SER-161 catalogs
+  - validate-ser-161 + eight negative fixtures PASS; phase0-governance wired
+  - G-FIN-001/002 and G-COV-FIELD blockers documented; global SER-109 still PARTIAL
+  - No product code; data-classification.yaml class owners unchanged
