@@ -1,6 +1,8 @@
 package io.sergiotr.financialplatform.identity.application.synthetic;
 
+import io.sergiotr.financialplatform.identity.application.synthetic.challenge.TrustedPreMfaChallengeLifecycleService;
 import io.sergiotr.financialplatform.identity.domain.AuthenticationStage;
+import io.sergiotr.financialplatform.identity.domain.TrustedPreMfaChallengeId;
 import io.sergiotr.financialplatform.identity.domain.AuthenticationTransitionDenialReason;
 import io.sergiotr.financialplatform.identity.domain.AuthenticationTransitionEvent;
 import io.sergiotr.financialplatform.identity.domain.AuthenticationTransitionResult;
@@ -11,6 +13,7 @@ import java.time.Clock;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.Objects;
+import java.util.Optional;
 
 public final class SyntheticAuthenticationStateMachine {
 
@@ -19,12 +22,22 @@ public final class SyntheticAuthenticationStateMachine {
     private final Clock clock;
     private final TrustedPrimaryAuthEvidencePort primaryAuthEvidence;
     private final TrustedMfaEvidencePort mfaEvidence;
+    private final TrustedPreMfaChallengeLifecycleService challengeLifecycle;
 
     public SyntheticAuthenticationStateMachine(
             Clock clock, TrustedPrimaryAuthEvidencePort primaryAuthEvidence, TrustedMfaEvidencePort mfaEvidence) {
+        this(clock, primaryAuthEvidence, mfaEvidence, null);
+    }
+
+    public SyntheticAuthenticationStateMachine(
+            Clock clock,
+            TrustedPrimaryAuthEvidencePort primaryAuthEvidence,
+            TrustedMfaEvidencePort mfaEvidence,
+            TrustedPreMfaChallengeLifecycleService challengeLifecycle) {
         this.clock = Objects.requireNonNull(clock, "clock");
         this.primaryAuthEvidence = Objects.requireNonNull(primaryAuthEvidence, "primaryAuthEvidence");
         this.mfaEvidence = Objects.requireNonNull(mfaEvidence, "mfaEvidence");
+        this.challengeLifecycle = challengeLifecycle;
     }
 
     public SyntheticAuthSession begin(UserId userId, long authRevision) {
@@ -60,7 +73,9 @@ public final class SyntheticAuthenticationStateMachine {
                 nextStage == AuthenticationStage.AUTHENTICATED
                         ? AuthSessionTrustMark.authenticated()
                         : AuthSessionTrustMark.intermediate();
-        var next = mint(session.userId(), nextStage, session.authRevision(), session.disabled(), mark);
+        Optional<TrustedPreMfaChallengeId> challengeId =
+                mintChallengeIdIfRequired(session, nextStage, event);
+        var next = mint(session.userId(), nextStage, session.authRevision(), session.disabled(), mark, challengeId);
         return SyntheticAuthTransition.applied(outcome, next);
     }
 
@@ -118,7 +133,37 @@ public final class SyntheticAuthenticationStateMachine {
             long authRevision,
             boolean disabled,
             AuthSessionTrustMark trustMark) {
-        return new SyntheticAuthSession(userId, stage, authRevision, expiresAt(), disabled, trustMark);
+        return mint(userId, stage, authRevision, disabled, trustMark, Optional.empty());
+    }
+
+    private SyntheticAuthSession mint(
+            UserId userId,
+            AuthenticationStage stage,
+            long authRevision,
+            boolean disabled,
+            AuthSessionTrustMark trustMark,
+            Optional<TrustedPreMfaChallengeId> preMfaChallengeId) {
+        return new SyntheticAuthSession(
+                userId, stage, authRevision, expiresAt(), disabled, trustMark, preMfaChallengeId);
+    }
+
+    private Optional<TrustedPreMfaChallengeId> mintChallengeIdIfRequired(
+            SyntheticAuthSession session, AuthenticationStage nextStage, AuthenticationTransitionEvent event) {
+        if (challengeLifecycle == null) {
+            return Optional.empty();
+        }
+        if (session.stage() != AuthenticationStage.PRIMARY_AUTH_VERIFIED) {
+            return Optional.empty();
+        }
+        if (event == AuthenticationTransitionEvent.DIRECT_MFA_CHALLENGE
+                && nextStage == AuthenticationStage.MFA_REQUIRED) {
+            return Optional.of(challengeLifecycle.issue(session.userId(), session.authRevision(), nextStage));
+        }
+        if (event == AuthenticationTransitionEvent.DIRECT_MFA_ENROLLMENT
+                && nextStage == AuthenticationStage.MFA_ENROLLMENT_REQUIRED) {
+            return Optional.of(challengeLifecycle.issue(session.userId(), session.authRevision(), nextStage));
+        }
+        return Optional.empty();
     }
 
     private boolean isExpired(SyntheticAuthSession session) {

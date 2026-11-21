@@ -1,12 +1,13 @@
 package io.sergiotr.financialplatform.identity.port;
 
-import io.sergiotr.financialplatform.identity.domain.UserId;
+import io.sergiotr.financialplatform.identity.domain.TrustedPreMfaChallengeId;
 import java.util.Optional;
 
 /**
- * Server-owned pre-MFA challenge identity. Callers must never supply {@link UserId} for TOTP replay binding.
+ * Server-bound opaque pre-MFA challenge for the current operation. Callers must never supply
+ * {@link io.sergiotr.financialplatform.identity.domain.UserId} or stage flags here.
  */
 public interface TrustedMfaChallengeContextPort {
 
-    Optional<UserId> trustedPreMfaUserId();
+    Optional<TrustedPreMfaChallengeId> currentServerChallengeId();
 }

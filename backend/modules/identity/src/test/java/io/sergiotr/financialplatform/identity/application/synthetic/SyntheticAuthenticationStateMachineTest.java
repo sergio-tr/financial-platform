@@ -10,9 +10,12 @@ import io.sergiotr.financialplatform.identity.domain.AuthenticationStage;
 import io.sergiotr.financialplatform.identity.domain.AuthenticationTransitionDenialReason;
 import io.sergiotr.financialplatform.identity.domain.AuthenticationTransitionEvent;
 import io.sergiotr.financialplatform.identity.domain.SecurityAssuranceStatus;
+import io.sergiotr.financialplatform.identity.adapter.memory.InMemoryAccountSecurityAuthRevisionStore;
+import io.sergiotr.financialplatform.identity.application.synthetic.challenge.TrustedPreMfaChallengeLifecycleService;
 import java.time.Clock;
 import java.time.Instant;
 import java.time.ZoneOffset;
+import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -39,6 +42,27 @@ class SyntheticAuthenticationStateMachineTest {
         var afterPrimary = primary.nextSession().orElseThrow();
         assertEquals(AuthenticationStage.PRIMARY_AUTH_VERIFIED, afterPrimary.stage());
         assertThrows(IllegalStateException.class, afterPrimary::toTrustedActor);
+    }
+
+    @Test
+    void primaryVerifiedToMfaRequiredIssuesOpaqueChallenge() {
+        var auth = SyntheticAuthFixtureSupport.aliceAndBobPrimaryArgon2();
+        var revisionStore = new InMemoryAccountSecurityAuthRevisionStore();
+        revisionStore.setRevision(SyntheticWorkspaceFixtures.ALICE, 2L);
+        var lifecycle = new TrustedPreMfaChallengeLifecycleService(clock, revisionStore);
+        var machine = new SyntheticAuthenticationStateMachine(clock, auth.primary(), auth.mfa(), lifecycle);
+        var session = machine.begin(SyntheticWorkspaceFixtures.ALICE, 2L);
+        var primary = machine.transition(
+                session,
+                AuthenticationTransitionEvent.VERIFY_PRIMARY_AUTH,
+                SyntheticAuthFixtureSupport.ALICE_PRIMARY_PASSWORD);
+        var mfaRequired = machine.transition(
+                primary.nextSession().orElseThrow(),
+                AuthenticationTransitionEvent.DIRECT_MFA_CHALLENGE,
+                null);
+        var issued = mfaRequired.nextSession().orElseThrow();
+        assertTrue(issued.preMfaChallengeId().isPresent());
+        assertEquals(AuthenticationStage.MFA_REQUIRED, issued.stage());
     }
 
     @Test
@@ -111,7 +135,8 @@ class SyntheticAuthenticationStateMachineTest {
                 2L,
                 Instant.parse("2026-11-20T12:05:00Z"),
                 false,
-                AuthSessionTrustMark.bootstrap());
+                AuthSessionTrustMark.bootstrap(),
+                Optional.empty());
         var result = expiredMachine.transition(
                 session,
                 AuthenticationTransitionEvent.VERIFY_PRIMARY_AUTH,
@@ -127,7 +152,8 @@ class SyntheticAuthenticationStateMachineTest {
                 2L,
                 Instant.parse("2026-11-20T12:20:00Z"),
                 true,
-                AuthSessionTrustMark.bootstrap());
+                AuthSessionTrustMark.bootstrap(),
+                Optional.empty());
         var result = machine.transition(
                 session,
                 AuthenticationTransitionEvent.VERIFY_PRIMARY_AUTH,
@@ -144,7 +170,8 @@ class SyntheticAuthenticationStateMachineTest {
                 2L,
                 Instant.parse("2026-11-20T12:20:00Z"),
                 false,
-                AuthSessionTrustMark.intermediate());
+                AuthSessionTrustMark.intermediate(),
+                Optional.empty());
         assertThrows(IllegalStateException.class, forged::toTrustedActor);
     }
 }
