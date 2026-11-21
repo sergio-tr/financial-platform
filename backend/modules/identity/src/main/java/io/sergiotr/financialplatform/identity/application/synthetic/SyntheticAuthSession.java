@@ -18,7 +18,7 @@ record SyntheticAuthSession(
         boolean disabled,
         AuthSessionTrustMark trustMark,
         Optional<TrustedPreMfaChallengeId> preMfaChallengeId,
-        Optional<String> verifiedPrimaryEvidenceRef) {
+        Optional<VerifiedPrimaryAuthProof> verifiedPrimaryProof) {
 
     SyntheticAuthSession {
         Objects.requireNonNull(userId, "userId");
@@ -26,7 +26,7 @@ record SyntheticAuthSession(
         Objects.requireNonNull(stageExpiresAt, "stageExpiresAt");
         Objects.requireNonNull(trustMark, "trustMark");
         Objects.requireNonNull(preMfaChallengeId, "preMfaChallengeId");
-        Objects.requireNonNull(verifiedPrimaryEvidenceRef, "verifiedPrimaryEvidenceRef");
+        Objects.requireNonNull(verifiedPrimaryProof, "verifiedPrimaryProof");
         if (authRevision < 0) {
             throw new IllegalArgumentException("authRevision");
         }
@@ -37,5 +37,26 @@ record SyntheticAuthSession(
             throw new IllegalStateException("session not authenticated through verified MFA path");
         }
         return new TrustedWorkspaceActor(userId, authRevision, SecurityAssuranceStatus.AUTHENTICATED_FULL);
+    }
+
+    @Override
+    public String toString() {
+        return "SyntheticAuthSession{userId="
+                + userId
+                + ", stage="
+                + stage
+                + ", authRevision="
+                + authRevision
+                + ", stageExpiresAt="
+                + stageExpiresAt
+                + ", disabled="
+                + disabled
+                + ", trustMark="
+                + trustMark
+                + ", preMfaChallengeId="
+                + preMfaChallengeId
+                + ", verifiedPrimaryProof="
+                + verifiedPrimaryProof.map(VerifiedPrimaryAuthProof::toString)
+                + "}";
     }
 }

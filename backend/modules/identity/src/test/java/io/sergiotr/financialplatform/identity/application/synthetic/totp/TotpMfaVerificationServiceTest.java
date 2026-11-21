@@ -12,12 +12,10 @@ import io.sergiotr.financialplatform.identity.application.synthetic.password.Syn
 import io.sergiotr.financialplatform.identity.application.synthetic.password.SyntheticPasswordService;
 import io.sergiotr.financialplatform.identity.domain.SyntheticPasswordCredential;
 import io.sergiotr.financialplatform.identity.application.synthetic.SyntheticAuthFixtureSupport;
-import io.sergiotr.financialplatform.identity.application.synthetic.VerifiedPrimaryForMfaIssuance;
 import io.sergiotr.financialplatform.identity.application.synthetic.challenge.TrustedPreMfaChallengeLifecycleService;
 import io.sergiotr.financialplatform.identity.domain.UserAccountSecurityStatus;
 import io.sergiotr.financialplatform.identity.domain.AuthenticatorId;
 import io.sergiotr.financialplatform.identity.domain.TrustedPreMfaChallengeId;
-import io.sergiotr.financialplatform.identity.domain.AuthenticationStage;
 import io.sergiotr.financialplatform.identity.domain.TotpSeed;
 import io.sergiotr.financialplatform.identity.domain.UserId;
 import io.sergiotr.financialplatform.identity.port.AuthenticatorStepCompareAndSetPort;
@@ -48,6 +46,7 @@ class TotpMfaVerificationServiceTest {
 
     private InMemoryAccountSecurityAuthRevisionStore revisions;
     private InMemorySyntheticPasswordCredentialStore passwordStore;
+    private SyntheticPasswordService passwordService;
     private TrustedPreMfaChallengeLifecycleService lifecycle;
     private Clock clock;
     private final AtomicReference<Optional<TrustedPreMfaChallengeId>> boundChallenge = new AtomicReference<>(Optional.empty());
@@ -59,25 +58,27 @@ class TotpMfaVerificationServiceTest {
         revisions.put(OWNER, 3L, UserAccountSecurityStatus.ENABLED);
         revisions.put(FOREIGN, 3L, UserAccountSecurityStatus.ENABLED);
         var hasher = new Argon2idSyntheticPasswordHasher();
-        var passwordService = new SyntheticPasswordService(
+        passwordService = new SyntheticPasswordService(
                 new SyntheticPasswordPolicy(new SyntheticCommonPasswordBlocklist().loadFromClasspath()), hasher);
         passwordStore = new InMemorySyntheticPasswordCredentialStore();
         passwordStore.put(new SyntheticPasswordCredential(
                 OWNER, hasher.encode(SyntheticAuthFixtureSupport.ALICE_PRIMARY_PASSWORD), false));
         var primary =
                 new Argon2idTrustedPrimaryAuthEvidence(passwordStore, passwordService);
-        lifecycle = new TrustedPreMfaChallengeLifecycleService(clock, revisions, primary);
+        lifecycle = new TrustedPreMfaChallengeLifecycleService(clock, revisions);
     }
 
     private void bindFreshChallenge(UserId owner, long authRevision) {
-        var evidence = SyntheticAuthFixtureSupport.ALICE_PRIMARY_PASSWORD;
+        var password = owner.equals(FOREIGN) ? FOREIGN_PRIMARY_PASSWORD : SyntheticAuthFixtureSupport.ALICE_PRIMARY_PASSWORD;
         if (owner.equals(FOREIGN)) {
             ensureForeignPrimaryRegistered();
-            evidence = FOREIGN_PRIMARY_PASSWORD;
         }
-        var issuance = new VerifiedPrimaryForMfaIssuance(
-                owner, authRevision, AuthenticationStage.MFA_REQUIRED, evidence);
-        boundChallenge.set(Optional.of(lifecycle.issueAfterVerifiedPrimary(issuance)));
+        var auth = SyntheticAuthFixtureSupport.aliceAndBobPrimaryArgon2();
+        var primary = owner.equals(FOREIGN)
+                ? new Argon2idTrustedPrimaryAuthEvidence(passwordStore, passwordService)
+                : auth.primary();
+        boundChallenge.set(Optional.of(SyntheticAuthFixtureSupport.issueMfaChallengeAfterPrimary(
+                clock, lifecycle, owner, authRevision, password, primary, auth.mfa())));
     }
 
     private void ensureForeignPrimaryRegistered() {

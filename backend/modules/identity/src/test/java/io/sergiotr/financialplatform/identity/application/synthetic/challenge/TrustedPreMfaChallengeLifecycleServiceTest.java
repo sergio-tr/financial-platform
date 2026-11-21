@@ -3,6 +3,7 @@ package io.sergiotr.financialplatform.identity.application.synthetic.challenge;
 import static org.junit.jupiter.api.Assertions.*;
 
 import io.sergiotr.financialplatform.identity.adapter.memory.InMemoryAccountSecurityAuthRevisionStore;
+import io.sergiotr.financialplatform.identity.adapter.memory.SyntheticWorkspaceFixtures;
 import io.sergiotr.financialplatform.identity.application.synthetic.SyntheticAuthFixtureSupport;
 import io.sergiotr.financialplatform.identity.application.synthetic.VerifiedPrimaryForMfaIssuance;
 import io.sergiotr.financialplatform.identity.domain.AuthenticationStage;
@@ -31,13 +32,14 @@ class TrustedPreMfaChallengeLifecycleServiceTest {
         clock = Clock.fixed(Instant.parse("2026-11-21T12:00:00Z"), ZoneOffset.UTC);
         securityStore = new InMemoryAccountSecurityAuthRevisionStore();
         securityStore.put(USER, 3L, UserAccountSecurityStatus.ENABLED);
-        var primary = SyntheticAuthFixtureSupport.aliceAndBobPrimaryArgon2().primary();
-        lifecycle = new TrustedPreMfaChallengeLifecycleService(clock, securityStore, primary);
-        validIssuance = new VerifiedPrimaryForMfaIssuance(
+        lifecycle = new TrustedPreMfaChallengeLifecycleService(clock, securityStore);
+        validIssuance = SyntheticAuthFixtureSupport.mintVerifiedPrimaryForMfaIssuance(
+                clock,
+                lifecycle,
                 USER,
                 3L,
-                AuthenticationStage.MFA_REQUIRED,
-                SyntheticAuthFixtureSupport.ALICE_PRIMARY_PASSWORD);
+                SyntheticAuthFixtureSupport.ALICE_PRIMARY_PASSWORD,
+                AuthenticationStage.MFA_REQUIRED);
     }
 
     @Test
@@ -49,22 +51,25 @@ class TrustedPreMfaChallengeLifecycleServiceTest {
     }
 
     @Test
-    void forgedIssueWithoutPrimaryEvidenceRejected() {
-        var forged = new VerifiedPrimaryForMfaIssuance(
-                USER, 3L, AuthenticationStage.MFA_REQUIRED, "not-a-real-password");
-        assertThrows(IllegalStateException.class, () -> lifecycle.issueAfterVerifiedPrimary(forged));
+    void consumedPrimaryProofCannotIssueTwice() {
+        lifecycle.issueAfterVerifiedPrimary(validIssuance);
+        assertThrows(IllegalStateException.class, () -> lifecycle.issueAfterVerifiedPrimary(validIssuance));
     }
 
     @Test
-    void arbitraryUserIdIssueRejected() {
-        var other = UserId.parse("10000000-0000-4000-8000-000000000099");
-        securityStore.put(other, 1L, UserAccountSecurityStatus.ENABLED);
-        var forged = new VerifiedPrimaryForMfaIssuance(
-                other,
+    void arbitraryUserIdProofMismatchRejected() {
+        securityStore.put(SyntheticWorkspaceFixtures.BOB, 1L, UserAccountSecurityStatus.ENABLED);
+        var otherIssuance = SyntheticAuthFixtureSupport.mintVerifiedPrimaryForMfaIssuance(
+                clock,
+                lifecycle,
+                SyntheticWorkspaceFixtures.BOB,
                 1L,
-                AuthenticationStage.MFA_REQUIRED,
-                SyntheticAuthFixtureSupport.ALICE_PRIMARY_PASSWORD);
-        assertThrows(IllegalStateException.class, () -> lifecycle.issueAfterVerifiedPrimary(forged));
+                SyntheticAuthFixtureSupport.BOB_PRIMARY_PASSWORD,
+                AuthenticationStage.MFA_REQUIRED);
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> new VerifiedPrimaryForMfaIssuance(
+                        USER, 3L, AuthenticationStage.MFA_REQUIRED, otherIssuance.primaryProof()));
     }
 
     @Test
@@ -83,50 +88,59 @@ class TrustedPreMfaChallengeLifecycleServiceTest {
     }
 
     @Test
-    void disabledSubjectDeniedBeforeTotp() {
+    void disabledSubjectDenied() {
         var id = lifecycle.issueAfterVerifiedPrimary(validIssuance);
         securityStore.put(USER, 3L, UserAccountSecurityStatus.DISABLED);
-        var validation = lifecycle.validateForTotp(Optional.of(id));
-        assertEquals(TrustedPreMfaChallengeLifecycleService.ValidationOutcome.DISABLED_SUBJECT, validation);
+        assertEquals(
+                TrustedPreMfaChallengeLifecycleService.ValidationOutcome.DISABLED_SUBJECT,
+                lifecycle.validateForTotp(Optional.of(id)));
     }
 
     @Test
-    void lockedSubjectDeniedBeforeTotp() {
+    void lockedSubjectDenied() {
         var id = lifecycle.issueAfterVerifiedPrimary(validIssuance);
         securityStore.put(USER, 3L, UserAccountSecurityStatus.LOCKED);
-        var validation = lifecycle.validateForTotp(Optional.of(id));
-        assertEquals(TrustedPreMfaChallengeLifecycleService.ValidationOutcome.LOCKED_SUBJECT, validation);
+        assertEquals(
+                TrustedPreMfaChallengeLifecycleService.ValidationOutcome.LOCKED_SUBJECT,
+                lifecycle.validateForTotp(Optional.of(id)));
     }
 
     @Test
     void expiredChallengeDenied() {
         var store = new TrustedPreMfaChallengeLifecycleService.InMemoryTrustedPreMfaChallengeStore();
-        var primary = SyntheticAuthFixtureSupport.aliceAndBobPrimaryArgon2().primary();
-        var issuing = new TrustedPreMfaChallengeLifecycleService(clock, securityStore, primary, store);
-        var id = issuing.issueAfterVerifiedPrimary(validIssuance);
-        var lateClock = Clock.fixed(clock.instant().plus(Duration.ofMinutes(16)), ZoneOffset.UTC);
-        var lateLifecycle = new TrustedPreMfaChallengeLifecycleService(lateClock, securityStore, primary, store);
+        var issuing = new TrustedPreMfaChallengeLifecycleService(clock, securityStore, store);
+        var issuance = SyntheticAuthFixtureSupport.mintVerifiedPrimaryForMfaIssuance(
+                clock,
+                issuing,
+                USER,
+                3L,
+                SyntheticAuthFixtureSupport.ALICE_PRIMARY_PASSWORD,
+                AuthenticationStage.MFA_REQUIRED);
+        var id = issuing.issueAfterVerifiedPrimary(issuance);
+        var lateClock = Clock.fixed(clock.instant().plus(Duration.ofMinutes(20)), ZoneOffset.UTC);
+        var lateLifecycle = new TrustedPreMfaChallengeLifecycleService(lateClock, securityStore, store);
         var validation = lateLifecycle.validateForTotp(Optional.of(id));
         assertEquals(TrustedPreMfaChallengeLifecycleService.ValidationOutcome.EXPIRED, validation);
     }
 
     @Test
-    void enrollmentStageWrongForTotpValidation() {
-        var enrollment = new VerifiedPrimaryForMfaIssuance(
+    void wrongStageEnrollmentChallengeNotValidForTotp() {
+        var challengeId = SyntheticAuthFixtureSupport.issueEnrollmentChallengeAfterPrimary(
+                clock,
+                lifecycle,
                 USER,
                 3L,
-                AuthenticationStage.MFA_ENROLLMENT_REQUIRED,
                 SyntheticAuthFixtureSupport.ALICE_PRIMARY_PASSWORD);
-        var id = lifecycle.issueAfterVerifiedPrimary(enrollment);
-        var validation = lifecycle.validateForTotp(Optional.of(id));
-        assertEquals(TrustedPreMfaChallengeLifecycleService.ValidationOutcome.WRONG_STAGE, validation);
+        assertEquals(
+                TrustedPreMfaChallengeLifecycleService.ValidationOutcome.WRONG_STAGE,
+                lifecycle.validateForTotp(Optional.of(challengeId)));
     }
 
     @Test
     void consumedChallengeNotActive() {
         var id = lifecycle.issueAfterVerifiedPrimary(validIssuance);
-        assertEquals(
-                TrustedPreMfaChallengeConsumePort.ConsumeOutcome.CONSUMED, lifecycle.consumeIfActive(id, 3L));
+        var consume = lifecycle.consumeIfActive(id, 3L);
+        assertEquals(TrustedPreMfaChallengeConsumePort.ConsumeOutcome.CONSUMED, consume);
         var validation = lifecycle.validateForTotp(Optional.of(id));
         assertEquals(TrustedPreMfaChallengeLifecycleService.ValidationOutcome.NOT_ACTIVE, validation);
     }

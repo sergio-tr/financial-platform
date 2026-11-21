@@ -9,12 +9,14 @@ import io.sergiotr.financialplatform.identity.port.AccountSecuritySnapshotReadPo
 import io.sergiotr.financialplatform.identity.port.TrustedPreMfaChallengeConsumePort;
 import io.sergiotr.financialplatform.identity.port.TrustedPreMfaChallengeLookupPort;
 import io.sergiotr.financialplatform.identity.port.TrustedPreMfaChallengeSnapshot;
-import io.sergiotr.financialplatform.identity.port.TrustedPrimaryAuthEvidencePort;
+import io.sergiotr.financialplatform.identity.application.synthetic.VerifiedPrimaryAuthProof;
 import java.time.Clock;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 
 /** Server-owned pre-MFA challenge issuance, validation, and consume (synthetic DEV/TEST). */
 public final class TrustedPreMfaChallengeLifecycleService
@@ -38,35 +40,39 @@ public final class TrustedPreMfaChallengeLifecycleService
 
     private final Clock clock;
     private final AccountSecuritySnapshotReadPort securityRead;
-    private final TrustedPrimaryAuthEvidencePort primaryAuthEvidence;
     private final TrustedPreMfaChallengeStore store;
+    private final ConcurrentHashMap<UUID, VerifiedPrimaryAuthProof> registeredPrimaryProofs = new ConcurrentHashMap<>();
 
-    public TrustedPreMfaChallengeLifecycleService(
-            Clock clock,
-            AccountSecuritySnapshotReadPort securityRead,
-            TrustedPrimaryAuthEvidencePort primaryAuthEvidence) {
-        this(clock, securityRead, primaryAuthEvidence, new InMemoryTrustedPreMfaChallengeStore());
+    public TrustedPreMfaChallengeLifecycleService(Clock clock, AccountSecuritySnapshotReadPort securityRead) {
+        this(clock, securityRead, new InMemoryTrustedPreMfaChallengeStore());
     }
 
     TrustedPreMfaChallengeLifecycleService(
-            Clock clock,
-            AccountSecuritySnapshotReadPort securityRead,
-            TrustedPrimaryAuthEvidencePort primaryAuthEvidence,
-            TrustedPreMfaChallengeStore store) {
+            Clock clock, AccountSecuritySnapshotReadPort securityRead, TrustedPreMfaChallengeStore store) {
         this.clock = Objects.requireNonNull(clock, "clock");
         this.securityRead = Objects.requireNonNull(securityRead, "securityRead");
-        this.primaryAuthEvidence = Objects.requireNonNull(primaryAuthEvidence, "primaryAuthEvidence");
         this.store = Objects.requireNonNull(store, "store");
     }
 
+    /** Registers a proof minted by the synthetic state machine after trusted primary verification. */
+    public void registerVerifiedPrimaryProof(VerifiedPrimaryAuthProof proof) {
+        Objects.requireNonNull(proof, "proof");
+        registeredPrimaryProofs.put(proof.proofId(), proof);
+    }
+
     /**
-     * Issues an opaque challenge only after re-verifying Argon2id primary evidence and authoritative
-     * account snapshot. Not exposed as a forgeable public issue(UserId, long, Stage) API.
+     * Issues an opaque challenge only after validating a server-minted primary proof and authoritative
+     * account snapshot. Does not accept client credential material or re-hash passwords.
      */
     public TrustedPreMfaChallengeId issueAfterVerifiedPrimary(VerifiedPrimaryForMfaIssuance issuance) {
         Objects.requireNonNull(issuance, "issuance");
-        if (!primaryAuthEvidence.acceptsPrimaryAuth(issuance.subjectUserId(), issuance.primaryEvidenceRef())) {
-            throw new IllegalStateException("primary factor not verified for challenge issuance");
+        var proof = issuance.primaryProof();
+        var registered = registeredPrimaryProofs.remove(proof.proofId());
+        if (registered == null || !registered.equals(proof)) {
+            throw new IllegalStateException("primary proof not registered or already consumed");
+        }
+        if (!proof.isActiveAt(clock.instant())) {
+            throw new IllegalStateException("primary proof expired");
         }
         var snapshot = securityRead.currentSnapshot(issuance.subjectUserId());
         if (snapshot.isEmpty()) {

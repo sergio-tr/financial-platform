@@ -49,8 +49,7 @@ class SyntheticAuthenticationStateMachineTest {
         var auth = SyntheticAuthFixtureSupport.aliceAndBobPrimaryArgon2();
         var revisionStore = new InMemoryAccountSecurityAuthRevisionStore();
         revisionStore.setRevision(SyntheticWorkspaceFixtures.ALICE, 2L);
-        var lifecycle =
-                new TrustedPreMfaChallengeLifecycleService(clock, revisionStore, auth.primary());
+        var lifecycle = new TrustedPreMfaChallengeLifecycleService(clock, revisionStore);
         var machine = new SyntheticAuthenticationStateMachine(clock, auth.primary(), auth.mfa(), lifecycle);
         var session = machine.begin(SyntheticWorkspaceFixtures.ALICE, 2L);
         var primary = machine.transition(
@@ -64,6 +63,21 @@ class SyntheticAuthenticationStateMachineTest {
         var issued = mfaRequired.nextSession().orElseThrow();
         assertTrue(issued.preMfaChallengeId().isPresent());
         assertEquals(AuthenticationStage.MFA_REQUIRED, issued.stage());
+    }
+
+    @Test
+    void sessionToStringNeverContainsPrimaryPasswordMaterial() {
+        var session = machine.begin(SyntheticWorkspaceFixtures.ALICE, 2L);
+        var primary = machine.transition(
+                session,
+                AuthenticationTransitionEvent.VERIFY_PRIMARY_AUTH,
+                SyntheticAuthFixtureSupport.ALICE_PRIMARY_PASSWORD);
+        var afterPrimary = primary.nextSession().orElseThrow();
+        String sessionText = afterPrimary.toString();
+        assertFalse(sessionText.contains(SyntheticAuthFixtureSupport.ALICE_PRIMARY_PASSWORD));
+        assertTrue(afterPrimary.verifiedPrimaryProof().isPresent());
+        assertFalse(
+                afterPrimary.verifiedPrimaryProof().orElseThrow().toString().contains(SyntheticAuthFixtureSupport.ALICE_PRIMARY_PASSWORD));
     }
 
     @Test
