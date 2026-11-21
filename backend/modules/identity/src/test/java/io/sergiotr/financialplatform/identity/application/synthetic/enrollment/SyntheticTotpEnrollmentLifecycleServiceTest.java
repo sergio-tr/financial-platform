@@ -209,8 +209,11 @@ class SyntheticTotpEnrollmentLifecycleServiceTest {
         private final ZoneId zone;
 
         MutableClock(Instant start, ZoneId zone) {
-            this.instant = Objects.requireNonNull(start);
-            this.zone = Objects.requireNonNull(zone);
+            if (start == null || zone == null) {
+                throw new NullPointerException();
+            }
+            this.instant = start;
+            this.zone = zone;
         }
 
         void advance(Duration duration) {
