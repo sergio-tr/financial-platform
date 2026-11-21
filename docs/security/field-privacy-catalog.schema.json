@@ -1,0 +1,218 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Field-level privacy and sink catalog (SER-109 / SER-160)",
+  "description": "Machine-readable Identity/Workspace/Session/MFA field classification. Static governance validation only; no runtime egress enforcement.",
+  "type": "object",
+  "required": [
+    "catalogVersion",
+    "sliceId",
+    "parentTicket",
+    "authorityRefs",
+    "canonicalSinkVocabulary",
+    "fields"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "catalogVersion": { "type": "integer", "const": 1 },
+    "sliceId": { "type": "string", "minLength": 3 },
+    "parentTicket": { "type": "string", "pattern": "^SER-[0-9]+$" },
+    "statusNote": { "type": "string" },
+    "physicalCatalogCrossRef": { "type": "string" },
+    "classPolicyCrossRef": { "type": "string" },
+    "retentionRegistryCrossRef": { "type": "string" },
+    "authorityRefs": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/authorityRef" }
+    },
+    "canonicalSinkVocabulary": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/sinkId" },
+      "uniqueItems": true
+    },
+    "fields": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/fieldEntry" }
+    },
+    "blockerMatrix": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/blockerRow" }
+    }
+  },
+  "$defs": {
+    "authorityRef": {
+      "type": "object",
+      "required": ["id"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string" },
+        "source": { "type": "string" }
+      }
+    },
+    "r46Class": {
+      "type": "string",
+      "enum": [
+        "PUBLIC",
+        "INTERNAL",
+        "PERSONAL",
+        "FINANCIAL_SENSITIVE",
+        "SECURITY_SENSITIVE",
+        "SECRET"
+      ]
+    },
+    "materializationStatus": {
+      "type": "string",
+      "enum": [
+        "NORMATIVE_PLANNED",
+        "BLOCKED_DECISION",
+        "SYNTHETIC_IN_MEMORY_ONLY"
+      ]
+    },
+    "sinkId": {
+      "type": "string",
+      "enum": [
+        "secretvault_protected_ipc_scoped_lease",
+        "postgresql_encrypted_at_rest",
+        "application_heap_transient",
+        "structured_application_log_redacted",
+        "application_trace_redacted",
+        "rabbitmq",
+        "outbox",
+        "replay_buffer",
+        "temporal",
+        "ai_inference",
+        "rag_index",
+        "telemetry",
+        "git_repository",
+        "ci_artifact",
+        "slack",
+        "linear",
+        "figma",
+        "external_export",
+        "cloud_saas",
+        "collaboration_tool"
+      ]
+    },
+    "sinkPolicy": {
+      "type": "object",
+      "required": ["allow", "deny"],
+      "additionalProperties": false,
+      "properties": {
+        "allow": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/sinkId" },
+          "uniqueItems": true
+        },
+        "deny": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/sinkId" },
+          "minItems": 1,
+          "uniqueItems": true
+        }
+      }
+    },
+    "retentionBlock": {
+      "type": "object",
+      "required": ["status"],
+      "additionalProperties": false,
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": ["REF", "BLOCKED_DECISION"]
+        },
+        "policyRef": { "type": "string" },
+        "blockedReason": { "type": "string" }
+      }
+    },
+    "storageSurfaceRow": {
+      "type": "object",
+      "required": ["surface", "permitted"],
+      "additionalProperties": false,
+      "properties": {
+        "surface": {
+          "type": "string",
+          "enum": [
+            "spring_session_column",
+            "spring_session_attributes_jsonb",
+            "postgresql_planned_column",
+            "synthetic_java_heap",
+            "not_persisted"
+          ]
+        },
+        "permitted": { "type": "boolean" },
+        "notes": { "type": "string" }
+      }
+    },
+    "physicalBinding": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "postgresObjectKey": { "type": "string" },
+        "columnOrAttribute": { "type": "string" },
+        "blockedGapId": { "type": "string", "pattern": "^G-[A-Z]+-[0-9]+$" }
+      }
+    },
+    "fieldEntry": {
+      "type": "object",
+      "required": [
+        "fieldId",
+        "boundedContext",
+        "fieldFamily",
+        "dataClass",
+        "owner",
+        "materializationStatus",
+        "sinks",
+        "retention",
+        "storageSurfaces",
+        "authorityRefs"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "fieldId": { "type": "string", "pattern": "^[a-z][a-z0-9._-]+$" },
+        "boundedContext": {
+          "type": "string",
+          "enum": ["identity", "workspace", "platform_session", "audit"]
+        },
+        "fieldFamily": { "type": "string", "minLength": 2 },
+        "dataClass": { "$ref": "#/$defs/r46Class" },
+        "owner": { "type": "string", "minLength": 2 },
+        "materializationStatus": { "$ref": "#/$defs/materializationStatus" },
+        "physicalBinding": { "$ref": "#/$defs/physicalBinding" },
+        "storageSurfaces": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/storageSurfaceRow" }
+        },
+        "sinks": { "$ref": "#/$defs/sinkPolicy" },
+        "retention": { "$ref": "#/$defs/retentionBlock" },
+        "requirementRefs": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "testRefs": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "authorityRefs": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string" }
+        },
+        "notes": { "type": "string" }
+      }
+    },
+    "blockerRow": {
+      "type": "object",
+      "required": ["gapId", "scope", "status", "reason"],
+      "additionalProperties": false,
+      "properties": {
+        "gapId": { "type": "string" },
+        "scope": { "type": "string" },
+        "status": { "type": "string", "enum": ["OPEN", "PARTIAL"] },
+        "reason": { "type": "string" }
+      }
+    }
+  }
+}

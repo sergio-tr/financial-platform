@@ -1,0 +1,27 @@
+catalogVersion: 1
+sliceId: fixture-sec-ai
+parentTicket: SER-109
+authorityRefs:
+  - id: FIXTURE
+canonicalSinkVocabulary:
+  - ai_inference
+  - rag_index
+  - postgresql_encrypted_at_rest
+  - git_repository
+fields:
+  - fieldId: fixture.security.ai
+    boundedContext: identity
+    fieldFamily: authorization_context
+    dataClass: SECURITY_SENSITIVE
+    owner: FIXTURE
+    materializationStatus: SYNTHETIC_IN_MEMORY_ONLY
+    storageSurfaces:
+      - surface: synthetic_java_heap
+        permitted: true
+    sinks:
+      allow: [ai_inference, postgresql_encrypted_at_rest]
+      deny: [git_repository]
+    retention:
+      status: REF
+      policyRef: FIXTURE
+    authorityRefs: [FIXTURE]

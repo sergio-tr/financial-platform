@@ -1,0 +1,35 @@
+catalogVersion: 1
+sliceId: fixture-unknown-sink
+parentTicket: SER-109
+authorityRefs:
+  - id: FIXTURE
+canonicalSinkVocabulary:
+  - application_heap_transient
+  - postgresql_encrypted_at_rest
+  - git_repository
+  - ci_artifact
+  - slack
+  - linear
+  - figma
+  - ai_inference
+  - rag_index
+  - external_export
+  - cloud_saas
+  - collaboration_tool
+fields:
+  - fieldId: fixture.sink.unknown
+    boundedContext: identity
+    fieldFamily: contact
+    dataClass: PERSONAL
+    owner: FIXTURE
+    materializationStatus: SYNTHETIC_IN_MEMORY_ONLY
+    storageSurfaces:
+      - surface: synthetic_java_heap
+        permitted: true
+    sinks:
+      allow: [application_heap_transient, telemetry]
+      deny: [git_repository, ci_artifact, slack, linear, figma, external_export, cloud_saas, collaboration_tool, ai_inference, rag_index]
+    retention:
+      status: REF
+      policyRef: FIXTURE
+    authorityRefs: [FIXTURE]

@@ -1,0 +1,39 @@
+catalogVersion: 1
+sliceId: fixture-totp-bag
+parentTicket: SER-109
+authorityRefs:
+  - id: FIXTURE
+canonicalSinkVocabulary:
+  - secretvault_protected_ipc_scoped_lease
+  - application_heap_transient
+  - git_repository
+  - ci_artifact
+  - slack
+  - linear
+  - figma
+  - ai_inference
+  - rag_index
+  - rabbitmq
+  - outbox
+  - replay_buffer
+  - temporal
+  - telemetry
+fields:
+  - fieldId: fixture.totp.seed
+    boundedContext: identity
+    fieldFamily: totp_secret
+    dataClass: SECRET
+    owner: FIXTURE
+    materializationStatus: SYNTHETIC_IN_MEMORY_ONLY
+    storageSurfaces:
+      - surface: spring_session_attributes_jsonb
+        permitted: true
+      - surface: not_persisted
+        permitted: false
+    sinks:
+      allow: [application_heap_transient, secretvault_protected_ipc_scoped_lease]
+      deny: [git_repository, ci_artifact, slack, linear, figma, ai_inference, rag_index, rabbitmq, outbox, replay_buffer, temporal, telemetry]
+    retention:
+      status: REF
+      policyRef: FIXTURE
+    authorityRefs: [FIXTURE]
