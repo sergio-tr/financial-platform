@@ -1,0 +1,50 @@
+schemaVersion: 1
+taskId: SER-149
+taskKind: IMPLEMENTATION
+mode: IMPLEMENT
+risk: HIGH
+baseRevision: 345093ab838ba20d31a9174ff983f8381abfecef
+packetHash: f1a2b3c4d5e6478990a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4
+authorityRefs:
+  - SER-149
+  - SER-148
+  - SER-147
+  - SER-143
+  - SER-92
+  - SER-24
+  - SER-25
+  - SER-20
+  - 3b7a4498-eb5f-4383-831d-9e271cee3dda
+allowedPaths:
+  - backend/modules/identity/**
+  - test/fixtures/synthetic/identity/**
+  - docs/governance/dev-synthetic-v1-carve-out-registry.yaml
+  - docs/governance/packets/SER-149-v1-identity-06.task-packet.yaml
+  - MANIFEST.txt
+forbiddenPaths:
+  - contracts/**
+  - contracts/asyncapi/**
+  - infrastructure/**
+  - design/**
+  - frontend/**
+  - docs/planning/phase0-closure/**
+requirements: NOT_APPLICABLE
+contracts: NOT_APPLICABLE
+design: NOT_APPLICABLE
+tests: NOT_APPLICABLE
+security: NOT_APPLICABLE
+financial: NOT_APPLICABLE
+migrations: NOT_APPLICABLE
+workflows: NOT_APPLICABLE
+acceptance:
+  required: false
+  environment: CI_SYNTHETIC
+  humanApproval: true
+definitionOfDone:
+  - Registry slice V1-IDENTITY-AUTH-HARDENING active; prior SER-144..148 slices unchanged
+  - No blind advance(); transitions atomically return next session only after verified evidence
+  - Caller-crafted AUTHENTICATED stage cannot toTrustedActor() without authenticated trust mark
+  - Adversarial unit tests for skip-primary, forged stage, and trust mark
+  - validate-dev-synthetic-v1-gate.py and validate-traceability.py --profile foundation PASS
+  - v0-engineering-substrate CI JDK25 verify; SER-96 preclaim on PR body
+  - IMPLEMENTATION_LOCK=ON and P0_IMPLEMENTATION_READY=NO unchanged

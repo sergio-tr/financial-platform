@@ -1,10 +1,9 @@
-package io.sergiotr.financialplatform.identity.application;
+package io.sergiotr.financialplatform.identity.application.synthetic;
 
 import io.sergiotr.financialplatform.identity.domain.AuthenticationStage;
 import io.sergiotr.financialplatform.identity.domain.AuthenticationTransitionDenialReason;
 import io.sergiotr.financialplatform.identity.domain.AuthenticationTransitionEvent;
 import io.sergiotr.financialplatform.identity.domain.AuthenticationTransitionResult;
-import io.sergiotr.financialplatform.identity.domain.SyntheticAuthSession;
 import io.sergiotr.financialplatform.identity.domain.UserId;
 import io.sergiotr.financialplatform.identity.port.TrustedMfaEvidencePort;
 import io.sergiotr.financialplatform.identity.port.TrustedPrimaryAuthEvidencePort;
@@ -30,28 +29,39 @@ public final class SyntheticAuthenticationStateMachine {
 
     public SyntheticAuthSession begin(UserId userId, long authRevision) {
         Objects.requireNonNull(userId, "userId");
-        return new SyntheticAuthSession(
-                userId, AuthenticationStage.ANONYMOUS, authRevision, expiresAt(), false);
+        return mint(userId, AuthenticationStage.ANONYMOUS, authRevision, false, AuthSessionTrustMark.bootstrap());
     }
 
-    public AuthenticationTransitionResult transition(
+  /** Verified transition only; returns authoritative next session when applied (no blind stage elevation). */
+    public SyntheticAuthTransition transition(
             SyntheticAuthSession session, AuthenticationTransitionEvent event, String evidenceRef) {
         Objects.requireNonNull(session, "session");
         Objects.requireNonNull(event, "event");
         if (session.disabled()) {
-            return AuthenticationTransitionResult.denied(AuthenticationTransitionDenialReason.DISABLED);
+            return SyntheticAuthTransition.denied(AuthenticationTransitionDenialReason.DISABLED);
         }
         if (isExpired(session)) {
-            return AuthenticationTransitionResult.denied(AuthenticationTransitionDenialReason.EXPIRED);
+            return SyntheticAuthTransition.denied(AuthenticationTransitionDenialReason.EXPIRED);
         }
-        return switch (session.stage()) {
-            case ANONYMOUS -> fromAnonymous(session, event, evidenceRef);
-            case PRIMARY_AUTH_VERIFIED -> fromPrimaryVerified(session, event, evidenceRef);
-            case MFA_REQUIRED -> fromMfaRequired(session, event, evidenceRef);
-            case MFA_ENROLLMENT_REQUIRED -> fromMfaEnrollment(session, event, evidenceRef);
-            case AUTHENTICATED -> AuthenticationTransitionResult.denied(AuthenticationTransitionDenialReason.INVALID_TRANSITION);
-            case RECOVERY_REQUIRED -> AuthenticationTransitionResult.denied(AuthenticationTransitionDenialReason.INVALID_TRANSITION);
-        };
+        AuthenticationTransitionResult outcome =
+                switch (session.stage()) {
+                    case ANONYMOUS -> fromAnonymous(session, event, evidenceRef);
+                    case PRIMARY_AUTH_VERIFIED -> fromPrimaryVerified(session, event, evidenceRef);
+                    case MFA_REQUIRED -> fromMfaRequired(session, event, evidenceRef);
+                    case MFA_ENROLLMENT_REQUIRED -> fromMfaEnrollment(session, event, evidenceRef);
+                    case AUTHENTICATED, RECOVERY_REQUIRED ->
+                            AuthenticationTransitionResult.denied(AuthenticationTransitionDenialReason.INVALID_TRANSITION);
+                };
+        if (!outcome.applied()) {
+            return SyntheticAuthTransition.denied(outcome.denialReason());
+        }
+        var nextStage = outcome.stage().orElseThrow();
+        AuthSessionTrustMark mark =
+                nextStage == AuthenticationStage.AUTHENTICATED
+                        ? AuthSessionTrustMark.authenticated()
+                        : AuthSessionTrustMark.intermediate();
+        var next = mint(session.userId(), nextStage, session.authRevision(), session.disabled(), mark);
+        return SyntheticAuthTransition.applied(outcome, next);
     }
 
     private AuthenticationTransitionResult fromAnonymous(
@@ -102,8 +112,13 @@ public final class SyntheticAuthenticationStateMachine {
         return AuthenticationTransitionResult.applied(AuthenticationStage.AUTHENTICATED);
     }
 
-    public SyntheticAuthSession advance(SyntheticAuthSession session, AuthenticationStage nextStage) {
-        return new SyntheticAuthSession(session.userId(), nextStage, session.authRevision(), expiresAt(), session.disabled());
+    private SyntheticAuthSession mint(
+            UserId userId,
+            AuthenticationStage stage,
+            long authRevision,
+            boolean disabled,
+            AuthSessionTrustMark trustMark) {
+        return new SyntheticAuthSession(userId, stage, authRevision, expiresAt(), disabled, trustMark);
     }
 
     private boolean isExpired(SyntheticAuthSession session) {

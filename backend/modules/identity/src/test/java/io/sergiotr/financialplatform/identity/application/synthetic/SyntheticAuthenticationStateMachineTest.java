@@ -1,7 +1,8 @@
-package io.sergiotr.financialplatform.identity.application;
+package io.sergiotr.financialplatform.identity.application.synthetic;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import io.sergiotr.financialplatform.identity.adapter.memory.SyntheticTrustedAuthEvidence;
@@ -10,7 +11,6 @@ import io.sergiotr.financialplatform.identity.domain.AuthenticationStage;
 import io.sergiotr.financialplatform.identity.domain.AuthenticationTransitionDenialReason;
 import io.sergiotr.financialplatform.identity.domain.AuthenticationTransitionEvent;
 import io.sergiotr.financialplatform.identity.domain.SecurityAssuranceStatus;
-import io.sergiotr.financialplatform.identity.domain.SyntheticAuthSession;
 import java.time.Clock;
 import java.time.Instant;
 import java.time.ZoneOffset;
@@ -41,44 +41,48 @@ class SyntheticAuthenticationStateMachineTest {
         assertEquals(AuthenticationStage.ANONYMOUS, session.stage());
 
         var primary = machine.transition(session, AuthenticationTransitionEvent.VERIFY_PRIMARY_AUTH, PRIMARY);
-        assertTrue(primary.applied());
-        session = machine.advance(session, primary.stage().orElseThrow());
+        assertTrue(primary.result().applied());
+        session = primary.nextSession().orElseThrow();
 
         var mfaRequired = machine.transition(session, AuthenticationTransitionEvent.DIRECT_MFA_CHALLENGE, null);
-        assertEquals(AuthenticationStage.MFA_REQUIRED, mfaRequired.stage().orElseThrow());
-        session = machine.advance(session, mfaRequired.stage().orElseThrow());
+        assertEquals(AuthenticationStage.MFA_REQUIRED, mfaRequired.result().stage().orElseThrow());
+        session = mfaRequired.nextSession().orElseThrow();
 
         var authenticated = machine.transition(session, AuthenticationTransitionEvent.VERIFY_MFA, MFA);
-        assertEquals(AuthenticationStage.AUTHENTICATED, authenticated.stage().orElseThrow());
-        session = machine.advance(session, authenticated.stage().orElseThrow());
+        assertEquals(AuthenticationStage.AUTHENTICATED, authenticated.result().stage().orElseThrow());
+        session = authenticated.nextSession().orElseThrow();
 
         assertTrue(session.toTrustedActor().hasWorkspaceAssurance());
         assertEquals(SecurityAssuranceStatus.AUTHENTICATED_FULL, session.toTrustedActor().assurance());
     }
 
     @Test
-    void enrollmentPathRequiresEvidence() {
-        var session = machine.advance(
-                machine.begin(SyntheticWorkspaceFixtures.ALICE, 1L), AuthenticationStage.PRIMARY_AUTH_VERIFIED);
-        session = machine.advance(
-                session,
-                machine.transition(session, AuthenticationTransitionEvent.DIRECT_MFA_ENROLLMENT, null)
-                        .stage()
-                        .orElseThrow());
+    void enrollmentPathRequiresPrimaryEvidenceThenEnrollmentEvidence() {
+        var anonymous = machine.begin(SyntheticWorkspaceFixtures.ALICE, 1L);
+        var primary = machine.transition(anonymous, AuthenticationTransitionEvent.VERIFY_PRIMARY_AUTH, PRIMARY);
+        assertTrue(primary.result().applied());
+        var afterPrimary = primary.nextSession().orElseThrow();
+
+        var enrollment =
+                machine.transition(afterPrimary, AuthenticationTransitionEvent.DIRECT_MFA_ENROLLMENT, null);
+        assertTrue(enrollment.result().applied());
+        var enrolled = enrollment.nextSession().orElseThrow();
 
         var badEvidence =
-                machine.transition(session, AuthenticationTransitionEvent.COMPLETE_MFA_ENROLLMENT, "forged");
-        assertEquals(AuthenticationTransitionDenialReason.INSUFFICIENT_EVIDENCE, badEvidence.denialReason());
+                machine.transition(enrolled, AuthenticationTransitionEvent.COMPLETE_MFA_ENROLLMENT, "forged");
+        assertEquals(AuthenticationTransitionDenialReason.INSUFFICIENT_EVIDENCE, badEvidence.result().denialReason());
 
-        var ok = machine.transition(session, AuthenticationTransitionEvent.COMPLETE_MFA_ENROLLMENT, MFA);
-        assertEquals(AuthenticationStage.AUTHENTICATED, ok.stage().orElseThrow());
+        var ok = machine.transition(enrolled, AuthenticationTransitionEvent.COMPLETE_MFA_ENROLLMENT, MFA);
+        assertEquals(AuthenticationStage.AUTHENTICATED, ok.result().stage().orElseThrow());
+        assertTrue(ok.nextSession().orElseThrow().toTrustedActor().hasWorkspaceAssurance());
     }
 
     @Test
     void rejectsSkippingPrimaryAuth() {
         var session = machine.begin(SyntheticWorkspaceFixtures.ALICE, 2L);
         var skip = machine.transition(session, AuthenticationTransitionEvent.VERIFY_MFA, MFA);
-        assertEquals(AuthenticationTransitionDenialReason.INVALID_TRANSITION, skip.denialReason());
+        assertEquals(AuthenticationTransitionDenialReason.INVALID_TRANSITION, skip.result().denialReason());
+        assertTrue(skip.nextSession().isEmpty());
     }
 
     @Test
@@ -92,9 +96,10 @@ class SyntheticAuthenticationStateMachineTest {
                 AuthenticationStage.ANONYMOUS,
                 2L,
                 Instant.parse("2026-11-20T12:05:00Z"),
-                false);
+                false,
+                AuthSessionTrustMark.bootstrap());
         var result = expiredMachine.transition(session, AuthenticationTransitionEvent.VERIFY_PRIMARY_AUTH, PRIMARY);
-        assertEquals(AuthenticationTransitionDenialReason.EXPIRED, result.denialReason());
+        assertEquals(AuthenticationTransitionDenialReason.EXPIRED, result.result().denialReason());
     }
 
     @Test
@@ -104,9 +109,22 @@ class SyntheticAuthenticationStateMachineTest {
                 AuthenticationStage.ANONYMOUS,
                 2L,
                 Instant.parse("2026-11-20T12:20:00Z"),
-                true);
+                true,
+                AuthSessionTrustMark.bootstrap());
         var result = machine.transition(session, AuthenticationTransitionEvent.VERIFY_PRIMARY_AUTH, PRIMARY);
-        assertEquals(AuthenticationTransitionDenialReason.DISABLED, result.denialReason());
-        assertFalse(result.applied());
+        assertEquals(AuthenticationTransitionDenialReason.DISABLED, result.result().denialReason());
+        assertFalse(result.result().applied());
+    }
+
+    @Test
+    void forgedAuthenticatedStageWithoutTrustMarkCannotBecomeTrustedActor() {
+        var forged = new SyntheticAuthSession(
+                SyntheticWorkspaceFixtures.ALICE,
+                AuthenticationStage.AUTHENTICATED,
+                2L,
+                Instant.parse("2026-11-20T12:20:00Z"),
+                false,
+                AuthSessionTrustMark.intermediate());
+        assertThrows(IllegalStateException.class, forged::toTrustedActor);
     }
 }
