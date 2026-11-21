@@ -14,6 +14,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.test.context.ActiveProfiles;
 
@@ -37,6 +38,16 @@ class DevSyntheticTrustedActorBoundaryIntegrationTest {
 
         var decision = boundary.authorize(SyntheticWorkspaceFixtures.ALPHA_WORKSPACE, WorkspaceOperation.VIEW_WORKSPACE);
         assertThat(decision.permitted()).isTrue();
+    }
+
+    @Test
+    void deniesForgedPrincipalWithoutTrustedAuthentication() {
+        var forged = new TrustedWorkspaceActor(
+                SyntheticWorkspaceFixtures.ALICE, 2L, SecurityAssuranceStatus.AUTHENTICATED_FULL);
+        SecurityContextHolder.getContext()
+                .setAuthentication(new UsernamePasswordAuthenticationToken(forged, "n/a", java.util.List.of()));
+        var decision = boundary.authorize(SyntheticWorkspaceFixtures.ALPHA_WORKSPACE, WorkspaceOperation.VIEW_WORKSPACE);
+        assertThat(decision.denialReason()).isEqualTo(AuthorizationDenialReason.UNAUTHENTICATED);
     }
 
     @Test

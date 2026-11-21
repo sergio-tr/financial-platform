@@ -17,7 +17,7 @@ class PlatformSecurityConfiguration {
                         .permitAll()
                         .anyRequest()
                         .denyAll())
-                .csrf(csrf -> csrf.disable());
+                .csrf(csrf -> csrf.ignoringRequestMatchers("/actuator/health", "/actuator/health/**"));
         return http.build();
     }
 }

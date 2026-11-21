@@ -1,0 +1,55 @@
+schemaVersion: 1
+taskId: SER-148
+taskKind: IMPLEMENTATION
+mode: IMPLEMENT
+risk: LOW
+baseRevision: f542d6c4c9b3ae58df3a6c81e4e9f3b4e1563f57
+packetHash: a8f2e7d1c3b94a6051e8f9d0b4a7c6e5f1d2e3a4b5c6d7e8f9a0b1c2d3e4f5a6
+authorityRefs:
+  - SER-148
+  - SER-147
+  - SER-146
+  - SER-145
+  - SER-144
+  - SER-143
+  - SER-92
+  - SER-24
+  - SER-25
+  - SER-20
+  - REQ-IDENTITY-001
+  - 3b7a4498-eb5f-4383-831d-9e271cee3dda
+allowedPaths:
+  - backend/application/**
+  - backend/modules/identity/**
+  - test/fixtures/synthetic/identity/**
+  - docs/governance/dev-synthetic-v1-carve-out-registry.yaml
+  - docs/governance/packets/SER-148-v1-identity-05.task-packet.yaml
+  - MANIFEST.txt
+forbiddenPaths:
+  - contracts/**
+  - contracts/asyncapi/**
+  - infrastructure/**
+  - design/**
+  - frontend/**
+  - docs/planning/phase0-closure/**
+requirements: NOT_APPLICABLE
+contracts: NOT_APPLICABLE
+design: NOT_APPLICABLE
+tests: NOT_APPLICABLE
+security: NOT_APPLICABLE
+financial: NOT_APPLICABLE
+migrations: NOT_APPLICABLE
+workflows: NOT_APPLICABLE
+acceptance:
+  required: false
+  environment: CI_SYNTHETIC
+  humanApproval: true
+definitionOfDone:
+  - Registry slice V1-IDENTITY-AUTH-STATE active; prior SER-144..147 slices unchanged
+  - Internal AuthenticationStage state machine with SER-92 canonical stages; clock-injected synthetic tests
+  - SecurityContextWorkspaceActorAdapter fail-closed: isAuthenticated + trusted token type only
+  - CSRF not globally disabled; health GET remains reachable
+  - No HTTP login, password/TOTP persistence, session JDBC, or real MFA anti-replay claims
+  - validate-dev-synthetic-v1-gate.py and validate-traceability.py --profile foundation PASS
+  - v0-engineering-substrate CI JDK25 verify; SER-96 preclaim on PR body
+  - IMPLEMENTATION_LOCK=ON and P0_IMPLEMENTATION_READY=NO unchanged

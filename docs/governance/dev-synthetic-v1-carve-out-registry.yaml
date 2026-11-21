@@ -61,3 +61,14 @@ verticalSlices:
       - backend/application/**
       - backend/modules/identity/**
       - test/fixtures/synthetic/identity/**
+  - id: V1-IDENTITY-AUTH-STATE
+    taskPacket: docs/governance/packets/SER-148-v1-identity-05.task-packet.yaml
+    dataClass: SYNTHETIC_ONLY
+    environments:
+      - DEV
+      - TEST
+      - CI_SYNTHETIC
+    allowedPathPrefixes:
+      - backend/application/**
+      - backend/modules/identity/**
+      - test/fixtures/synthetic/identity/**

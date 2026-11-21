@@ -18,8 +18,8 @@ final class SecurityContextWorkspaceActorAdapter implements WorkspaceActorContex
         if (authentication instanceof SyntheticTrustedActorAuthentication synthetic) {
             return Optional.of(synthetic.actor());
         }
-        if (authentication.getPrincipal() instanceof TrustedWorkspaceActor actor) {
-            return Optional.of(actor);
+        if (!authentication.isAuthenticated()) {
+            return Optional.empty();
         }
         return Optional.empty();
     }
