@@ -36,7 +36,7 @@ public final class VerifiedPrimaryAuthProof {
         return new VerifiedPrimaryAuthProof(UUID.randomUUID(), subjectUserId, authRevision, issuedAt, expiresAt);
     }
 
-    UUID proofId() {
+    public UUID proofId() {
         return proofId;
     }
 
@@ -56,7 +56,7 @@ public final class VerifiedPrimaryAuthProof {
         return expiresAt;
     }
 
-    boolean isActiveAt(Instant instant) {
+    public boolean isActiveAt(Instant instant) {
         Objects.requireNonNull(instant, "instant");
         return !instant.isBefore(issuedAt) && instant.isBefore(expiresAt);
     }
