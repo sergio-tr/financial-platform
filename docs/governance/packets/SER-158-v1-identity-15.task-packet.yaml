@@ -1,0 +1,54 @@
+schemaVersion: 1
+taskId: SER-158
+taskKind: IMPLEMENTATION
+mode: IMPLEMENT
+risk: SENSITIVE
+baseRevision: ae6adb10f9834ec3865ad2c853a509de1c741a08
+packetHash: "fdaa297219b2771494c63cae8af6a4ab75f762a270293199e6c25da32c623c50"
+authorityRefs:
+  - SER-158
+  - SER-157
+  - SER-156
+  - SER-143
+  - SER-92
+  - SER-24
+  - SER-25
+  - SER-20
+  - 9a135858-67a9-414e-be27-911d8635bc16
+  - 4fa11893-c8f6-41d0-8b4d-ed564c4bff68
+allowedPaths:
+  - backend/modules/identity/**
+  - test/fixtures/synthetic/identity/**
+  - docs/governance/dev-synthetic-v1-carve-out-registry.yaml
+  - docs/governance/packets/SER-158-v1-identity-15.task-packet.yaml
+  - docs/governance/PR-49-50_HUMAN_AUTH_REVIEW_GAP.md
+  - MANIFEST.txt
+forbiddenPaths:
+  - contracts/**
+  - infrastructure/**
+  - design/**
+  - frontend/**
+  - docs/planning/phase0-closure/**
+  - backend/application/**
+requirements: NOT_APPLICABLE
+contracts: NOT_APPLICABLE
+design: NOT_APPLICABLE
+tests: NOT_APPLICABLE
+security: NOT_APPLICABLE
+financial: NOT_APPLICABLE
+migrations: NOT_APPLICABLE
+workflows: NOT_APPLICABLE
+acceptance:
+  required: false
+  environment: CI_SYNTHETIC
+  humanApproval: true
+definitionOfDone:
+  - Registry slice V1-IDENTITY-TOTP-ENROLLMENT-HARDENING active; prior slices unchanged
+  - confirm/cancel bound to TrustedMfaChallengeContextPort; no caller-supplied UserId owner
+  - Atomic beginPending per challenge; synchronized confirm/cancel pending lifecycle
+  - No runtime authenticator activation on synthetic confirm
+  - Adversarial and in-process concurrency tests; no PostgreSQL replay claims
+  - validate-dev-synthetic-v1-gate.py and validate-traceability.py --profile foundation PASS
+  - v0-engineering-substrate CI JDK25; SER-96 preclaim on PR body
+  - PR #49/#50/#52 human auth review gaps preserved
+  - IMPLEMENTATION_LOCK=ON and P0_IMPLEMENTATION_READY=NO unchanged
