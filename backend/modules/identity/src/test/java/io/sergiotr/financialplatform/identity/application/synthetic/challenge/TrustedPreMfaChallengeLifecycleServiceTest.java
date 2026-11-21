@@ -3,6 +3,7 @@ package io.sergiotr.financialplatform.identity.application.synthetic.challenge;
 import static org.junit.jupiter.api.Assertions.*;
 
 import io.sergiotr.financialplatform.identity.adapter.memory.InMemoryAccountSecurityAuthRevisionStore;
+import io.sergiotr.financialplatform.identity.adapter.memory.SyntheticWorkspaceFixtures;
 import io.sergiotr.financialplatform.identity.application.synthetic.SyntheticAuthFixtureSupport;
 import io.sergiotr.financialplatform.identity.application.synthetic.VerifiedPrimaryForMfaIssuance;
 import io.sergiotr.financialplatform.identity.domain.AuthenticationStage;
@@ -57,12 +58,11 @@ class TrustedPreMfaChallengeLifecycleServiceTest {
 
     @Test
     void arbitraryUserIdProofMismatchRejected() {
-        var other = UserId.parse("10000000-0000-4000-8000-000000000099");
-        securityStore.put(other, 1L, UserAccountSecurityStatus.ENABLED);
+        securityStore.put(SyntheticWorkspaceFixtures.BOB, 1L, UserAccountSecurityStatus.ENABLED);
         var otherIssuance = SyntheticAuthFixtureSupport.mintVerifiedPrimaryForMfaIssuance(
                 clock,
                 lifecycle,
-                other,
+                SyntheticWorkspaceFixtures.BOB,
                 1L,
                 SyntheticAuthFixtureSupport.BOB_PRIMARY_PASSWORD,
                 AuthenticationStage.MFA_REQUIRED);
@@ -88,8 +88,8 @@ class TrustedPreMfaChallengeLifecycleServiceTest {
 
     @Test
     void disabledSubjectDenied() {
-        securityStore.put(USER, 3L, UserAccountSecurityStatus.DISABLED);
         var id = lifecycle.issueAfterVerifiedPrimary(validIssuance);
+        securityStore.put(USER, 3L, UserAccountSecurityStatus.DISABLED);
         assertEquals(
                 TrustedPreMfaChallengeLifecycleService.ValidationOutcome.DISABLED_SUBJECT,
                 lifecycle.validateForTotp(Optional.of(id)));
@@ -97,8 +97,8 @@ class TrustedPreMfaChallengeLifecycleServiceTest {
 
     @Test
     void lockedSubjectDenied() {
-        securityStore.put(USER, 3L, UserAccountSecurityStatus.LOCKED);
         var id = lifecycle.issueAfterVerifiedPrimary(validIssuance);
+        securityStore.put(USER, 3L, UserAccountSecurityStatus.LOCKED);
         assertEquals(
                 TrustedPreMfaChallengeLifecycleService.ValidationOutcome.LOCKED_SUBJECT,
                 lifecycle.validateForTotp(Optional.of(id)));
@@ -106,9 +106,18 @@ class TrustedPreMfaChallengeLifecycleServiceTest {
 
     @Test
     void expiredChallengeDenied() {
-        var id = lifecycle.issueAfterVerifiedPrimary(validIssuance);
+        var store = new TrustedPreMfaChallengeLifecycleService.InMemoryTrustedPreMfaChallengeStore();
+        var issuing = new TrustedPreMfaChallengeLifecycleService(clock, securityStore, store);
+        var issuance = SyntheticAuthFixtureSupport.mintVerifiedPrimaryForMfaIssuance(
+                clock,
+                issuing,
+                USER,
+                3L,
+                SyntheticAuthFixtureSupport.ALICE_PRIMARY_PASSWORD,
+                AuthenticationStage.MFA_REQUIRED);
+        var id = issuing.issueAfterVerifiedPrimary(issuance);
         var lateClock = Clock.fixed(clock.instant().plus(Duration.ofMinutes(20)), ZoneOffset.UTC);
-        var lateLifecycle = new TrustedPreMfaChallengeLifecycleService(lateClock, securityStore);
+        var lateLifecycle = new TrustedPreMfaChallengeLifecycleService(lateClock, securityStore, store);
         var validation = lateLifecycle.validateForTotp(Optional.of(id));
         assertEquals(TrustedPreMfaChallengeLifecycleService.ValidationOutcome.EXPIRED, validation);
     }

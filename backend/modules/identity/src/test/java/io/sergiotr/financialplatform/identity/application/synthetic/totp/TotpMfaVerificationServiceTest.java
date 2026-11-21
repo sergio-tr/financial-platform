@@ -46,6 +46,7 @@ class TotpMfaVerificationServiceTest {
 
     private InMemoryAccountSecurityAuthRevisionStore revisions;
     private InMemorySyntheticPasswordCredentialStore passwordStore;
+    private SyntheticPasswordService passwordService;
     private TrustedPreMfaChallengeLifecycleService lifecycle;
     private Clock clock;
     private final AtomicReference<Optional<TrustedPreMfaChallengeId>> boundChallenge = new AtomicReference<>(Optional.empty());
@@ -57,7 +58,7 @@ class TotpMfaVerificationServiceTest {
         revisions.put(OWNER, 3L, UserAccountSecurityStatus.ENABLED);
         revisions.put(FOREIGN, 3L, UserAccountSecurityStatus.ENABLED);
         var hasher = new Argon2idSyntheticPasswordHasher();
-        var passwordService = new SyntheticPasswordService(
+        passwordService = new SyntheticPasswordService(
                 new SyntheticPasswordPolicy(new SyntheticCommonPasswordBlocklist().loadFromClasspath()), hasher);
         passwordStore = new InMemorySyntheticPasswordCredentialStore();
         passwordStore.put(new SyntheticPasswordCredential(
@@ -72,8 +73,12 @@ class TotpMfaVerificationServiceTest {
         if (owner.equals(FOREIGN)) {
             ensureForeignPrimaryRegistered();
         }
+        var auth = SyntheticAuthFixtureSupport.aliceAndBobPrimaryArgon2();
+        var primary = owner.equals(FOREIGN)
+                ? new Argon2idTrustedPrimaryAuthEvidence(passwordStore, passwordService)
+                : auth.primary();
         boundChallenge.set(Optional.of(SyntheticAuthFixtureSupport.issueMfaChallengeAfterPrimary(
-                clock, revisions, lifecycle, owner, authRevision, password)));
+                clock, lifecycle, owner, authRevision, password, primary, auth.mfa())));
     }
 
     private void ensureForeignPrimaryRegistered() {

@@ -68,7 +68,19 @@ public final class SyntheticAuthFixtureSupport {
             long authRevision,
             String primaryPassword) {
         var auth = aliceAndBobPrimaryArgon2();
-        var machine = new SyntheticAuthenticationStateMachine(clock, auth.primary(), auth.mfa(), lifecycle);
+        return issueMfaChallengeAfterPrimary(
+                clock, lifecycle, user, authRevision, primaryPassword, auth.primary(), auth.mfa());
+    }
+
+    public static TrustedPreMfaChallengeId issueMfaChallengeAfterPrimary(
+            Clock clock,
+            TrustedPreMfaChallengeLifecycleService lifecycle,
+            UserId user,
+            long authRevision,
+            String primaryPassword,
+            TrustedPrimaryAuthEvidencePort primaryEvidence,
+            TrustedMfaEvidencePort mfaEvidence) {
+        var machine = new SyntheticAuthenticationStateMachine(clock, primaryEvidence, mfaEvidence, lifecycle);
         var session = machine.begin(user, authRevision);
         var primary =
                 machine.transition(session, AuthenticationTransitionEvent.VERIFY_PRIMARY_AUTH, primaryPassword);
@@ -90,11 +102,27 @@ public final class SyntheticAuthFixtureSupport {
             String primaryPassword,
             AuthenticationStage targetStage) {
         var auth = aliceAndBobPrimaryArgon2();
-        var machine = new SyntheticAuthenticationStateMachine(clock, auth.primary(), auth.mfa(), lifecycle);
+        return mintVerifiedPrimaryForMfaIssuance(
+                clock, lifecycle, user, authRevision, primaryPassword, targetStage, auth.primary(), auth.mfa());
+    }
+
+    public static VerifiedPrimaryForMfaIssuance mintVerifiedPrimaryForMfaIssuance(
+            Clock clock,
+            TrustedPreMfaChallengeLifecycleService lifecycle,
+            UserId user,
+            long authRevision,
+            String primaryPassword,
+            AuthenticationStage targetStage,
+            TrustedPrimaryAuthEvidencePort primaryEvidence,
+            TrustedMfaEvidencePort mfaEvidence) {
+        var machine = new SyntheticAuthenticationStateMachine(clock, primaryEvidence, mfaEvidence, lifecycle);
         var primary = machine.transition(
                 machine.begin(user, authRevision),
                 AuthenticationTransitionEvent.VERIFY_PRIMARY_AUTH,
                 primaryPassword);
+        if (!primary.result().applied()) {
+            throw new IllegalStateException("primary transition not applied");
+        }
         var proof = primary.nextSession().orElseThrow().verifiedPrimaryProof().orElseThrow();
         return new VerifiedPrimaryForMfaIssuance(user, authRevision, targetStage, proof);
     }
