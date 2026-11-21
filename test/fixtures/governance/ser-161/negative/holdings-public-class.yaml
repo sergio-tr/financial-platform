@@ -1,0 +1,27 @@
+catalogVersion: 1
+sliceId: SER-161-fixture-public-holding
+parentTicket: SER-109
+authorityRefs:
+  - id: FIXTURE
+canonicalSinkVocabulary:
+  - postgresql_encrypted_at_rest
+  - application_heap_transient
+  - external_export
+  - cloud_saas
+fields:
+  - fieldId: finance.position.lot_quantity
+    boundedContext: portfolio
+    fieldFamily: holding_quantity
+    dataClass: PUBLIC
+    owner: FIXTURE
+    materializationStatus: SYNTHETIC_IN_MEMORY_ONLY
+    storageSurfaces:
+      - surface: application_heap_transient
+        permitted: true
+    sinks:
+      allow: [postgresql_encrypted_at_rest, application_heap_transient]
+      deny: [external_export, cloud_saas]
+    retention:
+      status: REF
+      policyRef: FIXTURE
+    authorityRefs: [FIXTURE]

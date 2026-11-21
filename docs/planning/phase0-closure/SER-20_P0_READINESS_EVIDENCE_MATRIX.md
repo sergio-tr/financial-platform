@@ -52,7 +52,7 @@ CI green on `main` (e.g. `phase0-governance` @ `854d091`) is **not** `P0_IMPLEME
 | SER-102 | In Progress | **Evidence** + linking work | **BLOCKED** | Full traceability profile and REQ graph links incomplete; blocks `--profile full` |
 | SER-103 | In Progress | **Evidence** (RLS catalog) | **PARTIAL** | SER-159 slice: `docs/security/postgres-physical-catalog/identity-workspace-session.v1.yaml` + validator (session tables planned; G-IDW-001..008 blocked; other BCs not cataloged) |
 | SER-106 | In Progress | **Decision** + materialization | **PARTIAL** | P0-R43 registries + runbooks materialized; runtime implementation still blocked |
-| SER-109 | In Progress | **Evidence** (field-level) | **PARTIAL** | SER-160 slice: `docs/security/field-privacy-catalog/identity-workspace-session-mfa.v1.yaml` + validator (Identity/Session/MFA fields; G-COV-FIELD-001..003 open). Class-level `data-classification.yaml` owners still `PENDING (SER-109)` |
+| SER-109 | In Progress | **Evidence** (field-level) | **PARTIAL** | SER-160 identity + SER-161 finance field catalogs + shared regression validator (`field-privacy-catalog/**`; G-COV-FIELD-001 partial; G-FIN-001/002 open). Class-level `data-classification.yaml` owners still `PENDING (SER-109)` |
 | SER-110 | In Progress | **Decision** + materialization | **BLOCKED** | `retention-policies.yaml` / runbooks not closed per issue DoD |
 | SER-112 | In Progress | **Evidence** (test layers) | **PARTIAL** | **ADR-0037** accepted (D-030 reconciled); test gate updated; full P0-R49 matrix still blocked |
 | SER-113 | In Progress | **Decision** + ops evidence | **BLOCKED** | Acceptance controller prose in `docs/delivery/*`; isolated acceptance **not** proved executed |

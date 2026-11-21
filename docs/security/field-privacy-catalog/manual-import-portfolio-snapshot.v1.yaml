@@ -1,0 +1,521 @@
+catalogVersion: 1
+sliceId: SER-161-finance-field-privacy-v1
+parentTicket: SER-109
+statusNote: >
+  First SER-109 field-level Finance slice (SER-161): manual import, provider source metadata,
+  account/portfolio ownership, transactions, positions/lots, snapshots, performance/X-Ray derived outputs.
+  Cross-refs SER-160 sink vocabulary and R46 class policy. Does not complete SER-109 globally.
+  No physical PostgreSQL table names invented; no runtime egress enforcement.
+classPolicyCrossRef: docs/security/data-classification.yaml
+retentionRegistryCrossRef: docs/security/retention-policies.yaml
+crossCatalogRefs:
+  - docs/security/field-privacy-catalog/identity-workspace-session-mfa.v1.yaml
+authorityRefs:
+  - id: P0-R46
+    source: data classification and sink deny-by-default
+  - id: P0-R47
+    source: retention cross-ref only; durable importer retention pending SER-110 ratification
+  - id: P0-R24
+    source: deterministic financial calculation authority
+  - id: P0-R25
+    source: workspace-scoped portfolio ownership
+  - id: SER-109
+    source: parent field inventory ticket
+  - id: SER-60
+    source: manual/synthetic import connector scope (Linear)
+  - id: SER-62
+    source: import file handling acceptance
+  - id: SER-63
+    source: portfolio bounded context
+  - id: SER-71
+    source: snapshot immutability
+  - id: SER-81
+    source: provider sync and quarantine semantics
+  - id: SER-84
+    source: account structure
+  - id: SER-94
+    source: portfolio pack authority (Linear SER-94)
+  - id: SER-160
+    source: canonical sink vocabulary alignment
+canonicalSinkVocabulary:
+  - secretvault_protected_ipc_scoped_lease
+  - postgresql_encrypted_at_rest
+  - application_heap_transient
+  - structured_application_log_redacted
+  - application_trace_redacted
+  - rabbitmq
+  - outbox
+  - replay_buffer
+  - temporal
+  - ai_inference
+  - rag_index
+  - telemetry
+  - git_repository
+  - ci_artifact
+  - slack
+  - linear
+  - figma
+  - external_export
+  - cloud_saas
+  - collaboration_tool
+blockerMatrix:
+  - gapId: G-FIN-001
+    scope: finance.portfolio.physical_tables
+    status: OPEN
+    reason: Physical PostgreSQL names for portfolio/account/transaction tables not ratified (SER-103)
+  - gapId: G-FIN-002
+    scope: finance.import.quarantine_retention
+    status: OPEN
+    reason: Importer quarantine retention duration pending SER-110 + human ratification
+  - gapId: G-COV-FIELD-001
+    scope: finance.connectors.portfolio
+    status: PARTIAL
+    reason: SER-161 covers first financial vertical; connectors AI remainder open in SER-109
+  - gapId: G-COV-FIELD-002
+    scope: global.class_owners
+    status: OPEN
+    reason: data-classification.yaml class owners still PENDING (SER-109)
+fields:
+  - fieldId: finance.import.manual.csv_xlsx_bytes
+    boundedContext: connectivity
+    fieldFamily: manual_import_payload
+    dataClass: FINANCIAL_SENSITIVE
+    owner: SER-161-slice-finance
+    materializationStatus: SYNTHETIC_IN_MEMORY_ONLY
+    storageSurfaces:
+      - surface: application_heap_transient
+        permitted: true
+      - surface: postgresql_planned_column
+        permitted: false
+    sinks:
+      allow: [application_heap_transient]
+      deny: [git_repository, ci_artifact, slack, linear, figma, ai_inference, rag_index, telemetry, rabbitmq, outbox, temporal, external_export, cloud_saas, collaboration_tool]
+    retention:
+      status: BLOCKED_DECISION
+      blockedReason: Raw manual file bytes never persisted; importer retention pending G-FIN-002
+    authorityRefs: [SER-62, SER-60, P0-R46]
+    notes: Synthetic CI only; never committed to Git or logged.
+  - fieldId: finance.import.manual.pdf_extracted_text
+    boundedContext: connectivity
+    fieldFamily: manual_import_payload
+    dataClass: FINANCIAL_SENSITIVE
+    owner: SER-161-slice-finance
+    materializationStatus: SYNTHETIC_IN_MEMORY_ONLY
+    storageSurfaces:
+      - surface: application_heap_transient
+        permitted: true
+    sinks:
+      allow: [application_heap_transient]
+      deny: [git_repository, ci_artifact, slack, linear, figma, ai_inference, rag_index, telemetry, collaboration_tool, cloud_saas, external_export]
+    retention:
+      status: BLOCKED_DECISION
+      blockedReason: PDF extract retention pending G-FIN-002
+    authorityRefs: [SER-62, P0-R46]
+  - fieldId: finance.import.manual.file_metadata
+    boundedContext: connectivity
+    fieldFamily: import_provenance
+    dataClass: INTERNAL
+    owner: SER-161-slice-finance
+    materializationStatus: BLOCKED_DECISION
+    physicalBinding:
+      blockedGapId: G-FIN-001
+    storageSurfaces:
+      - surface: postgresql_planned_column
+        permitted: false
+      - surface: application_heap_transient
+        permitted: true
+    sinks:
+      allow: [postgresql_encrypted_at_rest, application_heap_transient, structured_application_log_redacted]
+      deny: [git_repository, ci_artifact, slack, linear, figma, collaboration_tool, ai_inference, rag_index, external_export, cloud_saas, telemetry]
+    retention:
+      status: BLOCKED_DECISION
+      blockedReason: Manual import file metadata retention pending SER-110 importer policy
+    authorityRefs: [SER-62, P0-R46]
+    notes: Filename/size/MIME only; never store raw file in Git or CI artifacts.
+  - fieldId: finance.import.provider_payload_normalized
+    boundedContext: connectivity
+    fieldFamily: manual_import_payload
+    dataClass: FINANCIAL_SENSITIVE
+    owner: SER-161-slice-finance
+    materializationStatus: BLOCKED_DECISION
+    physicalBinding:
+      blockedGapId: G-FIN-001
+    storageSurfaces:
+      - surface: postgresql_planned_column
+        permitted: false
+      - surface: application_heap_transient
+        permitted: true
+    sinks:
+      allow: [postgresql_encrypted_at_rest, application_heap_transient]
+      deny: [git_repository, ci_artifact, slack, linear, figma, ai_inference, rag_index, temporal, rabbitmq, outbox, cloud_saas, external_export, collaboration_tool, telemetry]
+    retention:
+      status: BLOCKED_DECISION
+      blockedReason: Normalized importer rows retention pending G-FIN-002
+    authorityRefs: [SER-60, SER-81, P0-R46]
+  - fieldId: connectivity.source.manifest_fingerprint_sha256
+    boundedContext: connectivity
+    fieldFamily: source_batch_identity
+    dataClass: INTERNAL
+    owner: SER-161-slice-finance
+    materializationStatus: BLOCKED_DECISION
+    physicalBinding:
+      blockedGapId: G-FIN-001
+    storageSurfaces:
+      - surface: postgresql_planned_column
+        permitted: false
+      - surface: application_heap_transient
+        permitted: true
+    sinks:
+      allow: [postgresql_encrypted_at_rest, application_heap_transient, structured_application_log_redacted]
+      deny: [git_repository, ci_artifact, slack, linear, figma, ai_inference, collaboration_tool]
+    retention:
+      status: REF
+      policyRef: SER-81/source_batch_operational
+    authorityRefs: [SER-81, SER-93 §11 batch fingerprint prose]
+    notes: Batch identity for idempotency; not collaboration export.
+  - fieldId: connectivity.quarantine.diagnostic_safe_summary
+    boundedContext: connectivity
+    fieldFamily: quarantine_meta
+    dataClass: INTERNAL
+    owner: SER-161-slice-finance
+    materializationStatus: BLOCKED_DECISION
+    physicalBinding:
+      blockedGapId: G-FIN-002
+    storageSurfaces:
+      - surface: postgresql_planned_column
+        permitted: false
+      - surface: application_heap_transient
+        permitted: true
+    sinks:
+      allow: [postgresql_encrypted_at_rest, structured_application_log_redacted]
+      deny: [git_repository, ci_artifact, slack, linear, figma, ai_inference, rag_index, cloud_saas, collaboration_tool]
+    retention:
+      status: BLOCKED_DECISION
+      blockedReason: Quarantine retention duration pending G-FIN-002
+    authorityRefs: [SER-81, SER-93 §3.6]
+  - fieldId: connectivity.provider.oauth_credential_secret_ref
+    boundedContext: connectivity
+    fieldFamily: provider_credential
+    dataClass: SECRET
+    owner: SER-161-slice-finance
+    materializationStatus: BLOCKED_DECISION
+    physicalBinding:
+      blockedGapId: G-FIN-001
+    storageSurfaces:
+      - surface: secretvault_lease_only
+        permitted: true
+      - surface: postgresql_planned_column
+        permitted: false
+      - surface: application_heap_transient
+        permitted: true
+        notes: Transient lease handle only; not durable column
+    sinks:
+      allow: [secretvault_protected_ipc_scoped_lease, application_heap_transient]
+      deny: [rabbitmq, outbox, replay_buffer, temporal, ai_inference, rag_index, telemetry, git_repository, ci_artifact, slack, linear, figma, postgresql_encrypted_at_rest, cloud_saas, external_export, collaboration_tool]
+    retention:
+      status: REF
+      policyRef: P0-R47/secretvault_lease_ttl
+    authorityRefs: [SER-81, P0-R46 SECRET]
+    notes: Opaque SecretRef; never broker, outbox, AI, or VCS.
+  - fieldId: finance.account.account_id
+    boundedContext: portfolio
+    fieldFamily: account_identifier
+    dataClass: FINANCIAL_SENSITIVE
+    owner: SER-161-slice-finance
+    materializationStatus: BLOCKED_DECISION
+    physicalBinding:
+      blockedGapId: G-FIN-001
+    storageSurfaces:
+      - surface: postgresql_planned_column
+        permitted: false
+      - surface: application_heap_transient
+        permitted: true
+    sinks:
+      allow: [postgresql_encrypted_at_rest, application_heap_transient]
+      deny: [git_repository, ci_artifact, slack, linear, figma, ai_inference, rag_index, external_export, cloud_saas, collaboration_tool, telemetry]
+    retention:
+      status: BLOCKED_DECISION
+      blockedReason: Account row retention pending SER-110 portfolio slice
+    authorityRefs: [SER-84, P0-R25, P0-R46]
+  - fieldId: finance.portfolio.portfolio_id
+    boundedContext: portfolio
+    fieldFamily: portfolio_identifier
+    dataClass: FINANCIAL_SENSITIVE
+    owner: SER-161-slice-finance
+    materializationStatus: BLOCKED_DECISION
+    physicalBinding:
+      blockedGapId: G-FIN-001
+    storageSurfaces:
+      - surface: postgresql_planned_column
+        permitted: false
+      - surface: application_heap_transient
+        permitted: true
+    sinks:
+      allow: [postgresql_encrypted_at_rest, application_heap_transient]
+      deny: [git_repository, ci_artifact, slack, linear, figma, ai_inference, rag_index, external_export, cloud_saas, collaboration_tool, telemetry]
+    retention:
+      status: BLOCKED_DECISION
+      blockedReason: Portfolio metadata retention pending SER-110
+    authorityRefs: [SER-63, SER-94, P0-R25]
+  - fieldId: finance.portfolio.workspace_ownership_scope
+    boundedContext: workspace
+    fieldFamily: tenancy_binding
+    dataClass: FINANCIAL_SENSITIVE
+    owner: SER-161-slice-finance
+    materializationStatus: BLOCKED_DECISION
+    physicalBinding:
+      blockedGapId: G-FIN-001
+    storageSurfaces:
+      - surface: postgresql_planned_column
+        permitted: false
+    sinks:
+      allow: [postgresql_encrypted_at_rest, application_heap_transient]
+      deny: [git_repository, ci_artifact, slack, linear, figma, collaboration_tool, external_export, cloud_saas]
+    retention:
+      status: BLOCKED_DECISION
+      blockedReason: Workspace scope column pending RLS ratification SER-103
+    authorityRefs: [P0-R25, SER-25]
+  - fieldId: finance.transaction.cash_amount
+    boundedContext: portfolio
+    fieldFamily: transaction_value
+    dataClass: FINANCIAL_SENSITIVE
+    owner: SER-161-slice-finance
+    materializationStatus: BLOCKED_DECISION
+    physicalBinding:
+      blockedGapId: G-FIN-001
+    storageSurfaces:
+      - surface: postgresql_planned_column
+        permitted: false
+    sinks:
+      allow: [postgresql_encrypted_at_rest, application_heap_transient]
+      deny: [git_repository, ci_artifact, slack, linear, figma, ai_inference, rag_index, telemetry, external_export, cloud_saas, collaboration_tool]
+    retention:
+      status: BLOCKED_DECISION
+      blockedReason: Transaction facts retention pending SER-110
+    authorityRefs: [SER-94, P0-R24, P0-R46]
+  - fieldId: finance.transaction.fee_amount
+    boundedContext: portfolio
+    fieldFamily: transaction_value
+    dataClass: FINANCIAL_SENSITIVE
+    owner: SER-161-slice-finance
+    materializationStatus: BLOCKED_DECISION
+    physicalBinding:
+      blockedGapId: G-FIN-001
+    storageSurfaces:
+      - surface: postgresql_planned_column
+        permitted: false
+      - surface: application_heap_transient
+        permitted: true
+    sinks:
+      allow: [postgresql_encrypted_at_rest, application_heap_transient]
+      deny: [git_repository, ci_artifact, slack, linear, figma, collaboration_tool, telemetry, ai_inference, rag_index, cloud_saas, external_export]
+    retention:
+      status: BLOCKED_DECISION
+      blockedReason: Fee column retention pending SER-110
+    authorityRefs: [SER-94, P0-R24]
+  - fieldId: finance.transaction.currency_iso_code
+    boundedContext: portfolio
+    fieldFamily: currency_reference
+    dataClass: INTERNAL
+    owner: SER-161-slice-finance
+    materializationStatus: BLOCKED_DECISION
+    physicalBinding:
+      blockedGapId: G-FIN-001
+    storageSurfaces:
+      - surface: postgresql_planned_column
+        permitted: false
+      - surface: application_heap_transient
+        permitted: true
+    sinks:
+      allow: [postgresql_encrypted_at_rest, application_heap_transient]
+      deny: [git_repository, ci_artifact, slack, figma, collaboration_tool]
+    retention:
+      status: REF
+      policyRef: P0-R24/currency_code_dimension
+    authorityRefs: [SER-94, P0-R24]
+  - fieldId: finance.transaction.optimistic_revision
+    boundedContext: portfolio
+    fieldFamily: concurrency_token
+    dataClass: FINANCIAL_SENSITIVE
+    owner: SER-161-slice-finance
+    materializationStatus: BLOCKED_DECISION
+    physicalBinding:
+      blockedGapId: G-FIN-001
+    storageSurfaces:
+      - surface: postgresql_planned_column
+        permitted: false
+    sinks:
+      allow: [postgresql_encrypted_at_rest, application_heap_transient]
+      deny: [git_repository, ci_artifact, slack, linear, figma, collaboration_tool, ai_inference, cloud_saas, external_export]
+    retention:
+      status: BLOCKED_DECISION
+      blockedReason: Revision column not ratified
+    authorityRefs: [SER-94, P0-R24]
+  - fieldId: finance.position.lot_quantity
+    boundedContext: portfolio
+    fieldFamily: holding_quantity
+    dataClass: FINANCIAL_SENSITIVE
+    owner: SER-161-slice-finance
+    materializationStatus: BLOCKED_DECISION
+    physicalBinding:
+      blockedGapId: G-FIN-001
+    storageSurfaces:
+      - surface: postgresql_planned_column
+        permitted: false
+    sinks:
+      allow: [postgresql_encrypted_at_rest, application_heap_transient]
+      deny: [git_repository, ci_artifact, slack, linear, figma, ai_inference, rag_index, external_export, cloud_saas, collaboration_tool, telemetry]
+    retention:
+      status: BLOCKED_DECISION
+      blockedReason: Lot retention pending SER-110
+    authorityRefs: [SER-94, P0-R24]
+  - fieldId: finance.position.lot_cost_basis
+    boundedContext: portfolio
+    fieldFamily: holding_value
+    dataClass: FINANCIAL_SENSITIVE
+    owner: SER-161-slice-finance
+    materializationStatus: BLOCKED_DECISION
+    physicalBinding:
+      blockedGapId: G-FIN-001
+    storageSurfaces:
+      - surface: postgresql_planned_column
+        permitted: false
+    sinks:
+      allow: [postgresql_encrypted_at_rest, application_heap_transient]
+      deny: [git_repository, ci_artifact, slack, linear, figma, ai_inference, rag_index, external_export, cloud_saas, collaboration_tool]
+    retention:
+      status: BLOCKED_DECISION
+      blockedReason: Cost basis retention pending SER-110
+    authorityRefs: [SER-94, P0-R24, P0-R46]
+  - fieldId: finance.snapshot.account_state_snapshot_digest
+    boundedContext: portfolio
+    fieldFamily: immutable_snapshot
+    dataClass: FINANCIAL_SENSITIVE
+    owner: SER-161-slice-finance
+    materializationStatus: BLOCKED_DECISION
+    physicalBinding:
+      blockedGapId: G-FIN-001
+    storageSurfaces:
+      - surface: postgresql_planned_column
+        permitted: false
+    sinks:
+      allow: [postgresql_encrypted_at_rest, application_heap_transient]
+      deny: [git_repository, ci_artifact, slack, linear, figma, ai_inference, rag_index, collaboration_tool, external_export, cloud_saas]
+    retention:
+      status: BLOCKED_DECISION
+      blockedReason: AccountStateSnapshot retention policy pending SER-71 + SER-110
+    authorityRefs: [SER-71, SER-94, P0-R24]
+  - fieldId: finance.snapshot.portfolio_snapshot_digest
+    boundedContext: portfolio
+    fieldFamily: immutable_snapshot
+    dataClass: FINANCIAL_SENSITIVE
+    owner: SER-161-slice-finance
+    materializationStatus: BLOCKED_DECISION
+    physicalBinding:
+      blockedGapId: G-FIN-001
+    storageSurfaces:
+      - surface: postgresql_planned_column
+        permitted: false
+    sinks:
+      allow: [postgresql_encrypted_at_rest, application_heap_transient]
+      deny: [git_repository, ci_artifact, slack, linear, figma, ai_inference, rag_index, collaboration_tool, external_export, cloud_saas, telemetry]
+    retention:
+      status: BLOCKED_DECISION
+      blockedReason: PortfolioSnapshot immutable store pending physical catalog
+    authorityRefs: [SER-71, SER-94]
+  - fieldId: finance.performance.valuation_result
+    boundedContext: portfolio
+    fieldFamily: derived_analytics
+    dataClass: FINANCIAL_SENSITIVE
+    owner: SER-161-slice-finance
+    materializationStatus: SYNTHETIC_IN_MEMORY_ONLY
+    physicalBinding:
+      blockedGapId: G-FIN-001
+    storageSurfaces:
+      - surface: application_heap_transient
+        permitted: true
+    sinks:
+      allow: [postgresql_encrypted_at_rest, application_heap_transient]
+      deny: [git_repository, ci_artifact, slack, linear, figma, ai_inference, rag_index, external_export, cloud_saas, collaboration_tool]
+    retention:
+      status: BLOCKED_DECISION
+      blockedReason: Derived valuation persistence pending SER-110
+    authorityRefs: [P0-R24, SER-94]
+    notes: Derived inherits FINANCIAL_SENSITIVE; AI may explain structured output only per ADR-0012 boundary.
+  - fieldId: finance.xray.coverage_summary
+    boundedContext: portfolio-xray
+    fieldFamily: derived_analytics
+    dataClass: FINANCIAL_SENSITIVE
+    owner: SER-161-slice-finance
+    materializationStatus: SYNTHETIC_IN_MEMORY_ONLY
+    physicalBinding:
+      blockedGapId: G-FIN-001
+    storageSurfaces:
+      - surface: application_heap_transient
+        permitted: true
+    sinks:
+      allow: [postgresql_encrypted_at_rest, application_heap_transient]
+      deny: [git_repository, ci_artifact, slack, linear, figma, ai_inference, rag_index, cloud_saas, collaboration_tool, external_export]
+    retention:
+      status: BLOCKED_DECISION
+      blockedReason: X-Ray artifact retention pending SER-110
+    authorityRefs: [ADR-0011, SER-94, docs/domain/portfolio-xray.md]
+  - fieldId: finance.xray.lookthrough_exposure_row
+    boundedContext: portfolio-xray
+    fieldFamily: derived_analytics
+    dataClass: FINANCIAL_SENSITIVE
+    owner: SER-161-slice-finance
+    materializationStatus: SYNTHETIC_IN_MEMORY_ONLY
+    physicalBinding:
+      blockedGapId: G-FIN-001
+    storageSurfaces:
+      - surface: application_heap_transient
+        permitted: true
+    sinks:
+      allow: [postgresql_encrypted_at_rest, application_heap_transient]
+      deny: [git_repository, ci_artifact, slack, linear, figma, ai_inference, rag_index, telemetry, collaboration_tool, cloud_saas, external_export]
+    retention:
+      status: BLOCKED_DECISION
+      blockedReason: Look-through rows not persisted until catalog ratified
+    authorityRefs: [ADR-0011, P0-R24]
+  - fieldId: instrument.reference.isin
+    boundedContext: instrument
+    fieldFamily: global_instrument_reference
+    dataClass: PUBLIC
+    owner: SER-161-slice-finance
+    materializationStatus: BLOCKED_DECISION
+    physicalBinding:
+      blockedGapId: G-FIN-001
+    storageSurfaces:
+      - surface: postgresql_planned_column
+        permitted: false
+      - surface: application_heap_transient
+        permitted: true
+    sinks:
+      allow: [postgresql_encrypted_at_rest, application_heap_transient]
+      deny: [external_export, cloud_saas]
+    retention:
+      status: REF
+      policyRef: SER-93/instrument_reference_catalog
+    authorityRefs: [SER-93 pack §4, P0-R46 PUBLIC]
+    notes: Global reference metadata; distinct from private holdings.
+  - fieldId: instrument.reference.symbol
+    boundedContext: instrument
+    fieldFamily: global_instrument_reference
+    dataClass: PUBLIC
+    owner: SER-161-slice-finance
+    materializationStatus: BLOCKED_DECISION
+    physicalBinding:
+      blockedGapId: G-FIN-001
+    storageSurfaces:
+      - surface: postgresql_planned_column
+        permitted: false
+      - surface: application_heap_transient
+        permitted: true
+    sinks:
+      allow: [postgresql_encrypted_at_rest, application_heap_transient]
+      deny: [external_export, cloud_saas]
+    retention:
+      status: REF
+      policyRef: SER-93/instrument_reference_catalog
+    authorityRefs: [SER-93, P0-R46]
