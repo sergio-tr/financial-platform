@@ -92,3 +92,14 @@ verticalSlices:
     allowedPathPrefixes:
       - backend/modules/identity/**
       - test/fixtures/synthetic/identity/**
+  - id: V1-IDENTITY-PRIMARY-PASSWORD
+    taskPacket: docs/governance/packets/SER-151-v1-identity-08.task-packet.yaml
+    dataClass: SYNTHETIC_ONLY
+    environments:
+      - DEV
+      - TEST
+      - CI_SYNTHETIC
+    allowedPathPrefixes:
+      - backend/modules/identity/**
+      - backend/application/src/main/java/io/sergiotr/financialplatform/identity/runtime/**
+      - test/fixtures/synthetic/identity/**

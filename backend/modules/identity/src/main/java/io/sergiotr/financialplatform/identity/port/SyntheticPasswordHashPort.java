@@ -13,6 +13,9 @@ public interface SyntheticPasswordHashPort {
 
     boolean requiresUpgrade(String encodedHash);
 
-    /** Re-encodes with current parameters when {@link #requiresUpgrade(String)} is true. */
-    String upgrade(String encodedHash, String rawPassword);
+    /**
+     * Re-encodes with current parameters only after a successful {@link #matches(String, String)} for the same inputs.
+     * Never mints a replacement hash from an unverified password.
+     */
+    java.util.Optional<String> upgradeAfterVerifiedMatch(String encodedHash, String rawPassword);
 }

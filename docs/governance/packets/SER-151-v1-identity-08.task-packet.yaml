@@ -1,0 +1,55 @@
+schemaVersion: 1
+taskId: SER-151
+taskKind: IMPLEMENTATION
+mode: IMPLEMENT
+risk: SENSITIVE
+baseRevision: 212d26fa6951b2d935d1e4c1d0cd519437f70d3a
+packetHash: a0fc1c1bfad6b71f4f1936c1466b74f201dc8b2a3f5038044d7357c121b5d8e1
+authorityRefs:
+  - SER-151
+  - SER-150
+  - SER-149
+  - SER-148
+  - SER-143
+  - SER-92
+  - SER-24
+  - SER-25
+  - SER-20
+  - 9a135858-67a9-414e-be27-911d8635bc16
+  - 4fa11893-c8f6-41d0-8b4d-ed564c4bff68
+allowedPaths:
+  - backend/modules/identity/**
+  - backend/application/src/main/java/io/sergiotr/financialplatform/identity/runtime/**
+  - test/fixtures/synthetic/identity/**
+  - docs/governance/dev-synthetic-v1-carve-out-registry.yaml
+  - docs/governance/packets/SER-151-v1-identity-08.task-packet.yaml
+  - docs/governance/PR-49-50_HUMAN_AUTH_REVIEW_GAP.md
+  - MANIFEST.txt
+forbiddenPaths:
+  - contracts/**
+  - contracts/asyncapi/**
+  - infrastructure/**
+  - design/**
+  - frontend/**
+  - docs/planning/phase0-closure/**
+requirements: NOT_APPLICABLE
+contracts: NOT_APPLICABLE
+design: NOT_APPLICABLE
+tests: NOT_APPLICABLE
+security: NOT_APPLICABLE
+financial: NOT_APPLICABLE
+migrations: NOT_APPLICABLE
+workflows: NOT_APPLICABLE
+acceptance:
+  required: false
+  environment: CI_SYNTHETIC
+  humanApproval: true
+definitionOfDone:
+  - Registry slice V1-IDENTITY-PRIMARY-PASSWORD active; prior SER-144..150 slices unchanged
+  - Argon2id primary adapter feeds TrustedPrimaryAuthEvidencePort; string-equality primary fixtures removed from state-machine path
+  - Argon2idSyntheticPasswordHasher strict argon2id parameter validation; upgrade only after verified match
+  - Wrong/unknown/disabled password denied; MFA still required after primary success; SER-149 trust marks preserved
+  - PR #49/#50 human auth review gap documented; no false APPROVED or production-login claim
+  - validate-dev-synthetic-v1-gate.py and validate-traceability.py --profile foundation PASS
+  - v0-engineering-substrate CI JDK25 verify; SER-96 preclaim on PR body
+  - IMPLEMENTATION_LOCK=ON and P0_IMPLEMENTATION_READY=NO unchanged

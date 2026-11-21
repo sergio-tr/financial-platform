@@ -39,7 +39,7 @@ public final class Argon2idSyntheticPasswordHasher implements SyntheticPasswordH
         if (rawPassword == null || encodedHash == null || encodedHash.isBlank()) {
             return false;
         }
-        if (!encodedHash.startsWith("$argon2")) {
+        if (!isStrictArgon2idEncoding(encodedHash)) {
             return false;
         }
         try {
@@ -47,6 +47,20 @@ public final class Argon2idSyntheticPasswordHasher implements SyntheticPasswordH
         } catch (IllegalArgumentException ex) {
             return false;
         }
+    }
+
+    /**
+     * Recognized Argon2id encodings use the variant prefix and SER-24 I16 floor parameters embedded by this hasher.
+     * Legacy Spring Security Argon2id hashes with other parameters may still verify when {@link #requiresUpgrade} is
+     * true; they are rejected here to avoid prefix-only acceptance.
+     */
+    boolean isStrictArgon2idEncoding(String encodedHash) {
+        if (encodedHash == null || encodedHash.isBlank() || !encodedHash.startsWith("$argon2id$")) {
+            return false;
+        }
+        return encodedHash.contains("m=" + MEMORY_COST_KIB)
+                && encodedHash.contains("t=" + ITERATIONS)
+                && encodedHash.contains("p=1");
     }
 
     @Override
@@ -62,12 +76,15 @@ public final class Argon2idSyntheticPasswordHasher implements SyntheticPasswordH
     }
 
     @Override
-    public String upgrade(String encodedHash, String rawPassword) {
+    public java.util.Optional<String> upgradeAfterVerifiedMatch(String encodedHash, String rawPassword) {
         Objects.requireNonNull(encodedHash, "encodedHash");
         Objects.requireNonNull(rawPassword, "rawPassword");
-        if (requiresUpgrade(encodedHash)) {
-            return encode(rawPassword);
+        if (!matches(rawPassword, encodedHash)) {
+            return java.util.Optional.empty();
         }
-        return encodedHash;
+        if (!requiresUpgrade(encodedHash)) {
+            return java.util.Optional.of(encodedHash);
+        }
+        return java.util.Optional.of(encode(rawPassword));
     }
 }

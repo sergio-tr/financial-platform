@@ -6,6 +6,7 @@ import io.sergiotr.financialplatform.identity.adapter.memory.InMemorySyntheticWo
 import io.sergiotr.financialplatform.identity.application.TrustedWorkspaceActorBoundary;
 import io.sergiotr.financialplatform.identity.application.WorkspaceAuthorizationService;
 import io.sergiotr.financialplatform.identity.application.WorkspaceMembershipLifecycleService;
+import io.sergiotr.financialplatform.identity.port.TrustedPrimaryAuthEvidencePort;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -24,5 +25,6 @@ class SyntheticIdentityDefaultProfileIsolationTest {
         assertThat(context.getBeansOfType(WorkspaceMembershipLifecycleService.class)).isEmpty();
         assertThat(context.getBeansOfType(SyntheticIdentityWorkspaceConfiguration.class)).isEmpty();
         assertThat(context.getBeansOfType(TrustedWorkspaceActorBoundary.class)).isEmpty();
+        assertThat(context.getBeansOfType(TrustedPrimaryAuthEvidencePort.class)).isEmpty();
     }
 }

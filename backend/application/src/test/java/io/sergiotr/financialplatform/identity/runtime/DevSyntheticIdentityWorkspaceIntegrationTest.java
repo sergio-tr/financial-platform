@@ -9,6 +9,7 @@ import io.sergiotr.financialplatform.identity.domain.AuthorizationDenialReason;
 import io.sergiotr.financialplatform.identity.domain.UserId;
 import io.sergiotr.financialplatform.identity.domain.WorkspaceOperation;
 import io.sergiotr.financialplatform.identity.domain.WorkspaceRole;
+import io.sergiotr.financialplatform.identity.port.TrustedPrimaryAuthEvidencePort;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -23,6 +24,18 @@ class DevSyntheticIdentityWorkspaceIntegrationTest {
 
     @Autowired
     private WorkspaceMembershipLifecycleService membershipLifecycleService;
+
+    @Autowired
+    private TrustedPrimaryAuthEvidencePort primaryAuthEvidencePort;
+
+    @Test
+    void wiresArgon2PrimaryAuthEvidenceForDevSynthetic() {
+        assertThat(primaryAuthEvidencePort.acceptsPrimaryAuth(
+                        SyntheticWorkspaceFixtures.ALICE, SyntheticAuthRuntimeBeans.DEV_PRIMARY_PROBE_ALICE))
+                .isTrue();
+        assertThat(primaryAuthEvidencePort.acceptsPrimaryAuth(SyntheticWorkspaceFixtures.ALICE, "wrong-probe"))
+                .isFalse();
+    }
 
     @Test
     void springWiresAuthorizationWithFixtureBaseline() {
