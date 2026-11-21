@@ -103,3 +103,13 @@ verticalSlices:
       - backend/modules/identity/**
       - backend/application/src/main/java/io/sergiotr/financialplatform/identity/runtime/**
       - test/fixtures/synthetic/identity/**
+  - id: V1-IDENTITY-TOTP-CORE
+    taskPacket: docs/governance/packets/SER-152-v1-identity-09.task-packet.yaml
+    dataClass: SYNTHETIC_ONLY
+    environments:
+      - DEV
+      - TEST
+      - CI_SYNTHETIC
+    allowedPathPrefixes:
+      - backend/modules/identity/**
+      - test/fixtures/synthetic/identity/**

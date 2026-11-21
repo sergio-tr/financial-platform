@@ -1,0 +1,55 @@
+schemaVersion: 1
+taskId: SER-152
+taskKind: IMPLEMENTATION
+mode: IMPLEMENT
+risk: SENSITIVE
+baseRevision: dc2c1107a2d15c6ef6b58dba26412ea20c7931f6
+packetHash: pending-ci
+authorityRefs:
+  - SER-152
+  - SER-151
+  - SER-150
+  - SER-149
+  - SER-143
+  - SER-92
+  - SER-24
+  - SER-25
+  - SER-20
+  - 9a135858-67a9-414e-be27-911d8635bc16
+  - 4fa11893-c8f6-41d0-8b4d-ed564c4bff68
+allowedPaths:
+  - backend/modules/identity/**
+  - test/fixtures/synthetic/identity/**
+  - docs/governance/dev-synthetic-v1-carve-out-registry.yaml
+  - docs/governance/packets/SER-152-v1-identity-09.task-packet.yaml
+  - MANIFEST.txt
+forbiddenPaths:
+  - contracts/**
+  - contracts/asyncapi/**
+  - infrastructure/**
+  - design/**
+  - frontend/**
+  - docs/planning/phase0-closure/**
+  - backend/application/**
+requirements: NOT_APPLICABLE
+contracts: NOT_APPLICABLE
+design: NOT_APPLICABLE
+tests: NOT_APPLICABLE
+security: NOT_APPLICABLE
+financial: NOT_APPLICABLE
+migrations: NOT_APPLICABLE
+workflows: NOT_APPLICABLE
+acceptance:
+  required: false
+  environment: CI_SYNTHETIC
+  humanApproval: true
+definitionOfDone:
+  - Registry slice V1-IDENTITY-TOTP-CORE active; prior SER-144..151 slices unchanged
+  - RFC6238 HMAC-SHA1 30s six-digit verifier with SER-24 I16 window (-1,0,+1) and RFC public vectors
+  - TotpSecretReadPort and AuthenticatorStepCompareAndSetPort; default CAS fail-closed without PostgreSQL
+  - No TrustedMfaEvidencePort production wiring; SyntheticFixtureMfaEvidence unchanged for fixtures
+  - No AUTHENTICATED_FULL minting, HTTP login, migrations, or in-memory concurrency proof claims
+  - PR #49/#50 human auth review gap preserved; Bugbot SKIP != security approval
+  - validate-dev-synthetic-v1-gate.py and validate-traceability.py --profile foundation PASS
+  - v0-engineering-substrate CI JDK25 verify; SER-96 preclaim on PR body
+  - IMPLEMENTATION_LOCK=ON and P0_IMPLEMENTATION_READY=NO unchanged
