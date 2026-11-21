@@ -49,7 +49,7 @@ public final class TotpMfaVerificationService {
             return TotpVerificationOutcome.INVALID_INPUT;
         }
         var challengeId = challengeContext.currentServerChallengeId();
-        var challengeValidation = challengeLifecycle.validateForTotp(challengeId, false);
+        var challengeValidation = challengeLifecycle.validateForTotp(challengeId);
         if (challengeValidation != TrustedPreMfaChallengeLifecycleService.ValidationOutcome.VALID) {
             return mapChallengeFailure(challengeValidation);
         }
@@ -108,7 +108,8 @@ public final class TotpMfaVerificationService {
             case EXPIRED -> TotpVerificationOutcome.TRUSTED_CHALLENGE_EXPIRED;
             case WRONG_STAGE -> TotpVerificationOutcome.TRUSTED_CHALLENGE_WRONG_STAGE;
             case STALE_AUTH_REVISION -> TotpVerificationOutcome.TRUSTED_CHALLENGE_STALE_AUTH_REVISION;
-            case DISABLED_SUBJECT -> TotpVerificationOutcome.TRUSTED_CHALLENGE_NOT_ACTIVE;
+            case DISABLED_SUBJECT, LOCKED_SUBJECT, REVOKED_SUBJECT, SUBJECT_UNKNOWN ->
+                    TotpVerificationOutcome.TRUSTED_CHALLENGE_NOT_ACTIVE;
             case VALID -> throw new IllegalStateException("VALID");
         };
     }

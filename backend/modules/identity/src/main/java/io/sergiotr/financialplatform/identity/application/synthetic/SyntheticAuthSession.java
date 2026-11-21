@@ -17,7 +17,8 @@ record SyntheticAuthSession(
         Instant stageExpiresAt,
         boolean disabled,
         AuthSessionTrustMark trustMark,
-        Optional<TrustedPreMfaChallengeId> preMfaChallengeId) {
+        Optional<TrustedPreMfaChallengeId> preMfaChallengeId,
+        Optional<String> verifiedPrimaryEvidenceRef) {
 
     SyntheticAuthSession {
         Objects.requireNonNull(userId, "userId");
@@ -25,6 +26,7 @@ record SyntheticAuthSession(
         Objects.requireNonNull(stageExpiresAt, "stageExpiresAt");
         Objects.requireNonNull(trustMark, "trustMark");
         Objects.requireNonNull(preMfaChallengeId, "preMfaChallengeId");
+        Objects.requireNonNull(verifiedPrimaryEvidenceRef, "verifiedPrimaryEvidenceRef");
         if (authRevision < 0) {
             throw new IllegalArgumentException("authRevision");
         }

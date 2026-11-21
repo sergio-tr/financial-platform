@@ -4,7 +4,10 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import io.sergiotr.financialplatform.identity.adapter.memory.FailClosedAuthenticatorStepCompareAndSetPort;
 import io.sergiotr.financialplatform.identity.adapter.memory.InMemoryAccountSecurityAuthRevisionStore;
+import io.sergiotr.financialplatform.identity.application.synthetic.SyntheticAuthFixtureSupport;
+import io.sergiotr.financialplatform.identity.application.synthetic.VerifiedPrimaryForMfaIssuance;
 import io.sergiotr.financialplatform.identity.application.synthetic.challenge.TrustedPreMfaChallengeLifecycleService;
+import io.sergiotr.financialplatform.identity.domain.UserAccountSecurityStatus;
 import io.sergiotr.financialplatform.identity.domain.AuthenticatorId;
 import io.sergiotr.financialplatform.identity.domain.TrustedPreMfaChallengeId;
 import io.sergiotr.financialplatform.identity.domain.AuthenticationStage;
@@ -44,13 +47,20 @@ class TotpMfaVerificationServiceTest {
     void setUp() {
         clock = Clock.fixed(Instant.ofEpochSecond(1_234_567_890L), ZoneOffset.UTC);
         revisions = new InMemoryAccountSecurityAuthRevisionStore();
-        revisions.setRevision(OWNER, 3L);
-        revisions.setRevision(FOREIGN, 3L);
-        lifecycle = new TrustedPreMfaChallengeLifecycleService(clock, revisions);
+        revisions.put(OWNER, 3L, UserAccountSecurityStatus.ENABLED);
+        revisions.put(FOREIGN, 3L, UserAccountSecurityStatus.ENABLED);
+        var primary = SyntheticAuthFixtureSupport.aliceAndBobPrimaryArgon2().primary();
+        lifecycle = new TrustedPreMfaChallengeLifecycleService(clock, revisions, primary);
     }
 
     private void bindFreshChallenge(UserId owner, long authRevision) {
-        boundChallenge.set(Optional.of(lifecycle.issue(owner, authRevision, AuthenticationStage.MFA_REQUIRED)));
+        var evidence = SyntheticAuthFixtureSupport.ALICE_PRIMARY_PASSWORD;
+        if (owner.equals(FOREIGN)) {
+            evidence = SyntheticAuthFixtureSupport.BOB_PRIMARY_PASSWORD;
+        }
+        var issuance = new VerifiedPrimaryForMfaIssuance(
+                owner, authRevision, AuthenticationStage.MFA_REQUIRED, evidence);
+        boundChallenge.set(Optional.of(lifecycle.issueAfterVerifiedPrimary(issuance)));
     }
 
     private TrustedMfaChallengeContextPort serverChallengeContext() {

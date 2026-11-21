@@ -42,7 +42,14 @@ public final class SyntheticAuthenticationStateMachine {
 
     public SyntheticAuthSession begin(UserId userId, long authRevision) {
         Objects.requireNonNull(userId, "userId");
-        return mint(userId, AuthenticationStage.ANONYMOUS, authRevision, false, AuthSessionTrustMark.bootstrap());
+        return mint(
+                userId,
+                AuthenticationStage.ANONYMOUS,
+                authRevision,
+                false,
+                AuthSessionTrustMark.bootstrap(),
+                Optional.empty(),
+                Optional.empty());
     }
 
   /** Verified transition only; returns authoritative next session when applied (no blind stage elevation). */
@@ -75,7 +82,19 @@ public final class SyntheticAuthenticationStateMachine {
                         : AuthSessionTrustMark.intermediate();
         Optional<TrustedPreMfaChallengeId> challengeId =
                 mintChallengeIdIfRequired(session, nextStage, event);
-        var next = mint(session.userId(), nextStage, session.authRevision(), session.disabled(), mark, challengeId);
+        Optional<String> verifiedPrimary =
+                nextStage == AuthenticationStage.PRIMARY_AUTH_VERIFIED
+                                && event == AuthenticationTransitionEvent.VERIFY_PRIMARY_AUTH
+                        ? Optional.ofNullable(evidenceRef).filter(ref -> !ref.isBlank())
+                        : session.verifiedPrimaryEvidenceRef();
+        var next = mint(
+                session.userId(),
+                nextStage,
+                session.authRevision(),
+                session.disabled(),
+                mark,
+                challengeId,
+                verifiedPrimary);
         return SyntheticAuthTransition.applied(outcome, next);
     }
 
@@ -132,19 +151,18 @@ public final class SyntheticAuthenticationStateMachine {
             AuthenticationStage stage,
             long authRevision,
             boolean disabled,
-            AuthSessionTrustMark trustMark) {
-        return mint(userId, stage, authRevision, disabled, trustMark, Optional.empty());
-    }
-
-    private SyntheticAuthSession mint(
-            UserId userId,
-            AuthenticationStage stage,
-            long authRevision,
-            boolean disabled,
             AuthSessionTrustMark trustMark,
-            Optional<TrustedPreMfaChallengeId> preMfaChallengeId) {
+            Optional<TrustedPreMfaChallengeId> preMfaChallengeId,
+            Optional<String> verifiedPrimaryEvidenceRef) {
         return new SyntheticAuthSession(
-                userId, stage, authRevision, expiresAt(), disabled, trustMark, preMfaChallengeId);
+                userId,
+                stage,
+                authRevision,
+                expiresAt(),
+                disabled,
+                trustMark,
+                preMfaChallengeId,
+                verifiedPrimaryEvidenceRef);
     }
 
     private Optional<TrustedPreMfaChallengeId> mintChallengeIdIfRequired(
@@ -155,13 +173,19 @@ public final class SyntheticAuthenticationStateMachine {
         if (session.stage() != AuthenticationStage.PRIMARY_AUTH_VERIFIED) {
             return Optional.empty();
         }
+        var primaryEvidence = session.verifiedPrimaryEvidenceRef();
+        if (primaryEvidence.isEmpty()) {
+            return Optional.empty();
+        }
         if (event == AuthenticationTransitionEvent.DIRECT_MFA_CHALLENGE
                 && nextStage == AuthenticationStage.MFA_REQUIRED) {
-            return Optional.of(challengeLifecycle.issue(session.userId(), session.authRevision(), nextStage));
+            return Optional.of(challengeLifecycle.issueAfterVerifiedPrimary(new VerifiedPrimaryForMfaIssuance(
+                    session.userId(), session.authRevision(), nextStage, primaryEvidence.get())));
         }
         if (event == AuthenticationTransitionEvent.DIRECT_MFA_ENROLLMENT
                 && nextStage == AuthenticationStage.MFA_ENROLLMENT_REQUIRED) {
-            return Optional.of(challengeLifecycle.issue(session.userId(), session.authRevision(), nextStage));
+            return Optional.of(challengeLifecycle.issueAfterVerifiedPrimary(new VerifiedPrimaryForMfaIssuance(
+                    session.userId(), session.authRevision(), nextStage, primaryEvidence.get())));
         }
         return Optional.empty();
     }
