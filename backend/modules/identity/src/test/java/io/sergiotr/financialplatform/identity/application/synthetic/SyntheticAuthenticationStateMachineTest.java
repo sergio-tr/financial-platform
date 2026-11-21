@@ -106,9 +106,16 @@ class SyntheticAuthenticationStateMachineTest {
     }
 
     @Test
-    void enrollmentPathRequiresPrimaryEvidenceThenEnrollmentEvidence() {
-        var anonymous = machine.begin(SyntheticWorkspaceFixtures.ALICE, 1L);
-        var primary = machine.transition(
+    void enrollmentPathRequiresPrimaryThenTrustedChallengeOnly() {
+        var revisionStore = new InMemoryAccountSecurityAuthRevisionStore();
+        revisionStore.setRevision(SyntheticWorkspaceFixtures.ALICE, 1L);
+        var lifecycle = new TrustedPreMfaChallengeLifecycleService(clock, revisionStore);
+        var auth = SyntheticAuthFixtureSupport.aliceAndBobPrimaryArgon2();
+        var enrolledMachine =
+                new SyntheticAuthenticationStateMachine(clock, auth.primary(), auth.mfa(), lifecycle);
+
+        var anonymous = enrolledMachine.begin(SyntheticWorkspaceFixtures.ALICE, 1L);
+        var primary = enrolledMachine.transition(
                 anonymous,
                 AuthenticationTransitionEvent.VERIFY_PRIMARY_AUTH,
                 SyntheticAuthFixtureSupport.ALICE_PRIMARY_PASSWORD);
@@ -116,18 +123,16 @@ class SyntheticAuthenticationStateMachineTest {
         var afterPrimary = primary.nextSession().orElseThrow();
 
         var enrollment =
-                machine.transition(afterPrimary, AuthenticationTransitionEvent.DIRECT_MFA_ENROLLMENT, null);
+                enrolledMachine.transition(afterPrimary, AuthenticationTransitionEvent.DIRECT_MFA_ENROLLMENT, null);
         assertTrue(enrollment.result().applied());
         var enrolled = enrollment.nextSession().orElseThrow();
+        assertEquals(AuthenticationStage.MFA_ENROLLMENT_REQUIRED, enrolled.stage());
+        assertTrue(enrolled.preMfaChallengeId().isPresent());
+        assertThrows(IllegalStateException.class, enrolled::toTrustedActor);
 
-        var badEvidence =
-                machine.transition(enrolled, AuthenticationTransitionEvent.COMPLETE_MFA_ENROLLMENT, "forged");
-        assertEquals(AuthenticationTransitionDenialReason.INSUFFICIENT_EVIDENCE, badEvidence.result().denialReason());
-
-        var ok = machine.transition(
+        var legacyComplete = enrolledMachine.transition(
                 enrolled, AuthenticationTransitionEvent.COMPLETE_MFA_ENROLLMENT, SyntheticAuthFixtureSupport.MFA_ALICE);
-        assertEquals(AuthenticationStage.AUTHENTICATED, ok.result().stage().orElseThrow());
-        assertTrue(ok.nextSession().orElseThrow().toTrustedActor().hasWorkspaceAssurance());
+        assertEquals(AuthenticationTransitionDenialReason.INVALID_TRANSITION, legacyComplete.result().denialReason());
     }
 
     @Test

@@ -134,6 +134,27 @@ public final class SyntheticAuthFixtureSupport {
             long authRevision,
             String primaryPassword) {
         var auth = aliceAndBobPrimaryArgon2();
+        return issueEnrollmentChallengeAfterPrimary(clock, auth, lifecycle, user, authRevision, primaryPassword);
+    }
+
+    public static TrustedPreMfaChallengeId issueEnrollmentChallengeAfterPrimary(
+            Clock clock,
+            SyntheticPrimaryMfaAuth auth,
+            TrustedPreMfaChallengeLifecycleService lifecycle,
+            UserId user,
+            long authRevision) {
+        String password =
+                SyntheticWorkspaceFixtures.ALICE.equals(user) ? ALICE_PRIMARY_PASSWORD : BOB_PRIMARY_PASSWORD;
+        return issueEnrollmentChallengeAfterPrimary(clock, auth, lifecycle, user, authRevision, password);
+    }
+
+    public static TrustedPreMfaChallengeId issueEnrollmentChallengeAfterPrimary(
+            Clock clock,
+            SyntheticPrimaryMfaAuth auth,
+            TrustedPreMfaChallengeLifecycleService lifecycle,
+            UserId user,
+            long authRevision,
+            String primaryPassword) {
         var machine = new SyntheticAuthenticationStateMachine(clock, auth.primary(), auth.mfa(), lifecycle);
         var verified = machine.transition(
                         machine.begin(user, authRevision),
@@ -144,5 +165,21 @@ public final class SyntheticAuthFixtureSupport {
         var enrollment = machine.transition(
                 verified, AuthenticationTransitionEvent.DIRECT_MFA_ENROLLMENT, null);
         return enrollment.nextSession().orElseThrow().preMfaChallengeId().orElseThrow();
+    }
+
+    public static SyntheticAuthenticationStateMachine stateMachineWithChallenge(
+            Clock clock, SyntheticPrimaryMfaAuth auth, TrustedPreMfaChallengeLifecycleService lifecycle) {
+        return new SyntheticAuthenticationStateMachine(clock, auth.primary(), auth.mfa(), lifecycle);
+    }
+
+    public static TrustedPreMfaChallengeId issueMfaChallengeAfterPrimary(
+            Clock clock,
+            SyntheticPrimaryMfaAuth auth,
+            TrustedPreMfaChallengeLifecycleService lifecycle,
+            UserId user,
+            long authRevision) {
+        String password =
+                SyntheticWorkspaceFixtures.ALICE.equals(user) ? ALICE_PRIMARY_PASSWORD : BOB_PRIMARY_PASSWORD;
+        return issueMfaChallengeAfterPrimary(clock, lifecycle, user, authRevision, password, auth.primary(), auth.mfa());
     }
 }

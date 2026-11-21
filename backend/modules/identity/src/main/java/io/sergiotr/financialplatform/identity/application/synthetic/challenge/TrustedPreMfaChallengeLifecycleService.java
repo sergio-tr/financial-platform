@@ -121,6 +121,30 @@ public final class TrustedPreMfaChallengeLifecycleService
         if (snapshot.boundStage() != AuthenticationStage.MFA_REQUIRED) {
             return ValidationOutcome.WRONG_STAGE;
         }
+        return validateAuthoritativeSnapshot(snapshot);
+    }
+
+    /** Validates an active trusted challenge bound to {@link AuthenticationStage#MFA_ENROLLMENT_REQUIRED}. */
+    public ValidationOutcome validateForEnrollment(TrustedPreMfaChallengeId challengeId) {
+        Objects.requireNonNull(challengeId, "challengeId");
+        var snapshotOpt = store.find(challengeId);
+        if (snapshotOpt.isEmpty()) {
+            return ValidationOutcome.NOT_FOUND;
+        }
+        var snapshot = snapshotOpt.get();
+        if (snapshot.status() != TrustedPreMfaChallengeSnapshot.LifecycleStatus.ACTIVE) {
+            return ValidationOutcome.NOT_ACTIVE;
+        }
+        if (!clock.instant().isBefore(snapshot.expiresAt())) {
+            return ValidationOutcome.EXPIRED;
+        }
+        if (snapshot.boundStage() != AuthenticationStage.MFA_ENROLLMENT_REQUIRED) {
+            return ValidationOutcome.WRONG_STAGE;
+        }
+        return validateAuthoritativeSnapshot(snapshot);
+    }
+
+    private ValidationOutcome validateAuthoritativeSnapshot(TrustedPreMfaChallengeSnapshot snapshot) {
         var authoritative = securityRead.currentSnapshot(snapshot.subjectUserId());
         if (authoritative.isEmpty()) {
             return ValidationOutcome.SUBJECT_UNKNOWN;
