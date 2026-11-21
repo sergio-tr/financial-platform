@@ -38,7 +38,23 @@ class Argon2idSyntheticPasswordHasherTest {
     void freshHashDoesNotRequireUpgrade() {
         String encoded = hasher.encode("upgrade-check-password");
         assertFalse(hasher.requiresUpgrade(encoded));
-        assertEquals(encoded, hasher.upgrade(encoded, "upgrade-check-password"));
+        assertEquals(
+                encoded,
+                hasher.upgradeAfterVerifiedMatch(encoded, "upgrade-check-password").orElseThrow());
+    }
+
+    @Test
+    void upgradeAfterVerifiedMatchRejectsUnverifiedPassword() {
+        String encoded = hasher.encode("known-password");
+        assertTrue(hasher.upgradeAfterVerifiedMatch(encoded, "forged-password").isEmpty());
+    }
+
+    @Test
+    void matchesRejectsWrongVariantOrParameters() {
+        String valid = hasher.encode("param-check");
+        assertTrue(hasher.matches("param-check", valid));
+        assertFalse(hasher.matches("param-check", valid.replace("$argon2id$", "$argon2i$")));
+        assertFalse(hasher.matches("param-check", "$argon2id$v=19$m=4096,t=2,p=1$salt$hash"));
     }
 
     @Test

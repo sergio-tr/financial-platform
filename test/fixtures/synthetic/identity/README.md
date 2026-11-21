@@ -14,6 +14,8 @@ SER-145 adds synthetic membership lifecycle tests (compare-and-set on `authRevis
 
 SER-150 (V1-IDENTITY-PASSWORD-ARGON2ID) adds Argon2id hashing and new-password policy in `backend/modules/identity` (synthetic DEV/TEST only). Password verify does not grant `AUTHENTICATED_FULL` and is not wired to HTTP login.
 
-**Review note:** PR #49 (SER-149) merged without human Approval Agent sign-off (`No apruebo`); treat production login enablement as blocked until an independent auth code review completes.
+SER-151 (V1-IDENTITY-PRIMARY-PASSWORD) wires Argon2id verification into `TrustedPrimaryAuthEvidencePort` (runtime hashes in tests/`SyntheticAuthFixtureSupport` only).
+
+**Review note:** PR #49 and PR #50 merged without human Approval Agent sign-off (`No apruebo`); see `docs/governance/PR-49-50_HUMAN_AUTH_REVIEW_GAP.md`. Production login remains blocked.
 
 No production data. Not a normative contract artifact.
