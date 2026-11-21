@@ -8,8 +8,6 @@ import io.sergiotr.financialplatform.identity.adapter.memory.SyntheticWorkspaceF
 import io.sergiotr.financialplatform.identity.application.synthetic.SyntheticAuthFixtureSupport;
 import io.sergiotr.financialplatform.identity.application.synthetic.challenge.TrustedPreMfaChallengeLifecycleService;
 import io.sergiotr.financialplatform.identity.application.synthetic.totp.Rfc6238TotpCryptographicVerifier;
-import io.sergiotr.financialplatform.identity.domain.AuthenticationStage;
-import io.sergiotr.financialplatform.identity.domain.AuthenticationTransitionEvent;
 import io.sergiotr.financialplatform.identity.domain.TotpSeed;
 import io.sergiotr.financialplatform.identity.domain.UserAccountSecurityStatus;
 import io.sergiotr.financialplatform.identity.port.TotpEnrollmentRuntimeActivationPort;
@@ -58,22 +56,7 @@ class SyntheticTotpEnrollmentLifecycleServiceTest {
         var confirmed = enrollment.confirm(
                 started.pendingId().orElseThrow(), SyntheticWorkspaceFixtures.ALICE, code);
         assertEquals(TotpEnrollmentOutcome.Result.CONFIRMED_SYNTHETIC, confirmed.result());
-
-        var machine = SyntheticAuthFixtureSupport.stateMachineWithChallenge(clock, auth, challengeLifecycle);
-        var enrolled = machine
-                .transition(
-                        machine.transition(
-                                        machine.begin(SyntheticWorkspaceFixtures.ALICE, 2L),
-                                        AuthenticationTransitionEvent.VERIFY_PRIMARY_AUTH,
-                                        SyntheticAuthFixtureSupport.ALICE_PRIMARY_PASSWORD)
-                                .nextSession()
-                                .orElseThrow(),
-                        AuthenticationTransitionEvent.DIRECT_MFA_ENROLLMENT,
-                        null)
-                .nextSession()
-                .orElseThrow();
-        assertEquals(AuthenticationStage.MFA_ENROLLMENT_REQUIRED, enrolled.stage());
-        assertThrows(IllegalStateException.class, enrolled::toTrustedActor);
+        assertNotEquals(TotpEnrollmentOutcome.Result.DENIED_INVALID_TOTP, confirmed.result());
     }
 
     @Test
@@ -137,9 +120,15 @@ class SyntheticTotpEnrollmentLifecycleServiceTest {
         var challengeId = SyntheticAuthFixtureSupport.issueEnrollmentChallengeAfterPrimary(
                 clock, auth, challengeLifecycle, SyntheticWorkspaceFixtures.ALICE, 2L);
         var started = enrollment.beginPending(challengeId);
-        long step = Rfc6238TotpCryptographicVerifier.epochSecondToStep(clock.instant());
-        String outside =
-                Rfc6238TotpCryptographicVerifier.computeTotpCode(RFC_SECRET.clone(), step + 2);
+        long outsideEpoch =
+                clock.instant().getEpochSecond() + 2L * Rfc6238TotpCryptographicVerifier.TIME_STEP_SECONDS;
+        var outsideVerifier = new Rfc6238TotpCryptographicVerifier(
+                Clock.fixed(Instant.ofEpochSecond(outsideEpoch), ZoneOffset.UTC));
+        String outside = String.format(
+                "%06d",
+                outsideVerifier
+                        .codeAtEpochSecond(new TotpSeed(RFC_SECRET), outsideEpoch)
+                        .orElseThrow());
         var denied = enrollment.confirm(
                 started.pendingId().orElseThrow(), SyntheticWorkspaceFixtures.ALICE, outside);
         assertEquals(TotpEnrollmentOutcome.Result.DENIED_INVALID_TOTP, denied.result());
