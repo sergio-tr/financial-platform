@@ -1,0 +1,165 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "PostgreSQL physical security catalog slice (SER-103 / SER-159)",
+  "description": "Machine-readable identity/workspace/session security-class, RLS and DB-role contract. Phase 0 materialization only; no live DDL.",
+  "type": "object",
+  "required": [
+    "catalogVersion",
+    "sliceId",
+    "parentTicket",
+    "authorityRefs",
+    "runtimeDatabaseRoles",
+    "objects"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "catalogVersion": { "type": "integer", "const": 1 },
+    "sliceId": { "type": "string", "minLength": 3 },
+    "parentTicket": { "type": "string", "pattern": "^SER-[0-9]+$" },
+    "statusNote": { "type": "string" },
+    "dataClassificationCrossRef": { "type": "string" },
+    "authorityRefs": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string" },
+          "source": { "type": "string" }
+        }
+      }
+    },
+    "runtimeDatabaseRoles": {
+      "type": "array",
+      "minItems": 5,
+      "items": { "$ref": "#/$defs/dbRole" }
+    },
+    "objects": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/catalogObject" }
+    }
+  },
+  "$defs": {
+    "dbRole": {
+      "type": "string",
+      "enum": [
+        "sergiotr_gateway",
+        "sergiotr_worker",
+        "sergiotr_migrator",
+        "sergiotr_backup",
+        "sergiotr_db_owner"
+      ]
+    },
+    "securityClass": {
+      "type": "string",
+      "enum": [
+        "GLOBAL_REFERENCE",
+        "WORKSPACE_SENSITIVE",
+        "USER_PRIVATE",
+        "SYSTEM_SECURITY",
+        "SYSTEM_INTERNAL"
+      ]
+    },
+    "materializationStatus": {
+      "type": "string",
+      "enum": ["NORMATIVE_PLANNED", "BLOCKED_DECISION"]
+    },
+    "dmlOp": {
+      "type": "string",
+      "enum": ["SELECT", "INSERT", "UPDATE", "DELETE", "TRUNCATE", "NONE"]
+    },
+    "rolePrivilegeRow": {
+      "type": "object",
+      "required": ["role", "operations"],
+      "additionalProperties": false,
+      "properties": {
+        "role": { "$ref": "#/$defs/dbRole" },
+        "operations": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/dmlOp" },
+          "uniqueItems": true
+        },
+        "notes": { "type": "string" }
+      }
+    },
+    "rlsBlock": {
+      "type": "object",
+      "required": ["applicable", "enabled", "force"],
+      "additionalProperties": false,
+      "properties": {
+        "applicable": { "type": "boolean" },
+        "enabled": { "type": "boolean" },
+        "force": { "type": "boolean" },
+        "notApplicableReason": { "type": "string" },
+        "policyNames": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "usingIntent": { "type": "string" },
+        "withCheckIntent": { "type": "string" }
+      }
+    },
+    "catalogObject": {
+      "type": "object",
+      "required": [
+        "objectKey",
+        "materializationStatus",
+        "boundedContext",
+        "securityClass",
+        "authorityRefs"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "objectKey": { "type": "string", "minLength": 3 },
+        "materializationStatus": { "$ref": "#/$defs/materializationStatus" },
+        "boundedContext": { "type": "string" },
+        "schema": { "type": "string" },
+        "objectName": { "type": "string" },
+        "objectKind": {
+          "type": "string",
+          "enum": ["TABLE", "VIEW", "MATERIALIZED_VIEW"]
+        },
+        "securityClass": { "$ref": "#/$defs/securityClass" },
+        "ownershipColumns": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "workspaceId": { "type": ["string", "null"] },
+            "userId": { "type": ["string", "null"] },
+            "notes": { "type": "string" }
+          }
+        },
+        "rls": { "$ref": "#/$defs/rlsBlock" },
+        "rolePrivileges": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/rolePrivilegeRow" }
+        },
+        "migrationOwnerRole": { "$ref": "#/$defs/dbRole" },
+        "backupReadable": { "type": "boolean" },
+        "searchPathQualification": { "type": "string" },
+        "retentionClass": { "type": "string" },
+        "r46DataClassCrossRef": { "type": "string" },
+        "requirementRefs": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "testRefs": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "liquibaseRef": { "type": "string" },
+        "authorityRefs": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string" }
+        },
+        "blockedGapId": { "type": "string" },
+        "blockedReason": { "type": "string" },
+        "conceptualEntity": { "type": "string" }
+      }
+    }
+  }
+}

@@ -1,0 +1,46 @@
+catalogVersion: 1
+sliceId: fixture-negative-syssec-worker-select
+parentTicket: SER-103
+authorityRefs:
+  - id: FIXTURE
+runtimeDatabaseRoles:
+  - sergiotr_gateway
+  - sergiotr_worker
+  - sergiotr_migrator
+  - sergiotr_backup
+  - sergiotr_db_owner
+objects:
+  - objectKey: identity.secret_envelope
+    materializationStatus: NORMATIVE_PLANNED
+    boundedContext: identity
+    schema: identity
+    objectName: secret_envelope
+    objectKind: TABLE
+    securityClass: SYSTEM_SECURITY
+    ownershipColumns:
+      workspaceId: null
+      userId: null
+    rls:
+      applicable: false
+      enabled: false
+      force: false
+      notApplicableReason: fixture
+    rolePrivileges:
+      - role: sergiotr_gateway
+        operations: [SELECT]
+      - role: sergiotr_worker
+        operations: [SELECT]
+      - role: sergiotr_migrator
+        operations: [SELECT, INSERT, UPDATE, DELETE]
+      - role: sergiotr_backup
+        operations: [SELECT]
+      - role: sergiotr_db_owner
+        operations: [SELECT]
+    migrationOwnerRole: sergiotr_migrator
+    backupReadable: true
+    searchPathQualification: identity.secret_envelope
+    retentionClass: FIXTURE
+    requirementRefs: []
+    testRefs: []
+    authorityRefs:
+      - FIXTURE

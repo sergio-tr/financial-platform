@@ -1,0 +1,23 @@
+catalogVersion: 1
+sliceId: fixture-negative-blocked-with-table
+parentTicket: SER-103
+authorityRefs:
+  - id: FIXTURE
+runtimeDatabaseRoles:
+  - sergiotr_gateway
+  - sergiotr_worker
+  - sergiotr_migrator
+  - sergiotr_backup
+  - sergiotr_db_owner
+objects:
+  - objectKey: identity.invented_users
+    materializationStatus: BLOCKED_DECISION
+    boundedContext: identity
+    schema: identity
+    objectName: users
+    securityClass: USER_PRIVATE
+    blockedGapId: G-FIXTURE-001
+    blockedReason: fixture should not carry schema while blocked
+    conceptualEntity: user
+    authorityRefs:
+      - FIXTURE

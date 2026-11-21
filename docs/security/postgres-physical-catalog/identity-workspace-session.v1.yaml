@@ -1,0 +1,222 @@
+catalogVersion: 1
+sliceId: SER-159-identity-workspace-session-v1
+parentTicket: SER-103
+statusNote: >
+  First SER-103 slice (SER-159). Session tables are normatively named in P0-R21/SER-40.
+  Identity/workspace persistent table names remain BLOCKED_DECISION until a separate ratification MWU.
+  Does not complete SER-103 or SER-109. data-classification.yaml owners stay PENDING (SER-109).
+dataClassificationCrossRef: docs/security/data-classification.yaml
+authorityRefs:
+  - id: P0-R41
+    source: Linear slug 5cce225cc623
+  - id: P0-R21
+    source: Linear slug 52e7417e6360
+  - id: SER-40
+    source: Linear SER-40 Done
+  - id: SER-25
+    source: Linear workspace authorization / RLS
+  - id: ADR-0018
+    source: docs/adr/ADR-0018-postgresql-and-pgvector.md
+  - id: ADR-0028
+    source: docs/adr/ADR-0028-server-side-session-authentication.md
+  - id: P0-R47
+    source: retention cross-ref only
+runtimeDatabaseRoles:
+  - sergiotr_gateway
+  - sergiotr_worker
+  - sergiotr_migrator
+  - sergiotr_backup
+  - sergiotr_db_owner
+objects:
+  - objectKey: platform_session.spring_session
+    materializationStatus: NORMATIVE_PLANNED
+    boundedContext: platform_session
+    schema: platform_session
+    objectName: spring_session
+    objectKind: TABLE
+    securityClass: SYSTEM_INTERNAL
+    ownershipColumns:
+      workspaceId: null
+      userId: null
+      notes: >
+        Spring Session JDBC row; PRINCIPAL_NAME holds authenticated principal key.
+        No workspace tenancy column on the physical table (P0-R21 R21-02).
+    rls:
+      applicable: false
+      enabled: false
+      force: false
+      notApplicableReason: >
+        Infrastructure schema platform_session; tenant isolation enforced by application
+        session coordinator and role grants, not row policies (P0-R41 infrastructure carve-out).
+    rolePrivileges:
+      - role: sergiotr_gateway
+        operations: [SELECT, INSERT, UPDATE, DELETE]
+        notes: GATEWAY owns SessionSecurityCoordinator persistence path.
+      - role: sergiotr_worker
+        operations: [NONE]
+        notes: Workers do not touch live session store (P0-R23 privilege separation).
+      - role: sergiotr_migrator
+        operations: [SELECT, INSERT, UPDATE, DELETE]
+        notes: DDL/DML for Liquibase only; not a runtime role.
+      - role: sergiotr_backup
+        operations: [SELECT]
+      - role: sergiotr_db_owner
+        operations: [SELECT, INSERT, UPDATE, DELETE]
+        notes: Break-glass owner; never used by application runtime.
+    migrationOwnerRole: sergiotr_migrator
+    backupReadable: true
+    searchPathQualification: platform_session.spring_session
+    retentionClass: SESSION_OPERATIONAL
+    r46DataClassCrossRef: SECURITY_SENSITIVE
+    requirementRefs:
+      - REQ-IDENTITY-001
+      - NFR-SEC-002
+    testRefs:
+      - TEST-RLS-WORKSPACE-CROSS-TENANT-DENY
+    liquibaseRef: PENDING
+    authorityRefs:
+      - P0-R21 R21-02
+      - SER-40
+
+  - objectKey: platform_session.spring_session_attributes
+    materializationStatus: NORMATIVE_PLANNED
+    boundedContext: platform_session
+    schema: platform_session
+    objectName: spring_session_attributes
+    objectKind: TABLE
+    securityClass: SYSTEM_INTERNAL
+    ownershipColumns:
+      workspaceId: null
+      userId: null
+      notes: >
+        JSONB attribute bag; allowlisted security DTOs only (P0-R21 R21-02).
+        Forbidden attributes include credentials, TOTP seeds, portfolio and domain aggregates.
+    rls:
+      applicable: false
+      enabled: false
+      force: false
+      notApplicableReason: Same infrastructure carve-out as spring_session.
+    rolePrivileges:
+      - role: sergiotr_gateway
+        operations: [SELECT, INSERT, UPDATE, DELETE]
+      - role: sergiotr_worker
+        operations: [NONE]
+      - role: sergiotr_migrator
+        operations: [SELECT, INSERT, UPDATE, DELETE]
+      - role: sergiotr_backup
+        operations: [SELECT]
+      - role: sergiotr_db_owner
+        operations: [SELECT, INSERT, UPDATE, DELETE]
+    migrationOwnerRole: sergiotr_migrator
+    backupReadable: true
+    searchPathQualification: platform_session.spring_session_attributes
+    retentionClass: SESSION_OPERATIONAL
+    r46DataClassCrossRef: SECURITY_SENSITIVE
+    requirementRefs:
+      - REQ-IDENTITY-001
+    testRefs: []
+    liquibaseRef: PENDING
+    authorityRefs:
+      - P0-R21 R21-02
+      - SER-40
+
+  - objectKey: identity.user-credential-store
+    materializationStatus: BLOCKED_DECISION
+    boundedContext: identity
+    securityClass: USER_PRIVATE
+    blockedGapId: G-IDW-001
+    blockedReason: >
+      Physical table name and column layout for password verifier storage are not frozen in
+      accepted Git/Linear packs (SER-24 I16 Argon2id policy is semantic only).
+    conceptualEntity: User password verifier (Argon2id hash, no plaintext)
+    authorityRefs:
+      - P0-R41 R-06 conceptual row
+      - SER-24 Iteration 16
+
+  - objectKey: identity.user-security-revision
+    materializationStatus: BLOCKED_DECISION
+    boundedContext: identity
+    securityClass: USER_PRIVATE
+    blockedGapId: G-IDW-002
+    blockedReason: >
+      No accepted physical table identifier for per-user authRevision / securityRevision registry.
+    conceptualEntity: User security revision / invalidation generation
+    authorityRefs:
+      - P0-R41 R-06
+      - SER-25
+
+  - objectKey: identity.mfa-authenticator
+    materializationStatus: BLOCKED_DECISION
+    boundedContext: identity
+    securityClass: SYSTEM_SECURITY
+    blockedGapId: G-IDW-003
+    blockedReason: >
+      TOTP seed persistence envelope and table naming await SER-106/SER-103 joint ratification;
+      SER-24 I20 requires PostgreSQL CAS on authenticator steps.
+    conceptualEntity: MFA authenticator metadata and encrypted TOTP seed reference
+    authorityRefs:
+      - P0-R41 R-06
+      - SER-24 Iteration 20
+
+  - objectKey: identity.mfa-challenge-pending
+    materializationStatus: BLOCKED_DECISION
+    boundedContext: identity
+    securityClass: SYSTEM_SECURITY
+    blockedGapId: G-IDW-004
+    blockedReason: >
+      Pre-MFA challenge and pending enrollment stores have Java synthetic implementations only;
+      no normative PostgreSQL object names in accepted authority on main.
+    conceptualEntity: MFA challenge / pending enrollment ephemeral state
+    authorityRefs:
+      - P0-R21
+      - SER-159 scope note
+
+  - objectKey: identity.recovery-code-verifier
+    materializationStatus: BLOCKED_DECISION
+    boundedContext: identity
+    securityClass: SYSTEM_SECURITY
+    blockedGapId: G-IDW-005
+    blockedReason: Recovery code storage shape deferred in SER-24; no physical table ratified.
+    conceptualEntity: Recovery code verifier (planned)
+    authorityRefs:
+      - SER-24 Iteration 16
+
+  - objectKey: workspace.workspace
+    materializationStatus: BLOCKED_DECISION
+    boundedContext: workspace
+    securityClass: WORKSPACE_SENSITIVE
+    blockedGapId: G-IDW-006
+    blockedReason: >
+      Schema workspace is locked (Iteration 10 O-02) but base workspace table name is not
+      materialized in accepted physical catalog authority.
+    conceptualEntity: Workspace aggregate root
+    authorityRefs:
+      - P0-R41 R-06
+      - Architecture Refinement O-02
+
+  - objectKey: workspace.workspace-membership
+    materializationStatus: BLOCKED_DECISION
+    boundedContext: workspace
+    securityClass: WORKSPACE_SENSITIVE
+    blockedGapId: G-IDW-007
+    blockedReason: >
+      Membership table name, workspace_id NOT NULL constraint and RLS policy text are not frozen
+      in Git; REQ-WORKSPACE-002 requires RLS proof once named.
+    conceptualEntity: Workspace membership and role
+    authorityRefs:
+      - P0-R41 R-06
+      - REQ-WORKSPACE-002
+      - TEST-RLS-WORKSPACE-CROSS-TENANT-DENY
+
+  - objectKey: audit.authentication-event
+    materializationStatus: BLOCKED_DECISION
+    boundedContext: audit
+    securityClass: WORKSPACE_SENSITIVE
+    blockedGapId: G-IDW-008
+    blockedReason: >
+      Audit bounded context schema not mapped to physical append-only table in this slice;
+      SER-92 audit API contracts exist without PostgreSQL table names.
+    conceptualEntity: Authentication and security audit events (append-only)
+    authorityRefs:
+      - SER-92 audit section
+      - P0-R41 R-06

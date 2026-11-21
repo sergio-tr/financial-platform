@@ -1,0 +1,46 @@
+catalogVersion: 1
+sliceId: fixture-negative-gateway-truncate
+parentTicket: SER-103
+authorityRefs:
+  - id: FIXTURE
+runtimeDatabaseRoles:
+  - sergiotr_gateway
+  - sergiotr_worker
+  - sergiotr_migrator
+  - sergiotr_backup
+  - sergiotr_db_owner
+objects:
+  - objectKey: platform_session.spring_session
+    materializationStatus: NORMATIVE_PLANNED
+    boundedContext: platform_session
+    schema: platform_session
+    objectName: spring_session
+    objectKind: TABLE
+    securityClass: SYSTEM_INTERNAL
+    ownershipColumns:
+      workspaceId: null
+      userId: null
+    rls:
+      applicable: false
+      enabled: false
+      force: false
+      notApplicableReason: fixture
+    rolePrivileges:
+      - role: sergiotr_gateway
+        operations: [SELECT, TRUNCATE]
+      - role: sergiotr_worker
+        operations: [NONE]
+      - role: sergiotr_migrator
+        operations: [SELECT, INSERT, UPDATE, DELETE]
+      - role: sergiotr_backup
+        operations: [SELECT]
+      - role: sergiotr_db_owner
+        operations: [SELECT]
+    migrationOwnerRole: sergiotr_migrator
+    backupReadable: true
+    searchPathQualification: platform_session.spring_session
+    retentionClass: FIXTURE
+    requirementRefs: []
+    testRefs: []
+    authorityRefs:
+      - FIXTURE

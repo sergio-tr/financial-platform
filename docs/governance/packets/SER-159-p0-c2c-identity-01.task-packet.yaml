@@ -1,0 +1,49 @@
+schemaVersion: 1
+taskId: SER-159
+taskKind: GOVERNANCE
+mode: IMPLEMENT
+risk: SENSITIVE
+baseRevision: e1164753bf5066a97e522f06532e54395fd224ae
+packetHash: d5d67ae84ed96e99c34fc0e7f0aa6bd0ce9edfd6605fd29a2374242659616794
+authorityRefs:
+  - SER-159
+  - SER-103
+  - SER-20
+  - P0-R41
+  - P0-R21
+  - SER-40
+allowedPaths:
+  - docs/security/postgres-physical-catalog/**
+  - docs/security/postgres-physical-catalog.schema.json
+  - docs/planning/phase0-closure/SER-159_IDENTITY_WORKSPACE_CATALOG_GAPS.md
+  - docs/planning/phase0-closure/SER-20_P0_READINESS_EVIDENCE_MATRIX.md
+  - docs/governance/packets/SER-159-p0-c2c-identity-01.task-packet.yaml
+  - scripts/governance/validate-ser-159-physical-catalog.py
+  - scripts/governance/run-ser-159-catalog-fixtures.py
+  - test/fixtures/governance/ser-159/**
+  - .github/workflows/phase0-governance.yml
+  - MANIFEST.txt
+forbiddenPaths:
+  - backend/**
+  - frontend/**
+  - contracts/**
+  - infrastructure/**
+  - design/**
+requirements: NOT_APPLICABLE
+contracts: NOT_APPLICABLE
+design: NOT_APPLICABLE
+tests: NOT_APPLICABLE
+security: NOT_APPLICABLE
+financial: NOT_APPLICABLE
+migrations: NOT_APPLICABLE
+workflows: NOT_APPLICABLE
+acceptance:
+  required: false
+  environment: CI_SYNTHETIC
+  humanApproval: true
+definitionOfDone:
+  - Canonical catalog YAML + JSON Schema for SER-159 identity/workspace/session slice
+  - validate-ser-159-physical-catalog.py PASS on slice; negative ser-159 fixtures PASS
+  - phase0-governance wires validator; foundation traceability unchanged PASS
+  - G-IDW-001..008 documented; no invented identity/workspace table names
+  - SER-103 remains PARTIAL; SER-109 data-classification owners unchanged
